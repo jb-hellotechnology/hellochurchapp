@@ -1,5 +1,4 @@
 <?php
-
 if(perch_member_logged_in()){
 	$customer_id = stripe_data('memberCustomerID');	
 	$url = perch_pages_title(true);
@@ -7,7 +6,6 @@ if(perch_member_logged_in()){
 		header("location:/subscription");
 	}
 }
-
 ?>
 <!doctype html>
 <html>
