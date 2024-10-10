@@ -1,3 +1,13 @@
+<?php
+
+if(perch_member_logged_in()){
+	$customer_id = stripe_data('memberCustomerID');	
+	if($customer_id){
+		header("location:/subscription");
+	}
+}
+
+?>
 <!doctype html>
 <html>
 <head>
