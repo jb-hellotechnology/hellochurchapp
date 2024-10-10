@@ -504,6 +504,7 @@ section header h2{
 
 section footer{
 	display:flex;
+	padding:1em;
 }
 
 section footer p{
