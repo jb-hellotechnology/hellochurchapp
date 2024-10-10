@@ -1,0 +1,37 @@
+*
+
+# Include .gitignore
+!.gitignore
+
+# Include cPanel GitHub config
+!.cpanel.yml
+
+# Include assets
+!assets
+!assets/**
+
+# Include .htaccess
+!.htaccess
+
+# Include Perch
+!admin
+admin/*
+!admin/**
+
+# To include a subdirectory (perch/templates/) the parent directory needs 'unignoring'
+# first. The first line unignores the perch directory, then the next ignores everything within 
+# that directory. The third line then unignores the templates directory, and the following
+# unignores the contents of that directory.
+
+!perch 
+
+perch/*
+
+!admin/templates/
+!admin/templates/**
+!admin/addons/
+!admin/addons/**
+!admin/addons/apps/
+!admin/addons/apps/**
+!admin/addons/apps/hello_church/
+!admin/addons/apps/hello_church/**
