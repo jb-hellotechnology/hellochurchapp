@@ -1,6 +1,4 @@
 <?php
-PerchSystem::force_ssl();
-
 if(perch_member_logged_in()){
 	$customer_id = stripe_data('memberCustomerID');	
 	$url = perch_pages_title(true);
