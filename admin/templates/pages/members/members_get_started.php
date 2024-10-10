@@ -6,6 +6,7 @@ if(!perch_member_logged_in()){
 	header("location:/");
 }
 
+perch_member_add_tag('onboarded');
 perch_layout('header');
 ?>
 <main>
