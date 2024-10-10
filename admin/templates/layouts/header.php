@@ -1,7 +1,6 @@
 <?php
 if(perch_member_logged_in()){
 	$customer_id = stripe_data('memberCustomerID');	
-	echo $customer_id;
 	$url = perch_pages_title(true);
 	if($customer_id == '' AND $url !== 'Setup Subscription' AND $url !== 'Get Started'){
 		header("location:/subscription");
