@@ -19,7 +19,7 @@ if(perch_member_logged_in()){
 	<link href="/assets/css/stylesheet.css?v=<?= rand() ?>" rel="stylesheet">
 </head>
 <body>
-	<header>
+	<header class="site-header">
 		<?php
 			if(perch_member_logged_in()){
 		?>

@@ -399,7 +399,7 @@ button.menu{
 }
 
 @media screen and (max-width:900px){
-	header h2{
+	.site-header h2{
 		display:none;
 	}
 	button.menu{
@@ -504,7 +504,6 @@ section header h2{
 
 section footer{
 	display:flex;
-	padding-left:0;
 }
 
 section footer p{
