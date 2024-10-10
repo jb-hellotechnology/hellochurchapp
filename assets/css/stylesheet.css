@@ -311,12 +311,17 @@ header nav ul.main-nav{
 	list-style: none;
 	border-right:1px solid var(--color-border);
 	background:#fff;
+	border-bottom:1px solid var(--color-border);
 }
 
 header nav ul.main-nav li{
 	display:block;
-	border-bottom:1px solid var(--color-border);
+	border-top:1px solid var(--color-border);
 	padding:0.3em 0 0.3em 1em;
+}
+
+header nav ul.main-nav li:first-child{
+	border-top:none;
 }
 
 header nav ul.main-nav li:last-child{
@@ -324,7 +329,6 @@ header nav ul.main-nav li:last-child{
 }
 
 header nav ul.main-nav li ul{
-	font-size:80%;
 	padding-left:0px;
 	border-right:none;
 	display:none;
@@ -337,10 +341,10 @@ header nav ul.main-nav li.ancestor ul{
 }
 
 header nav ul.main-nav li ul li{
-	padding:0;
+	padding-left:1em;
 }
 
-header nav ul.main-nav li ul li:last-child{
+header nav ul.main-nav li ul{
 	border-bottom:none;
 }
 
@@ -468,6 +472,12 @@ footer{
 	font-size:80%;
 }
 
+@media screen and (max-width:900px){
+	footer{
+		padding:1em;
+	}
+}
+
 /* PANELS */
 section{
 	width:100%;
@@ -494,6 +504,7 @@ section header h2{
 
 section footer{
 	display:flex;
+	padding-left:0;
 }
 
 section footer p{
