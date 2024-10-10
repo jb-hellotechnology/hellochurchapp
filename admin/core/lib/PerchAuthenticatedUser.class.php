@@ -269,7 +269,7 @@ class PerchAuthenticatedUser extends PerchBase
             }else{
                 PerchUtil::debug('Activation: failed');
                 $this->activation_failed = true;
-                return false;
+                return true;
             }
         }
 
