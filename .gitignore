@@ -15,7 +15,7 @@
 
 # Include Perch
 !admin
-admin/*
+
 !admin/**
 
 # To include a subdirectory (perch/templates/) the parent directory needs 'unignoring'
@@ -23,9 +23,8 @@ admin/*
 # that directory. The third line then unignores the templates directory, and the following
 # unignores the contents of that directory.
 
-!perch 
-
-perch/*
+!admin
+admin/*
 
 !admin/templates/
 !admin/templates/**
