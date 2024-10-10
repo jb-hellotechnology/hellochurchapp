@@ -399,9 +399,6 @@ button.menu{
 }
 
 @media screen and (max-width:900px){
-	.site-header h2{
-		display:none;
-	}
 	button.menu{
 		display:block;
 		margin:0.5em 1em;
