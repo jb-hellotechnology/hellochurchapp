@@ -1,9 +1,9 @@
 <?php
 	
 require '../../../vendor/autoload.php';
-//require_once '../secrets.php';
+require_once '../../../secrets.php';
 
-\Stripe\Stripe::setApiKey('sk_test_Un6FttdKkdEITbzaVOFU2wrJ');
+\Stripe\Stripe::setApiKey($stripePK);
 
 // Replace this endpoint secret with your endpoint's unique secret
 // If you are testing with the CLI, find the secret by running 'stripe listen'
