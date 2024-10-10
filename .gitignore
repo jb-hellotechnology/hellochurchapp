@@ -10,9 +10,6 @@
 !assets
 !assets/**
 
-# Include .htaccess
-!.htaccess
-
 # Include Perch
 !admin
 
