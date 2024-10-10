@@ -27,8 +27,6 @@ admin/*
 
 perch/*
 
-!perch/config
-
 !admin/templates/
 !admin/templates/**
 !admin/addons/

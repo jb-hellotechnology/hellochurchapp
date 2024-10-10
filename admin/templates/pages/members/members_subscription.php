@@ -1,7 +1,4 @@
 <?php
-if (perch_member_has_tag('active')) {
-	header("location:/");
-}
 perch_layout('header');
 ?>
 <main class="wide center">
