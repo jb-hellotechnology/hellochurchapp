@@ -55,34 +55,6 @@ if(perch_member_logged_in()){
 					'navgroup' => 'account',
 					'template' => 'account.html'
   				));
-  			?>
-			<ul class="account-nav" id="account-nav" popover>
-				<li>
-					<a href="/account/">
-						<span class="material-symbols-outlined">
-							manage_accounts
-						</span>
-						Account
-					</a>
-				</li>
-				<li>
-					<a href="/help/">
-						<span class="material-symbols-outlined">
-							help
-						</span>
-						Help
-					</a>
-				</li>
-				<li class="border">
-					<a href="/sign-out/">
-						<span class="material-symbols-outlined">
-							logout
-						</span>
-						Sign Out
-					</a>
-				</li>
-			</ul>
-			<?php
 				}
 			?>
 		</nav>
