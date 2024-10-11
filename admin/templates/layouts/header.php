@@ -50,10 +50,37 @@ if(perch_member_logged_in()){
 				account_circle
 				</span>
 			</button>
+			<?php 
+				perch_pages_navigation(array(
+					'navgroup' => 'account',
+					'template' => 'account.html'
+  				));
+  			?>
 			<ul class="account-nav" id="account-nav" popover>
-				<li><a href="/account/">Account</a></li>
-				<li><a href="/help/">Help</a></li>
-				<li class="border"><a href="/sign-out/">Sign Out</a></li>
+				<li>
+					<a href="/account/">
+						<span class="material-symbols-outlined">
+							manage_accounts
+						</span>
+						Account
+					</a>
+				</li>
+				<li>
+					<a href="/help/">
+						<span class="material-symbols-outlined">
+							help
+						</span>
+						Help
+					</a>
+				</li>
+				<li class="border">
+					<a href="/sign-out/">
+						<span class="material-symbols-outlined">
+							logout
+						</span>
+						Sign Out
+					</a>
+				</li>
 			</ul>
 			<?php
 				}
