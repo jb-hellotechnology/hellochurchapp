@@ -18,6 +18,8 @@ if(perch_member_logged_in()){
 	<link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&display=swap" rel="stylesheet">
 	<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
 	<link href="/assets/css/stylesheet.css?v=<?= rand() ?>" rel="stylesheet">
+	
+	<link href="/assets/js/tagify/tagify.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
 	<header class="site-header">
@@ -40,9 +42,7 @@ if(perch_member_logged_in()){
 			?>
 			<div class="main-nav-container">
 				<?php 
-				perch_pages_navigation(array(
-					'navgroup' =>'app'
-  				));
+				perch_pages_navigation();
   				?>
 			</div>
 			<button popovertarget="account-nav">

@@ -7,6 +7,11 @@ if(!perch_member_logged_in()){
 }
 
 perch_member_add_tag('onboarded');
+
+if(hello_church_church()){
+	header("location:/settings");
+}
+
 perch_layout('header');
 ?>
 <main class="flow">
@@ -16,7 +21,7 @@ perch_layout('header');
 		<header>
 			<h2>Get Started</h2>
 		</header>
-		<?php ?>
+		<?php hello_church_form('create_church.html'); ?>
 	</section>
 </main>
 <?php perch_layout('footer'); ?>

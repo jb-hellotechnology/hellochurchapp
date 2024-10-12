@@ -81,8 +81,6 @@ class PerchMembers_Members extends PerchAPI_Factory
         	$member['memberPassword'] = $Hasher->HashPassword($clear_pwd);
 
 	    	$Member = $this->create($member);
-	    	
-	    	print_r($member);
 
 	    	$member = array(
 	    		'memberAuthID'=>$Member->memberID()

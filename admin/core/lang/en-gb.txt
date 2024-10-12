@@ -531,5 +531,6 @@
     "Editing \u2018%s\u2019 navigation group": "Editing \u2018%s\u2019 navigation group",
     "Reordering navigation group": "Reordering navigation group",
     "Drag and drop the pages to reorder them.": "Drag and drop the pages to reorder them.",
-    "Page orders successfully updated.": "Page orders successfully updated."
+    "Page orders successfully updated.": "Page orders successfully updated.",
+    "Reordering pages": "Reordering pages"
 }

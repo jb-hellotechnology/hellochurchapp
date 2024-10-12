@@ -1,0 +1,74 @@
+<perch:form id="update_contact" method="post" app="hello_church" action="/contacts/edit-contact?id=<perch:forms id="contactID" />">
+
+	<article class="flow">
+		<perch:success>
+			<article class="flow">
+				<p class="alert success">Contact updated.</p>
+			</article>
+			<footer>
+				<a class="button primary" href="/contacts">Contacts</a>
+			</footer>
+		</perch:success>
+		<div>
+			<perch:label for="contactFirstName">First Name</perch:label>
+			<perch:input type="text" id="contactFirstName" required="true" label="First Name" />
+			<perch:error for="contactFirstName" type="required"><p class="help error">Please add a your contact's first name</p></perch:error>
+		</div>
+		<div>
+			<perch:label for="contactLastName">Last Name</perch:label>
+			<perch:input type="text" id="contactLastName" label="Last Name" />
+		</div>
+		<div>
+			<perch:label for="contactAddress1">Address 1</perch:label>
+			<perch:input type="text" id="contactAddress1" label="Address 1" />
+		</div>
+		<div>
+			<perch:label for="contactAddress2">Address 2</perch:label>
+			<perch:input type="text" id="contactAddress2" label="Address 2" />
+		</div>
+		<div>
+			<perch:label for="contactCity">City</perch:label>
+			<perch:input type="text" id="contactCity" label="City" />
+		</div>
+		<div>
+			<perch:label for="contactCounty">County</perch:label>
+			<perch:input type="text" id="contactCounty" abel="County" />
+		</div>
+		<div>
+			<perch:label for="contactPostCode">Post Code</perch:label>
+			<perch:input type="text" id="contactPostCode" required="true" label="Post Code" />
+		</div>
+		<div>
+			<perch:label for="contactCountry">Country</perch:label>
+			<perch:input type="text" id="contactCountry" required="true" label="Country" />
+		</div>
+		<div>
+			<perch:label for="contactPhone">Phone Number</perch:label>
+			<perch:input type="text" id="contactPhone" required="true" label="Phone" />
+		</div>
+		<div>
+			<perch:label for="contactEmail">Email</perch:label>
+			<perch:input type="email" id="contactEmail" required="true" label="Email" placeholder="you@example.com" />
+		</div>
+		<div>
+			<perch:label for="contactAcceptEmail">Accepts Email Communication</perch:label>
+			<perch:input type="select" id="contactAcceptEmail" label="Accepts Email" options="Yes,No" />
+		</div>
+		<div>
+			<perch:label for="contactAcceptSMS">Accepts SMS Communication</perch:label>
+			<perch:input type="select" id="contactAcceptSMS" label="Accepts Email" options="Yes,No" />
+		</div>
+		<div>
+			<perch:label for="contactTags">Tags</perch:label>
+			<perch:input type="text" id="contactTags" required="true" label="Tags" class="tagify" />
+		</div>
+	</article>
+
+	<footer>
+		<perch:input type="hidden" value="<perch:forms id="contactID">" name="contactID" />
+		<perch:input type="hidden" value="<perch:forms id="memberID">" name="memberID" />
+		<perch:input type="hidden" value="<perch:forms id="churchID">" name="churchID" />
+		<perch:input type="submit" value="Save" class="button primary" />
+	</footer>
+
+</perch:form>
