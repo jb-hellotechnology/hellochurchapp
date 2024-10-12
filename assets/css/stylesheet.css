@@ -330,7 +330,7 @@ header nav ul.main-nav{
 	top:0px;
 	list-style: none;
 	border-bottom:1px solid var(--color-border);
-	padding:0.5em 0;
+	padding:0.5em 0 0;
 	z-index:1000px;
 }
 
@@ -345,6 +345,7 @@ header nav ul.main-nav li:first-child{
 
 header nav ul.main-nav li:last-child{
 	margin-right:0px;
+	border-top:1px solid #ccc;
 }
 
 header nav ul.main-nav li ul{
@@ -361,6 +362,10 @@ header nav ul.main-nav li.ancestor ul{
 
 header nav ul.main-nav li ul li{
 	padding:0;
+}
+
+header nav ul.main-nav li ul li:last-child{
+	border-top:none;
 }
 
 header nav ul.main-nav li ul{
@@ -553,50 +558,6 @@ footer p{
 	}
 }
 
-/* PANELS */
-section{
-	width:100%;
-	margin-bottom:2rem;
-	background:#fff;
-	border-radius: var(--border-radius);
-	box-shadow: var(--shadow);
-	border:1 solid var(--border-color);
-}
-
-section header{
-	background:#f4f4f4;
-	border-bottom:1px solid var(--color-border);
-	padding:1em;
-	text-transform: uppercase;
-	border-top-left-radius: var(--border-radius);
-	border-top-right-radius: var(--border-radius);
-	position: relative;
-}
-
-section header h2{
-	color:#777;
-	margin:0;
-}
-
-section footer{
-	display:flex;
-	padding:1em;
-}
-
-section footer p{
-	text-transform: uppercase;
-	font-size:80%;
-}
-
-section footer button,
-section footer .button{
-	margin-left:auto;
-}
-
-section article{
-	padding:1em;
-}
-
 /* FORMS */
 label{
 	display:block;
@@ -637,6 +598,73 @@ input[type=url]{
 
 .help.error{
 	color:#880000;
+}
+
+/* PANELS */
+section{
+	width:100%;
+	margin-bottom:2rem;
+	background:#fff;
+	border-radius: var(--border-radius);
+	box-shadow: var(--shadow);
+	border:1 solid var(--border-color);
+}
+
+section header{
+	background:#f4f4f4;
+	border-bottom:1px solid var(--color-border);
+	padding:1em;
+	text-transform: uppercase;
+	border-top-left-radius: var(--border-radius);
+	border-top-right-radius: var(--border-radius);
+	position: relative;
+	display:flex;
+	justify-content: space-between;
+}
+
+section header h2{
+	color:#777;
+	margin:0;
+	margin-right:2rem;
+}
+
+section header form{
+	padding:0;
+	margin:0;
+	display:flex;
+}
+
+section header form input[type=text]{
+	border:none;
+	border-bottom:1px solid #ccc;
+	background-color: transparent;
+	padding:0;
+	margin:0;
+	display:inline-block;
+}
+
+section header form select{
+	margin-right:2rem;
+	font-size:80%;
+}
+
+section footer{
+	display:flex;
+	padding:1em;
+}
+
+section footer p{
+	text-transform: uppercase;
+	font-size:80%;
+}
+
+section footer button,
+section footer .button{
+	margin-left:auto;
+}
+
+section article{
+	padding:1em;
 }
 
 /* CONTENT */

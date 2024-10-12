@@ -19,6 +19,12 @@ perch_layout('header');
 	<section>
 		<header>
 			<h2>Contacts</h2>
+			<form method="get" class="search">
+				<select>
+					<option>Filter by Tag</option>
+				</select>
+				<input type="text" name="q" placeholder="Search" />
+			</form>
 		</header>
 		<?php hello_church_contacts(); ?>
 		<footer>
