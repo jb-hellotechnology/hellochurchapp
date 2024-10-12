@@ -674,7 +674,7 @@ ul.checks li span{
 }
 
 .grid.contacts .row{
-	grid-template-columns: 200px 200px auto 200px 100px;
+	grid-template-columns: 200px 200px auto 300px;
 	grid-column-gap: 1rem;
 	border-bottom:1px solid #eee;
 }

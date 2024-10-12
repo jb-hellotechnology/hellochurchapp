@@ -77,9 +77,6 @@ error_reporting(E_ALL);
 							<div class="th">
 								<h3>Tags</h3>
 							</div>
-							<div class="th">
-								
-							</div>
 						</div>';
 				
 				foreach($contacts as $contact){
@@ -101,9 +98,6 @@ error_reporting(E_ALL);
 							</div>
 							<div class="td">
 								'.$tags.'
-							</div>
-							<div class="td">
-								<a class="button primary small" href="/contacts/edit-contact?id='.$contact['contactID'].'">Edit</a>
 							</div>
 						</div>';
 				}
