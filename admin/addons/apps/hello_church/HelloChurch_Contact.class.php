@@ -19,7 +19,6 @@ class HelloChurch_Contact extends PerchAPI_Base
 		    foreach($tags as $tag){
 			    $sql = "INSERT INTO perch3_hellochurch_contacts_tags (memberID, churchID, contactID, tag) VALUES 
 			    ('".$data['memberID']."', '".$data['churchID']."', '".$contactID."', '".strtolower($tag['value'])."')";
-			    echo $sql;
 				$results = $this->db->execute($sql);
 		    }
 	    }else{
@@ -27,12 +26,10 @@ class HelloChurch_Contact extends PerchAPI_Base
 		    foreach($tags as $tag){
 			    $sql = "INSERT INTO perch3_hellochurch_contacts_tags (memberID, churchID, contactID, tag) VALUES 
 			    ('".$data['memberID']."', '".$data['churchID']."', '".$contactID."', '".strtolower($tag)."')";
-			    echo $sql;
 				$results = $this->db->execute($sql);
 		    }
 	    }
-
-	    
+	     
     }
     
     public function delete_tags($contactID, $data){

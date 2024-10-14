@@ -81,11 +81,7 @@ class HelloChurch_Contacts extends PerchAPI_Factory
 		
 		$sql = "SELECT * FROM perch3_hellochurch_contacts WHERE memberID='".$memberID."' AND contactID='".$contactID."'";
 	    $results = $this->db->get_row($sql);
-	    if(count($results)==1){
-		    return true;
-	    }else{
-		    return false;
-	    }
+	    return count($results);
 	    
     }
     
@@ -107,6 +103,39 @@ class HelloChurch_Contacts extends PerchAPI_Factory
 	    echo $html;
 	    
     }
+    
+    public function bulk_update_tags($contactID, $tag){
+		
+		$API  = new PerchAPI(1.0, 'hello_church');	
+		
+		$sql = "SELECT * FROM perch3_hellochurch_contacts WHERE contactID='".$contactID."'";
+	    $result = $this->db->get_row($sql);
+	    
+	    $memberID = $result['memberID'];
+	    $churchID = $result['churchID'];
+		
+		$sql = "INSERT INTO perch3_hellochurch_contacts_tags (memberID, churchID, contactID, tag) VALUES 
+			    ('".$memberID."', '".$churchID."', '".$contactID."', '".strtolower($tag)."')";
+		$result = $this->db->execute($sql);
+		
+		$sql = "SELECT * FROM perch3_hellochurch_contacts_tags WHERE contactID='".$contactID."'";
+	    $results = $this->db->get_rows($sql);
+	    
+	    $tagString = "[";
+	    
+	    foreach($results as $row){
+		    $tagString .= '{"value":"'.$row['tag'].'"},';
+	    }
+	    
+	    $tagString = substr($tagString, 0, -1);
+	    
+	    $tagString .= "]";
+		
+		$sql = "UPDATE perch3_hellochurch_contacts SET contactTags='".$tagString."' WHERE contactID='".$contactID."'";
+		$result = $this->db->execute($sql);
+		echo $sql;
+		   
+	}
     
     public function export($memberID, $churchID){
 	    

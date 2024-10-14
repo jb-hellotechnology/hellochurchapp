@@ -39,6 +39,7 @@
 			}).toArray();
 			var pTag = $('#tag').val();
 			$.post( "/process/tag-contacts", { contacts: checked_contacts, tag: pTag }, function( data ) {
+				console.log(data);
 				alert("Contacts Tagged");
 				window.location.href = "/contacts";
 			});

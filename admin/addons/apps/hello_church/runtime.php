@@ -69,7 +69,7 @@ error_reporting(E_ALL);
 				}elseif($q<>'' AND $tag==''){
 					$html .= '<p class="section-heading">All Contacts Matching \''.$q.'\'</p>';
 				}elseif($q=='' AND $tag<>''){
-					$html .= '<p class="section-heading">All Contacts By Tag \''.$tag.'\'</p>';
+					$html .= '<p class="section-heading">All Contacts By Tag \''.ucwords(urldecode($tag)).'\'</p>';
 				}else{
 					$html .= '<p class="section-heading">All Contacts By Tag \''.$tag.'\' and Matching \''.$q.'\'</p>';
 				}
@@ -282,22 +282,19 @@ error_reporting(E_ALL);
 	    
     }
     
-    function process_tag_contacts($data){
+    function process_tag_contacts($contacts, $tag){
 	    
 	    $API  = new PerchAPI(1.0, 'hello_church');
         
         $HelloChurchContacts = new HelloChurch_Contacts($API);
         
 		$Session = PerchMembers_Session::fetch();
-		
-		$contacts = explode(",", $data);
-		
-		foreach($data as $contact){
+
+		foreach($contacts as $contactID){
 			$owner = $HelloChurchContacts->check_owner($Session->get('memberID'), $contactID);
 			if($owner){
-				$contact = $HelloChurchContacts->find($contact);
-				$contact->update_tags($contact, $tags);
-		        $contact->delete(); 
+				$contact = $HelloChurchContacts->find($contactID);
+				$HelloChurchContacts->bulk_update_tags($contactID, $tag);
 			}
 		}
 	    
@@ -407,7 +404,6 @@ error_reporting(E_ALL);
 					if (move_uploaded_file($_FILES["csv"]["tmp_name"], $target_file)) {
 
 						$file = fopen($target_file,"r");
-						echo $target_file;
 						
 						$church = $HelloChurchChurches->church($Session->get('memberID'));
 

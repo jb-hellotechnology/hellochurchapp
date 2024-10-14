@@ -6,7 +6,7 @@ if(!perch_member_logged_in()){
 	header("location:/");
 }
 
-if(hello_church_member_owner($_GET['id'])){
+if(!hello_church_member_owner($_GET['id'])){
 	header("location:/contacts");
 }
 
