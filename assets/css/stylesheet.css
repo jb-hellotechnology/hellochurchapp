@@ -571,6 +571,7 @@ footer p{
 /* FORMS */
 label{
 	display:block;
+	font-weight:700;
 }
 
 input[type=text],
@@ -878,4 +879,72 @@ ul.tags li{
 	.footer-form input{
 		font-size:80%;
 	}
+}
+
+.help-nav{
+	list-style:none;
+	padding:0;
+	margin:0;
+	display:grid;
+	grid-template-columns: 1fr 1fr 1fr;
+	grid-column-gap:1rem;
+	grid-row-gap:1rem;
+}
+
+ul.help-nav{
+	margin-top:2rem;
+}
+
+.help-nav li{
+	background:#fff;
+	padding:1rem;
+}
+
+.help-nav li a{
+	display:block;
+	font-size:var(--size-step-1);
+}
+
+.help-nav li ul{
+	background:#eee;
+}
+
+.help-nav .help-nav{
+	display:block;
+	margin:0;
+	padding:0;
+}
+
+.help-nav .help-nav li{
+	padding:0;
+}
+
+.help-nav .help-nav li a{
+	font-size:var(--size-step-0);
+}
+
+@media screen and (max-width:1280px){
+	.help-nav{
+		grid-template-columns: 1fr 1fr;
+	}
+}
+
+@media screen and (max-width:580px){
+	.help-nav{
+		grid-template-columns: 1fr;
+	}
+}
+
+#form1_search{
+	margin-bottom:1rem;
+}
+
+#form1_search div{
+	display:flex;
+	justify-content: space-between;
+	clear:both;
+}
+
+#form1_search div{
+	max-width:640px;
 }

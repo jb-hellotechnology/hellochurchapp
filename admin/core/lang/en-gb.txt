@@ -532,5 +532,7 @@
     "Reordering navigation group": "Reordering navigation group",
     "Drag and drop the pages to reorder them.": "Drag and drop the pages to reorder them.",
     "Page orders successfully updated.": "Page orders successfully updated.",
-    "Reordering pages": "Reordering pages"
+    "Reordering pages": "Reordering pages",
+    "Your menu item has been successfully created. Return to %slisting%s": "Your menu item has been successfully created. Return to %slisting%s",
+    "Test": "Test"
 }
