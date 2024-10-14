@@ -10,11 +10,17 @@
 			</footer>
 		</perch:success>
 		<div>
-			<p><strong>Please <a href="/">click here</a> to download a template for your contact data before uploading it.</strong></p>
+			<p><strong>Please <a href="/hellochurch_contacts_template.csv">click here</a> to download a template for your contact data before uploading it.</strong></p>
+			<p>Please:</p>
+			<ul>
+				<li>Only upload a CSV file</li>
+				<li>Use the template to create a CSV with the correct structure</li>
+				<li>Limit imports to 500 contacts</li>
+			</ul>
 		</div>
 		<div>
 			<div>
-				<perch:label for="csv">CSV File Containing Contact Data</perch:label>
+				<perch:label for="csv">Upload Your CSV</perch:label>
 				<perch:input type="file" id="csv" name="csv" required="true" label="CSV" accept=".csv" />
 				<perch:error for="csv" type="required"><p class="help error">Please upload a file</p></perch:error>
 			</div>
