@@ -839,10 +839,14 @@ ul.tags li{
 	background:#fff;
 	border-top:1px solid #eee;
 	padding:1rem;
-	display:flex;
-	justify-content: space-between;
 	display:none;
 	box-shadow: var(--shadow);
+}
+
+.footer-form p{
+	display:block;
+	font-size:80%;
+	margin-bottom:0.5rem;
 }
 
 .footer-form button{
@@ -851,8 +855,12 @@ ul.tags li{
 	width:100%;
 }
 
+.footer-form input{
+	font-size:80%;
+}
+
 .footer-form.show{
-	display:flex;
+	display:block;
 }
 
 .footer-form div{

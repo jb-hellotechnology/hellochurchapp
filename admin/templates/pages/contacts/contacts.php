@@ -31,8 +31,9 @@ perch_layout('header');
 			<?php hello_church_contacts(perch_get('tag'), perch_get('q'), perch_get('page')); ?>
 		</form>
 		<div class="footer-form">
+			<p>With Selected Contacts:</p>
 			<div>
-				<input type="text" id="tag" />
+				<input type="text" id="tag" placeholder="New Tag" />
 				<button class="button primary" onclick="confirm_addTag();">Add Tag</button>		
 				<span></span>	
 				<button class="button danger" onclick="confirm_contactDelete();">Delete</button>
