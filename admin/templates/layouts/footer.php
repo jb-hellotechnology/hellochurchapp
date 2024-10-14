@@ -27,7 +27,7 @@
 			}).toArray();
 			$.post( "/process/delete-contacts", { contacts: checked_contacts }, function( data ) {
 				alert("Contacts Deleted");
-				window.url = "/contacts";
+				window.location.href = "/contacts";
 			});
 		}
 	}
@@ -41,7 +41,7 @@
 			$.post( "/process/tag-contacts", { contacts: checked_contacts, tag: pTag }, function( data ) {
 				console.log(data);
 				alert("Contacts Tagged");
-				window.url = "/contacts";
+				window.location.href = "/contacts";
 			});
 		}
 	}
