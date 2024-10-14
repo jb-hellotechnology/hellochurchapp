@@ -32,13 +32,46 @@ class HelloChurch_Contacts extends PerchAPI_Factory
 	     
 	}
     
-    public function contacts($memberID, $churchID){
+    public function contacts($memberID, $churchID, $tag, $q, $page){
 	    
 	    $API  = new PerchAPI(1.0, 'hello_church');
+	    
+	    if($tag<>''){
+		    $tag_sql = 'AND contactTags LIKE "%\"'.urldecode($tag).'\"%"';
+	    }
+	    
+	    if($q<>''){
+		    $q_sql = 'AND (contactFirstName LIKE "%'.$q.'%" OR contactLastName LIKE "%'.$q.'%" OR contactFirstName LIKE "%'.$q.'%")';
+	    }
+	    
+	    if($page==''){
+			$page = 1;   
+	    }
+	    
+	    $start = ($page-1)*25;
+	    $end = 25;
 		
-		$sql = "SELECT * FROM perch3_hellochurch_contacts WHERE memberID='".$memberID."' AND churchID='".$churchID."' ORDER BY contactLastName ASC";
+		$sql = "SELECT * FROM perch3_hellochurch_contacts WHERE memberID='".$memberID."' AND churchID='".$churchID."' $tag_sql $q_sql ORDER BY contactLastName ASC LIMIT $start,$end";
 	    $results = $this->db->get_rows($sql);
 	    return $results;
+	    
+    }
+    
+    public function totalContacts($memberID, $churchID, $tag, $q){
+	    
+	    $API  = new PerchAPI(1.0, 'hello_church');
+	    
+	    if($tag<>''){
+		    $tag_sql = 'AND contactTags LIKE "%\"'.urldecode($tag).'\"%"';
+	    }
+	    
+	    if($q<>''){
+		    $q_sql = 'AND (contactFirstName LIKE "%'.$q.'%" OR contactLastName LIKE "%'.$q.'%" OR contactFirstName LIKE "%'.$q.'%")';
+	    }
+		
+		$sql = "SELECT * FROM perch3_hellochurch_contacts WHERE memberID='".$memberID."' AND churchID='".$churchID."' $tag_sql $q_sql";
+	    $results = $this->db->get_rows($sql);
+	    return count($results);
 	    
     }
     
@@ -55,5 +88,66 @@ class HelloChurch_Contacts extends PerchAPI_Factory
 	    }
 	    
     }
+    
+    public function tag_options($churchID, $pTag){
+	    
+	    $API  = new PerchAPI(1.0, 'hello_church');
+		
+		$sql = "SELECT DISTINCT tag FROM perch3_hellochurch_contacts_tags WHERE churchID='".$churchID."' ORDER BY tag ASC";
+	    $results = $this->db->get_rows($sql);
+	    
+	    $html = '';
+	    
+	    foreach($results as $tag){
+		    $html .= '<option value="'.urlencode(($tag['tag'])).'"'; 
+		    if(urldecode($pTag)==$tag['tag']){$html.=' SELECTED';}
+		    $html .='>'.ucwords($tag['tag']).'</option>';
+	    }
+	    
+	    echo $html;
+	    
+    }
+    
+    public function export($memberID, $churchID){
+	    
+	    $API  = new PerchAPI(1.0, 'hello_church');
+		
+		$sql = "SELECT * FROM perch3_hellochurch_contacts WHERE churchID='".$churchID."' AND memberID='".$memberID."' ORDER BY contactLastName ASC";
+	    $results = $this->db->get_rows($sql);
+	    
+	    // Start the output buffer.
+		ob_start();
+		
+		// Set PHP headers for CSV output.
+		header('Content-Type: text/csv; charset=utf-8');
+		header('Content-Disposition: attachment; filename=hello_church_contacts.csv');
+		
+		// Create the headers.
+		$header_args = array( 'ID', 'Church', 'Member', 'First Name', 'Last Name', 'Address 1', 'Address 2', 'City', 'County', 'Post Code', 'Country', 'Email', 'Phone', 'Accepts Emai', 'Accepts SMS', 'Tags', 'Additional Data' );
+		
+		// Clean up output buffer before writing anything to CSV file.
+		ob_end_clean();
+		
+		// Create a file pointer with PHP.
+		$output = fopen( 'php://output', 'w' );
+		
+		// Write headers to CSV file.
+		fputcsv( $output, $header_args );
+		
+		// Loop through the prepared data to output it to CSV file.
+		foreach( $results as $data_item ){
+		    fputcsv( $output, $data_item );
+		}
+		
+		// Close the file pointer with PHP with the updated output.
+		fclose( $output );
+		exit;
+	    
+    }
+    
+    public function import($memberID, $churchID){
+	
+		$API  = new PerchAPI(1.0, 'hello_church');
 
+	}
 }

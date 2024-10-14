@@ -253,12 +253,20 @@ main .button {
 	min-height: auto;
 }
 
+.active{
+	background-color:#ccc;
+}
+
 .primary{
 	background-color:var(--color-primary);
 }
 
+.alert{
+	background:#ccc;
+}
+
 .warning{
-	background-color: #fa6400;
+	background-color: orange;
 }
 
 .danger{
@@ -630,13 +638,13 @@ section header h2{
 	margin-right:2rem;
 }
 
-section header form{
+section header div{
 	padding:0;
 	margin:0;
 	display:flex;
 }
 
-section header form input[type=text]{
+section header div input[type=text]{
 	border:none;
 	border-bottom:1px solid #ccc;
 	background-color: transparent;
@@ -645,8 +653,13 @@ section header form input[type=text]{
 	display:inline-block;
 }
 
-section header form select{
+section header div select{
 	margin-right:2rem;
+	font-size:80%;
+}
+
+section p.section-heading{
+	margin:1rem 0 0 1rem;
 	font-size:80%;
 }
 
@@ -656,8 +669,7 @@ section footer{
 }
 
 section footer p{
-	text-transform: uppercase;
-	font-size:80%;
+
 }
 
 section footer button,
@@ -667,6 +679,14 @@ section footer .button{
 
 section article{
 	padding:1em;
+}
+
+.pagination{
+}
+
+.pagination label{
+	font-size:80%;
+	text-align: left;
 }
 
 /* CONTENT */
@@ -704,7 +724,7 @@ ul.checks li span{
 }
 
 .grid.contacts .row{
-	grid-template-columns: 200px 200px auto 300px;
+	grid-template-columns: 200px 200px auto 300px 24px;
 	grid-column-gap: 1rem;
 	border-bottom:1px solid #eee;
 }
@@ -727,6 +747,11 @@ ul.checks li span{
 	padding:0.5em 0;
 }
 
+.grid .td input{
+	display:block;
+	margin:0;
+}
+
 .grid .button{
 	float:right;
 }
@@ -741,8 +766,7 @@ ul.checks li span{
 	.grid.contacts .row.heading{
 		display:none;
 	}
-	.grid.contacts .row .td:nth-child(2),
-	.grid.contacts .row .td:last-child{
+	.grid.contacts .row .td:nth-child(2){
 		display:none;
 	}
 	.grid.contacts .row{
@@ -752,6 +776,12 @@ ul.checks li span{
 		background:#f1f2f2;
 		padding:1rem;
 		margin:0;
+		position: relative;
+	}
+	.grid.contacts input{
+		position: absolute;
+		top:1rem;
+		right:1rem;
 	}
 	.grid.contacts .row .td{
 		padding:0;
@@ -799,4 +829,44 @@ ul.tags li{
 	ul.tags{
 		margin-top:0.5rem;
 	}	
+}
+
+.footer-form{
+	position: fixed;
+	bottom:0;
+	left:0px;
+	width:100%;
+	background:#fff;
+	border-top:1px solid #eee;
+	padding:1rem;
+	display:flex;
+	justify-content: space-between;
+	display:none;
+}
+
+.footer-form button{
+	margin-left:auto;
+	display:inline-block;
+	width:100%;
+}
+
+.footer-form.show{
+	display:flex;
+}
+
+.footer-form div{
+	display:grid;
+	width:100%;
+	grid-template-columns: 200px 120px auto 120px;
+	grid-column-gap: 1rem;
+}
+
+@media screen and (max-width:600px){
+	.footer-form div{
+		grid-template-columns: auto 100px 0px 100px;
+	}
+	.footer-form button,
+	.footer-form input{
+		font-size:80%;
+	}
 }

@@ -44,7 +44,7 @@ error_reporting(E_ALL);
 		
 	}
 	
-	function hello_church_contacts(){
+	function hello_church_contacts($tag, $q, $page){
 		
 		$API  = new PerchAPI(1.0, 'hello_church');
 		$HelloChurchContacts = new HelloChurch_Contacts($API);
@@ -58,9 +58,21 @@ error_reporting(E_ALL);
 		
 		if($church){
 			
-			$contacts = $HelloChurchContacts->contacts($Session->get('memberID'), $church['churchID']);
+			$totalContacts = $HelloChurchContacts->totalContacts($Session->get('memberID'), $church['churchID'], $tag, $q);
+			$pages = ceil($totalContacts/25);
+			$contacts = $HelloChurchContacts->contacts($Session->get('memberID'), $church['churchID'], $tag, $q, $page);
 			
 			if($contacts){
+				
+				if($q=='' AND $tag==''){
+					$html .= '<p class="section-heading">All Contacts</p>';
+				}elseif($q<>'' AND $tag==''){
+					$html .= '<p class="section-heading">All Contacts Matching \''.$q.'\'</p>';
+				}elseif($q=='' AND $tag<>''){
+					$html .= '<p class="section-heading">All Contacts By Tag \''.$tag.'\'</p>';
+				}else{
+					$html .= '<p class="section-heading">All Contacts By Tag \''.$tag.'\' and Matching \''.$q.'\'</p>';
+				}
 				
 				$html .= '
 					<article class="grid contacts flow">
@@ -76,6 +88,9 @@ error_reporting(E_ALL);
 							</div>
 							<div class="th">
 								<h3>Tags</h3>
+							</div>
+							<div class="th">
+							
 							</div>
 						</div>';
 				
@@ -99,6 +114,9 @@ error_reporting(E_ALL);
 							<div class="td">
 								'.$tags.'
 							</div>
+							<div class="td">
+								<input type="checkbox" class="contact_select" name="select_'.$contact['contactID'].'" data-contact="'.$contact['contactID'].'" />
+							</div>
 						</div>';
 				}
 				
@@ -106,14 +124,37 @@ error_reporting(E_ALL);
 						
 					</article>';
 				
+			}elseif($q<>'' AND $tag<>''){
+				$html .= '<article class="flow"><p class="alert">No contacts found. Try removing the tag or changing your search query.</p></article>';
+			}elseif($q<>''){
+				$html .= '<article class="flow"><p class="alert">No contacts matching this search query.</p></article>';
 			}else{
-				$html .= '<article class="flow"><p class="alert warning">No contacts created - <a href="/contacts/add-a-contact">add one</a>.</p></article>';
+				$html .= '<article class="flow"><p class="alert warning">No contacts.</p></article>';
+			}
+			
+			if($pages>0){
+				$pagination = '<div class="pagination"><label for="page">Page</label><select name="page" onchange="this.form.submit();" id="page">';
+				$i = 1;
+				while($i<=$pages){
+					$pagination .= '<option value="'.$i.'"';
+					if($page==$i){
+						$pagination .= ' SELECTED';
+					}
+					$pagination .= '>'.$i.'</option>';
+					$i++;
+				}
+				$pagination .= '</select></div>';
 			}
 			
 			
 		}else{
 			$html .= '<article class="flow"><p class="alert warning">No church defined - please contact support.</p></article>';
 		}
+		
+		$html .= '<footer>
+					'.$pagination.'
+					<a class="button primary" href="/contacts/add-contact">Add a Contact</a>
+				</footer>';
 		
 		echo $html;
 		
@@ -194,6 +235,9 @@ error_reporting(E_ALL);
 			
 			$data = $HelloChurchContacts->contact($_GET['id']);
 			
+		}elseif($template == 'export_contacts.html'){
+			
+			
 		}
 		
         $html = $Template->render($data);
@@ -201,6 +245,62 @@ error_reporting(E_ALL);
 
         if ($return) return $html;
         echo $html;
+    }
+    
+    function hello_church_contact_tag_options($tag){
+	    
+	    $API  = new PerchAPI(1.0, 'hello_church');
+        
+        $HelloChurchChurches = new HelloChurch_Churches($API);
+        $HelloChurchContacts = new HelloChurch_Contacts($API);
+        
+		$Session = PerchMembers_Session::fetch();
+		
+		$church = $HelloChurchChurches->church($Session->get('memberID'));
+		$HelloChurchContacts->tag_options($church['churchID'], $tag);
+	    
+    }
+    
+    function process_delete_contacts($data){
+	    
+	    $API  = new PerchAPI(1.0, 'hello_church');
+        
+        $HelloChurchContacts = new HelloChurch_Contacts($API);
+        
+		$Session = PerchMembers_Session::fetch();
+		
+		$contacts = explode(",", $data);
+		
+		foreach($data as $contact){
+			$owner = $HelloChurchContacts->check_owner($Session->get('memberID'), $contactID);
+			if($owner){
+				$contact = $HelloChurchContacts->find($contact);
+				$contact->delete_tags($contact->id(), $data);
+		        $contact->delete(); 
+			}
+		}
+	    
+    }
+    
+    function process_tag_contacts($data){
+	    
+	    $API  = new PerchAPI(1.0, 'hello_church');
+        
+        $HelloChurchContacts = new HelloChurch_Contacts($API);
+        
+		$Session = PerchMembers_Session::fetch();
+		
+		$contacts = explode(",", $data);
+		
+		foreach($data as $contact){
+			$owner = $HelloChurchContacts->check_owner($Session->get('memberID'), $contactID);
+			if($owner){
+				$contact = $HelloChurchContacts->find($contact);
+				$contact->update_tags($contact, $tags);
+		        $contact->delete(); 
+			}
+		}
+	    
     }
     
     function hello_church_form_handler($SubmittedForm) {
@@ -211,6 +311,8 @@ error_reporting(E_ALL);
 	    $HelloChurchChurches = new HelloChurch_Churches($API); 
 	    $HelloChurchContact = new HelloChurch_Contact($API);
 	    $HelloChurchContacts = new HelloChurch_Contacts($API); 
+	    
+	    $Session = PerchMembers_Session::fetch();
 
         switch($SubmittedForm->formID) {
             case 'create_church':
@@ -240,7 +342,8 @@ error_reporting(E_ALL);
 	            }else{
 		            $data = $SubmittedForm->data;
 		            $data['contactProperties'] = '';
-	            	$HelloChurchContacts->create($data);
+	            	$contact = $HelloChurchContacts->create($data);
+	            	$contact->update_tags($contact->id(), $data);
 	            } 
             break;
             case 'update_contact':
@@ -257,11 +360,103 @@ error_reporting(E_ALL);
 			            $data['contactAcceptEmail'] = '';
 		            }
 		            $contact->update($data);
+		            $contact->update_tags($contact->id(), $data);
 	            } 
             break;
             case 'delete_contact':
 		        $contact = $HelloChurchContacts->find($SubmittedForm->data['contactID']);
+		        $contact->delete_tags($contact->id(), $data);
 		        $contact->delete(); 
+            break;
+            case 'export_contacts':
+		        $church = $HelloChurchChurches->church($Session->get('memberID'));
+				$data = $HelloChurchContacts->export($Session->get('memberID'), $church['churchID']); 
+            break;
+            case 'import_contacts':
+            	
+            	$target_dir = '../../../uploads/';
+            	$number = rand();
+				$target_file = $target_dir."$number.csv";
+				$uploadOk = 1;
+				$imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
+
+				$allowed = array('csv');
+				$filename = $_FILES['csv']['name'];
+				$ext = pathinfo($filename, PATHINFO_EXTENSION);
+				if (!in_array($ext, $allowed)) {
+				    $SubmittedForm->throw_error('required', 'csv');
+				    $uploadOk = 0;
+				}
+							
+				// Check if file already exists
+				if (file_exists($target_file)) {
+					$SubmittedForm->throw_error('required', 'csv');
+					$uploadOk = 0;
+				}
+				
+				// Check file size
+				if ($_FILES["csv"]["size"] > 500000) {
+					$SubmittedForm->throw_error('required', 'csv');
+					$uploadOk = 0;
+				}
+				
+				// Check if $uploadOk is set to 0 by an error
+				if ($uploadOk == 0) {
+					$SubmittedForm->throw_error('required', 'csv');
+				} else {
+					if (move_uploaded_file($_FILES["csv"]["tmp_name"], $target_file)) {
+
+						$file = fopen($target_file,"r");
+						echo $target_file;
+						
+						$church = $HelloChurchChurches->church($Session->get('memberID'));
+
+						while (($data = fgetcsv($file)) !== FALSE)
+						{
+							if($data[0]<>'' AND $data[0]<>'First Name'){
+							    $data['contactProperties'] = '';
+								
+								$inputData = array();
+								$inputData['churchID'] = 			$church['churchID'];
+								$inputData['memberID'] = 			$Session->get('memberID');
+								$inputData['contactFirstName'] =	$data[0];
+								$inputData['contactLastName'] =	 	$data[1];
+								$inputData['contactAddress1'] =		$data[2];
+								$inputData['contactAddress2'] =		$data[3];
+								$inputData['contactCity'] =			$data[4];
+								$inputData['contactCounty'] =		$data[5];
+								$inputData['contactPostCode'] =		$data[6];
+								$inputData['contactCountry'] =		$data[7];
+								$inputData['contactEmail'] =		$data[8];
+								if($data[8]<>'' AND substr($data[8], 0, 1)<>'0'){
+									$inputData['contactPhone'] =	'0'.$data[9];
+								}else{
+									$inputData['contactPhone'] =		$data[9];	
+								}
+								$inputData['contactAcceptEmail'] =	$data[10];
+								$inputData['contactAcceptSMS'] =	$data[11];
+								if($data[12]<>''){
+									$tagString = '[';
+									$tags = explode(",", $data[12]);
+									foreach($tags as $tag){
+										$tagString .= '{"value":"'.trim($tag).'"},';
+									}
+									$tagString = substr($tagString, 0, -1);
+									$tagString .= ']';
+								}
+								$inputData['contactTags'] =			$tagString;
+								$inputData['contactProperties'] = 	'';
+								
+				            	$contact = $HelloChurchContacts->create($inputData);
+				            	$contact->update_tags($contact->id(), $inputData);
+				            }
+						}
+											
+						unlink($target_file);
+					} else {
+						$SubmittedForm->throw_error('required', 'csv');
+					}
+				}
             break;
         }
     	
