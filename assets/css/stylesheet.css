@@ -842,6 +842,7 @@ ul.tags li{
 	display:flex;
 	justify-content: space-between;
 	display:none;
+	box-shadow: var(--box-shadow);
 }
 
 .footer-form button{
