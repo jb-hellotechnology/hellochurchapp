@@ -57,6 +57,16 @@ class HelloChurch_Contacts extends PerchAPI_Factory
 	    
     }
     
+    public function recent_contacts($memberID, $churchID){
+	    
+	    $API  = new PerchAPI(1.0, 'hello_church');
+		
+		$sql = "SELECT * FROM perch3_hellochurch_contacts WHERE memberID='".$memberID."' AND churchID='".$churchID."' ORDER BY contactID DESC LIMIT 5";
+	    $results = $this->db->get_rows($sql);
+	    return $results;
+	    
+    }
+    
     public function totalContacts($memberID, $churchID, $tag, $q){
 	    
 	    $API  = new PerchAPI(1.0, 'hello_church');

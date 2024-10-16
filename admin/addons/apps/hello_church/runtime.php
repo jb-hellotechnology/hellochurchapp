@@ -124,12 +124,20 @@ error_reporting(E_ALL);
 							<div class="td">
 								<a href="/contacts/edit-contact?id='.$contact['contactID'].'"><span class="material-symbols-outlined">person</span>'.$contact['contactFirstName'].' '.$contact['contactLastName'].'</a>
 							</div>
-							<div class="td">
-								<p><span class="material-symbols-outlined">home</span>'.$contact['contactAddress1'].'</p>
+							<div class="td">';
+							if($contact['contactAddress1']){
+								$html .= '<p><span class="material-symbols-outlined">home</span>'.$contact['contactAddress1'].'</p>';
+							}
+							$html .= '
 							</div>
-							<div class="td">
-								<p><span class="material-symbols-outlined">check_circle</span>'.$contact['contactPhone'].'</p>
-								<p><span class="material-symbols-outlined">email</span>'.$contact['contactEmail'].'</p>
+							<div class="td">';
+							if($contact['contactPhone']){
+								$html .= '<p><span class="material-symbols-outlined">phone</span>'.$contact['contactPhone'].'</p>';
+							}
+							if($contact['contactEmail']){
+								$html .= '<p><span class="material-symbols-outlined">email</span>'.$contact['contactEmail'].'</p>';
+							}
+							$html .= '
 							</div>
 							<div class="td">
 								'.$tags.'
@@ -174,6 +182,98 @@ error_reporting(E_ALL);
 		$html .= '<footer>
 					'.$pagination.'
 					<a class="button primary" href="/contacts/add-contact">Add a Contact</a>
+				</footer>';
+		
+		echo $html;
+		
+	}
+	
+	function hello_church_recent_contacts(){
+		
+		$API  = new PerchAPI(1.0, 'hello_church');
+		$HelloChurchContacts = new HelloChurch_Contacts($API);
+		$HelloChurchChurches = new HelloChurch_Churches($API);
+		
+		$Session = PerchMembers_Session::fetch();
+		
+		$church = $HelloChurchChurches->church($Session->get('memberID'));
+		
+		$html = '';
+		
+		if($church){
+			
+			$contacts = $HelloChurchContacts->recent_contacts($Session->get('memberID'), $church['churchID']);
+			
+			if($contacts){
+				
+				$html .= '
+					<div class="grid contacts flow">
+						<div class="row heading">
+							<div class="th">
+								<h3>Name</h3>
+							</div>
+							<div class="th">
+								<h3>Address</h3>
+							</div>
+							<div class="th">
+								<h3>Contact</h3>
+							</div>
+							<div class="th">
+								<h3>Tags</h3>
+							</div>
+							<div class="th">
+							
+							</div>
+						</div>';
+				
+				foreach($contacts as $contact){
+					
+					$tags = contact_tags($contact['contactTags']);
+					$preferences = contact_preferences($contact['contactAcceptEmail'], $contact['contactAcceptSMS']);
+					
+					$html .= '
+						<div class="row">
+							<div class="td">
+								<a href="/contacts/edit-contact?id='.$contact['contactID'].'"><span class="material-symbols-outlined">person</span>'.$contact['contactFirstName'].' '.$contact['contactLastName'].'</a>
+							</div>
+							<div class="td">';
+							if($contact['contactAddress1']){
+								$html .= '<p><span class="material-symbols-outlined">home</span>'.$contact['contactAddress1'].'</p>';
+							}
+							$html .= '
+							</div>
+							<div class="td">';
+							if($contact['contactPhone']){
+								$html .= '<p><span class="material-symbols-outlined">phone</span>'.$contact['contactPhone'].'</p>';
+							}
+							if($contact['contactEmail']){
+								$html .= '<p><span class="material-symbols-outlined">email</span>'.$contact['contactEmail'].'</p>';
+							}
+							$html .= '
+							</div>
+							<div class="td">
+								'.$tags.'
+							</div>
+							<div class="td">
+								
+							</div>
+						</div>';
+				}
+				
+				$html .= '
+						
+					</div>';
+				
+			}
+			
+			
+		}else{
+			$html .= '<article class="flow"><p class="alert warning">No church defined - please contact support.</p></article>';
+		}
+		
+		$html .= '<footer>
+					'.$pagination.'
+					<a class="button primary" href="/contacts">All Contacts</a>
 				</footer>';
 		
 		echo $html;
