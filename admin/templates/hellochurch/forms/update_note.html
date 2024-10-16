@@ -1,0 +1,26 @@
+<perch:form id="update_note" method="post" app="hello_church" action="/contacts/edit-note?id=<perch:forms id="contactID" />&noteID=<perch:forms id="noteID" />">
+
+	<article class="flow">
+		<perch:success>
+			<article class="flow">
+				<p class="alert success">Note updated.</p>
+			</article>
+			<footer>
+				<a class="button primary" href="/contacts/edit-contact?id=<perch:forms id="contactID" />">Back</a>
+			</footer>
+		</perch:success>
+		<div>
+			<perch:label for="contactNote">Edit Note</perch:label>
+			<perch:input type="textarea" id="note" required="true" label="Note" class="redactor" />
+		</div>
+	</article>
+
+	<footer>
+		<perch:input type="hidden" value="<perch:forms id="memberID">" name="memberID" />
+		<perch:input type="hidden" value="<perch:forms id="contactID">" name="contactID" />
+		<perch:input type="hidden" value="<perch:forms id="churchID">" name="churchID" />
+		<perch:input type="hidden" value="<perch:forms id="noteID">" name="noteID" />
+		<perch:input type="submit" value="Update Note" class="button primary" />
+	</footer>
+
+</perch:form>

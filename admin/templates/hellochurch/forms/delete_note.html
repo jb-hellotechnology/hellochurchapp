@@ -1,0 +1,22 @@
+<perch:form id="delete_note" method="post" app="hello_church" action="/contacts/edit-contact?id=<perch:forms id="contactID" />&msg=note-deleted">
+
+	<article class="flow">
+		<perch:success>
+			<article class="flow">
+				<p class="alert success">Note deleted.</p>
+			</article>
+			<footer>
+				<a class="button primary" href="/contacts">Contacts</a>
+			</footer>
+		</perch:success>
+		<div>
+			<p><strong>This is permanent and cannot be un-done.</strong></p>
+		</div>
+	</article>
+
+	<footer>
+		<perch:input type="hidden" value="<perch:forms id="noteID">" name="noteID" />
+		<perch:input type="submit" value="Delete Note" class="button danger" />
+	</footer>
+
+</perch:form>

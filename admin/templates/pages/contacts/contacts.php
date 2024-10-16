@@ -25,10 +25,13 @@ perch_layout('header');
 						<option value="">Filter by Tag</option>
 						<?php hello_church_contact_tag_options(perch_get('tag')); ?>
 					</select>
-					<input type="text" name="q" placeholder="Search" value="<?= perch_get('q') ?>" onkeyup="resetPagination();" />
+					<input type="text" name="q" placeholder="Search" value="<?= perch_get('q') ?>" onkeyup="resetPagination();" autocomplete="off" />
+					<input type="submit" value="Go" class="button primary small" />
 				</div>
 			</header>
+			<article>
 			<?php hello_church_contacts(perch_get('tag'), perch_get('q'), perch_get('page')); ?>
+			</article>
 		</form>
 		<div class="footer-form">
 			<p>With Selected Contacts:</p>

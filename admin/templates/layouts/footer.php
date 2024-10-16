@@ -39,12 +39,33 @@
 			}).toArray();
 			var pTag = $('#tag').val();
 			$.post( "/process/tag-contacts", { contacts: checked_contacts, tag: pTag }, function( data ) {
-				console.log(data);
 				alert("Contacts Tagged");
 				window.location.href = "/contacts";
 			});
 		}
 	}
+	function searchFamilyMembers(){
+		let pQ = $('#q').val();
+		let pID = $('#q').data('member-id');
+		if(pQ.length>3){
+			$.get( "/process/search-family-members", { q: pQ, memberID: pID }, function( data ) {
+				if(data){
+					$('.results').html(data).show();
+				}
+			});
+		}else{
+			$('.results').hide();
+		}
+	}
+	$('input').blur(function(){
+		$('.results').hide();
+	});
 	</script>
+	<script src="/assets/redactor/redactor.min.js"></script>
+    <script>
+	$R('.redactor', {
+		toolbar: false
+	});
+    </script>
 </body>
 </html>

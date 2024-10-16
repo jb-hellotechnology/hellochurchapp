@@ -5,7 +5,7 @@ ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 */
 
-perch_members_refresh_session_data();
+// perch_members_refresh_session_data();
 
 require '../../../vendor/autoload.php';
 

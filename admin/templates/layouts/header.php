@@ -20,6 +20,7 @@ if(perch_member_logged_in()){
 	<link href="/assets/css/stylesheet.css?v=<?= rand() ?>" rel="stylesheet">
 	
 	<link href="/assets/js/tagify/tagify.css" rel="stylesheet" type="text/css" />
+	<link rel="stylesheet" href="/assets/redactor/redactor.min.css" />
 </head>
 <body>
 	<header class="site-header">

@@ -534,5 +534,9 @@
     "Page orders successfully updated.": "Page orders successfully updated.",
     "Reordering pages": "Reordering pages",
     "Your menu item has been successfully created. Return to %slisting%s": "Your menu item has been successfully created. Return to %slisting%s",
-    "Test": "Test"
+    "Test": "Test",
+    "Delete Master Page": "Delete Master Page",
+    "Republish Pages": "Republish Pages",
+    "Republishing pages": "Republishing pages",
+    "Are you sure you wish to republish all pages?": "Are you sure you wish to republish all pages?"
 }

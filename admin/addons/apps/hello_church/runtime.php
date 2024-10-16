@@ -75,7 +75,7 @@ error_reporting(E_ALL);
 				}
 				
 				$html .= '
-					<article class="grid contacts flow">
+					<div class="grid contacts flow">
 						<div class="row heading">
 							<div class="th">
 								<h3>Name</h3>
@@ -102,14 +102,14 @@ error_reporting(E_ALL);
 					$html .= '
 						<div class="row">
 							<div class="td">
-								<a href="/contacts/edit-contact?id='.$contact['contactID'].'">'.$contact['contactFirstName'].' '.$contact['contactLastName'].'</a>
+								<a href="/contacts/edit-contact?id='.$contact['contactID'].'"><span class="material-symbols-outlined">person</span>'.$contact['contactFirstName'].' '.$contact['contactLastName'].'</a>
 							</div>
 							<div class="td">
-								'.$contact['contactAddress1'].'
+								<p><span class="material-symbols-outlined">home</span>'.$contact['contactAddress1'].'</p>
 							</div>
 							<div class="td">
-								'.$contact['contactPhone'].'<br />
-								'.$contact['contactEmail'].'
+								<p><span class="material-symbols-outlined">check_circle</span>'.$contact['contactPhone'].'</p>
+								<p><span class="material-symbols-outlined">email</span>'.$contact['contactEmail'].'</p>
 							</div>
 							<div class="td">
 								'.$tags.'
@@ -122,14 +122,14 @@ error_reporting(E_ALL);
 				
 				$html .= '
 						
-					</article>';
+					</div>';
 				
 			}elseif($q<>'' AND $tag<>''){
-				$html .= '<article class="flow"><p class="alert">No contacts found. Try removing the tag or changing your search query.</p></article>';
+				$html .= '<p class="alert">No contacts found. Try removing the tag or changing your search query.</p>';
 			}elseif($q<>''){
-				$html .= '<article class="flow"><p class="alert">No contacts matching this search query.</p></article>';
+				$html .= '<p class="alert">No contacts matching this search query.</p>';
 			}else{
-				$html .= '<article class="flow"><p class="alert warning">No contacts.</p></article>';
+				$html .= '<p class="alert warning">No contacts.</p>';
 			}
 			
 			if($pages>0){
@@ -187,11 +187,11 @@ error_reporting(E_ALL);
 		$tags = json_decode($tags, true);
 		
 		if(count($tags)>0){
-			$html = '<ul class="tags">';
+			$html = '<ul class="pills">';
 		}
 
 		foreach($tags as $tag){
-			$html .= "<li>".$tag['value']."</li>";
+			$html .= '<li><span class="material-symbols-outlined">check_circle</span>'.$tag['value'].'</li>';
 		}
 		
 		if(count($tags)>0){
@@ -208,6 +208,7 @@ error_reporting(E_ALL);
         
         $HelloChurchChurches = new HelloChurch_Churches($API);
         $HelloChurchContacts = new HelloChurch_Contacts($API);
+        $HelloChurchContactNotes = new HelloChurch_Contact_Notes($API);
         
         $Template = $API->get('Template');
         $Template->set(PerchUtil::file_path('hellochurch/forms/'.$template), 'forms');
@@ -237,6 +238,19 @@ error_reporting(E_ALL);
 			
 		}elseif($template == 'export_contacts.html'){
 			
+			
+		}elseif($template == 'add_note.html'){
+			
+			$data = $HelloChurchChurches->church($Session->get('memberID'));
+			$data['contactID'] = $_GET['id'];
+			
+		}elseif($template == 'update_note.html'){
+	
+			$data = $HelloChurchContactNotes->by_noteID($_GET['noteID']);
+			
+		}elseif($template == 'delete_note.html'){
+	
+			$data['noteID'] = $_GET['id'];
 			
 		}
 		
@@ -300,6 +314,107 @@ error_reporting(E_ALL);
 	    
     }
     
+    function hello_church_family_members($contactID){
+	    
+	    $API  = new PerchAPI(1.0, 'hello_church');
+        
+        $HelloChurchContacts = new HelloChurch_Contacts($API);
+        
+		$Session = PerchMembers_Session::fetch();
+		
+		$family = $HelloChurchContacts->family_members($Session->get('memberID'), $contactID);
+		
+		if(count($family)>0){
+		
+			$html = '<ul class="cards">';
+			
+			foreach($family as $member){
+				$html .= '
+				<li class="flow">
+					<span class="material-symbols-outlined">person</span>
+					<h3><a href="/contacts/edit-contact?id='.$member['contactID'].'">'.$member['contactFirstName'].' '.$member['contactLastName'].'</a></h3>
+					<p><a class="button primary small" href="/contacts/edit-contact?id='.$member['contactID'].'">View</a></p>
+					<form method="post" action="/process/remove-family-member">
+						<input type="hidden" name="identifier" value="'.$member['identifier'].'" />
+						<input type="hidden" name="contactID" value="'.$member['contactID'].'" />
+						<input type="hidden" name="primary" value="'.$contactID.'" />
+						<input type="submit" class="button border danger small" value="Unlink" />
+					</form>
+				</li>';
+			}
+			
+			$html .= '</ul>';
+		
+		}else{
+			$html = '<p class="alert">No family members defined.</p>';
+		}
+		
+		echo $html;
+	    
+    }
+    
+    function process_search_family_members($q, $memberID){
+	    
+	    $API  = new PerchAPI(1.0, 'hello_church');
+
+        $HelloChurchContacts = new HelloChurch_Contacts($API);
+        
+		$Session = PerchMembers_Session::fetch();
+		
+		$contacts = $HelloChurchContacts->search_family_members($Session->get('memberID'), $q, $memberID);
+		
+		foreach($contacts as $contact){
+			echo '
+			<form method="post" action="/process/add-family-member">
+				<label>'.$contact['contactFirstName'].' '.$contact['contactLastName'].'</label>
+				<input type="hidden" name="primary" value="'.$memberID.'" />
+				<input type="hidden" name="contactID" value="'.$contact['contactID'].'" />
+				<input type="submit" class="button primary small" value="Add Member" />
+			</form>';
+		}
+	    
+    }
+    
+    function process_add_family_member($primary, $contactID){
+	    
+	    $API  = new PerchAPI(1.0, 'hello_church');
+
+        $HelloChurchContacts = new HelloChurch_Contacts($API);
+        
+        $Session = PerchMembers_Session::fetch();
+
+	    $HelloChurchContacts->add_family_member($Session->get('memberID'), $primary, $contactID);
+	    
+    }
+    
+    function process_remove_family_member($identifier, $contactID){
+	    
+	    $API  = new PerchAPI(1.0, 'hello_church');
+
+        $HelloChurchContacts = new HelloChurch_Contacts($API);
+
+	    $HelloChurchContacts->remove_family_member($identifier, $contactID);
+	    
+    }
+    
+    function hello_church_contact_notes($contactID){
+	    
+	    $API  = new PerchAPI(1.0, 'hello_church');
+
+        $HelloChurchContactNotes = new HelloChurch_Contact_Notes($API);
+        
+        $notes = $HelloChurchContactNotes->by_contactID($contactID);
+
+		echo '<ul>';
+        
+        foreach($notes as $note){
+	        echo '<li><a href="/contacts/edit-note?id='.$contactID.'&noteID='.$note['noteID'].'">'.$note['timestamp'].'</a><br />'.$note['note'].'</li>';
+        }
+
+        echo '</ul>';
+	    
+    }
+    
     function hello_church_form_handler($SubmittedForm) {
 	    
 	    $API  = new PerchAPI(1.0, 'hello_church');
@@ -308,6 +423,8 @@ error_reporting(E_ALL);
 	    $HelloChurchChurches = new HelloChurch_Churches($API); 
 	    $HelloChurchContact = new HelloChurch_Contact($API);
 	    $HelloChurchContacts = new HelloChurch_Contacts($API); 
+	    $HelloChurchContactNote = new HelloChurch_Contact_Note($API);
+	    $HelloChurchContactNotes = new HelloChurch_Contact_Notes($API); 
 	    
 	    $Session = PerchMembers_Session::fetch();
 
@@ -453,6 +570,18 @@ error_reporting(E_ALL);
 						$SubmittedForm->throw_error('required', 'csv');
 					}
 				}
+            break;
+            case 'create_note':
+	            $data = $SubmittedForm->data;
+		        $note = $HelloChurchContactNotes->create($data);
+            break;
+            case 'update_note':
+	            $note = $HelloChurchContactNotes->find($SubmittedForm->data['noteID']);
+		        $note->update($SubmittedForm->data);
+            break;
+            case 'delete_note':
+	            $note = $HelloChurchContactNotes->find($SubmittedForm->data['noteID']);
+		        $note->delete();
             break;
         }
     	
