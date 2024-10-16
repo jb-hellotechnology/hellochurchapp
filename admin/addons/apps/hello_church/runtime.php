@@ -40,8 +40,28 @@ error_reporting(E_ALL);
 		
 		$owner = $HelloChurchContacts->check_owner($Session->get('memberID'), $contactID);
 		
-		return $owner;
+		if($owner==1){
+		    return true;
+	    }else{
+		    return false;
+	    }
 		
+	}
+	
+	function hello_church_note_owner($noteID){
+		
+		$API  = new PerchAPI(1.0, 'hello_church');
+		$HelloChurchContacts = new HelloChurch_Contact_Notes($API);
+		
+		$Session = PerchMembers_Session::fetch();
+		
+		$owner = $HelloChurchContacts->check_owner($Session->get('memberID'), $noteID);
+		
+		if($owner==1){
+		    return true;
+	    }else{
+		    return false;
+	    }
 	}
 	
 	function hello_church_contacts($tag, $q, $page){
@@ -250,7 +270,8 @@ error_reporting(E_ALL);
 			
 		}elseif($template == 'delete_note.html'){
 	
-			$data['noteID'] = $_GET['id'];
+			$data['noteID'] = $_GET['noteID'];
+			$data['id'] = $_GET['id'];
 			
 		}
 		
@@ -333,7 +354,7 @@ error_reporting(E_ALL);
 				<li class="flow">
 					<span class="material-symbols-outlined">person</span>
 					<h3><a href="/contacts/edit-contact?id='.$member['contactID'].'">'.$member['contactFirstName'].' '.$member['contactLastName'].'</a></h3>
-					<p><a class="button primary small" href="/contacts/edit-contact?id='.$member['contactID'].'">View</a></p>
+					<p><a class="button secondary small" href="/contacts/edit-contact?id='.$member['contactID'].'">View</a></p>
 					<form method="post" action="/process/remove-family-member">
 						<input type="hidden" name="identifier" value="'.$member['identifier'].'" />
 						<input type="hidden" name="contactID" value="'.$member['contactID'].'" />
@@ -405,13 +426,22 @@ error_reporting(E_ALL);
         
         $notes = $HelloChurchContactNotes->by_contactID($contactID);
 
-		echo '<ul>';
+		echo '<article>
+				<ul class="list">';
         
         foreach($notes as $note){
-	        echo '<li><a href="/contacts/edit-note?id='.$contactID.'&noteID='.$note['noteID'].'">'.$note['timestamp'].'</a><br />'.$note['note'].'</li>';
+	        $parts = explode(" ", $note['timestamp']);
+	        $parts = explode("-", $parts[0]);
+	        $date = "$parts[2]/$parts[1]/$parts[0]";
+	        echo '<li>
+			        <h3>'.$note['subject'].'</h3>
+					<p>'.$date.'</p>
+					<a href="/contacts/edit-note?id='.$contactID.'&noteID='.$note['noteID'].'" class="button secondary small">View</a>
+				</li>';
         }
 
-        echo '</ul>';
+        echo '</ul>
+        	</article>';
 	    
     }
     

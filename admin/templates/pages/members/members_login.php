@@ -1,12 +1,11 @@
 <?php
-
 if(perch_member_logged_in()){
 
 	if(perch_member_has_tag('deactivated')){
 		perch_member_log_out();
 		PerchSystem::redirect('/');
 	}
-	
+
 	// CHECK FOR ACTIVE SUBSCRIPTION
 	$current_period = stripe_data('memberPeriodEnd');
 	if($current_period > time()){

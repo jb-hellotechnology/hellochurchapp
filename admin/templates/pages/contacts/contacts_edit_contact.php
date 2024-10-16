@@ -7,13 +7,22 @@ if(!perch_member_logged_in()){
 }
 
 if(!hello_church_member_owner(perch_get('id'))){
-	header("location:/contacts");
+	perch_member_log_out();
+	header("location:/");
 }
 
 perch_layout('header');
 ?>
 <main class="flow full">
 	<h1>Edit a Contact</h1>
+	<?php
+		// DISPLAY MESSAGES
+		if($_GET['msg']=='note_deleted'){
+			echo '<p class="alert success">Note successfully deleted.</p>';
+		}elseif($_GET['msg']=='note_created'){
+			echo '<p class="alert success">Note successfully created.</p>';
+		}
+	?>
 	<div class="section-grid">
 		<div>
 			<section>
@@ -43,18 +52,17 @@ perch_layout('header');
 				<header>
 					<h2>Notes</h2>
 				</header>
-				<article>
-					<?php hello_church_contact_notes(perch_get('id')); ?>
-					<h3>Add a Note</h3>
-					<?php hello_church_form('add_note.html'); ?>
-				</article>
+				<?php hello_church_contact_notes(perch_get('id')); ?>
+				<footer>
+					<a href="/contacts/add-note?id=<?= perch_get('id') ?>" class="button primary">Add Note</a>
+				</footer>
 			</section>
 		</div>
 	</div>
 	
 	<div class="panel flow">
 		<h3>More Options</h3>
-		<p><a href="/contacts/delete-contact/?id=<?= $_GET['id'] ?>" class="warning">Delete contact</a></p>
+		<p><a href="/contacts/delete-contact/?id=<?= perch_get('id') ?>" class="warning">Delete contact</a></p>
 	</div>
 </main>
 <?php perch_layout('footer'); ?>

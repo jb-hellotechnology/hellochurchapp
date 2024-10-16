@@ -6,8 +6,9 @@ if(!perch_member_logged_in()){
 	header("location:/");
 }
 
-if(hello_church_member_owner($_GET['id'])){
-	header("location:/contacts");
+if(!hello_church_member_owner(perch_get('id'))){
+	perch_member_log_out();
+	header("location:/");
 }
 
 perch_layout('header');

@@ -4,8 +4,16 @@ if(!perch_member_logged_in()){
 	exit;
 }
 
-process_add_family_member($_POST['primary'], $_POST['contactID']);
+$primary = (int) $_POST['primary'];
+$id = (int) $_POST['contactID'];
 
-header("location:/contacts/edit-contact?id=".$_POST['primary']);
+if(!hello_church_member_owner($id)){
+	perch_member_log_out();
+	header("location:/");
+}
+
+process_add_family_member($primary, $id);
+
+header("location:/contacts/edit-contact?id=".$primary);
 
 ?>

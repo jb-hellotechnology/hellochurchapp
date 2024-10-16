@@ -33,5 +33,15 @@ class HelloChurch_Contact_Notes extends PerchAPI_Factory
 	    return $result;
 
 	}
+	
+	public function check_owner($memberID, $noteID){
+	    
+	    $API  = new PerchAPI(1.0, 'hello_church');
+		
+		$sql = "SELECT * FROM perch3_hellochurch_contact_notes WHERE memberID='".$memberID."' AND noteID='".$noteID."'";
+	    $results = $this->db->get_rows($sql);
+	    return count($results);
+	    
+    }
     
 }

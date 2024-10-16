@@ -1,14 +1,7 @@
-<perch:form id="create_note" method="post" app="hello_church" action="/contacts/edit-contact?id=<perch:forms id="contactID" />">
+<perch:form id="create_note" method="post" app="hello_church" action="/contacts/edit-contact?id=<perch:forms id="contactID" />&msg=note_created">
 
 	<article class="flow">
-		<perch:success>
-			<article class="flow">
-				<p class="alert success">Note created.</p>
-			</article>
-			<footer>
-				<a class="button primary" href="/contacts">Contacts</a>
-			</footer>
-		</perch:success>
+		<h3>Add a Note</h3>
 		<div>
 			<perch:label for="subject">Subject</perch:label>
 			<perch:input type="text" id="subject" required="true" label="Subject" />

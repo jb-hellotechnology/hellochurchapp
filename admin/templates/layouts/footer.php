@@ -58,7 +58,7 @@
 		}
 	}
 	$('input').blur(function(){
-		$('.results').hide();
+		$('.results').delay(1000).fadeOut();
 	});
 	</script>
 	<script src="/assets/redactor/redactor.min.js"></script>

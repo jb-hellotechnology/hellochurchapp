@@ -80,7 +80,7 @@ class HelloChurch_Contacts extends PerchAPI_Factory
 	    $API  = new PerchAPI(1.0, 'hello_church');
 		
 		$sql = "SELECT * FROM perch3_hellochurch_contacts WHERE memberID='".$memberID."' AND contactID='".$contactID."'";
-	    $results = $this->db->get_row($sql);
+	    $results = $this->db->get_rows($sql);
 	    return count($results);
 	    
     }
@@ -133,7 +133,6 @@ class HelloChurch_Contacts extends PerchAPI_Factory
 		
 		$sql = "UPDATE perch3_hellochurch_contacts SET contactTags='".$tagString."' WHERE contactID='".$contactID."'";
 		$result = $this->db->execute($sql);
-		echo $sql;
 		   
 	}
     
@@ -229,7 +228,6 @@ class HelloChurch_Contacts extends PerchAPI_Factory
 		$API  = new PerchAPI(1.0, 'hello_church');
 		
 		$sql = "DELETE FROM perch3_hellochurch_contacts_families WHERE contactID='".$contactID."' AND identifier='".$identifier."'";
-		echo $sql;
 	    $result = $this->db->execute($sql);
 		
 	}
