@@ -4,6 +4,8 @@ if(!perch_member_logged_in()){
 	exit;
 }
 
-process_delete_contacts(perch_get('contacts'));
+$contacts = $_POST['contacts'];
+
+process_delete_contacts($contacts);
 
 ?>

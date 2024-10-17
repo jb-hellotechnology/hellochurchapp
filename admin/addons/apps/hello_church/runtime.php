@@ -407,7 +407,7 @@ error_reporting(E_ALL);
 		$contacts = explode(",", $data);
 		
 		foreach($data as $contact){
-			$owner = $HelloChurchContacts->check_owner($Session->get('memberID'), $contactID);
+			$owner = $HelloChurchContacts->check_owner($Session->get('memberID'), $contact);
 			if($owner){
 				$contact = $HelloChurchContacts->find($contact);
 				$contact->delete_tags($contact->id(), $data);
