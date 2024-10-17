@@ -784,11 +784,9 @@ section article{
 }
 
 @media screen and (max-width:1024px){
-	section header h2{
+	section header h2,
+	section header input{
 		font-size:80%;
-	}
-	section header input[type=submit]{
-	
 	}
 }
 
