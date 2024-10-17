@@ -17,16 +17,20 @@ class HelloChurch_Contact extends PerchAPI_Base
 	    
 	    if($tags){
 		    foreach($tags as $tag){
-			    $sql = "INSERT INTO perch3_hellochurch_contacts_tags (memberID, churchID, contactID, tag) VALUES 
-			    ('".$data['memberID']."', '".$data['churchID']."', '".$contactID."', '".strtolower($tag['value'])."')";
-				$results = $this->db->execute($sql);
+			    if($tag<>''){
+				    $sql = "INSERT INTO perch3_hellochurch_contacts_tags (memberID, churchID, contactID, tag) VALUES 
+				    ('".$data['memberID']."', '".$data['churchID']."', '".$contactID."', '".strtolower($tag['value'])."')";
+					$results = $this->db->execute($sql);
+				}
 		    }
 	    }else{
 		    $tags = explode(",", $data['contactTags']);
 		    foreach($tags as $tag){
-			    $sql = "INSERT INTO perch3_hellochurch_contacts_tags (memberID, churchID, contactID, tag) VALUES 
-			    ('".$data['memberID']."', '".$data['churchID']."', '".$contactID."', '".strtolower($tag)."')";
-				$results = $this->db->execute($sql);
+			    if($tag<>''){
+				    $sql = "INSERT INTO perch3_hellochurch_contacts_tags (memberID, churchID, contactID, tag) VALUES 
+				    ('".$data['memberID']."', '".$data['churchID']."', '".$contactID."', '".strtolower($tag)."')";
+					$results = $this->db->execute($sql);
+				}
 		    }
 	    }
 	     

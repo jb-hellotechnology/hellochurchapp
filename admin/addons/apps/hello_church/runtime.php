@@ -273,7 +273,7 @@ error_reporting(E_ALL);
 		
 		$html .= '<footer>
 					'.$pagination.'
-					<a class="button primary" href="/contacts">All Contacts</a>
+					<a class="button secondary" href="/contacts/add-contact">Add a Contact</a>
 				</footer>';
 		
 		echo $html;
