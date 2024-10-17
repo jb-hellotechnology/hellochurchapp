@@ -22,9 +22,5 @@ perch_layout('header');
 		</header>
 		<?php hello_church_form('add_note.html'); ?>
 	</section>
-	<div class="panel flow">
-		<h3>More Options</h3>
-		<p><a href="/contacts/delete-note?id=<?= perch_get('id') ?>&noteID=<?= perch_get('noteID') ?>" class="warning">Delete note</a></p>
-	</div>
 </main>
 <?php perch_layout('footer'); ?>
