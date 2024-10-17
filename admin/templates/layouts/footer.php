@@ -58,6 +58,19 @@
 			$('.results').hide();
 		}
 	}
+	function searchContacts(){
+		let pQ = $('#q').val();
+		let pID = $('#q').data('group-id');
+		if(pQ.length>3){
+			$.get( "/process/search-contacts", { q: pQ, groupID: pID }, function( data ) {
+				if(data){
+					$('.results').html(data).show();
+				}
+			});
+		}else{
+			$('.results').hide();
+		}
+	}
 	$('input').blur(function(){
 		$('.results').delay(1000).fadeOut();
 	});

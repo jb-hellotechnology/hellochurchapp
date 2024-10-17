@@ -1,0 +1,33 @@
+<perch:form id="create_group" method="post" app="hello_church">
+
+	<article class="flow">
+		<perch:success>
+			<article class="flow">
+				<p class="alert success">Group created.</p>
+			</article>
+			<footer>
+				<a class="button primary" href="/groups">Groups</a>
+			</footer>
+		</perch:success>
+		<div>
+			<perch:label for="groupName">Group name</perch:label>
+			<perch:input type="text" id="groupName" required="true" label="Group Name" />
+			<perch:error for="groupName" type="required"><p class="help error">Please add a your group's name</p></perch:error>
+		</div>
+		<div>
+			<perch:label for="groupDescription">Group Description</perch:label>
+			<perch:input type="textarea" class="redactor" id="groupDescription" label="Group Description" />
+		</div>
+		<div>
+			<perch:label for="groupDescription">Auto Add Contacts by Tag</perch:label>
+			<perch:input type="text" class="tagify" id="groupAutoAdd" label="Group Auto Add" />
+		</div>
+	</article>
+
+	<footer>
+		<perch:input type="hidden" value="<perch:forms id="memberID">" name="memberID" />
+		<perch:input type="hidden" value="<perch:forms id="churchID">" name="churchID" />
+		<perch:input type="submit" value="Save" class="button primary" />
+	</footer>
+
+</perch:form>

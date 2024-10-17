@@ -329,6 +329,7 @@ error_reporting(E_ALL);
         $HelloChurchChurches = new HelloChurch_Churches($API);
         $HelloChurchContacts = new HelloChurch_Contacts($API);
         $HelloChurchContactNotes = new HelloChurch_Contact_Notes($API);
+        $HelloChurchGroups = new HelloChurch_Groups($API);
         
         $Template = $API->get('Template');
         $Template->set(PerchUtil::file_path('hellochurch/forms/'.$template), 'forms');
@@ -372,6 +373,16 @@ error_reporting(E_ALL);
 	
 			$data['noteID'] = $_GET['noteID'];
 			$data['id'] = $_GET['id'];
+			
+		}elseif($template == 'create_group.html'){
+	
+			$churchData = $HelloChurchChurches->church($Session->get('memberID'));
+			$data['churchID'] = $churchData['churchID'];
+			$data['memberID'] = $Session->get('memberID');
+			
+		}elseif($template == 'update_group.html'){
+
+			$data = $HelloChurchGroups->group($_GET['id']);
 			
 		}
 		
@@ -555,6 +566,8 @@ error_reporting(E_ALL);
 	    $HelloChurchContacts = new HelloChurch_Contacts($API); 
 	    $HelloChurchContactNote = new HelloChurch_Contact_Note($API);
 	    $HelloChurchContactNotes = new HelloChurch_Contact_Notes($API); 
+	    $HelloChurchGroup = new HelloChurch_Group($API);
+	    $HelloChurchGroups = new HelloChurch_Groups($API);
 	    
 	    $Session = PerchMembers_Session::fetch();
 
@@ -713,9 +726,168 @@ error_reporting(E_ALL);
 	            $note = $HelloChurchContactNotes->find($SubmittedForm->data['noteID']);
 		        $note->delete();
             break;
+            case 'create_group':
+	            $data = $SubmittedForm->data;
+		        $group = $HelloChurchGroups->create($data);
+            break;
+            case 'update_group':
+	            $group = $HelloChurchGroups->find($SubmittedForm->data['groupID']);
+		        $group->update($SubmittedForm->data);
+            break;
+            case 'delete_group':
+	            $group = $HelloChurchGroups->find($SubmittedForm->data['groupID']);
+				$HelloChurchGroups->remove_all_members($Session->get('memberID'), $SubmittedForm->data['groupID']);
+		        $group->delete();
+            break;
         }
     	
     	// access logged errors
 	    $Perch = Perch::fetch();
 	    $form_errors = $Perch->get_form_errors($SubmittedForm->formID);
+    }
+    
+    function hello_church_groups(){
+		
+		$API  = new PerchAPI(1.0, 'hello_church');
+		$HelloChurchGroups = new HelloChurch_Groups($API);
+		$HelloChurchChurches = new HelloChurch_Churches($API);
+		
+		$Session = PerchMembers_Session::fetch();
+		
+		$church = $HelloChurchChurches->church($Session->get('memberID'));
+		
+		$html = '';
+		
+		if($church){
+
+			$groups = $HelloChurchGroups->groups($Session->get('memberID'), $church['churchID']);
+			
+			if($groups){
+				
+				$html .= '<p class="section-heading">All Groups</p>';
+				
+				$html .= '
+					<ul class="list">';
+				
+				foreach($groups as $group){
+					$description = substr(strip_tags($group['groupDescription']), 0, 50);
+					$html .= '<li><h3>'.$group['groupName'].'</h3><p>'.$description.'&hellip;</p> <a href="/groups/edit-group?id='.$group['groupID'].'" class="button secondary small">View</a></li>';
+				}
+				
+				$html .= '
+					</ul>';
+				
+			}else{
+				$html .= '<p class="alert warning">No groups.</p>';
+			}
+			
+			
+		}else{
+			$html .= '<article class="flow"><p class="alert warning">No church defined - please contact support.</p></article>';
+		}
+		
+		echo $html;
+		
+	}
+	
+	function hello_church_group_owner($groupID){
+		
+		$API  = new PerchAPI(1.0, 'hello_church');
+		$HelloChurchGroups = new HelloChurch_Groups($API);
+		
+		$Session = PerchMembers_Session::fetch();
+		
+		$owner = $HelloChurchGroups->check_owner($Session->get('memberID'), $groupID);
+		if($owner==1){
+		    return true;
+	    }else{
+		    return false;
+	    }
+		
+	}
+	
+	function process_search_members($q, $groupID){
+	    
+	    $API  = new PerchAPI(1.0, 'hello_church');
+
+        $HelloChurchContacts = new HelloChurch_Contacts($API);
+        
+		$Session = PerchMembers_Session::fetch();
+		
+		$contacts = $HelloChurchContacts->search_members($Session->get('memberID'), $q);
+		
+		foreach($contacts as $contact){
+			echo '
+			<form method="post" action="/process/add-group-member">
+				<label>'.$contact['contactFirstName'].' '.$contact['contactLastName'].'</label>
+				<input type="hidden" name="groupID" value="'.$groupID.'" />
+				<input type="hidden" name="contactID" value="'.$contact['contactID'].'" />
+				<input type="submit" class="button primary small" value="Add Member" />
+			</form>';
+		}
+	    
+    }
+    
+    function process_add_group_member($groupID, $contactID){
+	    
+	    $API  = new PerchAPI(1.0, 'hello_church');
+
+        $HelloChurchGroups = new HelloChurch_Groups($API);
+        $HelloChurchChurches = new HelloChurch_Churches($API);
+        
+        $Session = PerchMembers_Session::fetch();
+        
+        $church = $HelloChurchChurches->church($Session->get('memberID'));
+
+	    $HelloChurchGroups->add_group_member($Session->get('memberID'), $church['churchID'], $groupID, $contactID);
+	    
+    }
+    
+    function process_remove_group_member($groupID, $contactID){
+	    
+	    $API  = new PerchAPI(1.0, 'hello_church');
+
+        $HelloChurchGroups = new HelloChurch_Groups($API);
+
+	    $HelloChurchGroups->remove_group_member($groupID, $contactID);
+	    
+    }
+	
+	function hello_church_group_members($groupID){
+	    
+	    $API  = new PerchAPI(1.0, 'hello_church');
+        
+        $HelloChurchGroups = new HelloChurch_Groups($API);
+        
+		$Session = PerchMembers_Session::fetch();
+		
+		$group = $HelloChurchGroups->group_members($Session->get('memberID'), $groupID);
+		
+		if(count($group)>0){
+		
+			$html = '<ul class="cards">';
+			
+			foreach($group as $member){
+				$html .= '
+				<li class="flow">
+					<span class="material-symbols-outlined">person</span>
+					<h3><a href="/contacts/edit-contact?id='.$member['contactID'].'">'.$member['contactFirstName'].' '.$member['contactLastName'].'</a></h3>
+					<p><a class="button secondary small" href="/contacts/edit-contact?id='.$member['contactID'].'">View</a></p>
+					<form method="post" action="/process/remove-group-member">
+						<input type="hidden" name="groupID" value="'.$member['groupID'].'" />
+						<input type="hidden" name="contactID" value="'.$member['contactID'].'" />
+						<input type="hidden" name="primary" value="'.$contactID.'" />
+						<input type="submit" class="button border danger small" value="Unlink" />
+					</form>
+				</li>';
+			}
+			
+			$html .= '</ul>';
+		
+		}else{
+			$html = '<p class="alert">No group members defined.</p>';
+		}
+		
+		echo $html;
+	    
     }

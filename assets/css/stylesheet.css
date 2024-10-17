@@ -761,6 +761,7 @@ section header div .results input[type=submit]{
 
 section p.section-heading{
 	font-size:80%;
+	margin-bottom:1rem;
 }
 
 section footer{
@@ -1085,7 +1086,7 @@ ul.cards{
 	margin:0;
 	width:100%;
 	display:grid;
-	grid-template-columns: minmax(160px, 400px) minmax(160px, 400px);
+	grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
 	grid-column-gap: 1rem;
 	grid-row-gap: 1rem;
 }
@@ -1098,7 +1099,8 @@ ul.cards li{
 	text-align: center;
 }
 
-ul.cards li h3{
+ul.cards li h3,
+ul.cards li p{
 	max-width: 100%;
 }
 
@@ -1119,9 +1121,7 @@ ul.cards li .button{
 }
 
 @media screen and (max-width:600px){
-	ul.cards{
-		grid-template-columns: 1fr;	
-	}
+
 }
 
 /* LISTS */
@@ -1149,6 +1149,11 @@ ul.list li *{
 
 ul.list li:last-child{
 	margin-bottom:0;
+}
+
+ul.list li h3{
+	font-size:var(--size-step-0);
+	font-weight:700;
 }
 
 @media screen and (max-width:600px){

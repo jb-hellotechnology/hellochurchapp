@@ -245,4 +245,15 @@ class HelloChurch_Contacts extends PerchAPI_Factory
 	    $result = $this->db->execute($sql);
 		
 	}
+	
+	public function search_members($memberID, $q){
+		
+		$API  = new PerchAPI(1.0, 'hello_church');
+
+		$sql = 'SELECT * FROM perch3_hellochurch_contacts WHERE (contactLastName LIKE "%'.$q.'%" OR contactFirstName LIKE "%'.$q.'%") AND memberID="'.$memberID.'"';
+	    $result = $this->db->get_rows($sql);
+	    
+	    return $result;
+		
+	}
 }
