@@ -1,5 +1,6 @@
 	<script src="/assets/js/jquery.3.7.1.min.js"></script>
 	<script src="/assets/js/tagify/tagify.js"></script>
+	<script src="/assets/js/fullcalendar/dist/index.global.min.js"></script>
 	<script>
 	$('button.menu').click(function(){
 		$('.main-nav-container').toggleClass('show');

@@ -75,6 +75,16 @@
 		}
 	}
 	
+	function perch_member_has_church(){
+		$API  = new PerchAPI(1.0, 'perch_members');
+		$Session = PerchMembers_Session::fetch();
+		if($Session->get('churchID')){
+			return true;
+		}else{
+			return false;
+		}
+	}
+	
 	function perch_members_refresh_session_data(){
 		$API  = new PerchAPI(1.0, 'perch_members');
 		$Members = new PerchMembers_Members($API);

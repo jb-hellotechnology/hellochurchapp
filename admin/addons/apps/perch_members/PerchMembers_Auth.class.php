@@ -118,8 +118,17 @@ class PerchMembers_Auth extends PerchAPI_Factory
 
 				unset($user_row['memberProperties']);
 			}
+			
+			$sql = 'SELECT * FROM '.PERCH_DB_PREFIX.'hellochurch_churches WHERE memberID="'.$memberID.'" LIMIT 1';
+			$row = $this->db->get_row($sql);
+			if($row){
+				$churchID = $row['churchID'];
+			}else{
+				$churchID = 0;
+			}
 
 			$session_data = $user_row;
+			$session_data['churchID'] = $churchID;
 
 			$session_data['tags'] = $this->_load_tags($memberID);
 			$session_data['token'] = $this->_generate_csrf_token($session_id);
@@ -135,6 +144,7 @@ class PerchMembers_Auth extends PerchAPI_Factory
 			'sessionExpires'       => date('Y-m-d H:i:s', strtotime(' + '.PERCH_MEMBERS_SESSION_TIME)),
 			'sessionHttpFootprint' => $http_footprint,
 			'memberID'             => $memberID,
+			'churchID'			   => $churchID,
 			#'sessionData'          => serialize($session_data)
 			'sessionData'          => PerchUtil::json_safe_encode($session_data)
 			);

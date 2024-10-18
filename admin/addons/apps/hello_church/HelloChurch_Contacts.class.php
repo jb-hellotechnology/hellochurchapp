@@ -218,6 +218,7 @@ class HelloChurch_Contacts extends PerchAPI_Factory
 		LEFT JOIN perch3_hellochurch_contacts_families r ON c.contactID = r.contactID
 		WHERE (c.contactLastName LIKE "%'.$q.'%" OR c.contactFirstName LIKE "%'.$q.'%")
 		  AND r.contactID IS NULL 
+		  AND c.memberID = '.$memberID.' 
 		  AND c.contactID != '.$contactID;
 	    $result = $this->db->get_rows($sql);
 	    

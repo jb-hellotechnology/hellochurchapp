@@ -1,0 +1,49 @@
+<perch:form id="create_event" method="post" app="hello_church">
+
+	<article class="flow">
+		<perch:success>
+			<article class="flow">
+				<p class="alert success">Event created.</p>
+			</article>
+			<footer>
+				<a class="button primary" href="/calendar">Calendar</a>
+			</footer>
+		</perch:success>
+		<div>
+			<perch:label for="eventName">Event Name</perch:label>
+			<perch:input type="text" id="eventName" required="true" label="Event Name" />
+			<perch:error for="eventName" type="required"><p class="help error">Please add a your event's name</p></perch:error>
+		</div>
+		<div>
+			<perch:label for="eventDescription">Event Description</perch:label>
+			<perch:input type="textarea" class="redactor" id="eventDescription" label="Event Description" />
+		</div>
+		<div>
+			<perch:label for="allDay">All Day Event?</perch:label>
+			<perch:input type="select" options="No|false,Yes|true" id="allDay" label="All Day" />
+		</div>
+		<div>
+			<perch:label for="start">Start</perch:label>
+			<perch:input type="datetime-local" id="start" required="true" label="Start" />
+		</div>
+		<div>
+			<perch:label for="end">End</perch:label>
+			<perch:input type="datetime-local" id="end" required="true" label="End" />
+		</div>
+		<div>
+			<perch:label for="repeatEvent">Repeat</perch:label>
+			<perch:input type="select" options="None|,Daily|daily,Weekdays|weekdays,Weekly|weekly" id="repeatEvent" label="Repeat" />
+		</div>
+		<div>
+			<perch:label for="repeatEnd">Repeat Until</perch:label>
+			<perch:input type="date" id="repeatEnd" label="Repeat Until" />
+		</div>
+	</article>
+
+	<footer>
+		<perch:input type="hidden" value="<perch:forms id="memberID">" name="memberID" />
+		<perch:input type="hidden" value="<perch:forms id="churchID">" name="churchID" />
+		<perch:input type="submit" value="Save" class="button primary" />
+	</footer>
+
+</perch:form>

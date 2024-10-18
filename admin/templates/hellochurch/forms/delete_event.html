@@ -1,0 +1,23 @@
+<perch:form id="delete_event" method="post" app="hello_church" action="/calendar?msg=event_deleted">
+
+	<article class="flow">
+		<perch:success>
+			<article class="flow">
+				<p class="alert success">Event deleted.</p>
+			</article>
+			<footer>
+				<a class="button primary" href="/calendar">Calendar</a>
+			</footer>
+		</perch:success>
+		<div>
+			<p><strong>This is permanent and cannot be un-done.</strong></p>
+			<p>By clicking the button below you will be deleting <strong><perch:forms id="eventName" /></strong> from your account.</p>
+		</div>
+	</article>
+
+	<footer>
+		<perch:input type="hidden" value="<perch:forms id="eventID">" name="eventID" />
+		<perch:input type="submit" value="Delete Event" class="button danger" />
+	</footer>
+
+</perch:form>

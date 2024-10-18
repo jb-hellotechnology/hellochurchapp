@@ -1170,3 +1170,21 @@ ul.list li h3{
 	border:1px solid var(--color-light-grey);
 	background:var(--color-light);
 }
+
+/* CALENDAR */
+#calendar a{
+	border-bottom: none;
+}
+
+@media screen and (max-width:700px){
+	#calendar .fc-toolbar-chunk h2{
+		display:none;
+	}
+}
+
+@media screen and (max-width:480px){
+	#calendar .fc-toolbar-chunk .fc-button-group button{
+		padding:5px !important;
+		line-height:1;
+	}
+}

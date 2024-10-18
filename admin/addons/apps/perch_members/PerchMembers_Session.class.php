@@ -49,6 +49,7 @@ class PerchMembers_Session
 			case 'expires': $property = 'memberExpires'; 	break;
 			case 'auth_id': $property = 'memberAuthID'; 	break;
 			case 'id': 		$property = 'memberID'; 		break;
+			case 'churchID': 		$property = 'churchID'; 		break;
 		}
 
 		return $property;

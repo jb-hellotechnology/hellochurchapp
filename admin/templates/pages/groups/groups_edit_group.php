@@ -11,10 +11,14 @@ if(!hello_church_group_owner(perch_get('id'))){
 	header("location:/");
 }
 
+$name = hello_church_group_get(perch_get('id'), 'groupName');
+$description = hello_church_group_get(perch_get('id'), 'groupDescription');
+
 perch_layout('header');
 ?>
 <main class="flow">
-	<h1>Edit a Group</h1>
+	<h1><?= $name ?></h1>
+	<?= $description ?>
 	<section>
 		<header>
 			<h2>Members</h2>
@@ -38,5 +42,9 @@ perch_layout('header');
 		</header>
 		<?php hello_church_form('update_group.html'); ?>
 	</section>
+	<div class="panel flow">
+		<h3>More Options</h3>
+		<p><a href="/groups/delete-group/?id=<?= perch_get('id') ?>" class="warning">Delete group</a></p>
+	</div>
 </main>
 <?php perch_layout('footer'); ?>

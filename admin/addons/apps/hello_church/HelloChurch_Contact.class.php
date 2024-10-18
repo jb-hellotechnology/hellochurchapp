@@ -36,6 +36,34 @@ class HelloChurch_Contact extends PerchAPI_Base
 	     
     }
     
+    public function update_groups($contactID, $data){
+		
+		$API  = new PerchAPI(1.0, 'hello_church');
+		
+		$groupID = $data['groupID'];
+		$memberID = $data['memberID'];
+		$churchID = $data['churchID'];
+		$tags = json_decode($data['contactTags'], true);
+		
+		$sql = "DELETE FROM perch3_hellochurch_groups_members WHERE contactID='".$contactID."' AND memberID='".$memberID."' AND method='auto'";
+		$results = $this->db->execute($sql);
+		
+		foreach($tags as $tag){
+			
+			// FIND MEMBERS WITH TAG
+			$sql = "SELECT * FROM perch3_hellochurch_groups_tags WHERE tag='".$tag['value']."' AND churchID='".$churchID."' AND memberID='".$memberID."'";
+			$results = $this->db->get_rows($sql);
+			
+			// ADD MEMBERS TO GROUP
+			foreach($results as $group){
+				$sql = "INSERT INTO perch3_hellochurch_groups_members (memberID, churchID, groupID, contactID, method) VALUES ('".$memberID."', '".$churchID."', '".$group['groupID']."', '".$contactID."', 'auto')";
+				$results = $this->db->execute($sql);
+			}
+			
+		}
+		   
+	}
+    
     public function delete_tags($contactID, $data){
 	    
 	    $API  = new PerchAPI(1.0, 'hello_church');

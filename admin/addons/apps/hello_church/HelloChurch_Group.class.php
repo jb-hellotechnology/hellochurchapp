@@ -7,4 +7,56 @@ class HelloChurch_Group extends PerchAPI_Base
 
     public $static_fields = array('groupID', 'churchID', 'memberID', 'groupName', 'groupDescription', 'groupAutoAdd', 'groupProperites');
 
+	public function update_tags($data){
+		
+		$API  = new PerchAPI(1.0, 'hello_church');
+		
+		$groupID = $data['groupID'];
+		
+		$sql = "DELETE FROM perch3_hellochurch_groups_tags WHERE groupID='".$groupID."'";
+	    $results = $this->db->execute($sql);
+	    $tags = json_decode($data['groupAutoAdd'], true);
+	    
+	    if($tags){
+		    foreach($tags as $tag){
+			    if($tag<>''){
+				    $sql = "INSERT INTO perch3_hellochurch_groups_tags (memberID, churchID, groupID, tag) VALUES 
+				    ('".$data['memberID']."', '".$data['churchID']."', '".$groupID."', '".strtolower($tag['value'])."')";
+					$results = $this->db->execute($sql);
+				}
+		    }
+		}
+		
+	}
+	
+	public function update_members($groupID, $data){
+		
+		$API  = new PerchAPI(1.0, 'hello_church');
+		
+		if(!$groupID){
+			$groupID = $data['groupID'];
+		}
+		$memberID = $data['memberID'];
+		$churchID = $data['churchID'];
+		$tags = json_decode($data['groupAutoAdd'], true);
+		
+		$sql = "DELETE FROM perch3_hellochurch_groups_members WHERE groupID='".$groupID."' AND memberID='".$memberID."' AND method='auto'";
+		$results = $this->db->execute($sql);
+		
+		foreach($tags as $tag){
+			
+			// FIND MEMBERS WITH TAG
+			$sql = "SELECT * FROM perch3_hellochurch_contacts_tags WHERE tag='".$tag['value']."' AND churchID='".$churchID."' AND memberID='".$memberID."'";
+			$results = $this->db->get_rows($sql);
+			
+			// ADD MEMBERS TO GROUP
+			foreach($results as $contact){
+				$sql = "INSERT INTO perch3_hellochurch_groups_members (memberID, churchID, groupID, contactID, method) VALUES ('".$memberID."', '".$churchID."', '".$groupID."', '".$contact['contactID']."', 'auto')";
+				$results = $this->db->execute($sql);
+			}
+			
+		}
+		
+	}
+
 }

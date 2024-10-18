@@ -79,7 +79,7 @@ class HelloChurch_Groups extends PerchAPI_Factory
 	    $results = $this->db->get_rows($sql);
 	    
 	    if(count($results)==0){
-		    $sql = "INSERT INTO perch3_hellochurch_groups_members (memberID, churchID, groupID, contactID) VALUES ('".$memberID."', '".$churchID."', '".$groupID."', '".$contactID."')";
+		    $sql = "INSERT INTO perch3_hellochurch_groups_members (memberID, churchID, groupID, contactID, method) VALUES ('".$memberID."', '".$churchID."', '".$groupID."', '".$contactID."', 'manual')";
 			$results = $this->db->execute($sql);
 	    }
 	    
@@ -103,6 +103,16 @@ class HelloChurch_Groups extends PerchAPI_Factory
 	    
 	    return $results;
 		
+	}
+	
+	public function by_contactID($contactID){
+	    
+	    $API  = new PerchAPI(1.0, 'hello_church');
+		
+		$sql = "SELECT perch3_hellochurch_groups.*, perch3_hellochurch_groups_members.* FROM perch3_hellochurch_groups, perch3_hellochurch_groups_members WHERE perch3_hellochurch_groups_members.contactID='".$contactID."' AND perch3_hellochurch_groups.groupID=perch3_hellochurch_groups_members.groupID";
+	    $results = $this->db->get_rows($sql);
+	    return $results;
+
 	}
 
 }

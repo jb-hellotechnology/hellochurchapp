@@ -1,0 +1,24 @@
+<perch:form id="delete_group" method="post" app="hello_church" action="/groups/?msg=group_deleted">
+
+	<article class="flow">
+		<perch:success>
+			<article class="flow">
+				<p class="alert success">Group deleted.</p>
+			</article>
+			<footer>
+				<a class="button primary" href="/groups">Groups</a>
+			</footer>
+		</perch:success>
+		<div>
+			<p><strong>This is permanent and cannot be un-done.</strong></p>
+			<p>By clicking the button below you will be deleting <strong><perch:forms id="groupName" /></strong> from your account.</p>
+			<p>Deleting a group does not delete the contacts.</p>
+		</div>
+	</article>
+
+	<footer>
+		<perch:input type="hidden" value="<perch:forms id="groupID">" name="groupID" />
+		<perch:input type="submit" value="Delete Group" class="button danger" />
+	</footer>
+
+</perch:form>

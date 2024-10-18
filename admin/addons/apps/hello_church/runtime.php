@@ -12,6 +12,14 @@ error_reporting(E_ALL);
         }
         return false;
     });
+    
+    spl_autoload_register(function($class_name){
+        if (strpos($class_name, 'PerchMembers')===0) {
+            include(__DIR__.'/'.$class_name.'.class.php');
+            return true;
+        }
+        return false;
+    });
 
     PerchSystem::register_template_handler('HelloChurch_Template');
 
@@ -22,7 +30,7 @@ error_reporting(E_ALL);
 		
 		$Session = PerchMembers_Session::fetch();
 		
-		$church = $HelloChurchChurches->church($Session->get('memberID'));
+		$church = $HelloChurchChurches->church($Session->get('churchID'));
 		if($church){
 			return true;
 		}else{
@@ -64,6 +72,16 @@ error_reporting(E_ALL);
 	    }
 	}
 	
+	function hello_church_contact_get($id, $field){
+		
+		$API  = new PerchAPI(1.0, 'hello_church');
+		$HelloChurchContacts = new HelloChurch_Contacts($API);
+		
+		$contact = $HelloChurchContacts->find($id);
+		return $contact->$field();
+		
+	}
+	
 	function hello_church_contacts($tag, $q, $page){
 		
 		$API  = new PerchAPI(1.0, 'hello_church');
@@ -72,15 +90,15 @@ error_reporting(E_ALL);
 		
 		$Session = PerchMembers_Session::fetch();
 		
-		$church = $HelloChurchChurches->church($Session->get('memberID'));
+		$churchID = $Session->get('churchID');
 		
 		$html = '';
 		
-		if($church){
+		if($churchID){
 			
-			$totalContacts = $HelloChurchContacts->totalContacts($Session->get('memberID'), $church['churchID'], $tag, $q);
+			$totalContacts = $HelloChurchContacts->totalContacts($Session->get('memberID'), $churchID, $tag, $q);
 			$pages = ceil($totalContacts/25);
-			$contacts = $HelloChurchContacts->contacts($Session->get('memberID'), $church['churchID'], $tag, $q, $page);
+			$contacts = $HelloChurchContacts->contacts($Session->get('memberID'), $churchID, $tag, $q, $page);
 			
 			if($contacts){
 				
@@ -196,13 +214,13 @@ error_reporting(E_ALL);
 		
 		$Session = PerchMembers_Session::fetch();
 		
-		$church = $HelloChurchChurches->church($Session->get('memberID'));
+		$churchID = $Session->get('churchID');
 		
 		$html = '';
 		
-		if($church){
+		if($churchID){
 			
-			$contacts = $HelloChurchContacts->recent_contacts($Session->get('memberID'), $church['churchID']);
+			$contacts = $HelloChurchContacts->recent_contacts($Session->get('memberID'), $churchID);
 			
 			if($contacts){
 				
@@ -330,24 +348,26 @@ error_reporting(E_ALL);
         $HelloChurchContacts = new HelloChurch_Contacts($API);
         $HelloChurchContactNotes = new HelloChurch_Contact_Notes($API);
         $HelloChurchGroups = new HelloChurch_Groups($API);
+        $HelloChurchEvents = new HelloChurch_Events($API);
         
         $Template = $API->get('Template');
         $Template->set(PerchUtil::file_path('hellochurch/forms/'.$template), 'forms');
 		
 		$Session = PerchMembers_Session::fetch();
 		
-		if($template == 'church.html'){
+		$data['churchID'] = $Session->get('churchID');
+		$data['memberID'] = $Session->get('memberID');
+		
+		if($template == 'create_church.html'){
 
 			$data['memberID'] = $Session->get('memberID');
 			$data['email'] = perch_member_get('email');
 		
 		}elseif($template == 'update_church.html'){
-			
-			$data = $HelloChurchChurches->church($Session->get('memberID'));
+
 			
 		}elseif($template == 'create_contact.html'){
 			
-			$data = $HelloChurchChurches->church($Session->get('memberID'));
 			
 		}elseif($template == 'update_contact.html'){
 			
@@ -361,8 +381,7 @@ error_reporting(E_ALL);
 			
 			
 		}elseif($template == 'add_note.html'){
-			
-			$data = $HelloChurchChurches->church($Session->get('memberID'));
+
 			$data['contactID'] = $_GET['id'];
 			
 		}elseif($template == 'update_note.html'){
@@ -375,14 +394,26 @@ error_reporting(E_ALL);
 			$data['id'] = $_GET['id'];
 			
 		}elseif($template == 'create_group.html'){
-	
-			$churchData = $HelloChurchChurches->church($Session->get('memberID'));
-			$data['churchID'] = $churchData['churchID'];
-			$data['memberID'] = $Session->get('memberID');
+
 			
 		}elseif($template == 'update_group.html'){
 
 			$data = $HelloChurchGroups->group($_GET['id']);
+			
+		}elseif($template == 'delete_group.html'){
+			
+			$data['groupID'] = $_GET['id'];
+			
+		}elseif($template == 'create_event.html'){
+
+			
+		}elseif($template == 'update_event.html'){
+
+			$data = $HelloChurchEvents->event($_GET['id']);
+			
+		}elseif($template == 'delete_event.html'){
+			
+			$data['eventID'] = $_GET['id'];
 			
 		}
 		
@@ -402,7 +433,7 @@ error_reporting(E_ALL);
         
 		$Session = PerchMembers_Session::fetch();
 		
-		$church = $HelloChurchChurches->church($Session->get('memberID'));
+		$church = $HelloChurchChurches->church($Session->get('churchID'));
 		$HelloChurchContacts->tag_options($church['churchID'], $tag);
 	    
     }
@@ -556,10 +587,36 @@ error_reporting(E_ALL);
 	    
     }
     
+    function hello_church_contact_groups($contactID){
+	    
+	    $API  = new PerchAPI(1.0, 'hello_church');
+
+        $HelloChurchGroups = new HelloChurch_Groups($API);
+
+        $groups = $HelloChurchGroups->by_contactID($contactID);
+
+		echo '<article>
+				<ul class="list">';
+        
+        foreach($groups as $group){
+	        $description = substr(strip_tags($group['groupDescription']), 0, 50);
+	        echo '<li>
+			        <h3>'.$group['groupName'].'</h3>
+					<p>'.$description.'</p>
+					<a href="/groups/edit-group?id='.$group['groupID'].'" class="button secondary small">View</a>
+				</li>';
+        }
+
+        echo '</ul>
+        	</article>';
+	    
+    }
+    
     function hello_church_form_handler($SubmittedForm) {
 	    
 	    $API  = new PerchAPI(1.0, 'hello_church');
 	    
+	    $PerchMembers_Auth = new PerchMembers_Auth($API);
 	    $HelloChurchChurch = new HelloChurch_Church($API);
 	    $HelloChurchChurches = new HelloChurch_Churches($API); 
 	    $HelloChurchContact = new HelloChurch_Contact($API);
@@ -568,6 +625,8 @@ error_reporting(E_ALL);
 	    $HelloChurchContactNotes = new HelloChurch_Contact_Notes($API); 
 	    $HelloChurchGroup = new HelloChurch_Group($API);
 	    $HelloChurchGroups = new HelloChurch_Groups($API);
+	    $HelloChurchEvent = new HelloChurch_Event($API);
+	    $HelloChurchEvents = new HelloChurch_Events($API);
 	    
 	    $Session = PerchMembers_Session::fetch();
 
@@ -601,6 +660,7 @@ error_reporting(E_ALL);
 		            $data['contactProperties'] = '';
 	            	$contact = $HelloChurchContacts->create($data);
 	            	$contact->update_tags($contact->id(), $data);
+	            	$contact->update_groups($contact->id(), $data);
 	            } 
             break;
             case 'update_contact':
@@ -618,6 +678,7 @@ error_reporting(E_ALL);
 		            }
 		            $contact->update($data);
 		            $contact->update_tags($contact->id(), $data);
+		            $contact->update_groups($contact->id(), $data);
 	            } 
             break;
             case 'delete_contact':
@@ -626,7 +687,7 @@ error_reporting(E_ALL);
 		        $contact->delete(); 
             break;
             case 'export_contacts':
-		        $church = $HelloChurchChurches->church($Session->get('memberID'));
+		        $church = $HelloChurchChurches->church($Session->get('churchID'));
 				$data = $HelloChurchContacts->export($Session->get('memberID'), $church['churchID']); 
             break;
             case 'import_contacts':
@@ -665,7 +726,7 @@ error_reporting(E_ALL);
 
 						$file = fopen($target_file,"r");
 						
-						$church = $HelloChurchChurches->church($Session->get('memberID'));
+						$church = $HelloChurchChurches->church($Session->get('churchID'));
 
 						while (($data = fgetcsv($file)) !== FALSE)
 						{
@@ -729,15 +790,31 @@ error_reporting(E_ALL);
             case 'create_group':
 	            $data = $SubmittedForm->data;
 		        $group = $HelloChurchGroups->create($data);
+		        $group->update_tags($data);
+		        $group->update_members($group->id(), $data);
             break;
             case 'update_group':
 	            $group = $HelloChurchGroups->find($SubmittedForm->data['groupID']);
 		        $group->update($SubmittedForm->data);
+		        $group->update_tags($SubmittedForm->data);
+		        $group->update_members($group->id(), $SubmittedForm->data);
             break;
             case 'delete_group':
 	            $group = $HelloChurchGroups->find($SubmittedForm->data['groupID']);
 				$HelloChurchGroups->remove_all_members($Session->get('memberID'), $SubmittedForm->data['groupID']);
 		        $group->delete();
+            break;
+            case 'create_event':
+	            $data = $SubmittedForm->data;
+		        $note = $HelloChurchEvents->create($data);
+            break;
+            case 'update_event':
+	            $event = $HelloChurchEvents->find($SubmittedForm->data['eventID']);
+		        $event->update($SubmittedForm->data);
+            break;
+            case 'delete_event':
+	            $event = $HelloChurchEvents->find($SubmittedForm->data['eventID']);
+		        $event->delete();
             break;
         }
     	
@@ -754,13 +831,13 @@ error_reporting(E_ALL);
 		
 		$Session = PerchMembers_Session::fetch();
 		
-		$church = $HelloChurchChurches->church($Session->get('memberID'));
+		$churchID = $Session->get('churchID');
 		
 		$html = '';
 		
-		if($church){
+		if($churchID){
 
-			$groups = $HelloChurchGroups->groups($Session->get('memberID'), $church['churchID']);
+			$groups = $HelloChurchGroups->groups($Session->get('memberID'), $churchID);
 			
 			if($groups){
 				
@@ -837,9 +914,9 @@ error_reporting(E_ALL);
         
         $Session = PerchMembers_Session::fetch();
         
-        $church = $HelloChurchChurches->church($Session->get('memberID'));
+        $churchID = $Session->get('churchID');
 
-	    $HelloChurchGroups->add_group_member($Session->get('memberID'), $church['churchID'], $groupID, $contactID);
+	    $HelloChurchGroups->add_group_member($Session->get('memberID'), $churchID, $groupID, $contactID);
 	    
     }
     
@@ -877,7 +954,7 @@ error_reporting(E_ALL);
 						<input type="hidden" name="groupID" value="'.$member['groupID'].'" />
 						<input type="hidden" name="contactID" value="'.$member['contactID'].'" />
 						<input type="hidden" name="primary" value="'.$contactID.'" />
-						<input type="submit" class="button border danger small" value="Unlink" />
+						<input type="submit" class="button border danger small" value="Remove" />
 					</form>
 				</li>';
 			}
@@ -891,3 +968,123 @@ error_reporting(E_ALL);
 		echo $html;
 	    
     }
+    
+    function hello_church_group_get($id, $field){
+		
+		$API  = new PerchAPI(1.0, 'hello_church');
+		$HelloChurchGroups = new HelloChurch_Groups($API);
+		
+		$group = $HelloChurchGroups->find($id);
+		return $group->$field();
+		
+	}
+	
+	function hello_church_calendar(){
+		
+		$API  = new PerchAPI(1.0, 'hello_church');
+		$HelloChurchEvents = new HelloChurch_Events($API);
+		
+		$Session = PerchMembers_Session::fetch();
+		$churchID = $Session->get('churchID');
+		
+		$events = $HelloChurchEvents->events($churchID);
+		
+		$eventsHTML .= '
+		events: [';
+		
+		foreach($events as $event){
+
+			$firstDay = date('w', strtotime($event['start']));
+			
+			if($event['repeatEvent']=='daily'){
+				$daysOfWeek = '[0, 1, 2, 3, 4, 5, 6]';
+			}elseif($event['repeatEvent']=='weekdays'){
+				$daysOfWeek = '[1, 2, 3, 4, 5]';
+			}elseif($event['repeatEvent']=='weekly'){
+				$daysOfWeek = '['.$firstDay.']';
+			}
+			
+			$eventsHTML .= '
+			{
+		      title: "'.$event['eventName'].'",
+		      start: "'.$event['start'].'",
+		      end: "'.$event['end'].'",';
+		      
+		      if($event['repeatEvent']<>''){
+			      $pStart = explode(" ", $event['start']);
+			      $pEnd = explode(" ", $event['end']);
+			      $eventsHTML .= '
+			      daysOfWeek: "'.$daysOfWeek.'",
+			      startTime: "'.$pStart[1].'",
+			      endTime: "'.$pEnd[0].'",
+			      startRecur: "'.$event['start'].'",
+			      endRecur: "'.$event['repeatEnd'].' 23:59:59",';
+		      }
+		    $eventsHTML .= '
+		      allDay: '.$event['allDay'].',
+		      url: "/calendar/edit-event?id='.$event['eventID'].'",
+		      displayEventEnd: true
+		    },';
+			
+		}
+		
+		$eventsHTML = substr($eventsHTML, 0, -1);
+		
+		$eventsHTML .= ']';
+		
+		$html .= "<script>
+
+	      document.addEventListener('DOMContentLoaded', function() {
+	        var calendarEl = document.getElementById('calendar');
+	        var calendar = new FullCalendar.Calendar(calendarEl, {
+			  initialView: 'listWeek',
+	          headerToolbar: {
+		        left: 'prev,next today',
+		        center: 'title',
+		        right: 'dayGridMonth,dayGridWeek,listWeek'
+		      },
+		      $eventsHTML,
+		      eventTimeFormat: { // like '14:30:00'
+			    hour: '2-digit',
+			    minute: '2-digit',
+			    meridiem: false,
+			    hour12: false
+			  },
+			  firstDay: 1,
+			  aspectRatio: 2.1	
+	        });
+	        calendar.render();
+	      });
+	    </script>
+	    <div id='calendar'></div>";
+	    
+	    echo $html;
+		
+	}
+	
+	function hello_church_event_owner($eventID){
+		
+		$API  = new PerchAPI(1.0, 'hello_church');
+		$HelloChurchEvents = new HelloChurch_Events($API);
+		
+		$Session = PerchMembers_Session::fetch();
+		
+		$owner = $HelloChurchEvents->check_owner($Session->get('memberID'), $eventID);
+		
+		if($owner==1){
+		    return true;
+	    }else{
+		    return false;
+	    }
+	    
+	}
+	
+	function hello_church_calendar_get($id, $field){
+		
+		$API  = new PerchAPI(1.0, 'hello_church');
+		$HelloChurchEvents = new HelloChurch_Events($API);
+		
+		$event = $HelloChurchEvents->find($id);
+		return $event->$field();
+		
+	}

@@ -5,6 +5,9 @@ if(perch_member_logged_in()){
 	if($customer_id == '' AND $url !== 'Setup Subscription' AND $url !== 'Get Started'){
 		header("location:/subscription");
 	}
+	if(!perch_member_has_church()){
+		perch_members_refresh_session_data();
+	}
 }
 ?>
 <!doctype html>

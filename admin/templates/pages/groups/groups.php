@@ -12,6 +12,9 @@ perch_layout('header');
 	<h1>Groups</h1>
 	<?php
 		// DISPLAY MESSAGES
+		if($_GET['msg']=='group_deleted'){
+			echo '<p class="alert success">Group successfully deleted.</p>';
+		}
 	?>
 	<section>
 		<form method="get" class="search">

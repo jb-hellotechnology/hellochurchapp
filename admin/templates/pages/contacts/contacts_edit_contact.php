@@ -12,9 +12,11 @@ if(!hello_church_member_owner(perch_get('id'))){
 }
 
 perch_layout('header');
+
+$name = hello_church_contact_get(perch_get('id'), 'contactFirstName').' '.hello_church_contact_get(perch_get('id'), 'contactLastName');
 ?>
 <main class="flow full">
-	<h1>Edit a Contact</h1>
+	<h1><?= $name ?></h1>
 	<?php
 		// DISPLAY MESSAGES
 		if($_GET['msg']=='note_deleted'){
@@ -33,6 +35,15 @@ perch_layout('header');
 			</section>
 		</div>
 		<div>
+			<section>
+				<header>
+					<h2>Groups</h2>
+				</header>
+				<?php hello_church_contact_groups(perch_get('id')); ?>
+				<footer>
+					<a href="/groups" class="button primary">Manage Groups</a>
+				</footer>
+			</section>
 			<section>
 				<header>
 					<h2>Family Members</h2>
