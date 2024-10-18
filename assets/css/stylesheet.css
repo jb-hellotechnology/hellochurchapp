@@ -1158,8 +1158,12 @@ ul.list li h3{
 	ul.list li{
 		display:block;
 	}
+	ul.list li *{
+		margin-bottom:1rem;
+	}
 	ul.list li .button{
 		display:inline-block;
+		margin-bottom:0;
 	}
 }
 

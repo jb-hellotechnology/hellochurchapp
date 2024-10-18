@@ -847,8 +847,8 @@ error_reporting(E_ALL);
 					<ul class="list">';
 				
 				foreach($groups as $group){
-					$description = substr(strip_tags($group['groupDescription']), 0, 50);
-					$html .= '<li><h3>'.$group['groupName'].'</h3><p>'.$description.'&hellip;</p> <a href="/groups/edit-group?id='.$group['groupID'].'" class="button secondary small">View</a></li>';
+					$description = strip_tags($group['groupDescription']);
+					$html .= '<li><h3>'.$group['groupName'].'</h3><p>'.$description.'</p> <a href="/groups/edit-group?id='.$group['groupID'].'" class="button secondary small">View</a></li>';
 				}
 				
 				$html .= '
