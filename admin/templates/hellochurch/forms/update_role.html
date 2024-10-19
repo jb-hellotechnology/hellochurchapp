@@ -1,0 +1,25 @@
+<perch:form id="update_role" method="post" app="hello_church" action="/settings/roles/edit-role?id=<perch:forms id="roleID" />">
+
+	<article class="flow">
+		<perch:success show-form="true">
+			<p class="alert success">Role updated.</p>
+		</perch:success>
+		<div>
+			<perch:label for="roleName">Role Name</perch:label>
+			<perch:input type="text" id="roleName" required="true" label="Role Name" />
+			<perch:error for="roleName" type="required"><p class="help error">Please add a your role's name</p></perch:error>
+		</div>
+		<div>
+			<perch:label for="roleDescription">Role Description</perch:label>
+			<perch:input type="textarea" class="redactor" id="roleDescription" label="Role Description" />
+		</div>
+	</article>
+
+	<footer>
+		<perch:input type="hidden" value="<perch:forms id="memberID">" name="memberID" />
+		<perch:input type="hidden" value="<perch:forms id="churchID">" name="churchID" />
+		<perch:input type="hidden" value="<perch:forms id="roleID">" name="roleID" />
+		<perch:input type="submit" value="Save" class="button primary" />
+	</footer>
+
+</perch:form>

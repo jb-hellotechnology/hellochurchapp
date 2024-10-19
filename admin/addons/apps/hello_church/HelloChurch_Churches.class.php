@@ -20,7 +20,7 @@ class HelloChurch_Churches extends PerchAPI_Factory
 	    
 	    $API  = new PerchAPI(1.0, 'hello_church');
 		
-		$sql = "SELECT * FROM perch3_hellochurch_churches WHERE memberID='".$churchID."'";
+		$sql = "SELECT * FROM perch3_hellochurch_churches WHERE churchID='".$churchID."'";
 	    $results = $this->db->get_row($sql);
 	    return $results;
 	    

@@ -349,6 +349,7 @@ error_reporting(E_ALL);
         $HelloChurchContactNotes = new HelloChurch_Contact_Notes($API);
         $HelloChurchGroups = new HelloChurch_Groups($API);
         $HelloChurchEvents = new HelloChurch_Events($API);
+        $HelloChurchRoles = new HelloChurch_Roles($API);
         
         $Template = $API->get('Template');
         $Template->set(PerchUtil::file_path('hellochurch/forms/'.$template), 'forms');
@@ -365,6 +366,7 @@ error_reporting(E_ALL);
 		
 		}elseif($template == 'update_church.html'){
 
+			$data = $HelloChurchChurches->church($Session->get('churchID'));
 			
 		}elseif($template == 'create_contact.html'){
 			
@@ -414,6 +416,17 @@ error_reporting(E_ALL);
 		}elseif($template == 'delete_event.html'){
 			
 			$data['eventID'] = $_GET['id'];
+			
+		}elseif($template == 'create_role.html'){
+
+			
+		}elseif($template == 'update_role.html'){
+
+			$data = $HelloChurchRoles->role($_GET['id']);
+			
+		}elseif($template == 'delete_role.html'){
+			
+			$data['roleID'] = $_GET['id'];
 			
 		}
 		
@@ -627,6 +640,8 @@ error_reporting(E_ALL);
 	    $HelloChurchGroups = new HelloChurch_Groups($API);
 	    $HelloChurchEvent = new HelloChurch_Event($API);
 	    $HelloChurchEvents = new HelloChurch_Events($API);
+	    $HelloChurchRole = new HelloChurch_Role($API);
+	    $HelloChurchRoles = new HelloChurch_Roles($API);
 	    
 	    $Session = PerchMembers_Session::fetch();
 
@@ -815,6 +830,18 @@ error_reporting(E_ALL);
             case 'delete_event':
 	            $event = $HelloChurchEvents->find($SubmittedForm->data['eventID']);
 		        $event->delete();
+            break;
+            case 'create_role':
+	            $data = $SubmittedForm->data;
+		        $role = $HelloChurchRoles->create($data);
+            break;
+            case 'update_role':
+	            $role = $HelloChurchRoles->find($SubmittedForm->data['roleID']);
+		        $role->update($SubmittedForm->data);
+            break;
+            case 'delete_role':
+	            $role = $HelloChurchEvents->find($SubmittedForm->data['roleID']);
+		        $role->delete();
             break;
         }
     	
@@ -1022,7 +1049,7 @@ error_reporting(E_ALL);
 		      }
 		    $eventsHTML .= '
 		      allDay: '.$event['allDay'].',
-		      url: "/calendar/edit-event?id='.$event['eventID'].'",
+		      url: "/calendar/edit-event?id='.$event['eventID'].'&date=",
 		      displayEventEnd: true
 		    },';
 			
@@ -1041,7 +1068,7 @@ error_reporting(E_ALL);
 	          headerToolbar: {
 		        left: 'prev,next today',
 		        center: 'title',
-		        right: 'dayGridMonth,dayGridWeek,listWeek'
+		        right: 'listWeek'
 		      },
 		      $eventsHTML,
 		      eventTimeFormat: { // like '14:30:00'
@@ -1051,7 +1078,14 @@ error_reporting(E_ALL);
 			    hour12: false
 			  },
 			  firstDay: 1,
-			  aspectRatio: 2.1	
+			  aspectRatio: 2.1,
+			  eventClick: function(info) {
+				info.jsEvent.preventDefault(); // don't let the browser navigate
+				var pDate = $('.fc-list-day').data('date');
+			    if (info.event.url) {
+			      window.open(info.event.url+pDate, '_self');
+			    }	  
+			  }
 	        });
 	        calendar.render();
 	      });
@@ -1088,3 +1122,181 @@ error_reporting(E_ALL);
 		return $event->$field();
 		
 	}
+	
+	function hello_church_roles(){
+	    
+	    $API  = new PerchAPI(1.0, 'hello_church');
+	    
+	    $Session = PerchMembers_Session::fetch();
+	    
+	    $churchID = $Session->get('churchID');
+
+        $HelloChurchRoles = new HelloChurch_Roles($API);
+        
+        $roles = $HelloChurchRoles->roles($churchID);
+        
+		echo '<article>
+				<ul class="list">';
+        
+        foreach($roles as $role){
+	        $description = strip_tags($role['roleDescription']);
+	        echo '<li>
+			        <h3>'.$role['roleName'].'</h3>
+					<p>'.$description.'</p>
+					<a href="/settings/roles/edit-role?id='.$role['roleID'].'" class="button secondary small">View</a>
+				</li>';
+        }
+
+        echo '</ul>
+        	</article>';
+	    
+    }
+    
+    function hello_church_roles_tagify(){
+	    
+	    $API  = new PerchAPI(1.0, 'hello_church');
+	    
+	    $Session = PerchMembers_Session::fetch();
+	    
+	    $churchID = $Session->get('churchID');
+
+        $HelloChurchRoles = new HelloChurch_Roles($API);
+        
+        $roles = $HelloChurchRoles->roles($churchID);
+        
+		$html = '[';
+        
+        foreach($roles as $role){
+	        $html .=  "'".$role['roleName']."', ";
+        }
+        
+        $html = substr($html, 0 , -2);
+
+        $html .= ']';
+        
+        return $html;
+	    
+    }
+    
+    function hello_church_role_owner($roleID){
+		
+		$API  = new PerchAPI(1.0, 'hello_church');
+		$HelloChurchRoles = new HelloChurch_Roles($API);
+		
+		$Session = PerchMembers_Session::fetch();
+		
+		$owner = $HelloChurchRoles->check_owner($Session->get('memberID'), $roleID);
+		if($owner==1){
+		    return true;
+	    }else{
+		    return false;
+	    }
+		
+	}
+	
+	function hello_church_event_roles($id){
+		
+		$API  = new PerchAPI(1.0, 'hello_church');
+	    
+	    $Session = PerchMembers_Session::fetch();
+	    
+	    $churchID = $Session->get('churchID');
+
+        $HelloChurchEvents = new HelloChurch_Events($API);
+        $HelloChurchRoles = new HelloChurch_Roles($API);
+        $HelloChurchContacts = new HelloChurch_Contacts($API);
+        
+        $roles = $HelloChurchEvents->event_roles($id);
+        $roles = json_decode($roles['roles'], true);
+        
+        $i = 0;
+        
+        foreach($roles as $role){
+	        $roleData = $HelloChurchRoles->role_byName($role['value'], $churchID);
+	        $html = '
+	        <section>
+	        	<header>
+	        		<h2>'.$role['value'].'</h2>
+	        		<div id="role_'.$i.'">
+	        			<input type="text" name="q" class="q" placeholder="Add Contact" value="" onkeyup="searchRoleContacts(\'role_'.$i.'\');" autocomplete="off" data-event-id="'.perch_get('id').'" data-event-date="'.perch_get('date').'" data-event-role="'.$roleData['roleID'].'" />
+						<div class="results">
+							
+						</div>
+	        		</div>
+	        	</header>
+	        	<article>
+	        	<ul class="list">';
+
+				$contacts = $HelloChurchEvents->event_contact_roles($id, perch_get('date'), $roleData['roleID']);
+				foreach($contacts as $contact){
+					$contactData = $HelloChurchContacts->contact($contact['contactID']);
+					$html .= '<li>
+							<h3>'.$contactData['contactFirstName']." ".$contactData['contactLastName'].'</h3>
+							<p></p>
+							<form action="/process/remove-role-contact" method="post">
+								<input type="submit" class="button border danger small" value="Remove" />
+								<input type="hidden" name="roleContactID" value="'.$contact['roleContactID'].'" />
+								<input type="hidden" name="eventID" value="'.perch_get('id').'" />
+								<input type="hidden" name="date" value="'.perch_get('date').'" />
+							</form>
+						</li>';
+				}
+
+	        $html .= '</ul>
+	        	</article>
+	        </section>';
+	        $i++;
+	        echo $html;
+        }
+        
+	}
+	
+	function process_search_role_members($q, $eventID, $eventDate, $roleID){
+	    
+	    $API  = new PerchAPI(1.0, 'hello_church');
+
+        $HelloChurchContacts = new HelloChurch_Contacts($API);
+        
+		$Session = PerchMembers_Session::fetch();
+		
+		$contacts = $HelloChurchContacts->search_role_members($Session->get('memberID'), $q, $eventID, $eventDate);
+		
+		foreach($contacts as $contact){
+			echo '
+			<form method="post" action="/process/add-role-contact">
+				<label>'.$contact['contactFirstName'].' '.$contact['contactLastName'].'</label>
+				<input type="hidden" name="eventID" value="'.$eventID.'" />
+				<input type="hidden" name="eventDate" value="'.$eventDate.'" />
+				<input type="hidden" name="contactID" value="'.$contact['contactID'].'" />
+				<input type="hidden" name="roleID" value="'.$roleID.'" />
+				<input type="submit" class="button primary small" value="Add Member" />
+			</form>';
+		}
+	    
+    }
+    
+    function process_add_role_contact($eventID, $eventDate, $contactID, $roleID){
+	    
+	    $API  = new PerchAPI(1.0, 'hello_church');
+
+        $HelloChurchEvents = new HelloChurch_Events($API);
+        
+        $Session = PerchMembers_Session::fetch();
+
+	    $HelloChurchEvents->add_role_contact($Session->get('memberID'), $Session->get('churchID'), $eventID, $eventDate, $contactID, $roleID);
+	    
+    }
+    
+    function process_remove_role_contact($eventID, $eventDate, $roleContactID){
+	    
+	    $API  = new PerchAPI(1.0, 'hello_church');
+
+        $HelloChurchEvents = new HelloChurch_Events($API);
+        
+        $Session = PerchMembers_Session::fetch();
+        
+        echo $roleContactID;
+
+	    $HelloChurchEvents->remove_role_contact($roleContactID);
+	    
+    }

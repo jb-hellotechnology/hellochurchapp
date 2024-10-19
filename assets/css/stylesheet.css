@@ -1154,6 +1154,11 @@ ul.list li h3{
 	font-weight:700;
 }
 
+ul.list li form .button.danger.small.border{
+	max-width:100%;
+	text-align: center;
+}
+
 @media screen and (max-width:600px){
 	ul.list li{
 		display:block;

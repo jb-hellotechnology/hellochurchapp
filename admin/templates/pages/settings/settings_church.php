@@ -9,7 +9,7 @@ if(!perch_member_logged_in()){
 perch_layout('header');
 ?>
 <main class="flow">
-	<h1>Settings</h1>
+	<h1>Church Settings</h1>
 	<section>
 		<header>
 			<h2>Contact Details</h2>

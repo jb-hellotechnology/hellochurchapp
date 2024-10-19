@@ -51,10 +51,31 @@ class HelloChurch_Group extends PerchAPI_Base
 			
 			// ADD MEMBERS TO GROUP
 			foreach($results as $contact){
-				$sql = "INSERT INTO perch3_hellochurch_groups_members (memberID, churchID, groupID, contactID, method) VALUES ('".$memberID."', '".$churchID."', '".$groupID."', '".$contact['contactID']."', 'auto')";
-				$results = $this->db->execute($sql);
+				
+				$sql = "SELECT * FROM perch3_hellochurch_groups_members WHERE groupID='".$groupID."' AND contactID='".$contact['contactID']."'";
+				$member = $this->db->get_row($sql);
+				
+				if(!$member){
+				
+					$sql = "INSERT INTO perch3_hellochurch_groups_members (memberID, churchID, groupID, contactID, method) VALUES ('".$memberID."', '".$churchID."', '".$groupID."', '".$contact['contactID']."', 'auto')";
+					$results = $this->db->execute($sql);
+				
+				}
 			}
 			
+		}
+		
+	}
+	
+	public function is_group_member($groupID, $contactID){
+		
+		$sql = "SELECT * FROM perch3_hellochurch_groups_members WHERE groupID='".$groupID."' AND contactID='".$contactID."'";
+		$results = $this->db->get_rows($sql);
+		
+		if(count($results)>0){
+			return true;
+		}else{
+			return false;
 		}
 		
 	}

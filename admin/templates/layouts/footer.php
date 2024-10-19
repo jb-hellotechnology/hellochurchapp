@@ -5,10 +5,16 @@
 	$('button.menu').click(function(){
 		$('.main-nav-container').toggleClass('show');
 	});
-	var input = document.querySelector('.tagify');
-	new Tagify(input, {
-	    // options here
+	
+	var tagify = document.querySelector('.tagify');
+	new Tagify(tagify, {});
+	
+	var roles = document.querySelector('.roles');
+	new Tagify(roles, {
+		enforceWhitelist: true,
+	    whitelist : <?= hello_church_roles_tagify() ?>
 	});
+	
 	function resetPagination(){
 		console.log(1);
 		$("#page").val($("#page option:first").val());
@@ -49,7 +55,7 @@
 	function searchFamilyMembers(){
 		let pQ = $('#q').val();
 		let pID = $('#q').data('member-id');
-		if(pQ.length>3){
+		if(pQ.length>2){
 			$.get( "/process/search-family-members", { q: pQ, memberID: pID }, function( data ) {
 				if(data){
 					$('.results').html(data).show();
@@ -62,7 +68,7 @@
 	function searchContacts(){
 		let pQ = $('#q').val();
 		let pID = $('#q').data('group-id');
-		if(pQ.length>3){
+		if(pQ.length>2){
 			$.get( "/process/search-contacts", { q: pQ, groupID: pID }, function( data ) {
 				if(data){
 					$('.results').html(data).show();
@@ -70,6 +76,24 @@
 			});
 		}else{
 			$('.results').hide();
+		}
+	}
+	function searchRoleContacts(pRole){
+		let pQ = $('#'+pRole+' .q').val();
+		let pID = $('#'+pRole+' .q').data('event-id');
+		let pDate = $('#'+pRole+' .q').data('event-date');
+		let pRoleID = $('#'+pRole+' .q').data('event-role');
+		if(pQ.length>2){
+			$.get( "/process/search-role-contacts", { q: pQ, eventID: pID, date: pDate, roleID: pRoleID }, function( data ) {
+				console.log(data);
+				if(data){
+					console.log(data);
+					$('#'+pRole+' .results').html(data).show();
+				}
+			});
+		}else{
+			console.log('here');
+			$('#'+pRole+' .results').hide();
 		}
 	}
 	$('input').blur(function(){
