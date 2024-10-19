@@ -324,16 +324,20 @@ error_reporting(E_ALL);
 		
 		$tags = json_decode($tags, true);
 		
-		if(count($tags)>0){
-			$html = '<ul class="pills">';
-		}
-
-		foreach($tags as $tag){
-			$html .= '<li><span class="material-symbols-outlined">check_circle</span>'.$tag['value'].'</li>';
-		}
+		if($tags){
 		
-		if(count($tags)>0){
-			$html .= '</ul>';
+			if(count($tags)>0){
+				$html = '<ul class="pills">';
+			}
+	
+			foreach($tags as $tag){
+				$html .= '<li><span class="material-symbols-outlined">check_circle</span>'.$tag['value'].'</li>';
+			}
+			
+			if(count($tags)>0){
+				$html .= '</ul>';
+			}
+		
 		}
 		
 		return $html;
