@@ -220,7 +220,6 @@ class HelloChurch_Contacts extends PerchAPI_Factory
 		  AND c.memberID = '.$memberID.' 
 		  AND c.contactID != '.$contactID;
 	    $result = $this->db->get_rows($sql);
-	    echo $sql;
 	    
 	    return $result;
 		
