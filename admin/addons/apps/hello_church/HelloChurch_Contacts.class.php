@@ -216,11 +216,11 @@ class HelloChurch_Contacts extends PerchAPI_Factory
 		$sql = 'SELECT c.*
 		FROM perch3_hellochurch_contacts c
 		LEFT JOIN perch3_hellochurch_contacts_families r ON c.contactID = r.contactID
-		WHERE (c.contactLastName LIKE "%'.$q.'%" OR c.contactFirstName LIKE "%'.$q.'%")
-		  AND r.contactID IS NULL 
+		WHERE (c.contactLastName LIKE "%'.$q.'%" OR c.contactFirstName LIKE "%'.$q.'%") 
 		  AND c.memberID = '.$memberID.' 
 		  AND c.contactID != '.$contactID;
 	    $result = $this->db->get_rows($sql);
+	    echo $sql;
 	    
 	    return $result;
 		
