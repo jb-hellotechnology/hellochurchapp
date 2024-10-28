@@ -1,0 +1,25 @@
+<perch:form id="update_family" method="post" app="hello_church" action="/settings/families/edit-family?id=<perch:forms id="familyID" />">
+
+	<article class="flow">
+		<perch:success show-form="true">
+			<p class="alert success">Family updated.</p>
+		</perch:success>
+		<div>
+			<perch:label for="familyName">Family Name</perch:label>
+			<perch:input type="text" id="familyName" required="true" label="Family Name" />
+			<perch:error for="familyName" type="required"><p class="help error">Please add a your family's name</p></perch:error>
+		</div>
+		<div>
+			<perch:label for="familyDescription">family Description</perch:label>
+			<perch:input type="textarea" class="redactor" id="familyDescription" label="Family Description" />
+		</div>
+	</article>
+
+	<footer>
+		<perch:input type="hidden" value="<perch:forms id="memberID">" name="memberID" />
+		<perch:input type="hidden" value="<perch:forms id="churchID">" name="churchID" />
+		<perch:input type="hidden" value="<perch:forms id="familyID">" name="familyID" />
+		<perch:input type="submit" value="Save" class="button primary" />
+	</footer>
+
+</perch:form>

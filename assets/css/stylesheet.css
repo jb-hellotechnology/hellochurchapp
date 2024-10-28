@@ -741,7 +741,7 @@ section header .results{
 	top:calc(34px);
 	width:auto;
 	background:#fff;
-	padding:1rem;
+	padding:1rem 1rem 0;
 	display:block;
 	width:100%;
 	box-shadow: var(--shadow);
@@ -753,6 +753,16 @@ section header .results ul{
 	margin:0;
 	padding:0;
 	list-style:none;
+}
+
+section header .results button{
+	width:100%;
+	margin-bottom:1rem;
+}
+
+section header .results button span{
+	float:right;
+	margin-left:1rem;
 }
 
 section header div .results input[type=submit]{
@@ -1195,5 +1205,17 @@ ul.list li form .button.danger.small.border{
 	#calendar .fc-toolbar-chunk .fc-button-group button{
 		padding:5px !important;
 		line-height:1;
+	}
+}
+
+@media print{
+	.main-nav,
+	.site-header{
+		display:none;
+	}
+	main{
+		width:100%;
+		padding:24px;
+		margin:0;
 	}
 }

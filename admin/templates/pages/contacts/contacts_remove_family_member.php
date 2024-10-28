@@ -5,7 +5,6 @@ if(!perch_member_logged_in()){
 }
 
 $primary = (int) $_POST['primary'];
-$identifier = (int) $_POST['identifier'];
 $contactID = (int) $_POST['contactID'];
 
 if(!hello_church_member_owner($contactID)){
@@ -13,8 +12,8 @@ if(!hello_church_member_owner($contactID)){
 	header("location:/contacts");
 }
 
-process_remove_family_member($identifier, $contactID);
+process_remove_family_member($primary, $contactID);
 
-header("location:/contacts/edit-contact?id=".$primary);
+//header("location:/contacts/edit-contact?id=".$primary);
 
 ?>

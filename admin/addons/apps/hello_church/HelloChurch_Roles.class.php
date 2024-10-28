@@ -12,7 +12,7 @@ class HelloChurch_Roles extends PerchAPI_Factory
 
 	protected $default_sort_column = 'roleName';
 
-	public $static_fields = array('roleID', 'churchID', 'memberID', 'roleName', 'roleDescription');
+	public $static_fields = array('roleID', 'churchID', 'memberID', 'roleName', 'roleDescription', 'roleType');
     
     public function role_valid($data){
 	    

@@ -20,6 +20,8 @@ error_reporting(E_ALL);
         }
         return false;
     });
+    
+    include(__DIR__.'/fpdf.php');
 
     PerchSystem::register_template_handler('HelloChurch_Template');
 
@@ -354,6 +356,7 @@ error_reporting(E_ALL);
         $HelloChurchGroups = new HelloChurch_Groups($API);
         $HelloChurchEvents = new HelloChurch_Events($API);
         $HelloChurchRoles = new HelloChurch_Roles($API);
+        $HelloChurchFamilies = new HelloChurch_Families($API);
         
         $Template = $API->get('Template');
         $Template->set(PerchUtil::file_path('hellochurch/forms/'.$template), 'forms');
@@ -374,10 +377,22 @@ error_reporting(E_ALL);
 			
 		}elseif($template == 'create_contact.html'){
 			
+			$families = $HelloChurchFamilies->families($Session->get('churchID'));
+			$data['families'] = ' |0,';
+			foreach($families as $family){
+				$data['families'] .= $family['familyName']."|".$family['familyID'].",";	
+			}
+			$data['families'] = substr($data['families'], 0, -1);
 			
 		}elseif($template == 'update_contact.html'){
 			
 			$data = $HelloChurchContacts->contact($_GET['id']);
+			$families = $HelloChurchFamilies->families($Session->get('churchID'));
+			$data['families'] = ' |0,';
+			foreach($families as $family){
+				$data['families'] .= $family['familyName']."|".$family['familyID'].",";	
+			}
+			$data['families'] = substr($data['families'], 0, -1);
 			
 		}elseif($template == 'delete_contact.html'){
 			
@@ -431,6 +446,31 @@ error_reporting(E_ALL);
 		}elseif($template == 'delete_role.html'){
 			
 			$data['roleID'] = $_GET['id'];
+			
+		}elseif($template == 'create_family.html'){
+
+			
+		}elseif($template == 'update_family.html'){
+
+			$data = $HelloChurchFamilies->family($_GET['id']);
+			
+		}elseif($template == 'delete_family.html'){
+			
+			$data['familyID'] = $_GET['id'];
+			
+		}elseif($template == 'download_rota_contact.html'){
+			
+			$data['contactID'] = $_GET['id'];
+			
+		}elseif($template == 'download_rota_role.html'){
+	        
+    	    $roles = $HelloChurchRoles->roles($data['churchID']);
+    	    $pRoles = '';
+			foreach($roles as $role){
+				$pRoles .= $role['roleName'].'|'.$role['roleID'].',';
+			}
+			$pRoles = substr($pRoles,0,-1);
+			$data['roles'] = $pRoles;
 			
 		}
 		
@@ -502,7 +542,7 @@ error_reporting(E_ALL);
         
 		$Session = PerchMembers_Session::fetch();
 		
-		$family = $HelloChurchContacts->family_members($Session->get('memberID'), $contactID);
+		$family = $HelloChurchContacts->family_members($contactID);
 		
 		if(count($family)>0){
 		
@@ -514,12 +554,6 @@ error_reporting(E_ALL);
 					<span class="material-symbols-outlined">person</span>
 					<h3><a href="/contacts/edit-contact?id='.$member['contactID'].'">'.$member['contactFirstName'].' '.$member['contactLastName'].'</a></h3>
 					<p><a class="button secondary small" href="/contacts/edit-contact?id='.$member['contactID'].'">View</a></p>
-					<form method="post" action="/process/remove-family-member">
-						<input type="hidden" name="identifier" value="'.$member['identifier'].'" />
-						<input type="hidden" name="contactID" value="'.$member['contactID'].'" />
-						<input type="hidden" name="primary" value="'.$contactID.'" />
-						<input type="submit" class="button border danger small" value="Unlink" />
-					</form>
 				</li>';
 			}
 			
@@ -567,13 +601,13 @@ error_reporting(E_ALL);
 	    
     }
     
-    function process_remove_family_member($identifier, $contactID){
+    function process_remove_family_member($contactID_a, $contactID_b){
 	    
 	    $API  = new PerchAPI(1.0, 'hello_church');
 
         $HelloChurchContacts = new HelloChurch_Contacts($API);
 
-	    $HelloChurchContacts->remove_family_member($identifier, $contactID);
+	    $HelloChurchContacts->remove_family_member($contactID_a, $contactID_b);
 	    
     }
     
@@ -646,6 +680,8 @@ error_reporting(E_ALL);
 	    $HelloChurchEvents = new HelloChurch_Events($API);
 	    $HelloChurchRole = new HelloChurch_Role($API);
 	    $HelloChurchRoles = new HelloChurch_Roles($API);
+	    $HelloChurchFamily = new HelloChurch_Family($API);
+	    $HelloChurchFamilies = new HelloChurch_Families($API);
 	    
 	    $Session = PerchMembers_Session::fetch();
 
@@ -846,6 +882,64 @@ error_reporting(E_ALL);
             case 'delete_role':
 	            $role = $HelloChurchEvents->find($SubmittedForm->data['roleID']);
 		        $role->delete();
+            break;
+            case 'create_family':
+	            $data = $SubmittedForm->data;
+		        $family = $HelloChurchFamilies->create($data);
+            break;
+            case 'update_family':
+	            $family = $HelloChurchRoles->find($SubmittedForm->data['familyID']);
+		        $family->update($SubmittedForm->data);
+            break;
+            case 'delete_family':
+	            $family = $HelloChurchEvents->find($SubmittedForm->data['familyID']);
+		        $family->delete();
+            break;
+            case 'download_rota_contact':
+	            $contact = $HelloChurchContacts->find($SubmittedForm->data['contactID']);
+	            $responsibilities = $HelloChurchEvents->event_responsibilities($SubmittedForm->data['contactID']);
+				$firstName = $contact->contactFirstName();
+				$lastName = $contact->contactLastName();
+				
+				$pdf = new FPDF();
+				$pdf->AddPage();
+				$pdf->SetFont('Arial','B',16);
+				$pdf->Cell(40,10,'Rota For: '.$firstName.' '.$lastName,0,2);
+				$pdf->SetFont('Arial','B',12);
+				foreach($responsibilities as $responsibility){
+			        $dates = explode(" ", $responsibility['eventDate']);
+			        $time = $dates[1];
+			        $dates = explode("-", $dates[0]);
+			        $date = "$dates[2]/$dates[1]/$dates[0]";
+			        $pdf->Cell(400,10,$responsibility['roleName'].' - '.$responsibility['eventName'].' - '.$date,0,2);
+				}
+				$pdf->Output();
+
+            break;
+            case 'download_rota_role':
+	            $role = $HelloChurchRoles->find($SubmittedForm->data['roleID']);
+	            $responsibilities = $HelloChurchEvents->event_responsibilities_role($SubmittedForm->data['roleID']);
+				$roleName = $role->roleName();
+				
+				$pdf = new FPDF();
+				$pdf->AddPage();
+				$pdf->SetFont('Arial','B',16);
+				$pdf->Cell(40,10,'Rota For: '.$roleName,0,2);
+				$pdf->SetFont('Arial','B',12);
+				foreach($responsibilities as $responsibility){
+					$contact = $HelloChurchContacts->find($responsibility['contactID']);
+			        $dates = explode(" ", $responsibility['eventDate']);
+			        $time = $dates[1];
+			        $dates = explode("-", $dates[0]);
+			        $date = "$dates[2]/$dates[1]/$dates[0]";
+			        if($responsibility['roleType']=='Individual'){
+			        	$pdf->Cell(400,10,$contact->contactFirstName().' '.$contact->contactLastName().' - '.$responsibility['eventName'].' - '.$date,0,2);
+			        }else{
+				        $pdf->Cell(400,10,$contact->contactFirstName().' '.$contact->contactLastName().' + Family - '.$responsibility['eventName'].' - '.$date,0,2);
+			        }
+				}
+				$pdf->Output();
+
             break;
         }
     	
@@ -1198,6 +1292,36 @@ error_reporting(E_ALL);
 		
 	}
 	
+	function hello_church_contact_responsibilities($id){
+		
+		$API  = new PerchAPI(1.0, 'hello_church');
+	    
+	    $Session = PerchMembers_Session::fetch();
+	    
+	    $churchID = $Session->get('churchID');
+
+        $HelloChurchEvents = new HelloChurch_Events($API);
+        $HelloChurchRoles = new HelloChurch_Roles($API);
+        $HelloChurchContacts = new HelloChurch_Contacts($API);
+        
+        $responsibilities = $HelloChurchEvents->event_responsibilities($id);
+        
+        $html .= '<article><ul class="list">';
+        
+        foreach($responsibilities as $responsibility){
+	        $dates = explode(" ", $responsibility['eventDate']);
+	        $time = $dates[1];
+	        $dates = explode("-", $dates[0]);
+	        $date = "$dates[2]/$dates[1]/$dates[0]";
+	        $html .= '<li><h3>'.$responsibility['roleName'].'</h3><p>'.$responsibility['eventName'].'</p><p>'.$date.'</p></li>';
+        }
+        
+        $html .= '</ul></article>';
+        
+        echo $html;
+		
+	}
+	
 	function hello_church_event_roles($id){
 		
 		$API  = new PerchAPI(1.0, 'hello_church');
@@ -1235,7 +1359,11 @@ error_reporting(E_ALL);
 				foreach($contacts as $contact){
 					$contactData = $HelloChurchContacts->contact($contact['contactID']);
 					$html .= '<li>
-							<h3>'.$contactData['contactFirstName']." ".$contactData['contactLastName'].'</h3>
+							<h3><a href="/contacts/edit-contact?id='.$contactData['contactID'].'">'.$contactData['contactFirstName']." ".$contactData['contactLastName'];
+							if($roleData['roleType']=='Family'){
+								$html .= ' &plus; Family';
+							}
+					$html .= '</a></h3>
 							<p></p>
 							<form action="/process/remove-role-contact" method="post">
 								<input type="submit" class="button border danger small" value="Remove" />
@@ -1268,12 +1396,11 @@ error_reporting(E_ALL);
 		foreach($contacts as $contact){
 			echo '
 			<form method="post" action="/process/add-role-contact">
-				<label>'.$contact['contactFirstName'].' '.$contact['contactLastName'].'</label>
 				<input type="hidden" name="eventID" value="'.$eventID.'" />
 				<input type="hidden" name="eventDate" value="'.$eventDate.'" />
 				<input type="hidden" name="contactID" value="'.$contact['contactID'].'" />
 				<input type="hidden" name="roleID" value="'.$roleID.'" />
-				<input type="submit" class="button primary small" value="Add Member" />
+				<button class="button primary small" value="Add Member">'.$contact['contactFirstName'].' '.$contact['contactLastName'].'<span class="material-symbols-outlined">person_add</span></button>
 			</form>';
 		}
 	    
@@ -1304,3 +1431,74 @@ error_reporting(E_ALL);
 	    $HelloChurchEvents->remove_role_contact($roleContactID);
 	    
     }
+    
+    function hello_church_families(){
+	    
+	    $API  = new PerchAPI(1.0, 'hello_church');
+	    
+	    $Session = PerchMembers_Session::fetch();
+	    
+	    $churchID = $Session->get('churchID');
+
+        $HelloChurchFamilies = new HelloChurch_Families($API);
+        
+        $families = $HelloChurchFamilies->families($churchID);
+        
+		echo '<article>
+				<ul class="list">';
+        
+        foreach($families as $family){
+	        $description = strip_tags($family['familyDescription']);
+	        echo '<li>
+			        <h3>'.$family['familyName'].'</h3>
+					<p>'.$description.'</p>
+					<a href="/settings/families/edit-family?id='.$family['familyID'].'" class="button secondary small">View</a>
+				</li>';
+        }
+
+        echo '</ul>
+        	</article>';
+	    
+    }
+    
+    function hello_church_families_tagify(){
+	    
+	    $API  = new PerchAPI(1.0, 'hello_church');
+	    
+	    $Session = PerchMembers_Session::fetch();
+	    
+	    $churchID = $Session->get('churchID');
+
+        $HelloChurchFamilies = new HelloChurch_Families($API);
+        
+        $families = $HelloChurchFamiles->families($churchID);
+        
+		$html = '[';
+        
+        foreach($families as $family){
+	        $html .=  "'".$family['familyName']."', ";
+        }
+        
+        $html = substr($html, 0 , -2);
+
+        $html .= ']';
+        
+        return $html;
+	    
+    }
+    
+    function hello_church_family_owner($familyID){
+		
+		$API  = new PerchAPI(1.0, 'hello_church');
+		$HelloChurchFamilies = new HelloChurch_Families($API);
+		
+		$Session = PerchMembers_Session::fetch();
+		
+		$owner = $HelloChurchFamilies->check_owner($Session->get('memberID'), $familyID);
+		if($owner==1){
+		    return true;
+	    }else{
+		    return false;
+	    }
+		
+	}

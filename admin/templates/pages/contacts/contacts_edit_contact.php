@@ -37,6 +37,16 @@ $name = hello_church_contact_get(perch_get('id'), 'contactFirstName').' '.hello_
 		<div>
 			<section>
 				<header>
+					<h2>Future Responsibilities</h2>
+				</header>
+				<?php hello_church_contact_responsibilities(perch_get('id')); ?>
+				<footer>
+					<?php hello_church_form('download_rota_contact.html'); ?>
+					<a href="/calendar" class="button primary">Manage Calendar</a>
+				</footer>
+			</section>
+			<section>
+				<header>
 					<h2>Groups</h2>
 				</header>
 				<?php hello_church_contact_groups(perch_get('id')); ?>
@@ -47,17 +57,10 @@ $name = hello_church_contact_get(perch_get('id'), 'contactFirstName').' '.hello_
 			<section>
 				<header>
 					<h2>Family Members</h2>
-					<div>
-						<input type="text" name="q" id="q" placeholder="Add Member" value="<?= perch_get('q') ?>" onkeyup="searchFamilyMembers();" autocomplete="off" data-member-id="<?= perch_get('id') ?>" />
-						<div class="results">
-							
-						</div>
-					</div>
 				</header>
 				<article>
 					<?php hello_church_family_members(perch_get('id')); ?>
 				</article>
-				<?php hello_church_form('add_family_member.html'); ?>
 			</section>
 			<section>
 				<header>

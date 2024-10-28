@@ -73,8 +73,37 @@ class HelloChurch_Events extends PerchAPI_Factory
 	public function remove_role_contact($roleContactID){
 		
 		$sql = "DELETE FROM perch3_hellochurch_roles_contacts WHERE roleContactID='$roleContactID'";
-		echo $sql;
 		$result = $this->db->execute($sql); 
+		
+	}
+	
+	public function event_responsibilities($contactID){
+		
+		$date = date('Y-m-d');
+		
+		$sql = "SELECT r.roleName, e.eventName, e.start, rc.eventDate 
+		FROM perch3_hellochurch_roles_contacts rc
+		JOIN perch3_hellochurch_roles r ON rc.roleID = r.roleID
+		JOIN perch3_hellochurch_events e ON rc.eventID = e.eventID
+		WHERE rc.contactID = $contactID AND LEFT(rc.eventDate, 10)>='$date'";
+		$results = $this->db->get_rows($sql);
+	    
+	    return $results;
+		
+	}
+	
+	public function event_responsibilities_role($roleID){
+		
+		$date = date('Y-m-d');
+		
+		$sql = "SELECT r.roleName, r.roleType, rc.contactID, e.eventName, e.start, rc.eventDate 
+		FROM perch3_hellochurch_roles_contacts rc
+		JOIN perch3_hellochurch_roles r ON rc.roleID = r.roleID
+		JOIN perch3_hellochurch_events e ON rc.eventID = e.eventID
+		WHERE rc.roleID = $roleID AND LEFT(rc.eventDate, 10)>='$date'";
+		$results = $this->db->get_rows($sql);
+	    
+	    return $results;
 		
 	}
 

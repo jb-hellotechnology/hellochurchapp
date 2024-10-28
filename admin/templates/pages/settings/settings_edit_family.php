@@ -14,7 +14,7 @@ if(!hello_church_role_owner(perch_get('id'))){
 perch_layout('header');
 ?>
 <main class="flow">
-	<h1>Edit a Role</h1>
+	<h1>Edit a Family</h1>
 	<?php
 		// DISPLAY MESSAGES
 		if($_GET['msg']=='role_deleted'){

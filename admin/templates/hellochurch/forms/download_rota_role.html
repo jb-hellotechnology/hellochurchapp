@@ -1,0 +1,14 @@
+<perch:form id="download_rota_role" method="post" app="hello_church" action="/contacts/edit-contact?id=<perch:forms id="contactID" />">
+
+	<article>
+		<label>Role</label>
+		<perch:input type="select" options="<perch:forms id="roles" />" id="roleID" />
+		<perch:input type="hidden" value="<perch:forms id="memberID">" name="memberID" />
+		<perch:input type="hidden" value="<perch:forms id="churchID">" name="churchID" />
+		<perch:input type="hidden" value="<perch:forms id="contactID">" name="contactID" />
+	</article>
+	<footer>
+		<perch:input type="submit" value="Download Rota" class="button secondary" />
+	</footer>
+
+</perch:form>

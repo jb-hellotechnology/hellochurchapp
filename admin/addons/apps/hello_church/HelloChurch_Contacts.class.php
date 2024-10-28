@@ -12,7 +12,7 @@ class HelloChurch_Contacts extends PerchAPI_Factory
 
 	protected $default_sort_column = 'contactFirstName';
 
-	public $static_fields = array('contactID', 'churchID', 'memberID', 'contactFirstName', 'contactLastName', 'contactEmail', 'contactPhone', 'contactAddress1', 'contactAddress2', 'contactCity', 'contactCounty', 'contactPostCode', 'contactCountry', 'contactAcceptEmail', 'contactAcceptSMS', 'contactTags', 'contactProperites');
+	public $static_fields = array('contactID', 'churchID', 'memberID', 'contactFirstName', 'contactLastName', 'contactEmail', 'contactPhone', 'contactAddress1', 'contactAddress2', 'contactCity', 'contactCounty', 'contactPostCode', 'contactCountry', 'contactAcceptEmail', 'contactAcceptSMS', 'contactFamilyID', 'contactTags', 'contactProperites');
 
     public $dynamic_fields_column = 'contactProperties';
     
@@ -187,23 +187,19 @@ class HelloChurch_Contacts extends PerchAPI_Factory
 	    
     }
 	
-	public function family_members($memberID, $contactID){
+	public function family_members($contactID){
 		
 		$API  = new PerchAPI(1.0, 'hello_church');
 		
-		$sql = "SELECT * FROM perch3_hellochurch_contacts_families WHERE contactID='".$contactID."'";
-	    $result = $this->db->get_row($sql);
-
-	    if(!$result){
-		    $identifier = rand(100000,999999);
-		    $sql = "INSERT INTO perch3_hellochurch_contacts_families (memberID, contactID, identifier) VALUES (".$memberID.", ".$contactID.", ".$identifier.")";
-			$results = $this->db->execute($sql);
-	    }else{
-		    $identifier = $result['identifier'];
+		$sql = "SELECT * FROM perch3_hellochurch_contacts WHERE contactID='$contactID'";	  
+		$result = $this->db->get_row($sql);
+		
+		if($result['contactFamilyID']<>0){
+		
+			$sql = "SELECT * FROM perch3_hellochurch_contacts WHERE contactFamilyID='$result[contactFamilyID]' AND contactID != '$contactID'";
+		    $results = $this->db->get_rows($sql);
+		    
 	    }
-	    
-	    $sql = "SELECT perch3_hellochurch_contacts.*, perch3_hellochurch_contacts_families.* FROM perch3_hellochurch_contacts, perch3_hellochurch_contacts_families WHERE perch3_hellochurch_contacts_families.identifier='".$identifier."' AND perch3_hellochurch_contacts_families.contactID<>'".$contactID."' AND perch3_hellochurch_contacts_families.contactID=perch3_hellochurch_contacts.contactID";
-	    $results = $this->db->get_rows($sql);
 	    
 	    return $results;
 		
@@ -213,35 +209,33 @@ class HelloChurch_Contacts extends PerchAPI_Factory
 		
 		$API  = new PerchAPI(1.0, 'hello_church');
 
-		$sql = 'SELECT c.*
-		FROM perch3_hellochurch_contacts c
-		LEFT JOIN perch3_hellochurch_contacts_families r ON c.contactID = r.contactID
-		WHERE (c.contactLastName LIKE "%'.$q.'%" OR c.contactFirstName LIKE "%'.$q.'%") 
-		  AND c.memberID = '.$memberID.' 
-		  AND c.contactID != '.$contactID;
+		$sql = "SELECT c.contactID, c.contactFirstName, c.contactLastName FROM perch3_hellochurch_contacts c LEFT JOIN perch3_hellochurch_contacts_families f ON c.contactID = f.contactID_a OR c.contactID = f.contactID_b WHERE (c.contactFirstName LIKE '%".$q."%' OR c.contactLastName LIKE '%".$q."%') AND f.familyID IS NULL";
 	    $result = $this->db->get_rows($sql);
 	    
 	    return $result;
 		
 	}
 	
-	public function add_family_member($memberID, $primary, $contactID){
+	public function add_family_member($memberID, $contactID_a, $contactID_b){
 		
 		$API  = new PerchAPI(1.0, 'hello_church');
-		
-		$sql = "SELECT * FROM perch3_hellochurch_contacts_families WHERE contactID='".$primary."'";
-	    $result = $this->db->get_row($sql);
 	    
-	    $sql = "INSERT INTO perch3_hellochurch_contacts_families (memberID, contactID, identifier) VALUES (".$memberID.", ".$contactID.", '".$result['identifier']."')";
+	    $sql = "INSERT INTO perch3_hellochurch_contacts_families (memberID, contactID_a, contactID_b) VALUES (".$memberID.", ".$contactID_a.", '".$contactID_b."')";
+	    $results = $this->db->execute($sql);
+	    
+	    $sql = "INSERT INTO perch3_hellochurch_contacts_families (memberID, contactID_a, contactID_b) VALUES (".$memberID.", ".$contactID_b.", '".$contactID_a."')";
 		$results = $this->db->execute($sql);
 		
 	}
 	
-	public function remove_family_member($identifier, $contactID){
+	public function remove_family_member($contactID_a, $contactID_b){
 		
 		$API  = new PerchAPI(1.0, 'hello_church');
 		
-		$sql = "DELETE FROM perch3_hellochurch_contacts_families WHERE contactID='".$contactID."' AND identifier='".$identifier."'";
+		$sql = "DELETE FROM perch3_hellochurch_contacts_families WHERE contactID_a='".$contactID_a."' AND contactID_b='".$contactID_b."'";
+	    $result = $this->db->execute($sql);
+	    
+	    $sql = "DELETE FROM perch3_hellochurch_contacts_families WHERE contactID_a='".$contactID_b."' AND contactID_b='".$contactID_a."'";
 	    $result = $this->db->execute($sql);
 		
 	}
@@ -260,11 +254,22 @@ class HelloChurch_Contacts extends PerchAPI_Factory
 	public function search_role_members($memberID, $q, $eventID, $eventDate){
 		
 		$API  = new PerchAPI(1.0, 'hello_church');
-
-		$sql = 'SELECT c.*
+		
+		$sql = "SELECT DISTINCT c.*
 		FROM perch3_hellochurch_contacts c
-		WHERE (c.contactLastName LIKE "%'.$q.'%" OR c.contactFirstName LIKE "%'.$q.'%")
-		  AND c.memberID = '.$memberID;
+		LEFT JOIN perch3_hellochurch_roles_contacts cr ON c.contactID = cr.contactID
+		LEFT JOIN perch3_hellochurch_roles r ON cr.roleID = r.roleID
+		WHERE (c.contactFirstName LIKE '%$q%' OR c.contactLastName LIKE '%$q%')
+		  AND c.memberID = '$memberID'
+		  AND c.contactID NOT IN (
+		        SELECT cr.contactID
+		        FROM perch3_hellochurch_roles_contacts cr
+		        JOIN perch3_hellochurch_roles r ON cr.roleID = r.roleID
+		        JOIN perch3_hellochurch_events e ON cr.eventDate = cr.eventDate
+		        WHERE cr.eventDate = '$eventDate'
+		          AND r.roleExclusivity = 'Exclusive'
+		          AND e.eventID = '$eventID'
+		      )";
 	    $result = $this->db->get_rows($sql);
 	    
 	    return $result;
