@@ -22,6 +22,94 @@ error_reporting(E_ALL);
     });
     
     include(__DIR__.'/fpdf.php');
+    
+    class PDF_HTML extends FPDF
+	{
+		protected $B = 0;
+		protected $I = 0;
+		protected $U = 0;
+		protected $HREF = '';
+		
+		function WriteHTML($html)
+		{
+		    // HTML parser
+		    $html = str_replace("\n",' ',$html);
+		    $a = preg_split('/<(.*)>/U',$html,-1,PREG_SPLIT_DELIM_CAPTURE);
+		    foreach($a as $i=>$e)
+		    {
+		        if($i%2==0)
+		        {
+		            // Text
+		            if($this->HREF)
+		                $this->PutLink($this->HREF,$e);
+		            else
+		                $this->Write(5,$e);
+		        }
+		        else
+		        {
+		            // Tag
+		            if($e[0]=='/')
+		                $this->CloseTag(strtoupper(substr($e,1)));
+		            else
+		            {
+		                // Extract attributes
+		                $a2 = explode(' ',$e);
+		                $tag = strtoupper(array_shift($a2));
+		                $attr = array();
+		                foreach($a2 as $v)
+		                {
+		                    if(preg_match('/([^=]*)=["\']?([^"\']*)/',$v,$a3))
+		                        $attr[strtoupper($a3[1])] = $a3[2];
+		                }
+		                $this->OpenTag($tag,$attr);
+		            }
+		        }
+		    }
+		}
+		
+		function OpenTag($tag, $attr)
+		{
+		    // Opening tag
+		    if($tag=='B' || $tag=='I' || $tag=='U')
+		        $this->SetStyle($tag,true);
+		    if($tag=='A')
+		        $this->HREF = $attr['HREF'];
+		    if($tag=='BR')
+		        $this->Ln(5);
+		}
+		
+		function CloseTag($tag)
+		{
+		    // Closing tag
+		    if($tag=='B' || $tag=='I' || $tag=='U')
+		        $this->SetStyle($tag,false);
+		    if($tag=='A')
+		        $this->HREF = '';
+		}
+		
+		function SetStyle($tag, $enable)
+		{
+		    // Modify style and select corresponding font
+		    $this->$tag += ($enable ? 1 : -1);
+		    $style = '';
+		    foreach(array('B', 'I', 'U') as $s)
+		    {
+		        if($this->$s>0)
+		            $style .= $s;
+		    }
+		    $this->SetFont('',$style);
+		}
+		
+		function PutLink($URL, $txt)
+		{
+		    // Put a hyperlink
+		    $this->SetTextColor(0,0,255);
+		    $this->SetStyle('U',true);
+		    $this->Write(5,$txt,$URL);
+		    $this->SetStyle('U',false);
+		    $this->SetTextColor(0);
+		}
+	}
 
     PerchSystem::register_template_handler('HelloChurch_Template');
 
@@ -357,6 +445,7 @@ error_reporting(E_ALL);
         $HelloChurchEvents = new HelloChurch_Events($API);
         $HelloChurchRoles = new HelloChurch_Roles($API);
         $HelloChurchFamilies = new HelloChurch_Families($API);
+        $HelloChurchFolders = new HelloChurch_Folders($API);
         
         $Template = $API->get('Template');
         $Template->set(PerchUtil::file_path('hellochurch/forms/'.$template), 'forms');
@@ -471,6 +560,40 @@ error_reporting(E_ALL);
 			}
 			$pRoles = substr($pRoles,0,-1);
 			$data['roles'] = $pRoles;
+			
+		}elseif($template == 'download_plan_pdf.html'){
+	        
+    	    $data['eventID'] = $_GET['id'];
+    	    
+    	    $start = hello_church_calendar_get($_GET['id'], 'start');
+			$pTime = explode(" ", $start);
+			$time = $pTime[1];
+			$date = $pTime[0];
+			$pDates = explode("-", $pTime[0]);
+    	    
+    	    $data['date'] = $date;
+    	    $data['time'] = $time;
+			
+		}elseif($template == 'add_folder.html'){
+			
+			$data['folderParent'] = NULL;
+			if($_GET['id']>0){
+				$data['folderParent'] = $_GET['id'];
+			}
+			
+		}elseif($template == 'update_folder.html'){
+
+			$data = $HelloChurchFolders->folder($_GET['id']);
+			$folders = $HelloChurchFolders->folders_exclude($data['churchID'],$_GET['id']);
+			$data['folderParent'] = 'Documents|0,';
+			foreach($folders as $folder){
+				$data['folderParent'] .= $folder['folderName'].'|'.$folder['folderID'].',';
+			}
+			$data['folderParent'] = substr($data['folderParent'],0,-1);
+			
+		}elseif($template == 'delete_folder.html'){
+			
+			$data = $HelloChurchFolders->folder($_GET['id']);
 			
 		}
 		
@@ -682,6 +805,7 @@ error_reporting(E_ALL);
 	    $HelloChurchRoles = new HelloChurch_Roles($API);
 	    $HelloChurchFamily = new HelloChurch_Family($API);
 	    $HelloChurchFamilies = new HelloChurch_Families($API);
+	    $HelloChurchFolders = new HelloChurch_Folders($API);
 	    
 	    $Session = PerchMembers_Session::fetch();
 
@@ -901,7 +1025,7 @@ error_reporting(E_ALL);
 				$firstName = $contact->contactFirstName();
 				$lastName = $contact->contactLastName();
 				
-				$pdf = new FPDF();
+				$pdf = new PDF_HTML();
 				$pdf->AddPage();
 				$pdf->SetFont('Arial','B',16);
 				$pdf->Cell(40,10,'Rota For: '.$firstName.' '.$lastName,0,2);
@@ -921,7 +1045,7 @@ error_reporting(E_ALL);
 	            $responsibilities = $HelloChurchEvents->event_responsibilities_role($SubmittedForm->data['roleID']);
 				$roleName = $role->roleName();
 				
-				$pdf = new FPDF();
+				$pdf = new PDF_HTML();
 				$pdf->AddPage();
 				$pdf->SetFont('Arial','B',16);
 				$pdf->Cell(40,10,'Rota For: '.$roleName,0,2);
@@ -940,6 +1064,99 @@ error_reporting(E_ALL);
 				}
 				$pdf->Output();
 
+            break;
+            case 'download_plan_pdf':
+
+	            $event = $HelloChurchEvents->event($SubmittedForm->data['eventID']);
+	            $plan = $HelloChurchEvents->get_plan($SubmittedForm->data['memberID'], $SubmittedForm->data['churchID'], $SubmittedForm->data['eventID'], $SubmittedForm->data['date'], $SubmittedForm->data['time']);
+	            
+	            $dates = explode("-", $SubmittedForm->data['date']);
+	            $date = "$dates[2]/$dates[1]/$dates[0]";
+	            $time = $SubmittedForm->data['time'];
+				
+				$pdf = new PDF_HTML();
+				$pdf->AddPage();
+				$pdf->SetFont('Arial','B',16);
+				$pdf->Cell(40,10,$event['eventName'],0,2);
+				$pdf->SetFont('Arial','B',12);
+				$pdf->WriteHTML("<p>".$date." ".$time."<p><br><br>");
+				$pdf->SetFont('Arial','B',12);
+				
+				$plan = json_decode($plan, true);
+
+				foreach($plan as $type => $item){
+									
+					$typeParts = explode("_", $type);
+					$type = $typeParts[0];
+					
+					if($type=='heading'){
+						$pdf->SetFont('Arial','B',14);
+						$pdf->WriteHTML("<p>".$item."<p><br><br>");
+					}
+					if($type=='text'){
+						$pdf->SetFont('Arial','',12);
+						$pdf->WriteHTML("<p>".nl2br($item)."<p><br><br>");
+					}
+					if($type=='youtube'){
+						
+					}
+					if($type=='bible'){
+						// Generated by curl-to-PHP: http://incarnate.github.io/curl-to-php/
+						$ch = curl_init();
+						
+						curl_setopt($ch, CURLOPT_URL, 'https://api.esv.org/v3/passage/html/?include-footnotes=false&q='.urlencode($item));
+						curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+						curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'GET');
+						
+						
+						$headers = array();
+						$headers[] = 'Authorization: Token 0aa221b3e0dbb4ca9d1abe0438ceac27e2b81cee';
+						curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+						
+						$resultESV = curl_exec($ch);
+						if (curl_errno($ch)) {
+						    echo 'Error:' . curl_error($ch);
+						}
+						curl_close($ch);
+						$json = json_decode($resultESV,true);
+
+						$pdf->SetFont('Arial','',12);
+						
+						$passage = strip_tags($json['passages'][0]);
+						$passage = str_replace("&nbsp;", " ", $passage);
+						$passage = str_replace ('“', '"', $passage);
+						$passage = str_replace ('”', '"', $passage);
+						$passage = str_replace ('‘', "'", $passage);
+						$passage = str_replace ('’', "'", $passage);
+						$passage = str_replace ('–', "-", $passage);
+						
+						
+						$pdf->WriteHTML($passage."<br><br>");
+				
+					}
+					if($type=='link'){
+						$pdf->SetFont('Arial','',12);
+						$pdf->WriteHTML("<p>".$item."<p><br><br>");
+					}
+					
+				}
+				$pdf->Output();
+
+            break;
+            case 'add_folder':
+	            $data = $SubmittedForm->data;
+	            if($data['folderParent']==''){
+		            $data['folderParent'] = 0;
+	            }
+		        $folder = $HelloChurchFolders->create($data);
+            break;
+            case 'update_folder':
+	            $folder = $HelloChurchFolders->find($SubmittedForm->data['folderID']);
+		        $folder->update($SubmittedForm->data);
+            break;
+            case 'delete_folder':
+	            $folder = $HelloChurchFolders->find($SubmittedForm->data['folderID']);
+		        $folder->delete();
             break;
         }
     	
@@ -1179,7 +1396,9 @@ error_reporting(E_ALL);
 			  aspectRatio: 2.1,
 			  eventClick: function(info) {
 				info.jsEvent.preventDefault(); // don't let the browser navigate
-				var pDate = $('.fc-list-day').data('date');
+				console.log(info);
+				var eventDate = info.event.start;
+				var pDate = dateToDMY(eventDate);
 			    if (info.event.url) {
 			      window.open(info.event.url+pDate, '_self');
 			    }	  
@@ -1187,12 +1406,50 @@ error_reporting(E_ALL);
 	        });
 	        calendar.render();
 	      });
+	      function dateToDMY(date) {
+		    var d = date.getDate();
+		    var m = date.getMonth() + 1; //Month from 0 to 11
+		    var y = date.getFullYear();
+		    return '' + y + '-' + (m <= 9 ? '0' + m : m) + '-' + (d <= 9 ? '0' + d : d);
+		  }
 	    </script>
 	    <div id='calendar'></div>";
 	    
 	    echo $html;
 		
 	}
+	
+	function process_save_plan($planID, $date, $time, $plan){
+	    
+	    $API  = new PerchAPI(1.0, 'hello_church');
+        
+        $HelloChurchEvents = new HelloChurch_Events($API);
+        
+		$Session = PerchMembers_Session::fetch();
+		$memberID = $Session->get('memberID');
+		$churchID = $Session->get('churchID');
+		
+		$plan = $HelloChurchEvents->save_plan($memberID, $churchID, $planID, $date, $time, $plan);
+		
+		return $plan;
+	    
+    }
+    
+    function hello_church_get_plan($eventID, $date, $time){
+	    
+	    $API  = new PerchAPI(1.0, 'hello_church');
+        
+        $HelloChurchEvents = new HelloChurch_Events($API);
+        
+		$Session = PerchMembers_Session::fetch();
+		$memberID = $Session->get('memberID');
+		$churchID = $Session->get('churchID');
+		
+		$plan = $HelloChurchEvents->get_plan($memberID, $churchID, $eventID, $date, $time);
+		
+		return $plan;
+		
+    }
 	
 	function hello_church_event_owner($eventID){
 		
@@ -1500,5 +1757,112 @@ error_reporting(E_ALL);
 	    }else{
 		    return false;
 	    }
+		
+	}
+	
+	function hello_church_folders($folderParent){
+		
+		$API  = new PerchAPI(1.0, 'hello_church');
+		$HelloChurchFolders = new HelloChurch_Folders($API);
+		
+		$Session = PerchMembers_Session::fetch();
+		
+		$folders = $HelloChurchFolders->folders($Session->get('churchID'), $folderParent);
+		
+		$html = '<ul class="folders">';
+		
+		foreach($folders as $folder){
+			$html .= '<li><a href="/documents?id='.$folder['folderID'].'"><span class="material-symbols-outlined">folder</span><h3>'.$folder['folderName'].'</h3></a></li>';
+		}
+		
+		$html .= '</ul>';
+		
+		echo $html;
+		
+	}
+	
+	function hello_church_folder($folderID){
+		
+		$API  = new PerchAPI(1.0, 'hello_church');
+		$HelloChurchFolders = new HelloChurch_Folders($API);
+		
+		$Session = PerchMembers_Session::fetch();
+		
+		$folder = $HelloChurchFolders->folder($folderID);
+		
+		return $folder;
+		
+	}
+	
+	function hello_church_folder_owner($folderID){
+		
+		$API  = new PerchAPI(1.0, 'hello_church');
+		$HelloChurchFolders = new HelloChurch_Folders($API);
+		
+		$Session = PerchMembers_Session::fetch();
+		
+		$owner = $HelloChurchFolders->check_owner($Session->get('memberID'), $folderID);
+		
+		if($owner==1){
+		    return true;
+	    }else{
+		    return false;
+	    }
+		
+	}
+	
+	function folder_has_children($folderID){
+		
+		$API  = new PerchAPI(1.0, 'hello_church');
+		$HelloChurchFolders = new HelloChurch_Folders($API);
+		
+		$Session = PerchMembers_Session::fetch();
+		
+		$folders = $HelloChurchFolders->folders($Session->get('churchID'), $folderID);	
+		
+		if(count($folders)>0){
+			return true;
+		}else{
+			return false;
+		}
+		
+	}
+	
+	function process_file_upload($folderID, $fileName){
+	    
+	    $API  = new PerchAPI(1.0, 'hello_church');
+        
+        $HelloChurchFolders = new HelloChurch_Folders($API);
+        
+		$Session = PerchMembers_Session::fetch();
+		
+		$HelloChurchFolders->add_file($Session->get('churchID'), $Session->get('memberID'), $folderID, $fileName);
+	    
+    }
+    
+    function hello_church_files($folderParent){
+		
+		$API  = new PerchAPI(1.0, 'hello_church');
+		$HelloChurchFolders = new HelloChurch_Folders($API);
+		
+		$Session = PerchMembers_Session::fetch();
+		
+		$files = $HelloChurchFolders->files($Session->get('churchID'), $folderParent);
+		
+		$html = '<p class="section-heading">Files:</p>';
+		
+		if($files){
+			$html .= '<ul class="list files">';
+			
+			foreach($files as $file){
+				$html .= '<li><span class="material-symbols-outlined">draft</span><p>'.$file['fileName'].'</p></li>';
+			}
+			
+			$html .= '</ul>';
+		}else{
+			$html .= "<p>No files uploaded.</p>";
+		}
+		
+		echo $html;
 		
 	}

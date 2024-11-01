@@ -6,23 +6,31 @@ if(!perch_member_logged_in()){
 	header("location:/");
 }
 
+if(perch_get('id')>0){
+	if(!hello_church_folder_owner(perch_get('id'))){
+		perch_member_log_out();
+		header("location:/");
+	}
+}
+
 perch_layout('header');
+
+$folder = hello_church_folder(perch_get('id'));
+
 ?>
 
 <main class="flow">
-	<h1>Rotas</h1>
+	<h1>Delete Folder</h1>
 	<div class="section-grid">
-		<div>
 		<?php
 			// DISPLAY MESSAGES
 		?>
 		<section>
 			<header>
-				<h2>Download Rotas</h2>
+				<h2>Delete Folder</h2>
 			</header>
-			<?php hello_church_form('download_rota_role.html'); ?>
+			<?php hello_church_form('delete_folder.html'); ?>
 		</section>
-		</div>
 	</div>
 </main>
 <?php perch_layout('footer'); ?>

@@ -1,0 +1,23 @@
+<perch:form id="add_folder" method="post" app="hello_church" action="/documents?id=<perch:forms id="folderParent">">
+
+	<perch:success show-form="true">
+		<article class="flow">
+			<p class="alert success">Folder created.</p>
+		</article>
+	</perch:success>
+
+	<article class="flow">
+		<div>
+			<perch:label for="name">Folder Name</perch:label>
+			<perch:input type="text" id="folderName" required="true" label="Folder Name" />
+		</div>
+	</article>
+
+	<footer>
+		<perch:input type="hidden" value="<perch:forms id="folderParent">" name="folderParent" />
+		<perch:input type="hidden" value="<perch:forms id="memberID">" name="memberID" />
+		<perch:input type="hidden" value="<perch:forms id="churchID">" name="churchID" />
+		<perch:input type="submit" value="Create Folder" class="button primary" />
+	</footer>
+
+</perch:form>

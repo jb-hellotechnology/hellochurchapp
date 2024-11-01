@@ -1,0 +1,8 @@
+<perch:form id="download_plan_pdf" method="post" app="hello_church" action="/calendar/edit-event-plan?id=<perch:forms id="eventID" />">
+	<perch:input type="hidden" value="<perch:forms id="memberID">" name="memberID" />
+	<perch:input type="hidden" value="<perch:forms id="churchID">" name="churchID" />
+	<perch:input type="hidden" value="<perch:forms id="eventID">" name="eventID" />
+	<perch:input type="hidden" value="<perch:forms id="date">" name="date" />
+	<perch:input type="hidden" value="<perch:forms id="time">" name="time" />
+	<perch:input type="submit" value="Download Plan PDF" class="button secondary" />
+</perch:form>

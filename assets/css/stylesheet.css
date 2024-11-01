@@ -149,6 +149,26 @@ ol {
           padding-inline-start: 1em;
 }
 
+h1 time{
+	font-size:var(--size-step-0);
+	color:var(--color-primary);
+}
+
+h1.with-button{
+	display:grid;
+	grid-template-columns: auto 140px;
+}
+
+@media screen and (max-width:768px){
+	h1.with-button{
+		grid-template-columns: auto;
+		grid-row-gap: 1rem;
+	}
+	h1.with-button .button{
+		max-width:120px;
+	}
+}
+
 blockquote {
   -webkit-padding-start: 1em;
           padding-inline-start: 1em;
@@ -184,8 +204,12 @@ blockquote {
 }
 
 h1 {
-  max-width: 20ch;
+  max-width: 100%;
   margin-bottom:2rem;
+}
+
+h1 .button{
+	float:right;
 }
 
 h2,
@@ -624,6 +648,7 @@ input[type=password],
 input[type=email],
 input[type=url],
 input[type=tel],
+textarea,
 .redactor-styles{
 	border:1px solid var(--color-light-grey);
 	padding:0.5em;
@@ -637,6 +662,7 @@ input[type=email]:focus,
 input[type=url]:focus,
 input[type=tel]:focus,
 select:focus,
+textarea:focus,
 .redactor-styles:focus{
 	outline:2px solid var(--color-secondary) !important;
 }
@@ -684,6 +710,10 @@ section{
 	display:grid;
 	grid-template-columns: 1fr 1fr;
 	grid-column-gap: 2rem;
+}
+
+.big-little .section-grid{
+	grid-template-columns: auto 300px;	
 }
 
 @media screen and (max-width:1280px){
@@ -760,9 +790,14 @@ section header .results button{
 	margin-bottom:1rem;
 }
 
-section header .results button span{
+button span,
+.button span{
 	float:right;
 	margin-left:1rem;
+}
+
+button.fc-button span{
+	margin:0;
 }
 
 section header div .results input[type=submit]{
@@ -1150,6 +1185,10 @@ ul.list li{
 	grid-template-columns: 200px auto 100px;
 }
 
+ul.list.files li{
+	grid-template-columns: 30px auto;
+}
+
 ul.list li *{
 	display:flex;
 	align-items: center;
@@ -1218,4 +1257,119 @@ ul.list li form .button.danger.small.border{
 		padding:24px;
 		margin:0;
 	}
+}
+
+.plan-options{
+	
+}
+
+.plan-options .button{
+	margin-bottom:4px;
+}
+
+.plan-container input,
+.plan-container textarea{
+	
+}
+
+.plan-item{
+	display:grid;
+	grid-template-columns: 40px auto 40px;
+	margin-bottom:1rem;
+}
+
+.plan-item span{
+	height:30px;
+}
+
+.plan-item a{
+	border-bottom: none;
+	display:flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.plan-item span:first-child{
+	text-align:left;
+}
+
+.plan-item span:last-child{
+	text-align:right;
+}
+
+.plan-preview .bible{
+	background:var(--color-light);
+	margin:1rem 0;
+	padding:1rem;
+}
+
+.plan-preview .bible h2{
+	font-size:var(--size-step-1);
+	font-weight:700;
+}
+
+.plan-preview .bible h3{
+	display:none;
+}
+
+.plan-preview iframe{
+	width:100%;
+}
+
+#drop-area {
+  border: 2px dashed #ccc;
+  border-radius: 20px;
+  width: 480px;
+  margin: 50px auto;
+  padding: 20px;
+}
+#drop-area.highlight {
+  border-color: purple;
+}
+p {
+  margin-top: 0;
+}
+.my-form {
+  margin-bottom: 10px;
+}
+#gallery {
+  margin-top: 10px;
+}
+#gallery img {
+  width: 150px;
+  margin-bottom: 10px;
+  margin-right: 10px;
+  vertical-align: middle;
+}
+.button {
+  display: inline-block;
+  padding: 10px;
+  background: #ccc;
+  cursor: pointer;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+.button:hover {
+  background: #ddd;
+}
+#fileElem {
+  display: none;
+}
+
+ul.folders{
+	list-style:none;
+	display:grid;
+	grid-template-columns: repeat(auto-fit, minmax(140px, 100px));
+	grid-column-gap: 1rem;
+	grid-row-gap: 1rem;
+	text-align: center;	
+	margin-bottom:2rem;
+}
+
+ul.folders li h3{
+	font-size:var(--size-step-0);
+}
+
+ul.folders li span{
+	font-size:var(--size-step-4);
 }

@@ -106,5 +106,38 @@ class HelloChurch_Events extends PerchAPI_Factory
 	    return $results;
 		
 	}
+	
+	public function save_plan($memberID, $churchID, $planID, $date, $time, $plan){
+		
+		$sql = "SELECT * FROM perch3_hellochurch_event_plans WHERE eventID='".$planID."' AND eventDate='".$date."' AND eventTime='".$time."'";
+	    $results = $this->db->get_rows($sql);
+	    
+	    if(count($results)==1){
+		    
+		    $sql = "UPDATE perch3_hellochurch_event_plans SET eventPlan='".addslashes($plan)."' WHERE eventID='".$planID."' AND eventDate='".$date."' AND eventTime='".$time."'";
+		    $result = $this->db->execute($sql);
+		    
+	    }else{
+		    
+		    $sql = "INSERT INTO perch3_hellochurch_event_plans (memberID, churchID, eventID, eventDate, eventTime, eventPlan) VALUES 
+		    ('".$memberID."', '".$churchID."', '".$planID."', '".$date."', '".$time."', '".addslashes($plan)."')";
+		    $result = $this->db->execute($sql);
+		    
+	    }
+	    
+	    echo $sql;
+	    
+	    //echo 'Saved';
+		
+	}
+	
+	public function get_plan($memberID, $churchID, $eventID, $date, $time){
+		
+		$sql = "SELECT * FROM perch3_hellochurch_event_plans WHERE eventID='".$eventID."' AND eventDate='".$date."' AND eventTime='".$time."'";
+	    $result = $this->db->get_row($sql);
+	    
+	    return $result['eventPlan'];
+		
+	}
 
 }

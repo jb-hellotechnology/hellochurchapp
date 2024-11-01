@@ -1,4 +1,4 @@
-<perch:form id="download_rota_role" method="post" app="hello_church" action="/contacts/edit-contact?id=<perch:forms id="contactID" />">
+<perch:form id="download_rota_role" method="post" app="hello_church">
 
 	<article>
 		<label>Role</label>
@@ -8,7 +8,7 @@
 		<perch:input type="hidden" value="<perch:forms id="contactID">" name="contactID" />
 	</article>
 	<footer>
-		<perch:input type="submit" value="Download Rota" class="button secondary" />
+		<perch:input type="submit" value="Download Rota PDF" class="button secondary" />
 	</footer>
 
 </perch:form>

@@ -1,6 +1,9 @@
 	<script src="/assets/js/jquery.3.7.1.min.js"></script>
+	<script src="/assets/js/jquery-ui.1.14.0.js"></script>
 	<script src="/assets/js/tagify/tagify.js"></script>
 	<script src="/assets/js/fullcalendar/dist/index.global.min.js"></script>
+	<script src="/assets/js/plan/plan.js?v=<?= rand() ?>"></script>
+	<script src="/assets/js/upload/upload.js?v=<?= rand() ?>"></script>
 	<script>
 	$('button.menu').click(function(){
 		$('.main-nav-container').toggleClass('show');
@@ -104,6 +107,9 @@
     <script>
 	$R('.redactor', {
 		toolbar: false
+	});
+	$R('.redactor-toolbar', {
+
 	});
     </script>
 </body>
