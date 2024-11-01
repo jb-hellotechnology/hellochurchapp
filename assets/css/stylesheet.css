@@ -479,6 +479,10 @@ header nav ul.main-nav li.ancestor ul li.selected a{
 	background:#fff;
 }
 
+header nav button{
+	display:block;
+}
+
 header nav button .material-symbols-outlined{
 	margin:0.5em 1em;
 }
