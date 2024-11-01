@@ -545,6 +545,9 @@ button.menu{
 		display:block;
 		margin:0.5em 1em;
 	}
+	button.menu span{
+		margin-left:0px;
+	}
 	header nav .main-nav-container{
 		height:auto;
 	}
