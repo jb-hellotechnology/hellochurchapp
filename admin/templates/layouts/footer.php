@@ -1,9 +1,17 @@
+	<div class="loading">
+		<div>
+			<p>Please Wait</p>
+			<span class="material-symbols-outlined">autorenew</span>
+		</div>
+	</div>
 	<script src="/assets/js/jquery.3.7.1.min.js"></script>
 	<script src="/assets/js/jquery-ui.1.14.0.js"></script>
 	<script src="/assets/js/tagify/tagify.js"></script>
 	<script src="/assets/js/fullcalendar/dist/index.global.min.js"></script>
 	<script src="/assets/js/plan/plan.js?v=<?= rand() ?>"></script>
+	<script src="/assets/js/email/email.js?v=<?= rand() ?>"></script>
 	<script src="/assets/js/upload/upload.js?v=<?= rand() ?>"></script>
+	<script src="/assets/js/upload-audio/upload.js?v=<?= rand() ?>"></script>
 	<script>
 	$('button.menu').click(function(){
 		$('.main-nav-container').toggleClass('show');

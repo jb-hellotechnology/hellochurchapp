@@ -1,0 +1,25 @@
+<perch:form id="update_series" method="post" app="hello_church" action="/settings/series/edit-series?id=<perch:forms id="seriesID" />">
+
+	<article class="flow">
+		<perch:success show-form="true">
+			<p class="alert success">Series updated.</p>
+		</perch:success>
+		<div>
+			<perch:label for="seriesName">Series Name</perch:label>
+			<perch:input type="text" id="seriesName" required="true" label="Series Name" />
+			<perch:error for="seriesName" type="required"><p class="help error">Please add a your series' name</p></perch:error>
+		</div>
+		<div>
+			<perch:label for="seriesDescription">Series Description</perch:label>
+			<perch:input type="textarea" class="redactor" id="seriesDescription" label="Series Description" />
+		</div>
+	</article>
+
+	<footer>
+		<perch:input type="hidden" value="<perch:forms id="memberID">" name="memberID" />
+		<perch:input type="hidden" value="<perch:forms id="churchID">" name="churchID" />
+		<perch:input type="hidden" value="<perch:forms id="seriesID">" name="seriesID" />
+		<perch:input type="submit" value="Save" class="button primary" />
+	</footer>
+
+</perch:form>

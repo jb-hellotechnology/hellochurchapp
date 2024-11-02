@@ -336,6 +336,11 @@ main .button {
 	color:var(--color-white);
 }
 
+.button.small span{
+	font-size:12px;
+	margin:0;
+}
+
 main button:hover,
 main .button:hover{
   box-shadow: var(--shadow);
@@ -746,6 +751,14 @@ section header h2{
 	color:#777;
 	margin:0;
 	margin-right:2rem;
+}
+
+section header h2 a{
+	border-bottom:1px solid var(--color-primary);
+}
+
+section header h2 a:hover{
+	border-bottom:1px solid var(--color-secondary);
 }
 
 section header div{
@@ -1193,12 +1206,13 @@ ul.list li{
 }
 
 ul.list.files li{
-	grid-template-columns: 30px auto;
+	grid-template-columns: 30px auto 120px 60px;
 }
 
 ul.list li *{
 	display:flex;
 	align-items: center;
+	justify-content: space-between;
 }
 
 ul.list li:last-child{
@@ -1270,7 +1284,8 @@ ul.list li form .button.danger.small.border{
 	
 }
 
-.plan-options .button{
+.plan-options .button,
+.email-options .button{
 	margin-bottom:4px;
 }
 
@@ -1380,4 +1395,43 @@ ul.folders li h3{
 
 ul.folders li span{
 	font-size:var(--size-step-4);
+}
+
+.loading{
+	position: fixed;
+	top:0px;
+	height:100vh;
+	width:100%;
+	background:rgba(0,0,0,0.4);
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	z-index:2000;
+	display:none;
+	text-align: center;
+	color:#fff;
+	font-weight:700;
+	backdrop-filter: blur(10px);
+}
+
+.loading.show{
+	display:flex;
+}
+
+.loading span{
+	color:#fff;
+	animation:spin 4s linear infinite;
+}
+
+@-moz-keyframes spin { 
+    100% { -moz-transform: rotate(360deg); } 
+}
+@-webkit-keyframes spin { 
+    100% { -webkit-transform: rotate(360deg); } 
+}
+@keyframes spin { 
+    100% { 
+        -webkit-transform: rotate(360deg); 
+        transform:rotate(360deg); 
+    } 
 }

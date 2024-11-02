@@ -1,0 +1,24 @@
+<perch:form id="delete_speaker" method="post" app="hello_church" action="/settings/speakers?msg=speaker_deleted">
+
+	<article class="flow">
+		<perch:success>
+			<article class="flow">
+				<p class="alert success">Speaker deleted.</p>
+			</article>
+			<footer>
+				<a class="button primary" href="/settings/speakers">Speakers</a>
+			</footer>
+		</perch:success>
+		<div>
+			<p><strong>This is permanent and cannot be un-done.</strong></p>
+			<p>By clicking the button below you will be deleting <strong><perch:forms id="speakerName" /></strong> from your account.</p>
+			<p>Deleting the family does not delete the individual sermons assigned to this speaker.</p>
+		</div>
+	</article>
+
+	<footer>
+		<perch:input type="hidden" value="<perch:forms id="speakerID">" name="speakerID" />
+		<perch:input type="submit" value="Delete Speaker" class="button danger" />
+	</footer>
+
+</perch:form>

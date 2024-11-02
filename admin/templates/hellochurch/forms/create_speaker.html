@@ -1,0 +1,25 @@
+<perch:form id="create_speaker" method="post" app="hello_church">
+
+	<article class="flow">
+		<perch:success>
+			<article class="flow">
+				<p class="alert success">Speaker created.</p>
+			</article>
+			<footer>
+				
+			</footer>
+		</perch:success>
+		<div>
+			<perch:label for="speakerName">Speaker Name</perch:label>
+			<perch:input type="text" id="speakerName" required="true" label="Series Name" />
+			<perch:error for="speakerName" type="required"><p class="help error">Please add a your speaker's name</p></perch:error>
+		</div>
+	</article>
+
+	<footer>
+		<perch:input type="hidden" value="<perch:forms id="memberID">" name="memberID" />
+		<perch:input type="hidden" value="<perch:forms id="churchID">" name="churchID" />
+		<perch:input type="submit" value="Save" class="button primary" />
+	</footer>
+
+</perch:form>

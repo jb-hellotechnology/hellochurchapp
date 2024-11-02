@@ -73,7 +73,7 @@ perch_layout('header');
 						<button class="button secondary add-to-plan" data-type="text">Text <span class="material-symbols-outlined">description</span></button>
 						<button class="button secondary add-to-plan" data-type="youtube">YouTube Video <span class="material-symbols-outlined">youtube_activity</span></button>
 						<button class="button secondary add-to-plan" data-type="bible">Bible Passage <span class="material-symbols-outlined">menu_book</span></button>
-						<button class="button secondary add-to-plan" data-type="link">Link <span class="material-symbols-outlined">link</span></button>
+						<button class="button secondary add-to-plan" data-type="link">Button <span class="material-symbols-outlined">link</span></button>
 					</div>
 				</article>
 				<footer>

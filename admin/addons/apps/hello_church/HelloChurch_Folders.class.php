@@ -85,6 +85,25 @@ class HelloChurch_Folders extends PerchAPI_Factory
 	    
     }
     
+    public function delete_file($fileID){
+	    
+	    $API  = new PerchAPI(1.0, 'hello_church');
+		
+		$sql = "DELETE FROM perch3_hellochurch_files WHERE fileID=".$fileID;
+	    $results = $this->db->execute($sql);
+	    
+    }
+    
+    public function get_file($fileID){
+	    
+	    $API  = new PerchAPI(1.0, 'hello_church');
+		
+		$sql = "SELECT * FROM perch3_hellochurch_files WHERE fileID='".$fileID."'";
+	    $results = $this->db->get_row($sql);
+	    return $results;
+	    
+    }
+    
     public function files($churchID, $folderParent){
 	    
 	    $API  = new PerchAPI(1.0, 'hello_church');

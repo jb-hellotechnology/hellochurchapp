@@ -1,0 +1,44 @@
+<perch:form id="update_audio" method="post" app="hello_church" action="">
+
+	<perch:success>
+		<article class="flow">
+			<p class="alert success">Audio updated.</p>
+		</article>
+	</perch:success>
+
+	<article class="flow">
+		<div>
+			<perch:label for="audioName">Audio Name</perch:label>
+			<perch:input type="text" id="audioName" required="true" label="Audio Name" />
+		</div>
+		<div>
+			<perch:label for="audioDate">Audio Date</perch:label>
+			<perch:input type="date" id="audioDate" required="true" label="Audio Date" />
+		</div>
+		<div>
+			<perch:label for="audioDescription">Audio Description</perch:label>
+			<perch:input type="textarea" class="redactor" id="audioDescription" label="Audio Description" />
+		</div>
+		<div>
+			<perch:label for="audioSpeaker">Speaker</perch:label>
+			<perch:input type="select" id="audioSpeaker" label="Audio Speaker" options="<perch:forms id="audioSpeaker_options" />" />
+		</div>
+		<div>
+			<perch:label for="audioSeries">Series</perch:label>
+			<perch:input type="select" id="audioSeries" label="Audio Series" options="<perch:forms id="audioSeries_options" />" />
+		</div>
+		<div>
+			<perch:label for="audioBible">Bible Book</perch:label>
+			<perch:input type="select" id="audioBible" label="Audio Bible" options="<perch:forms id="audioBible_options" />" />
+		</div>
+	</article>
+
+	<footer>
+		<perch:input type="hidden" id="audioFile" label="Audio File" />
+		<perch:input type="hidden" value="<perch:forms id="memberID">" name="memberID" />
+		<perch:input type="hidden" value="<perch:forms id="churchID">" name="churchID" />
+		<perch:input type="hidden" value="<perch:forms id="audioID">" name="audioID" />
+		<perch:input type="submit" value="Add Audio" class="button primary" value="Update Audio" />
+	</footer>
+
+</perch:form>

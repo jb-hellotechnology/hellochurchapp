@@ -42,6 +42,9 @@ if($folder){
 		if($_GET['msg']=='folder_deleted'){
 			echo '<p class="alert success">Folder successfully deleted.</p>';
 		}
+		if($_GET['msg']=='file_deleted'){
+			echo '<p class="alert success">File successfully deleted.</p>';
+		}
 	?>
 	<div class="section-grid">
 		<div>

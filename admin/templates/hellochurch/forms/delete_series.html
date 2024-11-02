@@ -1,0 +1,24 @@
+<perch:form id="delete_series" method="post" app="hello_church" action="/settings/series?msg=series_deleted">
+
+	<article class="flow">
+		<perch:success>
+			<article class="flow">
+				<p class="alert success">Series deleted.</p>
+			</article>
+			<footer>
+				<a class="button primary" href="/settings/series">Series</a>
+			</footer>
+		</perch:success>
+		<div>
+			<p><strong>This is permanent and cannot be un-done.</strong></p>
+			<p>By clicking the button below you will be deleting <strong><perch:forms id="seriesName" /></strong> from your account.</p>
+			<p>Deleting the family does not delete the individual sermons assigned to this series.</p>
+		</div>
+	</article>
+
+	<footer>
+		<perch:input type="hidden" value="<perch:forms id="seriesID">" name="seriesID" />
+		<perch:input type="submit" value="Delete Series" class="button danger" />
+	</footer>
+
+</perch:form>

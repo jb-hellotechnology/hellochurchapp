@@ -446,6 +446,10 @@ error_reporting(E_ALL);
         $HelloChurchRoles = new HelloChurch_Roles($API);
         $HelloChurchFamilies = new HelloChurch_Families($API);
         $HelloChurchFolders = new HelloChurch_Folders($API);
+        $HelloChurchSpeakers = new HelloChurch_Speakers($API);
+        $HelloChurchSeriess = new HelloChurch_Seriess($API);
+        $HelloChurchAudios = new HelloChurch_Audios($API);
+        $HelloChurchEmails = new HelloChurch_Emails($API);
         
         $Template = $API->get('Template');
         $Template->set(PerchUtil::file_path('hellochurch/forms/'.$template), 'forms');
@@ -594,6 +598,68 @@ error_reporting(E_ALL);
 		}elseif($template == 'delete_folder.html'){
 			
 			$data = $HelloChurchFolders->folder($_GET['id']);
+			
+		}elseif($template == 'create_series.html'){
+
+			
+		}elseif($template == 'update_series.html'){
+
+			$data = $HelloChurchSeriess->series($_GET['id']);
+			
+		}elseif($template == 'delete_series.html'){
+			
+			$data['seriesID'] = $_GET['id'];
+			
+		}elseif($template == 'create_speaker.html'){
+
+			
+		}elseif($template == 'update_speaker.html'){
+
+			$data = $HelloChurchSpeakers->speaker($_GET['id']);
+			
+		}elseif($template == 'delete_speaker.html'){
+			
+			$data['speakerID'] = $_GET['id'];
+			
+		}elseif($template == 'add_audio.html'){
+			
+			$speakers = $HelloChurchSpeakers->speakers($data['churchID']);
+			$data['audioSpeaker'] = ' |0,';
+			foreach($speakers as $speaker){
+				$data['audioSpeaker'] .= $speaker['speakerName'].'|'.$speaker['speakerID'].',';
+			}
+			$data['audioSpeaker'] = substr($data['audioSpeaker'],0,-1);
+			
+			$seriess = $HelloChurchSeriess->seriess($data['churchID']);
+			$data['audioSeries'] = ' |0,';
+			foreach($seriess as $series){
+				$data['audioSeries'] .= $series['seriesName'].'|'.$series['seriesID'].',';
+			}
+			$data['audioSeries'] = substr($data['audioSeries'],0,-1);
+			
+			$data['audioBible'] = ',Genesis,Exodus,Leviticus,Numbers,Deuteronomy,Joshua,Judges,Ruth,1 Samuel,2 Samuel,1 Kings,2 Kings,1 Chronicles,2 Chronicles,Ezra,Nehemiah,Esther,Job,Psalm,Proverbs,Ecclesiastes,Song of Solomon,Isaiah,Jeremiah,Lamentations,Ezekiel,Daniel,Hosea,Joel,Amos,Obadiah,Jonah,Micah,Nahum,Habakkuk,Zephaniah,Haggai,Zechariah,Malachi,Matthew,Mark,Luke,John,Acts,Romans,1 Corinthians,2 Corinthians,Galatians,Ephesians,Philippians,Colossians,1 Thessalonians,2 Thessalonians,1 Timothy,2 Timothy,Titus,Philemon,Hebrews,James,1 Peter,2 Peter,1 John,2 John,3 John,Jude,Revelation';
+			
+		}elseif($template == 'edit_audio.html'){
+
+			$data = $HelloChurchAudios->audio($_GET['id']);
+			
+			$speakers = $HelloChurchSpeakers->speakers($data['churchID']);
+			$data['audioSpeaker_options'] = ' |0,';
+			foreach($speakers as $speaker){
+				$data['audioSpeaker_options'] .= $speaker['speakerName'].'|'.$speaker['speakerID'].',';
+			}
+			$data['audioSpeaker_options'] = substr($data['audioSpeaker_options'],0,-1);
+			
+			$seriess = $HelloChurchSeriess->seriess($data['churchID']);
+			$data['audioSeries_options'] = ' |0,';
+			foreach($seriess as $series){
+				$data['audioSeries_options'] .= $series['seriesName'].'|'.$series['seriesID'].',';
+			}
+			$data['audioSeries_options'] = substr($data['audioSeries_options'],0,-1);
+			
+			$data['audioBible_options'] = ',Genesis,Exodus,Leviticus,Numbers,Deuteronomy,Joshua,Judges,Ruth,1 Samuel,2 Samuel,1 Kings,2 Kings,1 Chronicles,2 Chronicles,Ezra,Nehemiah,Esther,Job,Psalm,Proverbs,Ecclesiastes,Song of Solomon,Isaiah,Jeremiah,Lamentations,Ezekiel,Daniel,Hosea,Joel,Amos,Obadiah,Jonah,Micah,Nahum,Habakkuk,Zephaniah,Haggai,Zechariah,Malachi,Matthew,Mark,Luke,John,Acts,Romans,1 Corinthians,2 Corinthians,Galatians,Ephesians,Philippians,Colossians,1 Thessalonians,2 Thessalonians,1 Timothy,2 Timothy,Titus,Philemon,Hebrews,James,1 Peter,2 Peter,1 John,2 John,3 John,Jude,Revelation';
+			
+			//print_r($data);
 			
 		}
 		
@@ -806,6 +872,13 @@ error_reporting(E_ALL);
 	    $HelloChurchFamily = new HelloChurch_Family($API);
 	    $HelloChurchFamilies = new HelloChurch_Families($API);
 	    $HelloChurchFolders = new HelloChurch_Folders($API);
+	    $HelloChurchSpeaker = new HelloChurch_Speaker($API);
+	    $HelloChurchSpeakers = new HelloChurch_Speakers($API);
+		$HelloChurchSeries = new HelloChurch_Series($API);
+        $HelloChurchSeriess = new HelloChurch_Seriess($API);
+        $HelloChurchAudios = new HelloChurch_Audios($API);
+        $HelloChurchEmails = new HelloChurch_Emails($API);
+        
 	    
 	    $Session = PerchMembers_Session::fetch();
 
@@ -1004,7 +1077,7 @@ error_reporting(E_ALL);
 		        $role->update($SubmittedForm->data);
             break;
             case 'delete_role':
-	            $role = $HelloChurchEvents->find($SubmittedForm->data['roleID']);
+	            $role = $HelloChurchRoles->find($SubmittedForm->data['roleID']);
 		        $role->delete();
             break;
             case 'create_family':
@@ -1012,11 +1085,11 @@ error_reporting(E_ALL);
 		        $family = $HelloChurchFamilies->create($data);
             break;
             case 'update_family':
-	            $family = $HelloChurchRoles->find($SubmittedForm->data['familyID']);
+	            $family = $HelloChurchFamilies->find($SubmittedForm->data['familyID']);
 		        $family->update($SubmittedForm->data);
             break;
             case 'delete_family':
-	            $family = $HelloChurchEvents->find($SubmittedForm->data['familyID']);
+	            $family = $HelloChurchFamilies->find($SubmittedForm->data['familyID']);
 		        $family->delete();
             break;
             case 'download_rota_contact':
@@ -1157,6 +1230,38 @@ error_reporting(E_ALL);
             case 'delete_folder':
 	            $folder = $HelloChurchFolders->find($SubmittedForm->data['folderID']);
 		        $folder->delete();
+            break;
+            case 'create_series':
+	            $data = $SubmittedForm->data;
+		        $series = $HelloChurchSeriess->create($data);
+            break;
+            case 'update_series':
+	            $series = $HelloChurchSeriess->find($SubmittedForm->data['seriesID']);
+		        $series->update($SubmittedForm->data);
+            break;
+            case 'delete_series':
+	            $series = $HelloChurchSeriess->find($SubmittedForm->data['seriesID']);
+		        $series->delete();
+            break;
+            case 'create_speaker':
+	            $data = $SubmittedForm->data;
+		        $speaker = $HelloChurchSpeakers->create($data);
+            break;
+            case 'update_speaker':
+	            $speaker = $HelloChurchSpeakers->find($SubmittedForm->data['speakerID']);
+		        $speaker->update($SubmittedForm->data);
+            break;
+            case 'delete_speaker':
+	            $speaker = $HelloChurchSpeakers->find($SubmittedForm->data['speakerID']);
+		        $speaker->delete();
+            break;
+            case 'update_audio':
+	            $audio = $HelloChurchAudios->find($SubmittedForm->data['audioID']);
+	            $audio->update($SubmittedForm->data);
+            break;
+            case 'add_email':
+	            $data = $SubmittedForm->data;
+		        $email = $HelloChurchEmails->create($data);
             break;
         }
     	
@@ -1840,6 +1945,53 @@ error_reporting(E_ALL);
 	    
     }
     
+    function process_delete_file($fileID){
+	    
+	    $API  = new PerchAPI(1.0, 'hello_church');
+        
+        $HelloChurchFolders = new HelloChurch_Folders($API);
+        
+        $file = $HelloChurchFolders->get_file($fileID);
+        
+        unlink("../../../../hc_uploads/".$file['churchID']."/".$file['fileName']);
+		
+		$HelloChurchFolders->delete_file($fileID);
+	    
+    }
+    
+    function process_download_file($fileID){
+	    
+	    $API  = new PerchAPI(1.0, 'hello_church');
+        
+        $HelloChurchFolders = new HelloChurch_Folders($API);
+        
+        $file = $HelloChurchFolders->get_file($fileID);
+        
+        $fileName = "../../../../hc_uploads/".$file['churchID']."/".$file['fileName']; 
+		//print_r($file);
+		
+		if (file_exists($fileName))
+		{
+		    header('Content-Description: File Transfer');
+		    header('Content-Type: application/octet-stream');
+		    header('Content-Disposition: attachment; filename='.basename($fileName));
+		    header('Content-Transfer-Encoding: binary');
+		    header('Expires: 0');
+		    header('Cache-Control: must-revalidate, post-check=0, pre-check=0');
+		    header('Pragma: public');
+		    header('Content-Length: ' . filesize($fileName));
+		    ob_clean();
+		    flush();
+		    readfile($fileName);
+		    exit;
+		}
+		else
+		{
+		    echo "File does not exists";
+		}
+	    
+    }
+    
     function hello_church_files($folderParent){
 		
 		$API  = new PerchAPI(1.0, 'hello_church');
@@ -1855,7 +2007,36 @@ error_reporting(E_ALL);
 			$html .= '<ul class="list files">';
 			
 			foreach($files as $file){
-				$html .= '<li><span class="material-symbols-outlined">draft</span><p>'.$file['fileName'].'</p></li>';
+				$documentFileType = strtolower(pathinfo($file['fileName'],PATHINFO_EXTENSION));
+				if($documentFileType=='doc' OR $documentFileType=='docx' OR $documentFileType=='pages'){
+					$icon = 'description';
+				}elseif($documentFileType=='xls' OR $documentFileType=='xlsx' OR $documentFileType=='numbers'){
+					$icon = 'table';
+				}elseif($documentFileType=='ppt' OR $documentFileType=='pptx' OR $documentFileType=='key'){
+					$icon = 'slideshow';
+				}elseif($documentFileType=='csv'){
+					$icon = 'csv';
+				}elseif($documentFileType=='txt'){
+					$icon = 'article';
+				}elseif($documentFileType=='pdf'){
+					$icon = 'picture_as_pdf';
+				}else{
+					$icon = 'draft';
+				}
+				$html .= '<li>
+							<span class="material-symbols-outlined">'.$icon.'</span>
+							<p>'.$file['fileName'].'</p>
+							<form method="post" action="/process/download-file">
+								<input type="submit" class="button secondary small" value="Download" />
+								<input type="hidden" name="id" value="'.$folderParent.'" />
+								<input type="hidden" name="fileID" value="'.$file['fileID'].'" />
+							</form>
+							<form method="post" action="/process/delete-file">
+								<button type="submit" class="button danger small border"><span class="material-symbols-outlined">delete</span></button>
+								<input type="hidden" name="id" value="'.$folderParent.'" />
+								<input type="hidden" name="fileID" value="'.$file['fileID'].'" />
+							</form>
+						</li>';
 			}
 			
 			$html .= '</ul>';
@@ -1864,5 +2045,247 @@ error_reporting(E_ALL);
 		}
 		
 		echo $html;
+		
+	}
+	
+	function hello_church_series(){
+	    
+	    $API  = new PerchAPI(1.0, 'hello_church');
+	    
+	    $Session = PerchMembers_Session::fetch();
+	    
+	    $churchID = $Session->get('churchID');
+
+        $HelloChurchSeriess = new HelloChurch_Seriess($API);
+        
+        $seriess = $HelloChurchSeriess->seriess($churchID);
+
+		echo '<article>
+				<ul class="list">';
+        
+        foreach($seriess as $series){
+	        $description = strip_tags($series['seriesDescription']);
+	        echo '<li>
+			        <h3>'.$series['seriesName'].'</h3>
+					<p>'.$description.'</p>
+					<a href="/settings/series/edit-series?id='.$series['seriesID'].'" class="button secondary small">View</a>
+				</li>';
+        }
+
+        echo '</ul>
+        	</article>';
+	    
+    }
+    
+    function hello_church_speakers(){
+	    
+	    $API  = new PerchAPI(1.0, 'hello_church');
+	    
+	    $Session = PerchMembers_Session::fetch();
+	    
+	    $churchID = $Session->get('churchID');
+
+        $HelloChurchSpeakers = new HelloChurch_Speakers($API);
+        
+        $speakers = $HelloChurchSpeakers->speakers($churchID);
+        
+		echo '<article>
+				<ul class="list">';
+        
+        foreach($speakers as $speaker){
+	        echo '<li>
+			        <h3>'.$speaker['speakerName'].'</h3>
+					<p></p>
+					<a href="/settings/speakers/edit-speaker?id='.$speaker['speakerID'].'" class="button secondary small">View</a>
+				</li>';
+        }
+
+        echo '</ul>
+        	</article>';
+	    
+    }
+    
+    function hello_church_speaker_owner($speakerID){
+		
+		$API  = new PerchAPI(1.0, 'hello_church');
+		$HelloChurchSpeakers = new HelloChurch_Speakers($API);
+		
+		$Session = PerchMembers_Session::fetch();
+		
+		$owner = $HelloChurchSpeakers->check_owner($Session->get('memberID'), $speakerID);
+		if($owner==1){
+		    return true;
+	    }else{
+		    return false;
+	    }
+		
+	}
+	
+	function hello_church_series_owner($seriesID){
+		
+		$API  = new PerchAPI(1.0, 'hello_church');
+		$HelloChurchSeriess = new HelloChurch_Seriess($API);
+		
+		$Session = PerchMembers_Session::fetch();
+		
+		$owner = $HelloChurchSeriess->check_owner($Session->get('memberID'), $seriesID);
+		if($owner==1){
+		    return true;
+	    }else{
+		    return false;
+	    }
+		
+	}
+	
+	function process_audio_upload($audioName, $audioDate, $audioDescription, $audioSpeaker, $audioSeries, $audioBible, $audioFile){
+	    
+	    $API  = new PerchAPI(1.0, 'hello_church');
+        $HelloChurchAudios = new HelloChurch_Audios($API);
+        
+		$Session = PerchMembers_Session::fetch();
+		
+		$HelloChurchAudios->add_audio($Session->get('memberID'), $Session->get('churchID'), $audioName, $audioDate, $audioDescription, $audioSpeaker, $audioSeries, $audioBible, $audioFile);
+	    
+    }
+    
+    function hello_church_audio(){
+		
+		$API  = new PerchAPI(1.0, 'hello_church');
+		$HelloChurchAudios = new HelloChurch_Audios($API);
+		$HelloChurchSeriess = new HelloChurch_Seriess($API);
+		$HelloChurchSpeakers = new HelloChurch_Speakers($API);
+		
+		$Session = PerchMembers_Session::fetch();
+		
+		$files = $HelloChurchAudios->audios($Session->get('churchID'));
+		
+		if($files){
+			$html .= '<ul class="list files">';
+			
+			foreach($files as $file){
+				$series = $HelloChurchSeriess->series($file['audioSeries']);
+				$speaker = $HelloChurchSpeakers->speaker($file['audioSpeaker']);
+				$html .= '<li>
+							<span class="material-symbols-outlined">record_voice_over</span>
+							<p><a href="/media/edit-audio?id='.$file['audioID'].'">'.$file['audioName'].'</a></p>
+							<form method="post" action="/process/download-audio">
+								<input type="submit" class="button secondary small" value="Download" />
+								<input type="hidden" name="audioID" value="'.$file['audioID'].'" />
+							</form>
+							<form method="post" action="/process/delete-audio">
+								<button type="submit" class="button danger small border"><span class="material-symbols-outlined">delete</span></button>
+								<input type="hidden" name="fileID" value="'.$file['audioID'].'" />
+							</form>
+						</li>';
+			}
+			
+			$html .= '</ul>';
+		}else{
+			$html .= "<p>No files uploaded.</p>";
+		}
+		
+		echo $html;
+		
+	}
+	
+	function process_delete_audio($audioID){
+	    
+	    $API  = new PerchAPI(1.0, 'hello_church');
+        
+        $HelloChurchAudios = new HelloChurch_Audios($API);
+        
+        $file = $HelloChurchAudios->audio($audioID);
+        
+        unlink("../../../../hc_uploads/".$file['churchID']."/".$file['audioFile']);
+		
+		$HelloChurchAudios->delete_audio($audioID);
+	    
+    }
+    
+    function process_download_audio($fileID){
+	    
+	    $API  = new PerchAPI(1.0, 'hello_church');
+        
+        $HelloChurchAudios = new HelloChurch_Audios($API);
+        
+        $file = $HelloChurchAudios->audio($fileID);
+        
+        $fileName = "../../../../hc_uploads/".$file['churchID']."/".$file['audioFile']; 
+		
+		if (file_exists($fileName))
+		{
+		    header('Content-Description: File Transfer');
+		    header('Content-Type: application/octet-stream');
+		    header('Content-Disposition: attachment; filename='.basename($fileName));
+		    header('Content-Transfer-Encoding: binary');
+		    header('Expires: 0');
+		    header('Cache-Control: must-revalidate, post-check=0, pre-check=0');
+		    header('Pragma: public');
+		    header('Content-Length: ' . filesize($fileName));
+		    ob_clean();
+		    flush();
+		    readfile($fileName);
+		    exit;
+		}
+		else
+		{
+		    echo "File does not exists";
+		}
+	    
+    }
+    
+    function hello_church_email(){
+	    
+	 	$API  = new PerchAPI(1.0, 'hello_church');
+	    
+	    $Session = PerchMembers_Session::fetch();
+	    
+	    $churchID = $Session->get('churchID');
+
+        $HelloChurchEmails = new HelloChurch_Emails($API);
+
+        $emails = $HelloChurchEmails->emails($churchID);
+
+		echo '<article>
+				<ul class="list files">';
+        
+        foreach($emails as $email){
+	        echo '<li>
+	        		<span class="material-symbols-outlined">mail</span>
+			        <h3><a href="/communication/edit-email?id='.$email['emailID'].'">'.$email['emailSubject'].'</a></h3>
+					<p>'.$email['emailStatus'].'</p>
+					<form><a href="/process/delete-email?id='.$email['emailID'].'" class="button danger small border"><span class="material-symbols-outlined">delete</span></a></form>
+				</li>';
+        }
+
+        echo '</ul>
+        	</article>';   
+	    
+    }
+    
+    function hello_church_email_owner($emailID){
+		
+		$API  = new PerchAPI(1.0, 'hello_church');
+		$HelloChurchEmails = new HelloChurch_Emails($API);
+		
+		$Session = PerchMembers_Session::fetch();
+		
+		$owner = $HelloChurchEmails->check_owner($Session->get('memberID'), $emailID);
+		if($owner==1){
+		    return true;
+	    }else{
+		    return false;
+	    }
+		
+	}
+	
+	function hello_church_get_email($emailID){
+	
+		$API  = new PerchAPI(1.0, 'hello_church');
+		$HelloChurchEmails = new HelloChurch_Emails($API);
+		
+		$email = $HelloChurchEmails->email($emailID);
+		
+		return $email;
 		
 	}
