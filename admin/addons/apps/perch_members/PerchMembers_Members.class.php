@@ -254,36 +254,5 @@ class PerchMembers_Members extends PerchAPI_Factory
         $Email->recipientEmail($email);
         $Email->send();
 	}
-	
-	function find_by_reference($reference){
-		
-		$sql = 'SELECT * FROM '.$this->table.' WHERE memberProperties LIKE "%\"reference\":'.$reference.'%"';
-		$data = $this->db->get_rows($sql);
-		
-		return $data;
-		
-	}
-	
-	function find_by_customer_id($customer_id){
-		
-		$sql = 'SELECT * FROM '.$this->table.' WHERE memberCustomerID="'.$customer_id.'"';
-		echo $sql;
-		$data = $this->db->get_row($sql);
-		
-		return $data;
-		
-	}
-	
-	function current_period_end($id){
-		$sql = 'SELECT * FROM '.$this->table.' WHERE memberID="'.$id.'"';
-		$data = $this->db->get_row($sql);
-		return $data['memberPeriodEnd'];
-	}
-	
-	function get_stripe_data($id, $field){
-		$sql = 'SELECT '.$field.' FROM '.$this->table.' WHERE memberID="'.$id.'"';
-		$data = $this->db->get_row($sql);
-		return $data[$field];
-	}
 
 }

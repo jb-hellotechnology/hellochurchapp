@@ -27,53 +27,6 @@
         perch_members_recover_session();
         perch_members_check_page_access();
     }
-    
-    function perch_member_subscription_period(){
-	    $API  = new PerchAPI(1.0, 'perch_members');
-		$Session = PerchMembers_Session::fetch();
-		$Members = new PerchMembers_Members($API);
-		return $Members->current_period_end($Session->get('memberID'));
-    }
-    
-    function stripe_data($field){
-	    $API  = new PerchAPI(1.0, 'perch_members');
-		$Session = PerchMembers_Session::fetch();
-		$Members = new PerchMembers_Members($API);
-		return $Members->get_stripe_data($Session->get('memberID'), $field);
-    }
-
-	function perch_members_update_stripe_id($reference, $customer_id){
-		$API  = new PerchAPI(1.0, 'perch_members');
-		$Session = PerchMembers_Session::fetch();
-		$Members = new PerchMembers_Members($API);
-		$Member = new PerchMembers_Member($API);
-
-		if(is_object($Members)){
-			$Member = $Members->find_by_reference($reference);
-			$Member = $Members->find($Member[0]['memberID']);
-        	if(is_object($Member)) {
-				$Member->update_stripe_id($customer_id);
-				$PerchMembers_Auth = new PerchMembers_Auth($API);
-                $PerchMembers_Auth->refresh_session_data($Member);
-			}
-		}
-	}
-	
-	function perch_members_update_subscription_id($id){
-		$API  = new PerchAPI(1.0, 'perch_members');
-		$Session = PerchMembers_Session::fetch();
-		$Members = new PerchMembers_Members($API);
-		$Member = new PerchMembers_Member($API);
-
-		if(is_object($Members)){
-			$Member = $Members->find($Session->get('memberID'));
-        	if(is_object($Member)) {
-				$Member->update_subscription_id($Session->get('memberID'), $id);
-				$PerchMembers_Auth = new PerchMembers_Auth($API);
-                $PerchMembers_Auth->refresh_session_data($Member);
-			}
-		}
-	}
 	
 	function perch_member_has_church(){
 		$API  = new PerchAPI(1.0, 'perch_members');
@@ -93,39 +46,6 @@
         $PerchMembers_Auth = new PerchMembers_Auth($API);
         $PerchMembers_Auth->refresh_session_data($Member);
 	}
-	
-	function perch_members_update_subscription_details(
-	    $customer_id,
-	    $subscription_id,
-	    $payment_method,
-	    $current_period_end,
-	    $cancel,
-	    $plan_id,
-	    $cost
-    ){
-	    $API  = new PerchAPI(1.0, 'perch_members');
-		$Session = PerchMembers_Session::fetch();
-		$Members = new PerchMembers_Members($API);
-		$Member = new PerchMembers_Member($API);
-
-		if(is_object($Members)){
-			$Member = $Members->find_by_customer_id($customer_id);
-			$Member = $Members->find($Member['memberID']);
-        	if(is_object($Member)) {
-				$Member->update_subscription_details(
-					$subscription_id,
-				    $payment_method,
-				    $current_period_end,
-				    $cancel,
-				    $plan_id,
-				    $cost
-				);
-				$Member = $Members->find($Session->get('memberID'));
-                $PerchMembers_Auth = new PerchMembers_Auth($API);
-                $PerchMembers_Auth->refresh_session_data($Member);
-			}
-		}
-    }
 
 	function perch_members_form_handler($SubmittedForm)
     {

@@ -23,7 +23,7 @@
 	var roles = document.querySelector('.roles');
 	new Tagify(roles, {
 		enforceWhitelist: true,
-	    whitelist : <?= hello_church_roles_tagify() ?>
+	    whitelist : [<?= hello_church_roles_tagify() ?>
 	});
 	
 	function resetPagination(){

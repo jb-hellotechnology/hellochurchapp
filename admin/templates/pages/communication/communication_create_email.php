@@ -16,25 +16,19 @@ $email = hello_church_get_email(perch_get('id'));
 perch_layout('header');
 ?>
 <main class="flow full">
-	<h1 class="with-button">Create Email</h1>
+	<h1 class="with-button">Create Email <a class="button primary" href="/communication/send-email?id=<?= perch_get('id') ?>">Send<span class="material-symbols-outlined">send</span></a></h1>
 	<?= $description ?>
-	<?php
-		// DISPLAY MESSAGES
-		if($_GET['msg']=='contact_added'){
-			echo '<p class="alert success">Contact added to role.</p>';
-		}	
-	?>
 	<div class="section-grid">
 		<div>
 			<form id="form-email">
 			<section>
 				<header>
-					<h2>Email Content <time><?= $email['emailSubject'] ?></time></h2>
+					<h2><strong>Subject:</strong> <?= $email['emailSubject'] ?></h2>
 				</header>
 				<article>
 					<div class="email-container sortable">
 						<?php
-						$email = json_decode($email, true);
+						$email = json_decode($email['emailContent'], true);
 						//print_r($email);
 						foreach($email as $type => $item){
 					
@@ -42,19 +36,19 @@ perch_layout('header');
 							$type = $typeParts[0];
 					
 							if($type=='heading'){
-								echo '<div class="email-item heading draggable"><a href=""><span class="material-symbols-outlined">drag_indicator</span></a><input type="text" name="heading_'.rand().'" placeholder="Heading" value="'.$item.'" /><a href="javascript:;" class="delete-from-email warning"><span class="material-symbols-outlined">delete</span></a></div>';
+								echo '<div class="plan-item heading draggable"><a href=""><span class="material-symbols-outlined">drag_indicator</span></a><input type="text" name="heading_'.rand().'" placeholder="Heading" value="'.$item.'" /><a href="javascript:;" class="delete-from-email warning"><span class="material-symbols-outlined">delete</span></a></div>';
 							}
 							if($type=='text'){
-								echo '<div class="email-item text draggable"><a href=""><span class="material-symbols-outlined">drag_indicator</span></a><textarea name="text_'.rand().'" placeholder="Text">'.$item.'</textarea><a href="javascript:;" class="delete-from-email warning"><span class="material-symbols-outlined">delete</span></a></div>';
+								echo '<div class="plan-item text draggable"><a href=""><span class="material-symbols-outlined">drag_indicator</span></a><textarea name="text_'.rand().'" placeholder="Text">'.$item.'</textarea><a href="javascript:;" class="delete-from-email warning"><span class="material-symbols-outlined">delete</span></a></div>';
 							}
 							if($type=='youtube'){
-								echo '<div class="email-item youtube draggable"><a href=""><span class="material-symbols-outlined">drag_indicator</span></a><textarea name="youtube_'.rand().'" placeholder="<iframe...">'.$item.'</textarea><a href="javascript:;" class="delete-from-email warning"><span class="material-symbols-outlined">delete</span></a></div>';
+								echo '<div class="plan-item youtube draggable"><a href=""><span class="material-symbols-outlined">drag_indicator</span></a><textarea name="youtube_'.rand().'" placeholder="<iframe...">'.$item.'</textarea><a href="javascript:;" class="delete-from-email warning"><span class="material-symbols-outlined">delete</span></a></div>';
 							}
 							if($type=='bible'){
-								echo '<div class="email-item bible draggable"><a href=""><span class="material-symbols-outlined">drag_indicator</span></a><input type="text" name="bible_'.rand().'" placeholder="John 3:16" value="'.$item.'" /><a href="javascript:;" class="delete-from-email warning"><span class="material-symbols-outlined">delete</span></a></div>';
+								echo '<div class="plan-item bible draggable"><a href=""><span class="material-symbols-outlined">drag_indicator</span></a><input type="text" name="bible_'.rand().'" placeholder="John 3:16" value="'.$item.'" /><a href="javascript:;" class="delete-from-email warning"><span class="material-symbols-outlined">delete</span></a></div>';
 							}
 							if($type=='link'){
-								echo '<div class="email-item link draggable"><a href=""><span class="material-symbols-outlined">drag_indicator</span></a><input type="text" name="link_'.rand().'" placeholder="https://hellochurch.tech" value="'.$item.'" /><a href="javascript:;" class="delete-from-email warning"><span class="material-symbols-outlined">delete</span></a></div>';
+								echo '<div class="plan-item link draggable"><a href=""><span class="material-symbols-outlined">drag_indicator</span></a><input type="text" name="link_'.rand().'" placeholder="https://hellochurch.tech" value="'.$item.'" /><a href="javascript:;" class="delete-from-email warning"><span class="material-symbols-outlined">delete</span></a></div>';
 							}
 						}	
 						?>

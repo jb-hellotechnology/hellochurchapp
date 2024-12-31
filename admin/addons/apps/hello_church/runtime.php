@@ -113,7 +113,7 @@ error_reporting(E_ALL);
 
     PerchSystem::register_template_handler('HelloChurch_Template');
 
-	function hello_church_church(){
+	function hello_church_church($return){
 		
 		$API  = new PerchAPI(1.0, 'hello_church');
 		$HelloChurchChurches = new HelloChurch_Churches($API);
@@ -121,10 +121,15 @@ error_reporting(E_ALL);
 		$Session = PerchMembers_Session::fetch();
 		
 		$church = $HelloChurchChurches->church($Session->get('churchID'));
-		if($church){
-			return true;
+		
+		if($return){
+			return $church;
 		}else{
-			return false;
+			if($church){
+				return true;
+			}else{
+				return false;
+			}
 		}
 		
 	}
@@ -879,8 +884,10 @@ error_reporting(E_ALL);
         $HelloChurchAudios = new HelloChurch_Audios($API);
         $HelloChurchEmails = new HelloChurch_Emails($API);
         
-	    
 	    $Session = PerchMembers_Session::fetch();
+	    
+	    require '../../../vendor/autoload.php';
+		include('../../../secrets.php');
 
         switch($SubmittedForm->formID) {
             case 'create_church':
@@ -888,8 +895,18 @@ error_reporting(E_ALL);
 	            if(!$valid){
 		            //$SubmittedForm->throw_error($valid['reason'], $valid['field']);
 	            }else{
+
+		            $stripe = new \Stripe\StripeClient($stripeSK);
+		            $stripeCustomer = $stripe->customers->create([
+					  'name' => $data['churchName'],
+					  'email' => perch_member_get('email'),
+					]);
+					
+					$customer_id = $stripeCustomer->id;
+					
 		            $data = $SubmittedForm->data;
-		            $data['churchSlug'] = str_replace(" ", "-", $data['churchName']);
+		            $data['churchSlug'] = strtolower(str_replace(" ", "-", $data['churchName']));
+		            $data['churchCustomerID'] = $customer_id;
 		            $data['churchProperties'] = '';
 	            	$HelloChurchChurches->create($data);
 	            } 
@@ -1554,6 +1571,22 @@ error_reporting(E_ALL);
 		
 		return $plan;
 		
+    }
+    
+    function process_save_email($emailID, $plan){
+	    
+	    $API  = new PerchAPI(1.0, 'hello_church');
+        
+        $HelloChurchEmails = new HelloChurch_Emails($API);
+        
+		$Session = PerchMembers_Session::fetch();
+		$memberID = $Session->get('memberID');
+		$churchID = $Session->get('churchID');
+		
+		$email = $HelloChurchEmails->save_email($memberID, $churchID, $emailID, $plan);
+		
+		return $email;
+	    
     }
 	
 	function hello_church_event_owner($eventID){
@@ -2289,3 +2322,86 @@ error_reporting(E_ALL);
 		return $email;
 		
 	}
+	
+	/** SUBSCRIPTION FUNCTIONS **/
+	
+	function church_subscription_period(){
+	    $API  = new PerchAPI(1.0, 'hello_church');
+		$Session = PerchMembers_Session::fetch();
+		$Churches = new HelloChurch_Churches($API);
+		return $Churches->current_period_end($Session->get('churchID'));
+    }
+    
+    function stripe_data($field){
+	    $API  = new PerchAPI(1.0, 'hello_church');
+		$Session = PerchMembers_Session::fetch();
+		$Churches = new HelloChurch_Churches($API);
+		return $Churches->get_stripe_data($Session->get('churchID'), $field);
+    }
+
+	function church_update_stripe_id($reference, $church_id){
+		$API  = new PerchAPI(1.0, 'hello_church');
+		$Session = PerchMembers_Session::fetch();
+		$Churches = new HelloChurch_Churches($API);
+		$Church = new HelloChurch_Church($API);
+
+		if(is_object($Churches)){
+			$Church = $Churches->find_by_reference($reference);
+			$Church = $Churches->find($Church[0]['churchID']);
+        	if(is_object($Church)) {
+				$Church->update_stripe_id($church_id);
+				$PerchMembers_Auth = new PerchMembers_Auth($API);
+                $PerchMembers_Auth->refresh_session_data($Member);
+			}
+		}
+	}
+	
+	function church_update_subscription_id($id){
+		$API  = new PerchAPI(1.0, 'hello_church');
+		$Session = PerchMembers_Session::fetch();
+		$Churches = new HelloChurch_Churches($API);
+		$Church = new HelloChurch_Church($API);
+
+		if(is_object($Churches)){
+			$Church = $Churches->find($Session->get('churchID'));
+        	if(is_object($Church)) {
+				$Church->update_subscription_id($Session->get('churchID'), $id);
+				$PerchMembers_Auth = new PerchMembers_Auth($API);
+                $PerchMembers_Auth->refresh_session_data($Member);
+			}
+		}
+	}
+	
+	function church_update_subscription_details(
+	    $customer_id,
+	    $subscription_id,
+	    $payment_method,
+	    $current_period_end,
+	    $cancel,
+	    $plan_id,
+	    $cost
+    ){
+	    $API  = new PerchAPI(1.0, 'hello_church');
+		$Session = PerchMembers_Session::fetch();
+		$Churches = new HelloChurch_Churches($API);
+		$Church = new HelloChurch_Church($API);
+
+		if(is_object($Churches)){
+			$Church = $Churches->find_by_customer_id($customer_id);
+			$Church = $Churches->find($Church['churchID']);
+        	if(is_object($Church)) {
+	        	print_r($Church);
+				$Church->update_subscription_details(
+					$subscription_id,
+				    $payment_method,
+				    $current_period_end,
+				    $cancel,
+				    $plan_id,
+				    $cost
+				);
+// 				$Church = $Churches->find($Session->get('churchID'));
+                $PerchMembers_Auth = new PerchMembers_Auth($API);
+                $PerchMembers_Auth->refresh_session_data($Member);
+			}
+		}
+    }

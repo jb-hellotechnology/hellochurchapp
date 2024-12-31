@@ -30,7 +30,7 @@ switch ($event->type) {
   	$checkout = $event->data->object;
   	$reference = $event->data->object->client_reference_id;
   	$customer_id = $event->data->object->customer;
-  	perch_members_update_stripe_id($reference, $customer_id);
+  	church_update_stripe_id($reference, $customer_id);
     break;
   case 'customer.subscription.updated':
     $subscription = $event->data->object;
@@ -41,7 +41,7 @@ switch ($event->type) {
     $cancel = $event->data->object->cancel_at;
     $plan_id = $event->data->object->items->data[0]->plan->id;
     $cost = $event->data->object->items->data[0]->plan->amount_decimal;
-    perch_members_update_subscription_details(
+    church_update_subscription_details(
 	    $customer_id,
 	    $subscription_id,
 	    $payment_method,
@@ -60,7 +60,8 @@ switch ($event->type) {
     $cancel = $event->data->object->cancel_at;
     $plan_id = $event->data->object->items->data[0]->plan->id;
     $cost = $event->data->object->items->data[0]->plan->amount_decimal;
-    perch_members_update_subscription_details(
+    print_r($event);
+    church_update_subscription_details(
 	    $customer_id,
 	    $subscription_id,
 	    $payment_method,

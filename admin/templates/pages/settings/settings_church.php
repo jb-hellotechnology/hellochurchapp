@@ -10,11 +10,23 @@ perch_layout('header');
 ?>
 <main class="flow">
 	<h1>Church Settings</h1>
+	<?php 
+		if(!perch_member_has_church()){
+			echo '<p class="alert success">Success! Please now add your church contact details using the form below:</p>';
+		}
+	?>
 	<section>
 		<header>
 			<h2>Contact Details</h2>
 		</header>
-		<?php hello_church_form('update_church.html'); ?>
+		
+		<?php 
+			if(perch_member_has_church()){
+				hello_church_form('update_church.html'); 
+			}else{
+				hello_church_form('create_church.html');
+			}
+		?>
 	</section>
 </main>
 <?php perch_layout('footer'); ?>

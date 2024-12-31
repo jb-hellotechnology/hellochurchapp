@@ -690,6 +690,15 @@ textarea:focus,
 	box-shadow: var(--shadow);
 }
 
+.alert a{
+	color:var(--color-white);
+	border-bottom-color: #fff;
+}
+
+.alert a:hover{
+	color:var(--color-secondary);
+}
+
 .alert.success{
 	background:var(--color-success);
 }
@@ -1149,7 +1158,7 @@ ul.cards{
 	margin:0;
 	width:100%;
 	display:grid;
-	grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+	grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
 	grid-column-gap: 1rem;
 	grid-row-gap: 1rem;
 }
@@ -1181,6 +1190,18 @@ ul.cards li span{
 
 ul.cards li .button{
 	margin-top:1rem;
+}
+
+ul.cards.align-left li{
+	text-align: left;
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+ul.cards.align-left li .button{
+	float:right;
 }
 
 @media screen and (max-width:600px){
@@ -1319,13 +1340,13 @@ ul.list li form .button.danger.small.border{
 	text-align:right;
 }
 
-.plan-preview .bible{
+.bible{
 	background:var(--color-light);
 	margin:1rem 0;
 	padding:1rem;
 }
 
-.plan-preview .bible h2{
+.bible h2{
 	font-size:var(--size-step-1);
 	font-weight:700;
 }

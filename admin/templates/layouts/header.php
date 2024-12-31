@@ -1,13 +1,22 @@
 <?php
 if(perch_member_logged_in()){
-	$customer_id = stripe_data('memberCustomerID');	
+	$customer_id = stripe_data('churchCustomerID');	
 	$url = perch_pages_title(true);
-	if($customer_id == '' AND $url !== 'Setup Subscription' AND $url !== 'Get Started'){
-		header("location:/subscription");
+	
+	perch_members_refresh_session_data();
+	
+	$subscription = stripe_data('churchPeriodEnd');
+	
+	if(!perch_member_has_church() AND $url !== 'Settings - Church'){
+		header("location:/settings/church");	
 	}
-	if(!perch_member_has_church()){
-		perch_members_refresh_session_data();
+
+	if(perch_member_has_church() AND $subscription <= time() AND $subscription !== '' AND $url !== 'Setup Subscription'){
+		header("location:/subscription");	
+	}elseif($subscription <= time() AND $subscription > 0 AND $url !== 'Setup Subscription'){
+		header("/settings/subscription");
 	}
+
 }
 ?>
 <!doctype html>

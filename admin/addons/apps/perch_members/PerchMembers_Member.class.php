@@ -197,45 +197,5 @@ class PerchMembers_Member extends PerchAPI_Base
         }
         return $pwd;
     }
-    
-    
-	public function update_stripe_id($stripeID){
-		
-		$API = new PerchAPI(1.0, 'perch_members');
-		
-		$out['memberCustomerID'] = $stripeID;
-		
-		$this->update($out);
-		
-	} 
-	
-	public function update_subscription_details(
-					$subscription_id,
-				    $payment_method,
-				    $current_period_end,
-				    $cancel,
-				    $plan_id,
-				    $cost
-	){
-		
-		$API = new PerchAPI(1.0, 'perch_members');
-		
-		$out['memberSubscriptionID'] = $subscription_id;
-		$out['memberPaymentMethod'] = $payment_method;
-		$out['memberPeriodEnd'] = $current_period_end;
-		$out['memberCancel'] = $cancel;
-		$out['memberPlanID'] = $plan_id;
-		$out['memberCost'] = $cost;
-		
-		$this->update($out);
-		
-	} 
-	
-	public function current_period_end(){
-		echo 3;
-		$API = new PerchAPI(1.0, 'perch_members');
-		echo $this->period();
-		
-	}
 
 }

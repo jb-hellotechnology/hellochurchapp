@@ -53,5 +53,21 @@ class HelloChurch_Emails extends PerchAPI_Factory
 	    return count($results);
 	    
     }
+    
+    public function save_email($memberID, $churchID, $emailID, $email){
+		
+		$sql = "UPDATE perch3_hellochurch_emails SET emailContent='".addslashes($email)."' WHERE emailID='".$emailID."'";
+		$result = $this->db->execute($sql);
+		
+	}
+	
+	public function get_email($memberID, $churchID, $emailID){
+		
+		$sql = "SELECT * FROM perch3_hellochurch_emails WHERE emailID='".$emailID."'";
+	    $result = $this->db->get_row($sql);
+	    
+	    return $result['emailContent'];
+		
+	}
 
 }
