@@ -18,6 +18,7 @@ perch_layout('header');
 
 $email = json_decode($email['emailContent'], true);
 $subject = $email['emailSubject'];
+
 $emailContent = '';
 foreach($email as $type => $item){
 
@@ -64,7 +65,6 @@ foreach($email as $type => $item){
 if($_GET['send']==1){
 	
 	$to = $_POST['recipients'];
-	$subject = $email['emailSubject'];
 	$message = $emailContent;
 	
 	// Configure API key authorization: api-key
@@ -101,7 +101,7 @@ if($_GET['send']==1){
 			<form id="form-email">
 			<section>
 				<header>
-					<h2><strong>Subject:</strong> <?= $email['emailSubject'] ?></h2>
+					<h2><strong>Subject:</strong> <?= $subject ?></h2>
 				</header>
 				<article>
 					<div class="email-container sortable">
