@@ -79,7 +79,7 @@ if($_GET['send']==1){
 	$sendSmtpEmail = new \Brevo\Client\Model\SendSmtpEmail([
 	  	 'subject' => $subject,
 	     'sender' => ['name' => 'Hello Church', 'email' => 'email@hellochurch.tech'],
-	     'replyTo' => ['name' => 'Grace Church Loftus', 'email' => 'jack@hellotechnology.co.uk'],
+	     'replyTo' => ['name' => 'Jack Barber', 'email' => 'jack@jackbarber.co.uk'],
 	     'to' => [[ 'email' => 'jack@jackbarber.co.uk' ]],
 	     'htmlContent' => '<html><body>'.$emailContent.'</body></html>',
 	]);
