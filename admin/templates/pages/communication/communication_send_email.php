@@ -16,8 +16,8 @@ $email = hello_church_get_email(perch_get('id'));
 
 perch_layout('header');
 
-$email = json_decode($email['emailContent'], true);
 $subject = $email['emailSubject'];
+$email = json_decode($email['emailContent'], true);
 
 $emailContent = '';
 foreach($email as $type => $item){
