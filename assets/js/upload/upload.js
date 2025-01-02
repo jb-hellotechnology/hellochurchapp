@@ -2,7 +2,11 @@ $('#upload').on('click', function() {
     var file_data = $('#file').prop('files')[0];   
     var form_data = new FormData();                  
     form_data.append('file', file_data);  
-    form_data.append('folderID', $('#folderID').val());   
+    form_data.append('folderID', $('#folderID').val());
+    form_data.append('contactID', $('#contactID').val());
+    form_data.append('groupID', $('#groupID').val());
+    form_data.append('eventID', $('#eventID').val()); 
+    form_data.append('eventDate', $('#eventDate').val());  
     $('.loading').toggleClass('show');                       
     $.ajax({
         url: '/process/documents-upload', // <-- point to server-side PHP script 
@@ -14,7 +18,7 @@ $('#upload').on('click', function() {
         type: 'post',
         success: function(php_script_response){
             if(php_script_response=='Success'){
-	            location.reload(); 
+	            //location.reload(); 
             }else{
 	            alert('Error: ' + php_script_response);
             }

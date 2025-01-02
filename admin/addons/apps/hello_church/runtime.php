@@ -1966,7 +1966,7 @@ error_reporting(E_ALL);
 		
 	}
 	
-	function process_file_upload($folderID, $fileName){
+	function process_file_upload($folderID, $contactID, $groupID, $eventID, $eventDate, $fileName){
 	    
 	    $API  = new PerchAPI(1.0, 'hello_church');
         
@@ -1974,7 +1974,7 @@ error_reporting(E_ALL);
         
 		$Session = PerchMembers_Session::fetch();
 		
-		$HelloChurchFolders->add_file($Session->get('churchID'), $Session->get('memberID'), $folderID, $fileName);
+		$HelloChurchFolders->add_file($Session->get('churchID'), $Session->get('memberID'), $folderID, $contactID, $groupID, $eventID, $eventDate, $fileName);
 	    
     }
     
@@ -2025,14 +2025,22 @@ error_reporting(E_ALL);
 	    
     }
     
-    function hello_church_files($folderParent){
+    function hello_church_files($folderParent, $contactParent, $groupParent, $eventParent, $eventDate){
 		
 		$API  = new PerchAPI(1.0, 'hello_church');
 		$HelloChurchFolders = new HelloChurch_Folders($API);
 		
 		$Session = PerchMembers_Session::fetch();
 		
-		$files = $HelloChurchFolders->files($Session->get('churchID'), $folderParent);
+		if($contactParent>0){
+			$files = $HelloChurchFolders->files($Session->get('churchID'), 0, $contactParent, 0, 0, 0);
+		}elseif($groupParent>0){
+			$files = $HelloChurchFolders->files($Session->get('churchID'), 0, 0, $groupParent, 0, 0);
+		}elseif($eventParent>0){
+			$files = $HelloChurchFolders->files($Session->get('churchID'), 0, 0, 0, $eventParent, $eventDate);
+		}else{
+			$files = $HelloChurchFolders->files($Session->get('churchID'), $folderParent, 0, 0, $eventParent, $eventDate);
+		}
 		
 		$html = '<p class="section-heading">Files:</p>';
 		

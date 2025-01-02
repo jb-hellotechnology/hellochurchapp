@@ -50,14 +50,14 @@ if($documentFileType != "doc" && $documentFileType != "docx" && $documentFileTyp
 
 // Check if $uploadOk is set to 0 by an error
 if ($uploadOk == 0) {
-  echo "Sorry, your file was not uploaded. ";
+  echo "Sorry, your file was not uploaded. Error Code: 1";
 // if everything is ok, try to upload file
 } else {
   if (move_uploaded_file($_FILES["file"]["tmp_name"], $target_file)) {
-	process_file_upload($_POST['folderID'], $_FILES["file"]["name"]);
+	process_file_upload($_POST['folderID'], $_POST['contactID'], $_POST['groupID'], $_POST['eventID'], $_POST['eventDate'], $_FILES["file"]["name"]);
     echo "Success";
   } else {
-    echo "Sorry, your file was not uploaded. ";
+    echo "Sorry, your file was not uploaded. Error Code: 2";
   }
 }
 

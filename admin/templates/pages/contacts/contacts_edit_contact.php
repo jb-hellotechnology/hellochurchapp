@@ -71,6 +71,23 @@ $name = hello_church_contact_get(perch_get('id'), 'contactFirstName').' '.hello_
 					<a href="/contacts/add-note?id=<?= perch_get('id') ?>" class="button primary">Add Note</a>
 				</footer>
 			</section>
+			<section>
+				<header>
+					<h2>Upload File</h2>
+				</header>
+				<article>
+					<?php hello_church_files(0, perch_get('id'), 0, 0, 0); ?>
+					<input id="file" type="file" name="file" />
+					<input type="hidden" name="folderID" id="folderID" value="0" />
+					<input type="hidden" name="contactID" id="contactID" value="<?= perch_get('id') ?>" />
+					<input type="hidden" name="groupID" id="groupID" value="0" />
+					<input type="hidden" name="eventID" id="eventID" value="0" />
+					<input type="hidden" name="eventDate" id="eventDate" value="0000-00-00" />
+				</article>
+				<footer>
+					<button id="upload" class="button primary">Upload</button>
+				</footer>
+			</section>
 		</div>
 	</div>
 	

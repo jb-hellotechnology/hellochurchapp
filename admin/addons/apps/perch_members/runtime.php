@@ -49,6 +49,9 @@
 
 	function perch_members_form_handler($SubmittedForm)
     {
+	    
+	    include('../../../secrets.php');
+	    
     	if ($SubmittedForm->validate()) {
 
     		$API  = new PerchAPI(1.0, 'perch_members');
@@ -78,8 +81,26 @@
                     break;
 
                 case 'register':
-                    $Members = new PerchMembers_Members($API);
-                    $Members->register_with_form($SubmittedForm);
+	                $data = $SubmittedForm->data;
+	                $response = $data['h-captcha-response'];
+                	$data = array(
+					            'secret' => $hcaptchaSecret,
+					            'response' => $response
+					        );
+					$verify = curl_init();
+					curl_setopt($verify, CURLOPT_URL, "https://hcaptcha.com/siteverify");
+					curl_setopt($verify, CURLOPT_POST, true);
+					curl_setopt($verify, CURLOPT_POSTFIELDS, http_build_query($data));
+					curl_setopt($verify, CURLOPT_RETURNTRANSFER, true);
+					$response = curl_exec($verify);
+					$response = json_decode($response);
+					if($response->success){
+					    $Members = new PerchMembers_Members($API);
+						$Members->register_with_form($SubmittedForm);
+					}else{
+						$SubmittedForm->throw_error('hcaptcha');
+					}
+                    
                     break;
 
                 case 'reset':

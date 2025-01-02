@@ -71,7 +71,7 @@ class HelloChurch_Folders extends PerchAPI_Factory
 	    
     }
     
-    public function add_file($churchID, $memberID, $folderID, $fileName){
+    public function add_file($churchID, $memberID, $folderID, $contactID, $groupID, $eventID, $eventDate, $fileName){
 	    
 	    $API  = new PerchAPI(1.0, 'hello_church');
 	    
@@ -79,8 +79,8 @@ class HelloChurch_Folders extends PerchAPI_Factory
 		    $folderID = 0;
 	    }
 		
-		$sql = "INSERT INTO perch3_hellochurch_files (churchID, memberID, folderID, fileName) VALUES 
-		('".$churchID."', '".$memberID."', '".$folderID."', '".$fileName."')";
+		$sql = "INSERT INTO perch3_hellochurch_files (churchID, memberID, folderID, contactID, groupID, eventID, eventDate, fileName) VALUES 
+		('".$churchID."', '".$memberID."', '".$folderID."', '".$contactID."', '".$groupID."', '".$eventID."', '".$eventDate."', '".$fileName."')";
 	    $results = $this->db->execute($sql);
 	    
     }
@@ -104,11 +104,19 @@ class HelloChurch_Folders extends PerchAPI_Factory
 	    
     }
     
-    public function files($churchID, $folderParent){
+    public function files($churchID, $folderParent, $contactParent, $groupParent, $eventParent, $eventDate){
 	    
 	    $API  = new PerchAPI(1.0, 'hello_church');
 	    
-	    $sql = "SELECT * FROM perch3_hellochurch_files WHERE churchID='".$churchID."' AND folderID='".$folderParent."' ORDER BY fileCreated DESC";    
+	    if($contactParent>0){
+	    	$sql = "SELECT * FROM perch3_hellochurch_files WHERE churchID='".$churchID."' AND contactID='".$contactParent."' ORDER BY fileCreated DESC";    
+	    }elseif($groupParent>0){
+		    $sql = "SELECT * FROM perch3_hellochurch_files WHERE churchID='".$churchID."' AND groupID='".$groupParent."' ORDER BY fileCreated DESC";   
+	    }elseif($eventParent>0){
+		    $sql = "SELECT * FROM perch3_hellochurch_files WHERE churchID='".$churchID."' AND eventID='".$eventParent."' AND eventDate='".$eventDate."'  ORDER BY fileCreated DESC";   
+	    }else{
+		    $sql = "SELECT * FROM perch3_hellochurch_files WHERE churchID='".$churchID."' AND folderID='".$folderParent."' ORDER BY fileCreated DESC";   
+	    }
 		
 	    $results = $this->db->get_rows($sql);
 	    return $results;

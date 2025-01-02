@@ -33,6 +33,8 @@ if(perch_member_logged_in()){
 	
 	<link href="/assets/js/tagify/tagify.css" rel="stylesheet" type="text/css" />
 	<link rel="stylesheet" href="/assets/redactor/redactor.min.css" />
+	
+	<script src='https://www.hCaptcha.com/1/api.js' async defer></script>
 </head>
 <body>
 	<header class="site-header">

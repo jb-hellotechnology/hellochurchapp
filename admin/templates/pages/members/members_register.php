@@ -1,15 +1,17 @@
 <?php
+include('../../../secrets.php');
 if(perch_member_logged_in()){
 	header('location:/subscription');
 }
 perch_layout('header');
+PerchSystem::set_var('hcaptchaSiteKey', $hcaptchaSiteKey);
 ?>
 <main class="narrow flow">
 	<h1>Get Started ⌨️</h1>
 	<ul class="checks">
 		<li>
 			<span class="material-symbols-outlined">check_circle</span>
-			<div><strong>14 Day Free Trial</strong><br />Plenty of time to try Hello Church</div>
+			<div><strong>30 Day Free Trial</strong><br />Plenty of time to try Hello Church</div>
 		</li>
 		<li>
 			<span class="material-symbols-outlined">check_circle</span>

@@ -57,7 +57,7 @@ if($folder){
 			</header>
 			<article>
 				<?php hello_church_folders(perch_get('id')); ?>
-				<?php hello_church_files(perch_get('id')); ?>
+				<?php hello_church_files(perch_get('id'), 0, 0, 0, 0); ?>
 			</article>
 			<footer>
 				
@@ -72,6 +72,10 @@ if($folder){
 				<article>
 					<input id="file" type="file" name="file" />
 					<input type="hidden" name="folderID" id="folderID" value="<?= perch_get('id') ?>" />
+					<input type="hidden" name="contactID" id="contactID" value="0" />
+					<input type="hidden" name="groupID" id="groupID" value="0" />
+					<input type="hidden" name="eventID" id="eventID" value="0" />
+					<input type="hidden" name="eventDate" id="eventDate" value="0000-00-00" />
 				</article>
 				<footer>
 					<button id="upload" class="button primary">Upload</button>

@@ -4,6 +4,20 @@
 			<span class="material-symbols-outlined">autorenew</span>
 		</div>
 	</div>
+	<!-- Brevo Conversations {literal} -->
+	<script>
+	    (function(d, w, c) {
+	        w.BrevoConversationsID = '670cfad6dbb2b99a030ff718';
+	        w[c] = w[c] || function() {
+	            (w[c].q = w[c].q || []).push(arguments);
+	        };
+	        var s = d.createElement('script');
+	        s.async = true;
+	        s.src = 'https://conversations-widget.brevo.com/brevo-conversations.js';
+	        if (d.head) d.head.appendChild(s);
+	    })(document, window, 'BrevoConversations');
+	</script>
+	<!-- /Brevo Conversations {/literal} -->
 	<script src="/assets/js/jquery.3.7.1.min.js"></script>
 	<script src="/assets/js/jquery-ui.1.14.0.js"></script>
 	<script src="/assets/js/tagify/tagify.js"></script>

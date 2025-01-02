@@ -1,4 +1,5 @@
 <?php
+include('../../../secrets.php');
 if(perch_member_logged_in()){
 
 	if(perch_member_has_tag('deactivated')){
@@ -23,6 +24,7 @@ if(perch_member_logged_in()){
 	
 }
 perch_layout('header');
+PerchSystem::set_var('hcaptchaSiteKey', $hcaptchaSiteKey);
 ?>
 <main class="narrow">
 	<h1>Hello 👋</h1>
@@ -33,7 +35,7 @@ perch_layout('header');
 		<?php perch_members_login_form(); ?>
 	</section>
 	<p>Forgotten your password? <a href="/reset/">Reset it now</a>.</p>
-	<p>Not a member? <a href="/register/">Sign up for a 14 day free trial</a>.</p>
+	<p>Not a member? <a href="/register/">Sign up for a 30 day free trial</a>.</p>
 </main>
 <?php
 perch_layout('footer');
