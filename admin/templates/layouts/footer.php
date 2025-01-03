@@ -37,7 +37,13 @@
 	var roles = document.querySelector('.roles');
 	new Tagify(roles, {
 		enforceWhitelist: true,
-	    whitelist : [<?= hello_church_roles_tagify() ?>
+	    whitelist : <?= hello_church_roles_tagify() ?>
+	});
+	
+	var venues = document.querySelector('.venues');
+	new Tagify(venues, {
+		enforceWhitelist: true,
+	    whitelist : <?= hello_church_venues_tagify() ?>
 	});
 	
 	function resetPagination(){

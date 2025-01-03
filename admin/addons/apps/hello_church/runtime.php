@@ -449,6 +449,7 @@ error_reporting(E_ALL);
         $HelloChurchGroups = new HelloChurch_Groups($API);
         $HelloChurchEvents = new HelloChurch_Events($API);
         $HelloChurchRoles = new HelloChurch_Roles($API);
+        $HelloChurchVenues = new HelloChurch_Venues($API);
         $HelloChurchFamilies = new HelloChurch_Families($API);
         $HelloChurchFolders = new HelloChurch_Folders($API);
         $HelloChurchSpeakers = new HelloChurch_Speakers($API);
@@ -545,6 +546,17 @@ error_reporting(E_ALL);
 			
 			$data['roleID'] = $_GET['id'];
 			
+		}elseif($template == 'create_venue.html'){
+
+			
+		}elseif($template == 'update_venue.html'){
+
+			$data = $HelloChurchVenues->venue($_GET['id']);
+			
+		}elseif($template == 'delete_venue.html'){
+			
+			$data['venueID'] = $_GET['id'];
+			
 		}elseif($template == 'create_family.html'){
 
 			
@@ -603,6 +615,10 @@ error_reporting(E_ALL);
 		}elseif($template == 'delete_folder.html'){
 			
 			$data = $HelloChurchFolders->folder($_GET['id']);
+			
+		}elseif($template == 'update_file.html'){
+
+			$data = $HelloChurchFolders->get_file($_GET['id']);
 			
 		}elseif($template == 'create_series.html'){
 
@@ -874,6 +890,7 @@ error_reporting(E_ALL);
 	    $HelloChurchEvents = new HelloChurch_Events($API);
 	    $HelloChurchRole = new HelloChurch_Role($API);
 	    $HelloChurchRoles = new HelloChurch_Roles($API);
+	    $HelloChurchVenues = new HelloChurch_Venues($API);
 	    $HelloChurchFamily = new HelloChurch_Family($API);
 	    $HelloChurchFamilies = new HelloChurch_Families($API);
 	    $HelloChurchFolders = new HelloChurch_Folders($API);
@@ -1097,6 +1114,18 @@ error_reporting(E_ALL);
 	            $role = $HelloChurchRoles->find($SubmittedForm->data['roleID']);
 		        $role->delete();
             break;
+            case 'create_venue':
+	            $data = $SubmittedForm->data;
+		        $venue = $HelloChurchVenues->create($data);
+            break;
+            case 'update_venue':
+	            $venue = $HelloChurchVenues->find($SubmittedForm->data['venueID']);
+		        $venue->update($SubmittedForm->data);
+            break;
+            case 'delete_venue':
+	            $venue = $HelloChurchVenues->find($SubmittedForm->data['venueID']);
+		        $venue->delete();
+            break;
             case 'create_family':
 	            $data = $SubmittedForm->data;
 		        $family = $HelloChurchFamilies->create($data);
@@ -1247,6 +1276,9 @@ error_reporting(E_ALL);
             case 'delete_folder':
 	            $folder = $HelloChurchFolders->find($SubmittedForm->data['folderID']);
 		        $folder->delete();
+            break;
+            case 'update_file':
+	            $HelloChurchFolders->update_file($SubmittedForm->data);
             break;
             case 'create_series':
 	            $data = $SubmittedForm->data;
@@ -1616,6 +1648,35 @@ error_reporting(E_ALL);
 		
 	}
 	
+	function hello_church_venues(){
+	    
+	    $API  = new PerchAPI(1.0, 'hello_church');
+	    
+	    $Session = PerchMembers_Session::fetch();
+	    
+	    $churchID = $Session->get('churchID');
+
+        $HelloChurchVenues = new HelloChurch_Venues($API);
+        
+        $venues = $HelloChurchVenues->venues($churchID);
+        
+		echo '<article>
+				<ul class="list">';
+        
+        foreach($venues as $venue){
+	        $description = strip_tags($venue['venueDescription']);
+	        echo '<li>
+			        <h3>'.$venue['venueName'].'</h3>
+					<p>'.$description.'</p>
+					<a href="/settings/venues/edit-venue?id='.$venue['venueID'].'" class="button secondary small">View</a>
+				</li>';
+        }
+
+        echo '</ul>
+        	</article>';
+	    
+    }
+	
 	function hello_church_roles(){
 	    
 	    $API  = new PerchAPI(1.0, 'hello_church');
@@ -1645,6 +1706,32 @@ error_reporting(E_ALL);
 	    
     }
     
+    function hello_church_venues_tagify(){
+	    
+	    $API  = new PerchAPI(1.0, 'hello_church');
+	    
+	    $Session = PerchMembers_Session::fetch();
+	    
+	    $churchID = $Session->get('churchID');
+
+        $HelloChurchVenues = new HelloChurch_Venues($API);
+        
+        $venues = $HelloChurchVenues->venues($churchID);
+        
+		$html = '[';
+        
+        foreach($venues as $venue){
+	        $html .=  "'".$venue['venueName']."', ";
+        }
+        
+        $html = substr($html, 0 , -2);
+
+        $html .= ']';
+        
+        return $html;
+	    
+    }
+    
     function hello_church_roles_tagify(){
 	    
 	    $API  = new PerchAPI(1.0, 'hello_church');
@@ -1670,6 +1757,22 @@ error_reporting(E_ALL);
         return $html;
 	    
     }
+    
+    function hello_church_venue_owner($venueID){
+		
+		$API  = new PerchAPI(1.0, 'hello_church');
+		$HelloChurchVenues = new HelloChurch_Venues($API);
+		
+		$Session = PerchMembers_Session::fetch();
+		
+		$owner = $HelloChurchVenues->check_owner($Session->get('memberID'), $venueID);
+		if($owner==1){
+		    return true;
+	    }else{
+		    return false;
+	    }
+		
+	}
     
     function hello_church_role_owner($roleID){
 		
@@ -1898,6 +2001,34 @@ error_reporting(E_ALL);
 		
 	}
 	
+	function hello_church_folder_structure(){
+	
+		$API  = new PerchAPI(1.0, 'hello_church');
+		$HelloChurchFolders = new HelloChurch_Folders($API);
+		
+		$Session = PerchMembers_Session::fetch();
+	
+		$folderString = " |0,";
+		
+		$folders = $HelloChurchFolders->folders($Session->get('churchID'), $folderParent);
+		
+		foreach($folders as $folder){
+			$folderString .= "- $folder[folderName]|$folder[folderID],";
+			
+			$subFolders = $HelloChurchFolders->folders($Session->get('churchID'), $folder['folderID']);
+			foreach($subFolders as $subFolder){
+				$folderString .= "-- $subFolder[folderName]|$subFolder[folderID],";
+				$subFolders_2 = $HelloChurchFolders->folders($Session->get('churchID'), $subFolder['folderID']);	
+				foreach($subFolders_2 as $subFolder_2){	
+					$folderString .= "-- $subFolder_2[folderName]|$subFolder_2[folderID],";
+				}
+			}
+		}
+		
+		return substr($folderString,0,-1);
+		
+	}
+	
 	function hello_church_folders($folderParent){
 		
 		$API  = new PerchAPI(1.0, 'hello_church');
@@ -1985,8 +2116,10 @@ error_reporting(E_ALL);
         $HelloChurchFolders = new HelloChurch_Folders($API);
         
         $file = $HelloChurchFolders->get_file($fileID);
+        $fileName = explode("/", $file['fileLocation']);
         
-        unlink("../../../../hc_uploads/".$file['churchID']."/".$file['fileName']);
+        unlink("../../../../hc_uploads/".$file['churchID']."/".$file['fileLocation']);
+        rmdir("../../../../hc_uploads/".$file['churchID']."/".$fileName[0]);
 		
 		$HelloChurchFolders->delete_file($fileID);
 	    
@@ -2000,27 +2133,26 @@ error_reporting(E_ALL);
         
         $file = $HelloChurchFolders->get_file($fileID);
         
-        $fileName = "../../../../hc_uploads/".$file['churchID']."/".$file['fileName']; 
-		//print_r($file);
+        $fileLocation = "../../../../hc_uploads/".$file['churchID']."/".$file['fileLocation']; 
 		
-		if (file_exists($fileName))
+		if (file_exists($fileLocation))
 		{
 		    header('Content-Description: File Transfer');
 		    header('Content-Type: application/octet-stream');
-		    header('Content-Disposition: attachment; filename='.basename($fileName));
+		    header('Content-Disposition: attachment; filename='.basename($fileLocation));
 		    header('Content-Transfer-Encoding: binary');
 		    header('Expires: 0');
 		    header('Cache-Control: must-revalidate, post-check=0, pre-check=0');
 		    header('Pragma: public');
-		    header('Content-Length: ' . filesize($fileName));
+		    header('Content-Length: ' . filesize($fileLocation));
 		    ob_clean();
 		    flush();
-		    readfile($fileName);
+		    readfile($fileLocation);
 		    exit;
 		}
 		else
 		{
-		    echo "File does not exists";
+		    echo "File does not exist";
 		}
 	    
     }
@@ -2029,6 +2161,10 @@ error_reporting(E_ALL);
 		
 		$API  = new PerchAPI(1.0, 'hello_church');
 		$HelloChurchFolders = new HelloChurch_Folders($API);
+
+		$HelloChurchContacts = new HelloChurch_Contacts($API);
+		$HelloChurchGroups = new HelloChurch_Groups($API);
+		$HelloChurchEvents = new HelloChurch_Events($API);
 		
 		$Session = PerchMembers_Session::fetch();
 		
@@ -2064,9 +2200,25 @@ error_reporting(E_ALL);
 				}else{
 					$icon = 'draft';
 				}
+				
 				$html .= '<li>
-							<span class="material-symbols-outlined">'.$icon.'</span>
-							<p>'.$file['fileName'].'</p>
+							<div>
+								<span class="material-symbols-outlined">'.$icon.'</span>
+								<p><a href="/documents/edit-file?id='.$file['fileID'].'">'.$file['fileName'].'</a></p>';
+								if($file['contactID']){
+									$contact = $HelloChurchContacts->contact($file['contactID']);
+									$html .= '<small><a href="/contacts/edit-contact?id='.$file['contactID'].'">'.$contact['contactFirstName'].' '.$contact['contactLastName'].'</a></small>';
+								}elseif($file['groupID']){
+									$group = $HelloChurchGroups->group($file['groupID']);
+									$html .= '<small><a href="/groups/edit-group?id='.$file['groupID'].'">'.$group['groupName'].'</a></small>';
+								}elseif($file['eventID']){
+									$event = $HelloChurchEvents->event($file['eventID']);
+									$dateParts = explode("-", $file['eventDate']);
+									$date = "$dateParts[2]/$dateParts[1]/$dateParts[0]";
+									$html .= '<small><a href="/calendar/edit-event?id='.$event['editID'].'&date='.$event['eventDate'].'">'.$event['eventName'].' &bull; '.$date.'</a></small>';
+								}
+							$html .= '
+							</div>
 							<form method="post" action="/process/download-file">
 								<input type="submit" class="button secondary small" value="Download" />
 								<input type="hidden" name="id" value="'.$folderParent.'" />
@@ -2086,6 +2238,36 @@ error_reporting(E_ALL);
 		}
 		
 		echo $html;
+		
+	}
+	
+	function hello_church_file_owner($fileID){
+		
+		$API  = new PerchAPI(1.0, 'hello_church');
+		$HelloChurchFolders = new HelloChurch_Folders($API);
+		
+		$Session = PerchMembers_Session::fetch();
+		
+		$owner = $HelloChurchFolders->check_file_owner($Session->get('churchID'), $fileID);
+		
+		if($owner==1){
+		    return true;
+	    }else{
+		    return false;
+	    }
+		
+	}
+	
+	function hello_church_file($fileID){
+		
+		$API  = new PerchAPI(1.0, 'hello_church');
+		$HelloChurchFolders = new HelloChurch_Folders($API);
+		
+		$Session = PerchMembers_Session::fetch();
+		
+		$file = $HelloChurchFolders->get_file($fileID);
+		
+		return $file;
 		
 	}
 	
@@ -2207,8 +2389,10 @@ error_reporting(E_ALL);
 				$series = $HelloChurchSeriess->series($file['audioSeries']);
 				$speaker = $HelloChurchSpeakers->speaker($file['audioSpeaker']);
 				$html .= '<li>
-							<span class="material-symbols-outlined">record_voice_over</span>
-							<p><a href="/media/edit-audio?id='.$file['audioID'].'">'.$file['audioName'].'</a></p>
+							<div>
+								<span class="material-symbols-outlined">record_voice_over</span>
+								<p><a href="/media/edit-audio?id='.$file['audioID'].'">'.$file['audioName'].'</a></p>
+							</div>
 							<form method="post" action="/process/download-audio">
 								<input type="submit" class="button secondary small" value="Download" />
 								<input type="hidden" name="audioID" value="'.$file['audioID'].'" />
@@ -2292,8 +2476,10 @@ error_reporting(E_ALL);
         
         foreach($emails as $email){
 	        echo '<li>
-	        		<span class="material-symbols-outlined">mail</span>
-			        <h3><a href="/communication/edit-email?id='.$email['emailID'].'">'.$email['emailSubject'].'</a></h3>
+	        		<div>
+		        		<span class="material-symbols-outlined">mail</span>
+				        <h3><a href="/communication/edit-email?id='.$email['emailID'].'">'.$email['emailSubject'].'</a></h3>
+			        </div>
 					<p>'.$email['emailStatus'].'</p>
 					<form><a href="/process/delete-email?id='.$email['emailID'].'" class="button danger small border"><span class="material-symbols-outlined">delete</span></a></form>
 				</li>';

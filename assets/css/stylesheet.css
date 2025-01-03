@@ -727,6 +727,10 @@ section{
 	border:1 solid var(--light-grey);
 }
 
+section.no-shadow{
+	box-shadow: none;
+}
+
 .section-grid{
 	display:grid;
 	grid-template-columns: 1fr 1fr;
@@ -1227,13 +1231,29 @@ ul.list li{
 }
 
 ul.list.files li{
-	grid-template-columns: 30px auto 120px 60px;
+	grid-template-columns: auto 120px 60px;
 }
 
 ul.list li *{
 	display:flex;
 	align-items: center;
 	justify-content: space-between;
+}
+
+ul.list.files li div{
+	display:grid;
+	grid-template-columns: 30px auto;
+	justify-content: normal;
+}
+
+ul.list.files li div small{
+	grid-column: 2;
+	justify-content: normal;
+}
+
+ul.list li a{
+	text-decoration: none;
+	border-bottom: none;
 }
 
 ul.list li:last-child{

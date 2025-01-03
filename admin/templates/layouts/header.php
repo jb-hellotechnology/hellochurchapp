@@ -35,6 +35,19 @@ if(perch_member_logged_in()){
 	<link rel="stylesheet" href="/assets/redactor/redactor.min.css" />
 	
 	<script src='https://www.hCaptcha.com/1/api.js' async defer></script>
+	
+	<link rel="manifest" href="/manifest.json" />
+	<!-- ios support -->
+	<link rel="apple-touch-icon" href="/assets/images/icons/icon-72x72.png" />
+	<link rel="apple-touch-icon" href="/assets/images/icons/icon-96x96.png" />
+	<link rel="apple-touch-icon" href="/assets/images/icons/icon-128x128.png" />
+	<link rel="apple-touch-icon" href="/assets/images/icons/icon-144x144.png" />
+	<link rel="apple-touch-icon" href="/assets/images/icons/icon-152x152.png" />
+	<link rel="apple-touch-icon" href="/assets/images/icons/icon-192x192.png" />
+	<link rel="apple-touch-icon" href="/assets/images/icons/icon-384x384.png" />
+	<link rel="apple-touch-icon" href="/assets/images/icons/icon-512x512.png" />
+	<meta name="apple-mobile-web-app-status-bar" content="#f0f2f9" />
+	<meta name="theme-color" content="#f0f2f9" />
 </head>
 <body>
 	<header class="site-header">

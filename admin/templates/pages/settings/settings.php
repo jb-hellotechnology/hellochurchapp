@@ -33,6 +33,13 @@ perch_layout('header');
 		</li>
 		<li>
 			<div>
+				<h3>Venues</h3>
+				<p>Define venues which are used by your organisation. These are used to help manage events and rotas.</p>
+			</div>
+			<a class="button" href="/settings/venues">Venues</a>
+		</li>
+		<li>
+			<div>
 				<h3>Families</h3>
 				<p>Create family groups to which individual contacts can be assigned.</p>
 			</div>

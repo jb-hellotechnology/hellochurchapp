@@ -29,6 +29,15 @@ class HelloChurch_Folders extends PerchAPI_Factory
 	    return $results;
 	     
 	}
+	
+	public function update_file($data){
+		
+		$API  = new PerchAPI(1.0, 'hello_church');
+		
+		$sql = "UPDATE perch3_hellochurch_files SET fileName='".$data['fileName']."', folderID='".$data['folderID']."' WHERE fileID='".$data['fileID']."'";
+		$this->db->execute($sql);
+		
+	}
     
     public function folders($churchID, $folderParent){
 	    
@@ -61,6 +70,16 @@ class HelloChurch_Folders extends PerchAPI_Factory
 	    
     }
     
+    public function check_file_owner($churchID, $fileID){
+	    
+	    $API  = new PerchAPI(1.0, 'hello_church');
+		
+		$sql = "SELECT * FROM perch3_hellochurch_files WHERE churchID='".$churchID."' AND fileID='".$fileID."'";
+	    $results = $this->db->get_rows($sql);
+	    return count($results);
+	    
+    }
+    
     public function folder_byName($folderName, $churchID){
 	    
 	    $API  = new PerchAPI(1.0, 'hello_church');
@@ -71,16 +90,35 @@ class HelloChurch_Folders extends PerchAPI_Factory
 	    
     }
     
-    public function add_file($churchID, $memberID, $folderID, $contactID, $groupID, $eventID, $eventDate, $fileName){
+    public function add_file($churchID, $memberID, $folderID, $contactID, $groupID, $eventID, $eventDate, $fileLocation){
 	    
 	    $API  = new PerchAPI(1.0, 'hello_church');
 	    
 	    if($folderID==''){
 		    $folderID = 0;
 	    }
+	    
+	    if($contactID==''){
+		    $contactID = 0;
+	    }
+	    
+	    if($groupID==''){
+		    $groupID = 0;
+	    }
+	    
+	    if($eventID==''){
+		    $eventID = 0;
+	    }
+	    
+	    if($eventDate=='' OR $eventDate=='0000-00-00'){
+		    $eventDate = date('Y-m-d');
+	    }
+	    
+	    $fileName = explode("/", $fileLocation);
+		$fileName = pathinfo($fileName[1], PATHINFO_FILENAME);
 		
-		$sql = "INSERT INTO perch3_hellochurch_files (churchID, memberID, folderID, contactID, groupID, eventID, eventDate, fileName) VALUES 
-		('".$churchID."', '".$memberID."', '".$folderID."', '".$contactID."', '".$groupID."', '".$eventID."', '".$eventDate."', '".$fileName."')";
+		$sql = "INSERT INTO perch3_hellochurch_files (churchID, memberID, folderID, contactID, groupID, eventID, eventDate, fileLocation, fileName) VALUES 
+		('".$churchID."', '".$memberID."', '".$folderID."', '".$contactID."', '".$groupID."', '".$eventID."', '".$eventDate."', '".$fileLocation."', '".$fileName."')";
 	    $results = $this->db->execute($sql);
 	    
     }
