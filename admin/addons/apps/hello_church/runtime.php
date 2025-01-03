@@ -1724,7 +1724,7 @@ error_reporting(E_ALL);
 	        $html .=  "'".$venue['venueName']."', ";
         }
         
-        if(strlen($html)>0){
+        if(strlen($html)>1){
         	$html = substr($html, 0 , -2);
         }
 
@@ -1752,7 +1752,7 @@ error_reporting(E_ALL);
 	        $html .=  "'".$role['roleName']."', ";
         }
         
-        if(strlen($html)>0){
+        if(strlen($html)>1){
         	$html = substr($html, 0 , -2);
         }
 
