@@ -63,7 +63,7 @@ if(perch_member_logged_in()){
 			}
 		?>
 			
-		<h2><a href="/">Hello Church</a></h2>
+		<h2><a href="/dashboard">Hello Church</a></h2>
 		<nav>
 			<?php
 				if(perch_member_logged_in()){
