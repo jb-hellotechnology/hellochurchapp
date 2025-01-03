@@ -497,6 +497,10 @@ header nav button:hover{
 	cursor:pointer;
 }
 
+header a.home{
+	display:none;
+}
+
 header nav ul.main-nav li .material-symbols-outlined{
 	width:32px;
 	display:flex;
@@ -549,6 +553,11 @@ button.menu{
 	cursor: pointer;
 }
 
+header button:hover,
+header nav button:hover{
+	color:var(--color-secondary);
+}
+
 @media screen and (max-width:900px){
 	button.menu{
 		display:block;
@@ -581,6 +590,18 @@ button.menu{
 	}
 	header p.home{
 		padding:1em;
+	}
+	header a.home{
+		display:inline-block;
+		margin:0.5em 1em;
+		border-bottom: none;
+		display:flex;
+		align-items: center;
+		justify-content: center;
+	}
+	header div{
+		display:grid;
+		grid-template-columns: 1fr 1fr;
 	}
 }
 

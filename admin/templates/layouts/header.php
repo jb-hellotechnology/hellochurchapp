@@ -38,6 +38,7 @@ if(perch_member_logged_in()){
 	
 	<link rel="manifest" href="/manifest.json" />
 	<!-- ios support -->
+	<link rel="icon" type="image/x-icon" href="/assets/images/icons/favicon.ico">
 	<link rel="apple-touch-icon" href="/assets/images/icons/icon-72x72.png" />
 	<link rel="apple-touch-icon" href="/assets/images/icons/icon-96x96.png" />
 	<link rel="apple-touch-icon" href="/assets/images/icons/icon-128x128.png" />
@@ -54,11 +55,18 @@ if(perch_member_logged_in()){
 		<?php
 			if(perch_member_logged_in()){
 		?>
-		<button class="menu">
-			<span class="material-symbols-outlined">
-				menu
-			</span>
-		</button>
+		<div>
+			<button class="menu">
+				<span class="material-symbols-outlined">
+					menu
+				</span>
+			</button>
+			<a class="home" href="/dashboard">
+				<span class="material-symbols-outlined">
+					home
+				</span>
+			</a>
+		</div>
 		<?php
 			}
 		?>
