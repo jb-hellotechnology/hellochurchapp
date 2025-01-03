@@ -9,55 +9,62 @@ perch_layout('header');
 ?>
 <main class="flow full">
 	<h1>Settings</h1>
-	<ul class="cards align-left">
+	<ul class="cards menu">
 		<li>
 			<div>
-				<h3>Church</h3>
-				<p>Manage your church or organisation's contact details.</p>
+				<a href="/settings/church">
+					<span class="material-symbols-outlined">church</span>
+					<h3>Church</h3>
+				</a>
 			</div>
-			<a class="button" href="/settings/church">Church</a>
 		</li>
 		<li>
 			<div>
-				<h3>Subscription</h3>
-				<p>Manage your subscription, edit your payment details and access invoices.</p>
+				<a href="/settings/subscription">
+					<span class="material-symbols-outlined">currency_pound</span>
+					<h3>Subscription</h3>
+				</a>
 			</div>
-			<a class="button" href="/settings/subscription">Subscription</a>
 		</li>
 		<li>
 			<div>
-				<h3>Roles</h3>
-				<p>Define roles which exist within your organisation. These are used to help manage events and rotas.</p>
+				<a href="/settings/roles">
+					<span class="material-symbols-outlined">group</span>
+					<h3>Roles</h3>
+				</a>
 			</div>
-			<a class="button" href="/settings/roles">Roles</a>
 		</li>
 		<li>
 			<div>
-				<h3>Venues</h3>
-				<p>Define venues which are used by your organisation. These are used to help manage events and rotas.</p>
+				<a href="/settings/venues">
+					<span class="material-symbols-outlined">home_work</span>
+					<h3>Venues</h3>
+				</a>
 			</div>
-			<a class="button" href="/settings/venues">Venues</a>
 		</li>
 		<li>
 			<div>
-				<h3>Families</h3>
-				<p>Create family groups to which individual contacts can be assigned.</p>
+				<a href="/settings/families">
+					<span class="material-symbols-outlined">family_restroom</span>
+					<h3>Families</h3>
+				</a>
 			</div>
-			<a class="button" href="/settings/families">Families</a>
 		</li>
 		<li>
 			<div>
-				<h3>Speakers</h3>
-				<p>Manage your speaker profiles. These are used when adding audio to your media library.</p>
+				<a href="/settings/speakers">
+					<span class="material-symbols-outlined">interpreter_mode</span>
+					<h3>Speakers</h3>
+				</a>
 			</div>
-			<a class="button" href="/settings/speakers">Speakers</a>
 		</li>
 		<li>
 			<div>
-				<h3>Series</h3>
-				<p>Define series titles and descriptions for your media library.</p>
+				<a href="/settings/series">
+					<span class="material-symbols-outlined">collections_bookmark</span>
+					<h3>Series</h3>
+				</a>
 			</div>
-			<a class="button" href="/settings/series">Series</a>
 		</li>
 	</ul>
 </main>

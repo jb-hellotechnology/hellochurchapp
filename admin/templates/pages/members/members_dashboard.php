@@ -11,62 +11,70 @@ perch_layout('header');
 <main class="full">
 	<h1>Dashboard</h1>
 	<section class="no-shadow">
-	<ul class="cards align-left">
+	<ul class="cards menu">
 		<li>
 			<div>
-				<h3>Contacts</h3>
-				<p>Add, edit and remove contacts, including contact details, notes, tags, family members and files.</p>
+				<a href="/contacts">
+					<span class="material-symbols-outlined">contacts</span>
+					<h3>Contacts</h3>
+				</a>
 			</div>
-			<a class="button" href="/contacts">Contacts</a>
 		</li>
 		<li>
 			<div>
-				<h3>Groups</h3>
-				<p>Create and manage groups to support your church's operations and ministries.</p>
+				<a href="/groups">
+					<span class="material-symbols-outlined">groups</span>
+					<h3>Groups</h3>
+				</a>
 			</div>
-			<a class="button" href="/groups">Groups</a>
 		</li>
 		<li>
 			<div>
-				<h3>Communication</h3>
-				<p>Write and send emails to keep your church updated and informed. Easily share events and files.</p>
+				<a href="/communication">
+					<span class="material-symbols-outlined">chat</span>
+					<h3>Communication</h3>
+				</a>
 			</div>
-			<a class="button" href="/communication">Communication</a>
 		</li>
 		<li>
 			<div>
-				<h3>Calendar</h3>
-				<p>Manage recurring and one-off meetings and events. Define roles and create rotas with ease.</p>
+				<a href="/calendar">
+					<span class="material-symbols-outlined">calendar_today</span>
+					<h3>Calendar</h3>
+				</a>
 			</div>
-			<a class="button" href="/calendar">Calendar</a>
 		</li>
 		<li>
 			<div>
-				<h3>Documents</h3>
-				<p>Upload and store documents of various kinds. Organise into folders for easy retrieval.</p>
+				<a href="/documents">
+					<span class="material-symbols-outlined">folder</span>
+					<h3>Documents</h3>
+				</a>
 			</div>
-			<a class="button" href="/documents">Documents</a>
 		</li>
 		<li>
 			<div>
-				<h3>Media</h3>
-				<p>Upload audio files into your library. Share online via your website or social media.</p>
+				<a href="/media">
+					<span class="material-symbols-outlined">perm_media</span>
+					<h3>Media</h3>
+				</a>
 			</div>
-			<a class="button" href="/media">Media</a>
 		</li>
 		<li>
 			<div>
-				<h3>Settings</h3>
-				<p>Configure various Hello Church settings and options to make it work well for you and your church.</p>
+				<a href="/settings">
+					<span class="material-symbols-outlined">settings</span>
+					<h3>Settings</h3>
+				</a>
 			</div>
-			<a class="button" href="/settings">Settings</a>
 		</li>
 		<li>
 			<div>
-				<h3>Help</h3>
-				<p>Watch videos and read articles which will help you understand how to use Hello Church.</p>
+				<a href="/help">
+					<span class="material-symbols-outlined">help</span>
+					<h3>Help</h3>
+				</a>
 			</div>
-			<a class="button" href="/help">Help</a>
 		</li>
 	</ul>
 	</section>
