@@ -558,6 +558,10 @@ header nav button:hover{
 	color:var(--color-secondary);
 }
 
+header div{
+	display:none;
+}
+
 @media screen and (max-width:900px){
 	button.menu{
 		display:block;
