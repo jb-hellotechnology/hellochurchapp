@@ -55,7 +55,7 @@ if(perch_member_logged_in()){
 		<?php
 			if(perch_member_logged_in()){
 		?>
-		<div>
+		<div class="buttons">
 			<button class="menu">
 				<span class="material-symbols-outlined">
 					menu

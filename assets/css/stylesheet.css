@@ -558,7 +558,7 @@ header nav button:hover{
 	color:var(--color-secondary);
 }
 
-header div{
+header div.buttons{
 	display:none;
 }
 
@@ -603,7 +603,7 @@ header div{
 		align-items: center;
 		justify-content: center;
 	}
-	header div{
+	header div.buttons{
 		display:grid;
 		grid-template-columns: 1fr 1fr;
 	}
