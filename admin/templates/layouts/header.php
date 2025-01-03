@@ -11,7 +11,7 @@ if(perch_member_logged_in()){
 		header("location:/settings/church");	
 	}
 
-	if(perch_member_has_church() AND $subscription <= time() AND $subscription !== '' AND $url !== 'Setup Subscription'){
+	if(perch_member_has_church() AND $subscription <= time() AND $subscription !== '' AND $url !== 'Settings - Subscription'){
 		header("location:/settings/subscription");	
 	}elseif($subscription <= time() AND $subscription > 0 AND $url !== 'Setup Subscription'){
 		header("/settings/subscription");
