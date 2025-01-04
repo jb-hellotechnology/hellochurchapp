@@ -2636,13 +2636,13 @@ SUMMARY:'.$event['eventName'].'
 UID:hellochurch_'.$event['eventID'];
 if($event['repeatEvent']=='daily'){
 	echo '
-FREQ=DAILY;INTERVAL=1;UNTIL="'.$event['repeatEnd'].'T23:59:59Z"';
+FREQ=DAILY;INTERVAL=1;UNTIL="'.str_replace("-", "", $event['repeatEnd']).'T235959Z"';
 }elseif($event['repeatEvent']=='weekly'){
 	echo '
-FREQ=WEEKLY;INTERVAL=1;BYDAY=;UNTIL="'.$event['repeatEnd'].'T23:59:59Z"';
+FREQ=WEEKLY;INTERVAL=1;BYDAY=;UNTIL="'.str_replace("-", "", $event['repeatEnd']).'T235959Z"';
 }elseif($event['repeatEvent']=='weekdays'){
 	echo '
-FREQ=WEEKLY;INTERVAL=1;BYDAY=MO,TU,WE,TH,FR;UNTIL='.$event['repeatEnd'].'T23:59:59Z"';
+FREQ=WEEKLY;INTERVAL=1;BYDAY=MO,TU,WE,TH,FR;UNTIL='.str_replace("-", "", $event['repeatEnd']).'T235959Z"';
 }
 $dateParts = explode(" ", $event['start']);
 $start = str_replace("-", "", $dateParts[0])."T".str_replace(":", "", $dateParts[1])."Z";
