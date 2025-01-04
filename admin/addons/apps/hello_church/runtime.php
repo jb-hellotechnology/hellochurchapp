@@ -2636,10 +2636,10 @@ SUMMARY:'.$event['eventName'].'
 UID:hellochurch_'.$event['eventID'];
 if($event['repeatEvent']=='daily'){
 	echo '
-FREQ=DAILY;INTERVAL=1;UNTIL="'.str_replace("-", "", $event['repeatEnd']).'T235959Z"';
+FREQ=DAILY;INTERVAL=1;UNTIL='.str_replace("-", "", $event['repeatEnd']).'T235959Z"';
 }elseif($event['repeatEvent']=='weekly'){
 	echo '
-FREQ=WEEKLY;INTERVAL=1;BYDAY=;UNTIL="'.str_replace("-", "", $event['repeatEnd']).'T235959Z"';
+FREQ=WEEKLY;INTERVAL=1;BYDAY=SU;UNTIL='.str_replace("-", "", $event['repeatEnd']).'T235959Z"';
 }elseif($event['repeatEvent']=='weekdays'){
 	echo '
 FREQ=WEEKLY;INTERVAL=1;BYDAY=MO,TU,WE,TH,FR;UNTIL='.str_replace("-", "", $event['repeatEnd']).'T235959Z"';
