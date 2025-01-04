@@ -2,6 +2,7 @@
 
 require '../../../vendor/autoload.php';
 
+header('Content-type: text/calendar; charset=utf-8');
 ?>
 BEGIN:VCALENDAR
 VERSION:2.0
