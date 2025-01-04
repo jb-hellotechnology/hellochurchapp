@@ -26,7 +26,7 @@ $church = hello_church_church_public(perch_get('churchID'));
     <itunes:explicit>false</itunes:explicit>
     <itunes:owner>
     	<itunes:name><?= $church['churchName'] ?></itunes:name>
-		<itunes:email>hi@hellotechnology.co.uk</itunes:email>
+		<itunes:email>jack@hellotechnology.co.uk</itunes:email>
     </itunes:owner>
 <?php
 	podcast_feed(perch_get('churchID'));
