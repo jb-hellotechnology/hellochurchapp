@@ -2646,11 +2646,13 @@ FREQ=WEEKLY;INTERVAL=1;BYDAY=MO,TU,WE,TH,FR;UNTIL='.$event['repeatEnd'].'T23:59:
 }
 $dateParts = explode(" ", $event['start']);
 $start = str_replace("-", "", $dateParts[0])."T".str_replace(":", "", $dateParts[1])."Z";
+$dateParts = explode(" ", $event['end']);
+$end = str_replace("-", "", $dateParts[0])."T".str_replace(":", "", $dateParts[1])."Z";
 echo '
 DTSTART:'.$start.'
+DTEND:'.$end.'
 DTSTAMP:'.$start.'
 DESCRIPTION:'.strip_tags($event['eventDescription']).'
- n
 END:VEVENT
 ';
 
