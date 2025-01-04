@@ -12,7 +12,7 @@ class HelloChurch_Audios extends PerchAPI_Factory
 
 	protected $default_sort_column = 'audioID';
 
-	public $static_fields = array('audioID', 'churchID', 'memberID', 'audioName', 'audioDate', 'audioDescription', 'audioSeries', 'audioSpeaker', 'audioBible', 'audioFile');
+	public $static_fields = array('audioID', 'churchID', 'memberID', 'audioName', 'audioDate', 'audioDescription', 'audioSeries', 'audioSpeaker', 'audioBible', 'audioFileLocation', 'audioFileName');
     
     public function role_valid($data){
 	    
@@ -23,9 +23,13 @@ class HelloChurch_Audios extends PerchAPI_Factory
     public function add_audio($memberID, $churchID, $audioName, $audioDate, $audioDescription, $audioSpeaker, $audioSeries, $audioBible, $audioFile){
 	    
 	    $API  = new PerchAPI(1.0, 'hello_church');
+	    
+	    $audioFileName = explode("/", $audioFile);
+	    $audioFileLocation = $audioFileName[0];
+		$audioFileName = $audioFileName[1];
 		
-		$sql = "INSERT INTO perch3_hellochurch_audio (memberID, churchID, audioName, audioDate, audioDescription, audioSpeaker, audioSeries, audioBible, audioFile) VALUES 
-		('$memberID', '$churchID', '$audioName', '$audioDate', '$audioDescription', '$audioSpeaker', '$audioSeries', '$audioBible', '$audioFile')";
+		$sql = "INSERT INTO perch3_hellochurch_audio (memberID, churchID, audioName, audioDate, audioDescription, audioSpeaker, audioSeries, audioBible, audioFileLocation, audioFileName) VALUES 
+		('$memberID', '$churchID', '$audioName', '$audioDate', '$audioDescription', '$audioSpeaker', '$audioSeries', '$audioBible', '$audioFileLocation', '$audioFileName')";
 	    $results = $this->db->execute($sql);
 	    
     }
@@ -59,11 +63,11 @@ class HelloChurch_Audios extends PerchAPI_Factory
 	    
     }
     
-    public function check_owner($memberID, $audioID){
+    public function check_audio_owner($churchID, $audioID){
 	    
 	    $API  = new PerchAPI(1.0, 'hello_church');
 		
-		$sql = "SELECT * FROM perch3_hellochurch_audio WHERE memberID='".$memberID."' AND audioID='".$audioID."'";
+		$sql = "SELECT * FROM perch3_hellochurch_audio WHERE churchID='".$churchID."' AND audioID='".$audioID."'";
 	    $results = $this->db->get_rows($sql);
 	    return count($results);
 	    

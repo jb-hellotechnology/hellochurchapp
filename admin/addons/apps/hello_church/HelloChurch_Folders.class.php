@@ -60,11 +60,11 @@ class HelloChurch_Folders extends PerchAPI_Factory
 	    
     }
     
-    public function check_owner($memberID, $folderID){
+    public function check_owner($churchID, $folderID){
 	    
 	    $API  = new PerchAPI(1.0, 'hello_church');
 		
-		$sql = "SELECT * FROM perch3_hellochurch_folders WHERE memberID='".$memberID."' AND folderID='".$folderID."'";
+		$sql = "SELECT * FROM perch3_hellochurch_folders WHERE churchID='".$churchID."' AND folderID='".$folderID."'";
 	    $results = $this->db->get_rows($sql);
 	    return count($results);
 	    

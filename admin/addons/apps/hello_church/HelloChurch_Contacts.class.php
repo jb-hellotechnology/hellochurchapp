@@ -51,7 +51,7 @@ class HelloChurch_Contacts extends PerchAPI_Factory
 	    $start = ($page-1)*25;
 	    $end = 25;
 		
-		$sql = "SELECT * FROM perch3_hellochurch_contacts WHERE memberID='".$memberID."' AND churchID='".$churchID."' $tag_sql $q_sql ORDER BY contactLastName ASC LIMIT $start,$end";
+		$sql = "SELECT * FROM perch3_hellochurch_contacts WHERE churchID='".$churchID."' $tag_sql $q_sql ORDER BY contactLastName ASC LIMIT $start,$end";
 	    $results = $this->db->get_rows($sql);
 	    return $results;
 	    
@@ -61,7 +61,7 @@ class HelloChurch_Contacts extends PerchAPI_Factory
 	    
 	    $API  = new PerchAPI(1.0, 'hello_church');
 		
-		$sql = "SELECT * FROM perch3_hellochurch_contacts WHERE memberID='".$memberID."' AND churchID='".$churchID."' ORDER BY contactID DESC LIMIT 5";
+		$sql = "SELECT * FROM perch3_hellochurch_contacts WHERE churchID='".$churchID."' ORDER BY contactID DESC LIMIT 5";
 	    $results = $this->db->get_rows($sql);
 	    return $results;
 	    
@@ -79,17 +79,17 @@ class HelloChurch_Contacts extends PerchAPI_Factory
 		    $q_sql = 'AND (contactFirstName LIKE "%'.$q.'%" OR contactLastName LIKE "%'.$q.'%" OR contactFirstName LIKE "%'.$q.'%")';
 	    }
 		
-		$sql = "SELECT * FROM perch3_hellochurch_contacts WHERE memberID='".$memberID."' AND churchID='".$churchID."' $tag_sql $q_sql";
+		$sql = "SELECT * FROM perch3_hellochurch_contacts WHERE churchID='".$churchID."' $tag_sql $q_sql";
 	    $results = $this->db->get_rows($sql);
 	    return count($results);
 	    
     }
     
-    public function check_owner($memberID, $contactID){
+    public function check_owner($churchID, $contactID){
 	    
 	    $API  = new PerchAPI(1.0, 'hello_church');
 		
-		$sql = "SELECT * FROM perch3_hellochurch_contacts WHERE memberID='".$memberID."' AND contactID='".$contactID."'";
+		$sql = "SELECT * FROM perch3_hellochurch_contacts WHERE churchID='".$churchID."' AND contactID='".$contactID."'";
 	    $results = $this->db->get_rows($sql);
 	    return count($results);
 	    
@@ -154,7 +154,7 @@ class HelloChurch_Contacts extends PerchAPI_Factory
 	    
 	    $API  = new PerchAPI(1.0, 'hello_church');
 		
-		$sql = "SELECT * FROM perch3_hellochurch_contacts WHERE churchID='".$churchID."' AND memberID='".$memberID."' ORDER BY contactLastName ASC";
+		$sql = "SELECT * FROM perch3_hellochurch_contacts WHERE churchID='".$churchID."' ORDER BY contactLastName ASC";
 	    $results = $this->db->get_rows($sql);
 	    
 	    // Start the output buffer.
@@ -240,18 +240,18 @@ class HelloChurch_Contacts extends PerchAPI_Factory
 		
 	}
 	
-	public function search_members($memberID, $q){
+	public function search_members($churchID, $q){
 		
 		$API  = new PerchAPI(1.0, 'hello_church');
 
-		$sql = 'SELECT * FROM perch3_hellochurch_contacts WHERE (contactLastName LIKE "%'.$q.'%" OR contactFirstName LIKE "%'.$q.'%") AND memberID="'.$memberID.'"';
+		$sql = 'SELECT * FROM perch3_hellochurch_contacts WHERE (contactLastName LIKE "%'.$q.'%" OR contactFirstName LIKE "%'.$q.'%") AND churchID="'.$churchID.'"';
 	    $result = $this->db->get_rows($sql);
 	    
 	    return $result;
 		
 	}
 	
-	public function search_role_members($memberID, $q, $eventID, $eventDate){
+	public function search_role_members($churchID, $q, $eventID, $eventDate){
 		
 		$API  = new PerchAPI(1.0, 'hello_church');
 		
@@ -260,7 +260,7 @@ class HelloChurch_Contacts extends PerchAPI_Factory
 		LEFT JOIN perch3_hellochurch_roles_contacts cr ON c.contactID = cr.contactID
 		LEFT JOIN perch3_hellochurch_roles r ON cr.roleID = r.roleID
 		WHERE (c.contactFirstName LIKE '%$q%' OR c.contactLastName LIKE '%$q%')
-		  AND c.memberID = '$memberID'
+		  AND c.churchID = '$churchID'
 		  AND c.contactID NOT IN (
 		        SELECT cr.contactID
 		        FROM perch3_hellochurch_roles_contacts cr

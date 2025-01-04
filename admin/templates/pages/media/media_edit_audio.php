@@ -6,6 +6,13 @@ if(!perch_member_logged_in()){
 	header("location:/");
 }
 
+if(perch_get('id')>0){
+	if(!hello_church_audio_owner(perch_get('id'))){
+		perch_member_log_out();
+		header("location:/");
+	}
+}
+
 perch_layout('header');
 
 ?>

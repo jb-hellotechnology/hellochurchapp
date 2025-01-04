@@ -44,11 +44,11 @@ class HelloChurch_Emails extends PerchAPI_Factory
 	    
     }
     
-    public function check_owner($memberID, $emailID){
+    public function check_owner($churchID, $emailID){
 	    
 	    $API  = new PerchAPI(1.0, 'hello_church');
 		
-		$sql = "SELECT * FROM perch3_hellochurch_emails WHERE memberID='".$memberID."' AND emailID='".$emailID."'";
+		$sql = "SELECT * FROM perch3_hellochurch_emails WHERE churchID='".$churchID."' AND emailID='".$emailID."'";
 	    $results = $this->db->get_rows($sql);
 	    return count($results);
 	    

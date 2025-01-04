@@ -141,7 +141,7 @@ error_reporting(E_ALL);
 		
 		$Session = PerchMembers_Session::fetch();
 		
-		$owner = $HelloChurchContacts->check_owner($Session->get('memberID'), $contactID);
+		$owner = $HelloChurchContacts->check_owner($Session->get('churchID'), $contactID);
 		
 		if($owner==1){
 		    return true;
@@ -158,7 +158,7 @@ error_reporting(E_ALL);
 		
 		$Session = PerchMembers_Session::fetch();
 		
-		$owner = $HelloChurchContacts->check_owner($Session->get('memberID'), $noteID);
+		$owner = $HelloChurchContacts->check_owner($Session->get('churchID'), $noteID);
 		
 		if($owner==1){
 		    return true;
@@ -716,7 +716,7 @@ error_reporting(E_ALL);
 		$contacts = explode(",", $data);
 		
 		foreach($data as $contact){
-			$owner = $HelloChurchContacts->check_owner($Session->get('memberID'), $contact);
+			$owner = $HelloChurchContacts->check_owner($Session->get('churchID'), $contact);
 			if($owner){
 				$contact = $HelloChurchContacts->find($contact);
 				$contact->delete_tags($contact->id(), $data);
@@ -735,7 +735,7 @@ error_reporting(E_ALL);
 		$Session = PerchMembers_Session::fetch();
 
 		foreach($contacts as $contactID){
-			$owner = $HelloChurchContacts->check_owner($Session->get('memberID'), $contactID);
+			$owner = $HelloChurchContacts->check_owner($Session->get('churchID'), $contactID);
 			if($owner){
 				$contact = $HelloChurchContacts->find($contactID);
 				$HelloChurchContacts->bulk_update_tags($contactID, $tag);
@@ -785,7 +785,7 @@ error_reporting(E_ALL);
         
 		$Session = PerchMembers_Session::fetch();
 		
-		$contacts = $HelloChurchContacts->search_family_members($Session->get('memberID'), $q, $memberID);
+		$contacts = $HelloChurchContacts->search_family_members($Session->get('churchID'), $q, $memberID);
 		
 		foreach($contacts as $contact){
 			echo '
@@ -1370,7 +1370,7 @@ error_reporting(E_ALL);
 		
 		$Session = PerchMembers_Session::fetch();
 		
-		$owner = $HelloChurchGroups->check_owner($Session->get('memberID'), $groupID);
+		$owner = $HelloChurchGroups->check_owner($Session->get('churchID'), $groupID);
 		if($owner==1){
 		    return true;
 	    }else{
@@ -1628,7 +1628,7 @@ error_reporting(E_ALL);
 		
 		$Session = PerchMembers_Session::fetch();
 		
-		$owner = $HelloChurchEvents->check_owner($Session->get('memberID'), $eventID);
+		$owner = $HelloChurchEvents->check_owner($Session->get('churchID'), $eventID);
 		
 		if($owner==1){
 		    return true;
@@ -1769,7 +1769,7 @@ error_reporting(E_ALL);
 		
 		$Session = PerchMembers_Session::fetch();
 		
-		$owner = $HelloChurchVenues->check_owner($Session->get('memberID'), $venueID);
+		$owner = $HelloChurchVenues->check_owner($Session->get('churchID'), $venueID);
 		if($owner==1){
 		    return true;
 	    }else{
@@ -1785,7 +1785,7 @@ error_reporting(E_ALL);
 		
 		$Session = PerchMembers_Session::fetch();
 		
-		$owner = $HelloChurchRoles->check_owner($Session->get('memberID'), $roleID);
+		$owner = $HelloChurchRoles->check_owner($Session->get('churchID'), $roleID);
 		if($owner==1){
 		    return true;
 	    }else{
@@ -1996,7 +1996,7 @@ error_reporting(E_ALL);
 		
 		$Session = PerchMembers_Session::fetch();
 		
-		$owner = $HelloChurchFamilies->check_owner($Session->get('memberID'), $familyID);
+		$owner = $HelloChurchFamilies->check_owner($Session->get('churchID'), $familyID);
 		if($owner==1){
 		    return true;
 	    }else{
@@ -2074,7 +2074,7 @@ error_reporting(E_ALL);
 		
 		$Session = PerchMembers_Session::fetch();
 		
-		$owner = $HelloChurchFolders->check_owner($Session->get('memberID'), $folderID);
+		$owner = $HelloChurchFolders->check_owner($Session->get('churchID'), $folderID);
 		
 		if($owner==1){
 		    return true;
@@ -2262,6 +2262,23 @@ error_reporting(E_ALL);
 		
 	}
 	
+	function hello_church_audio_owner($audioID){
+		
+		$API  = new PerchAPI(1.0, 'hello_church');
+		$HelloChurchAudios = new HelloChurch_Audios($API);
+		
+		$Session = PerchMembers_Session::fetch();
+		
+		$owner = $HelloChurchAudios->check_audio_owner($Session->get('churchID'), $audioID);
+		
+		if($owner==1){
+		    return true;
+	    }else{
+		    return false;
+	    }
+		
+	}
+	
 	function hello_church_file($fileID){
 		
 		$API  = new PerchAPI(1.0, 'hello_church');
@@ -2339,7 +2356,7 @@ error_reporting(E_ALL);
 		
 		$Session = PerchMembers_Session::fetch();
 		
-		$owner = $HelloChurchSpeakers->check_owner($Session->get('memberID'), $speakerID);
+		$owner = $HelloChurchSpeakers->check_owner($Session->get('churchID'), $speakerID);
 		if($owner==1){
 		    return true;
 	    }else{
@@ -2355,7 +2372,7 @@ error_reporting(E_ALL);
 		
 		$Session = PerchMembers_Session::fetch();
 		
-		$owner = $HelloChurchSeriess->check_owner($Session->get('memberID'), $seriesID);
+		$owner = $HelloChurchSeriess->check_owner($Session->get('churchID'), $seriesID);
 		if($owner==1){
 		    return true;
 	    }else{
@@ -2439,7 +2456,7 @@ error_reporting(E_ALL);
         
         $file = $HelloChurchAudios->audio($fileID);
         
-        $fileName = "../../../../hc_uploads/".$file['churchID']."/".$file['audioFile']; 
+        $fileName = "../../../../hc_uploads/".$file['churchID']."/".$file['audioFileLocation']."/".$file['audioFileName']; 
 		
 		if (file_exists($fileName))
 		{
@@ -2501,7 +2518,7 @@ error_reporting(E_ALL);
 		
 		$Session = PerchMembers_Session::fetch();
 		
-		$owner = $HelloChurchEmails->check_owner($Session->get('memberID'), $emailID);
+		$owner = $HelloChurchEmails->check_owner($Session->get('churchID'), $emailID);
 		if($owner==1){
 		    return true;
 	    }else{
@@ -2602,4 +2619,75 @@ error_reporting(E_ALL);
                 $PerchMembers_Auth->refresh_session_data($Member);
 			}
 		}
+    }
+    
+    function ical_feed($churchID){
+	    
+	    $API  = new PerchAPI(1.0, 'hello_church');
+
+        $HelloChurchEvents = new HelloChurch_Events($API);
+	    
+		$events = $HelloChurchEvents->events($churchID);
+		
+		foreach($events as $event){
+			
+echo 'BEGIN:VEVENT
+SUMMARY:'.$event['eventName'].'
+UID:hellochurch_'.$event['eventID'];
+if($event['repeatEvent']=='daily'){
+	echo '
+FREQ=DAILY;INTERVAL=1;UNTIL="'.$event['repeatEnd'].'T23:59:59Z"';
+}elseif($event['repeatEvent']=='weekly'){
+	echo '
+FREQ=WEEKLY;INTERVAL=1;BYDAY=;UNTIL="'.$event['repeatEnd'].'T23:59:59Z"';
+}elseif($event['repeatEvent']=='weekdays'){
+	echo '
+FREQ=WEEKLY;INTERVAL=1;BYDAY=MO,TU,WE,TH,FR;UNTIL='.$event['repeatEnd'].'T23:59:59Z"';
+}
+$dateParts = explode(" ", $event['start']);
+$start = str_replace("-", "", $dateParts[0])."T".str_replace(":", "", $dateParts[1])."Z";
+echo '
+DTSTART:'.$start.'
+DTSTAMP:'.$start.'
+DESCRIPTION:'.strip_tags($event['eventDescription']).'
+ n
+END:VEVENT
+';
+
+/*
+			$firstDay = date('w', strtotime($event['start']));
+			
+			if($event['repeatEvent']=='daily'){
+				$daysOfWeek = '[0, 1, 2, 3, 4, 5, 6]';
+			}elseif($event['repeatEvent']=='weekdays'){
+				$daysOfWeek = '[1, 2, 3, 4, 5]';
+			}elseif($event['repeatEvent']=='weekly'){
+				$daysOfWeek = '['.$firstDay.']';
+			}
+			
+			$eventsHTML .= '
+			{
+		      title: "'.$event['eventName'].'",
+		      start: "'.$event['start'].'",
+		      end: "'.$event['end'].'",';
+		      
+		      if($event['repeatEvent']<>''){
+			      $pStart = explode(" ", $event['start']);
+			      $pEnd = explode(" ", $event['end']);
+			      $eventsHTML .= '
+			      daysOfWeek: "'.$daysOfWeek.'",
+			      startTime: "'.$pStart[1].'",
+			      endTime: "'.$pEnd[0].'",
+			      startRecur: "'.$event['start'].'",
+			      endRecur: "'.$event['repeatEnd'].' 23:59:59",';
+		      }
+		    $eventsHTML .= '
+		      allDay: '.$event['allDay'].',
+		      url: "/calendar/edit-event?id='.$event['eventID'].'&date=",
+		      displayEventEnd: true
+		    },';
+*/
+			
+		}
+	    
     }

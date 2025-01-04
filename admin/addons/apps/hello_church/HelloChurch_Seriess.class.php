@@ -40,11 +40,11 @@ class HelloChurch_Seriess extends PerchAPI_Factory
 	    
     }
     
-    public function check_owner($memberID, $seriesID){
+    public function check_owner($churchID, $seriesID){
 	    
 	    $API  = new PerchAPI(1.0, 'hello_church');
 		
-		$sql = "SELECT * FROM perch3_hellochurch_series WHERE memberID='".$memberID."' AND seriesID='".$seriesID."'";
+		$sql = "SELECT * FROM perch3_hellochurch_series WHERE churchID='".$churchID."' AND seriesID='".$seriesID."'";
 	    $results = $this->db->get_rows($sql);
 	    return count($results);
 	    

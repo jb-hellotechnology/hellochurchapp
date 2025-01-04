@@ -34,11 +34,11 @@ class HelloChurch_Contact_Notes extends PerchAPI_Factory
 
 	}
 	
-	public function check_owner($memberID, $noteID){
+	public function check_owner($churchID, $noteID){
 	    
 	    $API  = new PerchAPI(1.0, 'hello_church');
 		
-		$sql = "SELECT * FROM perch3_hellochurch_contact_notes WHERE memberID='".$memberID."' AND noteID='".$noteID."'";
+		$sql = "SELECT * FROM perch3_hellochurch_contact_notes WHERE churchID='".$churchID."' AND noteID='".$noteID."'";
 	    $results = $this->db->get_rows($sql);
 	    return count($results);
 	    

@@ -8,6 +8,18 @@ $Session = PerchMembers_Session::fetch();
 
 $target_dir = "../../../../hc_uploads/".$Session->get('churchID')."/";
 
+if(!is_dir($target_dir)){
+	mkdir($target_dir, 0700);	
+}
+
+$time = time();
+
+$target_dir = "../../../../hc_uploads/".$Session->get('churchID')."/".$time."/";
+
+if(!is_dir($target_dir)){
+	mkdir($target_dir, 0700);	
+}
+
 $audioName = strip_tags($_POST['audioName']);
 $audioDate = strip_tags($_POST['audioDate']);
 $audioDescription = strip_tags($_POST['audioDescription']);
@@ -59,7 +71,7 @@ if ($uploadOk == 0) {
 // if everything is ok, try to upload file
 } else {
   if (move_uploaded_file($_FILES["file"]["tmp_name"], $target_file)) {
-	process_audio_upload($audioName, $audioDate, $audioDescription, $audioSpeaker, $audioSeries, $audioBible, $_FILES["file"]["name"]);
+	process_audio_upload($audioName, $audioDate, $audioDescription, $audioSpeaker, $audioSeries, $audioBible, $time."/".$_FILES["file"]["name"]);
     echo "Success";
   } else {
     echo "Sorry, there was an error uploading your file.";
