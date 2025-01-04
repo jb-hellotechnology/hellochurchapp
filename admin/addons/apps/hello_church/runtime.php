@@ -113,6 +113,17 @@ error_reporting(E_ALL);
 
     PerchSystem::register_template_handler('HelloChurch_Template');
 
+	function hello_church_church_public($churchID){
+		
+		$API  = new PerchAPI(1.0, 'hello_church');
+		$HelloChurchChurches = new HelloChurch_Churches($API);
+		
+		$church = $HelloChurchChurches->church($churchID);
+		
+		return $church;
+		
+	}
+	
 	function hello_church_church($return){
 		
 		$API  = new PerchAPI(1.0, 'hello_church');
@@ -2634,20 +2645,29 @@ error_reporting(E_ALL);
 echo 'BEGIN:VEVENT
 SUMMARY:'.$event['eventName'].'
 UID:hellochurch_'.$event['eventID'];
+$dateParts = explode(" ", $event['start']);
+$start = str_replace("-", "", $dateParts[0])."T".str_replace(":", "", $dateParts[1])."Z";
+$timestamp = strtotime($dateParts[0]);
+$dateDay = date('N', $timestamp);
+if($dateDay==1){$day='MO';}
+if($dateDay==2){$day='TU';}
+if($dateDay==3){$day='WE';}
+if($dateDay==4){$day='TH';}
+if($dateDay==5){$day='FR';}
+if($dateDay==6){$day='SA';}
+if($dateDay==7){$day='SU';}
+$dateParts = explode(" ", $event['end']);
+$end = str_replace("-", "", $dateParts[0])."T".str_replace(":", "", $dateParts[1])."Z";
 if($event['repeatEvent']=='daily'){
 	echo '
 RRULE:FREQ=DAILY;INTERVAL=1;UNTIL='.str_replace("-", "", $event['repeatEnd']).'T235959Z';
 }elseif($event['repeatEvent']=='weekly'){
 	echo '
-RRULE:FREQ=WEEKLY;INTERVAL=1;BYDAY=SU;UNTIL='.str_replace("-", "", $event['repeatEnd']).'T235959Z';
+RRULE:FREQ=WEEKLY;INTERVAL=1;BYDAY='.$day.';UNTIL='.str_replace("-", "", $event['repeatEnd']).'T235959Z';
 }elseif($event['repeatEvent']=='weekdays'){
 	echo '
 RRULE:FREQ=WEEKLY;INTERVAL=1;BYDAY=MO,TU,WE,TH,FR;UNTIL='.str_replace("-", "", $event['repeatEnd']).'T235959Z';
 }
-$dateParts = explode(" ", $event['start']);
-$start = str_replace("-", "", $dateParts[0])."T".str_replace(":", "", $dateParts[1])."Z";
-$dateParts = explode(" ", $event['end']);
-$end = str_replace("-", "", $dateParts[0])."T".str_replace(":", "", $dateParts[1])."Z";
 echo '
 DTSTART:'.$start.'
 DTEND:'.$end.'
