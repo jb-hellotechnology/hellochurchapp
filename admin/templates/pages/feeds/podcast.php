@@ -24,6 +24,7 @@ $church = hello_church_church_public(perch_get('churchID'));
       <itunes:category text="Christianity"/>
     </itunes:category>
     <itunes:explicit>false</itunes:explicit>
+    <itunes:email>jack@hellotechnology.co.uk</itunes:email>
 <?php
 	podcast_feed(perch_get('churchID'));
 ?>
