@@ -2445,6 +2445,29 @@ error_reporting(E_ALL);
 		
 	}
 	
+	function hello_church_audio_file($audioID){
+		
+		$API  = new PerchAPI(1.0, 'hello_church');
+		$HelloChurchAudios = new HelloChurch_Audios($API);
+		
+		$file = $HelloChurchAudios->audio($audioID);
+        
+        $fileName = "../../../../hc_uploads/".$file['churchID']."/".$file['audioFileLocation']."/".$file['audioFileName'];
+        
+        header('Content-Description: File Transfer');
+	    header('Content-Type: application/octet-stream');
+	    header('Content-Disposition: attachment; filename='.basename($fileName));
+	    header('Content-Transfer-Encoding: binary');
+	    header('Expires: 0');
+	    header('Cache-Control: must-revalidate, post-check=0, pre-check=0');
+	    header('Pragma: public');
+	    header('Content-Length: ' . filesize($fileName));
+	    ob_clean();
+	    flush();
+	    readfile($fileName);
+		
+	}
+	
 	function process_delete_audio($audioID){
 	    
 	    $API  = new PerchAPI(1.0, 'hello_church');
@@ -2453,7 +2476,7 @@ error_reporting(E_ALL);
         
         $file = $HelloChurchAudios->audio($audioID);
         
-        unlink("../../../../hc_uploads/".$file['churchID']."/".$file['audioFile']);
+        unlink("../../../../hc_uploads/".$file['churchID']."/".$file['audioFileLocation']."/".$file['audioFileName']);
 		
 		$HelloChurchAudios->delete_audio($audioID);
 	    
@@ -2674,42 +2697,41 @@ DTEND:'.$end.'
 DTSTAMP:'.$start.'
 DESCRIPTION:'.strip_tags($event['eventDescription']).'
 END:VEVENT
-';
+';			
+		}
+	    
+    }
+    
+    function podcast_feed($churchID){
+	    
+	    $API  = new PerchAPI(1.0, 'hello_church');
 
-/*
-			$firstDay = date('w', strtotime($event['start']));
+        $HelloChurchAudios = new HelloChurch_Audios($API);
+	    
+		$audios = $HelloChurchAudios->audios($churchID);
+		
+		foreach($audios as $audio){
 			
-			if($event['repeatEvent']=='daily'){
-				$daysOfWeek = '[0, 1, 2, 3, 4, 5, 6]';
-			}elseif($event['repeatEvent']=='weekdays'){
-				$daysOfWeek = '[1, 2, 3, 4, 5]';
-			}elseif($event['repeatEvent']=='weekly'){
-				$daysOfWeek = '['.$firstDay.']';
-			}
+			$filename = '../../../../hc_uploads/'.$churchID.'/'.$audio['audioFileLocation'].'/'.$audio['audioFileName'];
+			$filesize = filesize($filename);
 			
-			$eventsHTML .= '
-			{
-		      title: "'.$event['eventName'].'",
-		      start: "'.$event['start'].'",
-		      end: "'.$event['end'].'",';
-		      
-		      if($event['repeatEvent']<>''){
-			      $pStart = explode(" ", $event['start']);
-			      $pEnd = explode(" ", $event['end']);
-			      $eventsHTML .= '
-			      daysOfWeek: "'.$daysOfWeek.'",
-			      startTime: "'.$pStart[1].'",
-			      endTime: "'.$pEnd[0].'",
-			      startRecur: "'.$event['start'].'",
-			      endRecur: "'.$event['repeatEnd'].' 23:59:59",';
-		      }
-		    $eventsHTML .= '
-		      allDay: '.$event['allDay'].',
-		      url: "/calendar/edit-event?id='.$event['eventID'].'&date=",
-		      displayEventEnd: true
-		    },';
-*/
-			
+			$pubDate= date("D, d M Y H:i:s T", strtotime($audio['audioDate']));
+		
+		    echo '
+		    <item>
+				<title>'.$audio['audioName'].'</title>
+				<description>
+				'.$audio['audioDescription'].'
+				</description>
+				<enclosure 
+				length="'.$filesize.'" 
+				type="audio/mpeg" 
+				url="http://app.hellochurch.tech/podcast/episode/'.$audio['audioID'].'/audio.mp3"
+				/>
+				<guid>hellochurch_'.$audio['audioID'].'</guid>
+				<pubDate>'.$pubDate.'</pubDate>
+			</item>';
+		
 		}
 	    
     }
