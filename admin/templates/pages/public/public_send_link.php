@@ -15,7 +15,7 @@ send_link(perch_get('c'), perch_get('e'));
 		    $config
 		);
 		$sendSmtpEmail = new \Brevo\Client\Model\SendSmtpEmail([
-		  	 'subject' => $subject,
+		  	 'subject' => 'Login Link',
 		     'sender' => ['name' => 'Hello Church', 'email' => 'email@hellochurch.tech'],
 		     'replyTo' => ['name' => 'Hello Church', 'email' => 'email@hellochurch.tech'],
 		     'to' => [[ 'email' => $email ]],
