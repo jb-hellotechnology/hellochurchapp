@@ -33,6 +33,7 @@ $('#signin').click(function(){
 	$.get( "/public/send-magic-link", { c: church, e: email}).done(function( data ) {
 		if(data == 'success'){
 			$('#result').html('<p class="alert success">Success! Check your inbox for a sign in link.</p>');
+			$('input[type=submit]').hide();
 		}else{
 			$('#result').html('<p class="alert error">Error. Something went wrong.</p>');
 		}
