@@ -1,4 +1,4 @@
-<perch:form id="update_audio" method="post" app="hello_church" action="">
+<perch:form id="update_audio" method="post" app="hello_church" action="/media/edit-audio?id=<perch:forms id="audioID" />">
 
 	<perch:success>
 		<article class="flow">
@@ -34,7 +34,8 @@
 	</article>
 
 	<footer>
-		<perch:input type="hidden" id="audioFile" label="Audio File" />
+		<perch:input type="hidden" id="audioFileLocation" label="Audio File Location" />
+		<perch:input type="hidden" id="audioFileName" label="Audio File Name" />
 		<perch:input type="hidden" value="<perch:forms id="memberID">" name="memberID" />
 		<perch:input type="hidden" value="<perch:forms id="churchID">" name="churchID" />
 		<perch:input type="hidden" value="<perch:forms id="audioID">" name="audioID" />

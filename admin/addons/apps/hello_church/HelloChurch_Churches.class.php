@@ -25,6 +25,16 @@ class HelloChurch_Churches extends PerchAPI_Factory
 	    return $results;
 	    
 	}
+	
+	public function church_by_slug($slug){
+	    
+	    $API  = new PerchAPI(1.0, 'hello_church');
+		
+		$sql = "SELECT * FROM perch3_hellochurch_churches WHERE churchSlug='".$slug."'";
+	    $results = $this->db->get_row($sql);
+	    return $results;
+	    
+	}
     
     public function church_valid($data){
 	    

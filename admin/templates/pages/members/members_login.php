@@ -13,13 +13,13 @@ if(perch_member_logged_in()){
 		$date = gmdate("Y-m-d", $current_period);
 		perch_member_add_tag('active', $date);
 		if(perch_member_has_tag('onboarded')){
-			header("location:/dashboard/");	
+			header("location:/dashboard");	
 		}else{
-			header("location:/get-started/");
+			header("location:/get-started");
 		}
 	}else{
 		perch_member_remove_tag('active');
-		header("location:/account/");
+		header("location:/dashboard");
 	}
 	
 }

@@ -6,6 +6,8 @@ if(!perch_member_logged_in()){
 
 perch_layout('header');
 
+$church = hello_church_church(true);
+
 ?>
 <main class="flow full">
 	<h1>Settings</h1>
@@ -66,6 +68,21 @@ perch_layout('header');
 				</a>
 			</div>
 		</li>
+		<li>
+			<div>
+				<a href="/settings/podcast">
+					<span class="material-symbols-outlined">headphones</span>
+					<h3>Podcast</h3>
+				</a>
+			</div>
+		</li>
 	</ul>
+	<h2>Feeds</h2>
+	<div class="panel">
+		<h3>iCal Feed</h3>
+		<p class="monospace">https://app.hellochurch.tech/feed/<?= $church['churchSlug'] ?>/ical.ics
+		<h3>Podcast RSS</h3>
+		<p class="monospace">https://app.hellochurch.tech/feed/<?= $church['churchSlug'] ?>/podcast.rss
+	</div>
 </main>
 <?php perch_layout('footer'); ?>

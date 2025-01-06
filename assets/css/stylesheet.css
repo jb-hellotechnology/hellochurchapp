@@ -1324,6 +1324,15 @@ ul.list li form .button.danger.small.border{
 	background:var(--color-light);
 }
 
+.monospace{
+	font-family: monospace;
+	color:#777;
+	padding:1em;
+	margin:1em 0;
+	border:1px dotted #777;
+	max-width: 100%;
+}
+
 /* CALENDAR */
 #calendar a{
 	border-bottom: none;

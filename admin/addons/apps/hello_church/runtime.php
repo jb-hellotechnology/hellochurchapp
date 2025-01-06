@@ -124,6 +124,17 @@ error_reporting(E_ALL);
 		
 	}
 	
+	function church_by_slug($slug){
+		
+		$API  = new PerchAPI(1.0, 'hello_church');
+		$HelloChurchChurches = new HelloChurch_Churches($API);
+		
+		$church = $HelloChurchChurches->church_by_slug($slug);
+		
+		return $church;
+		
+	}
+	
 	function hello_church_church($return){
 		
 		$API  = new PerchAPI(1.0, 'hello_church');
@@ -467,6 +478,7 @@ error_reporting(E_ALL);
         $HelloChurchSeriess = new HelloChurch_Seriess($API);
         $HelloChurchAudios = new HelloChurch_Audios($API);
         $HelloChurchEmails = new HelloChurch_Emails($API);
+        $HelloChurchPodcasts = new HelloChurch_Podcasts($API);
         
         $Template = $API->get('Template');
         $Template->set(PerchUtil::file_path('hellochurch/forms/'.$template), 'forms');
@@ -693,6 +705,13 @@ error_reporting(E_ALL);
 			
 			//print_r($data);
 			
+		}elseif($template == 'create_podcast.html'){
+
+			
+		}elseif($template == 'update_podcast.html'){
+
+			$data = $HelloChurchPodcasts->podcast($data['churchID']);
+			
 		}
 		
         $html = $Template->render($data);
@@ -911,6 +930,7 @@ error_reporting(E_ALL);
         $HelloChurchSeriess = new HelloChurch_Seriess($API);
         $HelloChurchAudios = new HelloChurch_Audios($API);
         $HelloChurchEmails = new HelloChurch_Emails($API);
+        $HelloChurchPodcasts = new HelloChurch_Podcasts($API);
         
 	    $Session = PerchMembers_Session::fetch();
 	    
@@ -1322,6 +1342,14 @@ error_reporting(E_ALL);
             case 'add_email':
 	            $data = $SubmittedForm->data;
 		        $email = $HelloChurchEmails->create($data);
+            break;
+            case 'create_podcast':
+	            $data = $SubmittedForm->data;
+		        $podcast = $HelloChurchPodcasts->create($data);
+            break;
+            case 'update_podcast':
+	            $podcast = $HelloChurchPodcasts->find($SubmittedForm->data['podcastID']);
+		        $podcast->update($SubmittedForm->data);
             break;
         }
     	
@@ -2639,7 +2667,6 @@ error_reporting(E_ALL);
 			$Church = $Churches->find_by_customer_id($customer_id);
 			$Church = $Churches->find($Church['churchID']);
         	if(is_object($Church)) {
-	        	print_r($Church);
 				$Church->update_subscription_details(
 					$subscription_id,
 				    $payment_method,
@@ -2733,5 +2760,31 @@ END:VEVENT
 			</item>';
 		
 		}
+	    
+    }
+    
+    function podcast(){
+	    
+	    $API  = new PerchAPI(1.0, 'hello_church');
+
+        $HelloChurchPodcasts = new HelloChurch_Podcasts($API);
+	    
+	    $Session = PerchMembers_Session::fetch();
+	    
+		$podcast = $HelloChurchPodcasts->podcast($Session->get('churchID'));
+		
+		return $podcast;
+	    
+    }
+    
+    function podcast_public($churchID){
+	    
+	    $API  = new PerchAPI(1.0, 'hello_church');
+
+        $HelloChurchPodcasts = new HelloChurch_Podcasts($API);
+	    
+		$podcast = $HelloChurchPodcasts->podcast($churchID);
+		
+		return $podcast;
 	    
     }

@@ -1,0 +1,23 @@
+<perch:form id="create_podcast" method="post" app="hello_church">
+
+	<article class="flow">
+		<perch:success show-form="true">
+			<p class="alert success">Your podcast settings have been updated.</p>
+		</perch:success>
+		<div>
+			<perch:label for="podcastName">Add Podcast Name</perch:label>
+			<perch:input type="text" id="podcastName" required="true" label="Podcast Name" />
+			<perch:error for="podcastName" type="required"><p class="help error">Please add a name for your podcast</p></perch:error>
+		</div>
+		<div>
+			<perch:label for="podcastDescription">Podcast Description</perch:label>
+			<perch:input type="textarea" id="podcastDescription" required="true" label="Podcast Description" />
+		</div>
+	</article>
+
+	<footer>
+		<perch:input type="hidden" value="<perch:forms id="churchID">" name="churchID" />
+		<perch:input type="submit" value="Save" class="button primary" />
+	</footer>
+
+</perch:form>
