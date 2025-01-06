@@ -1,0 +1,12 @@
+/** PUBLIC STUFF **/
+
+#email{
+	display:none;
+}
+
+*:disabled {
+  background-color: dimgrey !important;
+  color: #fff !important;
+  cursor: default;
+  opacity: 1;
+}

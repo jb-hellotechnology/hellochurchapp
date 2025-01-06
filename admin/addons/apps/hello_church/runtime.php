@@ -2788,3 +2788,34 @@ END:VEVENT
 		return $podcast;
 	    
     }
+    
+    function search_church($q){
+	    
+	    $API  = new PerchAPI(1.0, 'hello_church');
+
+        $HelloChurchChurches = new HelloChurch_Churches($API);
+	    
+		$results = $HelloChurchChurches->public_search($q);
+		
+		echo $results;
+	    
+    }
+    
+    function send_link($church, $email){
+	    
+	    $API  = new PerchAPI(1.0, 'hello_church');
+
+        $HelloChurchChurches = new HelloChurch_Churches($API);
+        $HelloChurchContacts = new HelloChurch_Contacts($API);
+
+		$church = $HelloChurchChurches->church_by_slug($church);
+		$valid = $HelloChurchContacts->by_church_by_email($church['churchID'], $email);
+		
+		if($valid){
+			echo 'success';
+			$HelloChurchContacts->send_magic_link($church['churchID'], $email);
+		}else{
+			echo 'error';
+		}
+	    
+    }

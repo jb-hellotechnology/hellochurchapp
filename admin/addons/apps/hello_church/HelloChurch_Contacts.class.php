@@ -4,6 +4,7 @@ ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 */
+
 class HelloChurch_Contacts extends PerchAPI_Factory
 {
     protected $table     = 'hellochurch_contacts';
@@ -273,6 +274,66 @@ class HelloChurch_Contacts extends PerchAPI_Factory
 	    $result = $this->db->get_rows($sql);
 	    
 	    return $result;
+		
+	}
+	
+	public function by_church_by_email($churchID, $email){
+		
+		$API  = new PerchAPI(1.0, 'hello_church');
+
+		$sql = 'SELECT * FROM perch3_hellochurch_contacts WHERE churchID="'.$churchID.'" AND contactEmail="'.$email.'"';
+	    $result = $this->db->get_row($sql);
+	    
+	    if($result){
+			return true;
+		}else{
+			return false;
+		}
+		
+	}
+	
+	public function send_magic_link($churchID, $email){
+		
+		require '../../../vendor/autoload.php';
+		include('../../../secrets.php');
+		
+		$API  = new PerchAPI(1.0, 'hello_church');
+
+		$sql = 'SELECT * FROM perch3_hellochurch_contacts WHERE churchID="'.$churchID.'" AND contactEmail="'.$email.'"';
+	    $contact = $this->db->get_row($sql);
+	    
+	    $salt  = "big string of random stuff"; // you can generate this once like above
+		$link = md5( $salt . time());
+	    
+	    $timestamp = date("Y-m-d H:i:s", strtotime("+10 minutes"));
+	    
+	    $sql = 'UPDATE perch3_hellochurch_contacts SET contactMagicLink="'.$link.'", contactMagicLinkExpires="'.$timestamp.'" WHERE churchID="'.$churchID.'" AND contactEmail="'.$email.'"';
+	    $result = $this->db->execute($sql);
+	    
+		$emailContent = '<h1>Hello Church</h1><p>Click the link to sign in:</p><p><a href="https://app.hellochurch.tech/profile/magic?p='.$link.'&e='.$email.'">Sign In</a></p><p>This link expires at '.$timestamp.' so please use it promptly.</p>';
+		
+		// Configure API key authorization: api-key
+		$config = Brevo\Client\Configuration::getDefaultConfiguration()->setApiKey('api-key', $brevoAPI);
+		
+		$apiInstance = new Brevo\Client\Api\TransactionalEmailsApi(
+		    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
+		    // This is optional, `GuzzleHttp\Client` will be used as default.
+		    new GuzzleHttp\Client(),
+		    $config
+		);
+		$sendSmtpEmail = new \Brevo\Client\Model\SendSmtpEmail([
+		  	 'subject' => $subject,
+		     'sender' => ['name' => 'Hello Church', 'email' => 'email@hellochurch.tech'],
+		     'replyTo' => ['name' => 'Hello Church', 'email' => 'email@hellochurch.tech'],
+		     'to' => [[ 'email' => $email ]],
+		     'htmlContent' => '<html><body>'.$emailContent.'</body></html>',
+		]);
+		
+		try {
+		    $result = $apiInstance->sendTransacEmail($sendSmtpEmail);
+		} catch (Exception $e) {
+		    echo 'Exception when calling TransactionalEmailsApi->sendTransacEmail: ', $e->getMessage(), PHP_EOL;
+		}
 		
 	}
 	
