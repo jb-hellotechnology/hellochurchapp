@@ -36,10 +36,10 @@ $podcast = podcast();
 				<article>
 					<?php
 					$img = 'http://app.hellochurch.tech/feed/'.$church['churchSlug'].'/podcast.jpg';
-					if(file_exists($img)){
+
 						echo '<p>Existing Image:</p>';
 						echo '<img src="'.$img.'" alt="Podcast Image" />';
-					}
+					
 					?>
 					<label>Image must be a square JPG file and at least 1920px by 1920px in size</label> 
 					<input id="file" type="file" name="file" />
