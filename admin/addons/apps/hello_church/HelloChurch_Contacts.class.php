@@ -322,7 +322,7 @@ class HelloChurch_Contacts extends PerchAPI_Factory
 		    $config
 		);
 		$sendSmtpEmail = new \Brevo\Client\Model\SendSmtpEmail([
-		  	 'subject' => $subject,
+		  	 'subject' => 'Sign In Link - Hello Church',
 		     'sender' => ['name' => 'Hello Church', 'email' => 'email@hellochurch.tech'],
 		     'replyTo' => ['name' => 'Hello Church', 'email' => 'email@hellochurch.tech'],
 		     'to' => [[ 'email' => $email ]],
