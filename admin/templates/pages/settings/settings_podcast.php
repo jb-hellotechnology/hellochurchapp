@@ -8,6 +8,7 @@ if(!perch_member_logged_in()){
 
 perch_layout('header');
 
+$church = hello_church_church(true);
 $podcast = podcast();
 ?>
 <main class="flow">
@@ -34,7 +35,7 @@ $podcast = podcast();
 				</header>
 				<article>
 					<?php
-					$img = '../../../../hc_uploads/'.$podcast['churchID'].'/podcast/podcast.jpg';
+					$img = 'http://app.hellochurch.tech/feed/'.$church['churchSlug'].'/podcast.jpg';
 					if(file_exists($img)){
 						echo '<p>Existing Image:</p>';
 						echo '<img src="'.$img.'" alt="Podcast Image" />';
