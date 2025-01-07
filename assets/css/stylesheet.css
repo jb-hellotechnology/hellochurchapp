@@ -1518,3 +1518,7 @@ ul.folders li span{
         transform:rotate(360deg); 
     } 
 }
+
+.currency.hide{
+	display:none;
+}

@@ -131,6 +131,12 @@
 	$('input').blur(function(){
 		$('.results').delay(1000).fadeOut();
 	});
+	
+	$('#currency').change(function(){
+		var currency = $("#currency option:selected").val();
+		$('.currency').hide();
+		$('.currency.'+currency).show();
+	})
 	</script>
 	<script src="/assets/redactor/redactor.min.js"></script>
     <script>

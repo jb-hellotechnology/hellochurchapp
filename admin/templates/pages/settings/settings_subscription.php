@@ -21,6 +21,7 @@ if($customer_id){
 	$cost = stripe_data('churchCost');
 	$current_period = stripe_data('churchPeriodEnd');
 	$cancel = stripe_data('churchCancel');
+	$price = stripe_data('churchPlanID');
 	
 	$stripe = new \Stripe\StripeClient($stripeSK);
 	
@@ -42,6 +43,9 @@ if($customer_id){
 	}
 	
 	$cost = $cost/100;
+	
+	$price_data = $stripe->prices->retrieve($price, []);
+	$currency = strtoupper($price_data->currency);
 
 }
 ?>
@@ -70,14 +74,14 @@ if($customer_id){
 			<?php
 				}elseif($current_period <= time()){
 			?>
-			<p><strong>Your subscription is innactive.</strong></p>
+			<p><strong>Your subscription is inactive.</strong></p>
 			<p><strong>Please click the button below to visit the payment portal.</strong></p>
 			<?php
 				}else{
 			?>
 			<p><strong>Your subscription is active.</strong></p>
-			<p>You are paying &pound;<?= $cost ?>/month.</p>
-			<p>Your next payment will be take on <?= $payment_date ?>.</p>
+			<p>You are paying <?= $cost ?><?= $currency ?> per month.</p>
+			<p>Your next payment will be taken on <?= $payment_date ?>.</p>
 			<?php
 				}
 			?>

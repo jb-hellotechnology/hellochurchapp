@@ -19,7 +19,7 @@ perch_layout('header_public');
 	</ul>
 	<section>
 		<header>
-			<h2>Update Contact Details</h2>
+			<h2>Manage Your Profile</h2>
 		</header>
 		<?php hello_church_form('update_contact_public.html'); ?>
 	</section>
