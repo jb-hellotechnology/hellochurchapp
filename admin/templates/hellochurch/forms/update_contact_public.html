@@ -1,0 +1,58 @@
+<perch:form id="update_contact_public" method="post" app="hello_church">
+
+	<article class="flow">
+		<perch:success show-form="true">
+			<p class="alert success">Details updated.</p>
+		</perch:success>
+		<div>
+			<perch:label for="contactFirstName">First Name</perch:label>
+			<perch:input type="text" id="contactFirstName" required="true" label="First Name" />
+			<perch:error for="contactFirstName" type="required"><p class="help error">Please add a your contact's first name</p></perch:error>
+		</div>
+		<div>
+			<perch:label for="contactLastName">Last Name</perch:label>
+			<perch:input type="text" id="contactLastName" label="Last Name" />
+		</div>
+		<div>
+			<perch:label for="contactAddress1">Address 1</perch:label>
+			<perch:input type="text" id="contactAddress1" label="Address 1" />
+		</div>
+		<div>
+			<perch:label for="contactAddress2">Address 2</perch:label>
+			<perch:input type="text" id="contactAddress2" label="Address 2" />
+		</div>
+		<div>
+			<perch:label for="contactCity">City</perch:label>
+			<perch:input type="text" id="contactCity" label="City" />
+		</div>
+		<div>
+			<perch:label for="contactCounty">County</perch:label>
+			<perch:input type="text" id="contactCounty" abel="County" />
+		</div>
+		<div>
+			<perch:label for="contactPostCode">Post Code</perch:label>
+			<perch:input type="text" id="contactPostCode" label="Post Code" />
+		</div>
+		<div>
+			<perch:label for="contactCountry">Country</perch:label>
+			<perch:input type="text" id="contactCountry" label="Country" />
+		</div>
+		<div>
+			<perch:label for="contactPhone">Phone Number</perch:label>
+			<perch:input type="text" id="contactPhone" label="Phone" />
+		</div>
+		<div>
+			<perch:label for="contactEmail">Email</perch:label>
+			<perch:input type="email" id="contactEmail" label="Email" placeholder="you@example.com" />
+		</div>
+		<div>
+			<perch:label for="contactAcceptEmail">I Accept Email Communication</perch:label>
+			<perch:input type="select" id="contactAcceptEmail" label="Accepts Email" options="Yes,No" />
+		</div>
+	</article>
+
+	<footer>
+		<perch:input type="submit" value="Save" class="button primary" />
+	</footer>
+
+</perch:form>

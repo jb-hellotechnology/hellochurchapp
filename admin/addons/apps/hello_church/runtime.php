@@ -5,6 +5,8 @@ ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 */
 
+	session_start();
+
     spl_autoload_register(function($class_name){
         if (strpos($class_name, 'HelloChurch')===0) {
             include(__DIR__.'/'.$class_name.'.class.php');
@@ -516,6 +518,10 @@ error_reporting(E_ALL);
 			}
 			$data['families'] = substr($data['families'], 0, -1);
 			
+		}elseif($template == 'update_contact_public.html'){
+			
+			$data = $HelloChurchContacts->contact($_SESSION['hellochurch_active_contact']);
+			
 		}elseif($template == 'delete_contact.html'){
 			
 			$data = $HelloChurchContacts->contact($_GET['id']);
@@ -907,6 +913,8 @@ error_reporting(E_ALL);
 	    
 	    $API  = new PerchAPI(1.0, 'hello_church');
 	    
+	    session_start();
+	    
 	    $PerchMembers_Auth = new PerchMembers_Auth($API);
 	    $HelloChurchChurch = new HelloChurch_Church($API);
 	    $HelloChurchChurches = new HelloChurch_Churches($API); 
@@ -996,6 +1004,19 @@ error_reporting(E_ALL);
 		            $contact->update($data);
 		            $contact->update_tags($contact->id(), $data);
 		            $contact->update_groups($contact->id(), $data);
+	            } 
+            break;
+            case 'update_contact_public':
+	            $valid = $HelloChurchContacts->contact_valid($SubmittedForm->data);
+	            if(!$valid){
+		            //$SubmittedForm->throw_error($valid['reason'], $valid['field']);
+	            }else{
+		            $contact = $HelloChurchContacts->find($_SESSION['hellochurch_active_contact']);
+		            $data = $SubmittedForm->data;
+		            if(!$data['contactAcceptEmail']){
+			            $data['contactAcceptEmail'] = '';
+		            }
+		            $contact->update($data);
 	            } 
             break;
             case 'delete_contact':
@@ -2817,5 +2838,37 @@ END:VEVENT
 		}else{
 			echo 'error';
 		}
+	    
+    }
+    
+    function sign_in_magic($password, $email){
+	    
+	    session_start();
+	    
+	    $API  = new PerchAPI(1.0, 'hello_church');
+
+        $HelloChurchContacts = new HelloChurch_Contacts($API);
+
+		$check = $HelloChurchContacts->validate_magic($password, $email);
+		
+		if($check['churchID']){
+			$_SESSION['hellochurch_active_session'] = true;
+			$_SESSION['hellochurch_active_church'] = $check['churchID'];
+			$_SESSION['hellochurch_active_contact'] = $check['contactID'];
+		}else{
+			$_SESSION['hellochurch_active_session'] = false;
+		}
+	    
+    }
+    
+    function signed_in(){
+	    
+	    session_start();
+	    
+	    if($_SESSION['hellochurch_active_session']==true && $_SESSION['hellochurch_active_church']>0 && $_SESSION['hellochurch_active_contact']>0){
+		    return true;
+	    }else{
+		    return false;
+	    }
 	    
     }

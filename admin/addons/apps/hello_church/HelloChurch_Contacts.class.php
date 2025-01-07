@@ -337,4 +337,22 @@ class HelloChurch_Contacts extends PerchAPI_Factory
 		
 	}
 	
+	public function validate_magic($password, $email){
+		
+		$API  = new PerchAPI(1.0, 'hello_church');
+		
+		$timestamp = date("Y-m-d H:i:s");
+
+		$sql = 'SELECT * FROM perch3_hellochurch_contacts WHERE contactMagicLink="'.$password.'" AND contactMagicLinkExpires>="'.$timestamp.'" AND contactEmail="'.$email.'"';
+		echo $sql;
+	    $contact = $this->db->get_row($sql);
+	    
+	    if($contact){
+		    return $contact;
+		}else{
+			return false;
+		}
+		
+	}
+	
 }

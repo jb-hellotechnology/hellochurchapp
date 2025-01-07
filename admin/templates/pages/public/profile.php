@@ -5,19 +5,35 @@ include('../../../secrets.php');
 
 perch_layout('header_public');
 
-function logged_in(){
-	
-}
 ?>
 <main class="flow public narrow">
 	<?php
-	if(logged_in()){
+	if(signed_in()){
 	?>
-	
+	<h1>Manage Your Profile</h1>
+	<section>
+		<header>
+			<h2>Update Contact Details</h2>
+		</header>
+		<?php hello_church_form('update_contact_public.html'); ?>
+	</section>
+	<section>
+		<header>
+			<h2>Sign Out</h2>
+		</header>
+		<article>
+			<a href="/profile/sign-out" class="button secondary">Sign Out</a>
+		</article>
+	</section>
 	<?php	
 	}else{
 	?>
 	<h1>Sign In</h1>
+	<?php
+		if(perch_get('msg')=='success'){
+			echo '<p class="alert success">Signed out.</p>';
+		}
+	?>
 	<section>
 		<header>
 			<h2>Manage Your Profile</h2>
