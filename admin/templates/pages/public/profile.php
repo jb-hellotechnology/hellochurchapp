@@ -10,7 +10,13 @@ perch_layout('header_public');
 	<?php
 	if(signed_in()){
 	?>
-	<h1>Manage Your Profile</h1>
+	<h1>Welcome</h1>
+	<ul class="checks">
+		<li>
+			<span class="material-symbols-outlined">check_circle</span>
+			<div><strong>Manage Your Profile</strong><br />Update your details</div>
+		</li>
+	</ul>
 	<section>
 		<header>
 			<h2>Update Contact Details</h2>
