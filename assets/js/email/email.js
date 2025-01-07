@@ -54,6 +54,7 @@ function handleSubmit(event) {
   	$.post( "/process/save-email", { emailID: pEmail, email: json }).done(function( data ) {
 		setTimeout(function(){	
 			$('.save-email').prop("value", "Saved!");
+			preview_email();
 		},200);
 		setTimeout(function(){	
 			$('.save-email').prop("value", "Save Email");
@@ -89,5 +90,15 @@ function preview_email(){
 function save_email(){
 	
 	$("input[type=submit].save-email").click();
+	
+}
+
+function send_test(){
+	
+	let pID = $('#email_id').val();
+	let pRecipient = $('#test_recipient').val();
+	$.post( "/communication/send-email", { recipients: pRecipient, id: pID }).done(function( data ) {
+		alert(data);
+	});
 	
 }

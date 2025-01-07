@@ -16,7 +16,7 @@ $email = hello_church_get_email(perch_get('id'));
 perch_layout('header');
 ?>
 <main class="flow full">
-	<h1 class="with-button">Create Email <a class="button primary" href="/communication/send-email?id=<?= perch_get('id') ?>">Send<span class="material-symbols-outlined">send</span></a></h1>
+	<h1 class="with-button"><?= $email['emailSubject'] ?> <!-- <a class="button primary" href="/communication/send-email?id=<?= perch_get('id') ?>">Send<span class="material-symbols-outlined">send</span></a> --></h1>
 	<?= $description ?>
 	<div class="section-grid">
 		<div>
@@ -73,11 +73,15 @@ perch_layout('header');
 				<header>
 					<h2>Preview</h2>
 					<div>
-						<button class="button small primary" onclick="javascript:preview_email();">Update Preview</button>
+						<input type="text" id="test_recipient" placeholder="you@example.com" />
+						<input type="hidden" id="email_id" value="<?= perch_get('id') ?>" />
+						<button class="button small primary" onclick="javascript:send_test();">Send Test</button>
 					</div>
 				</header>
-				<article class="email-preview flow">
-					
+				<article>
+					<div class="email-preview flow">
+						
+					</div>
 				</article>
 				<footer>
 					<button class="button primary" onclick="javascript:preview_email();">Update Preview</button>

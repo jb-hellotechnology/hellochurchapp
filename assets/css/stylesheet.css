@@ -813,6 +813,7 @@ section header div input[type=text]{
 	padding:0;
 	margin:0;
 	display:inline-block;
+	width:auto;
 }
 
 section header div select{
@@ -1402,15 +1403,25 @@ ul.list li form .button.danger.small.border{
 	text-align:right;
 }
 
-.bible{
+.email-preview .bible{
 	background:var(--color-light);
 	margin:1rem 0;
 	padding:1rem;
 }
 
-.bible h2{
+.email-preview .bible h2{
 	font-size:var(--size-step-1);
 	font-weight:700;
+}
+
+.email-preview .bible h2,
+.email-preview .bible h3,
+.email-preview .bible p{
+	font-family: Helvetica, sans-serif !important; 
+	font-size: 16px; 
+	font-weight: normal; 
+	margin: 0; 
+	margin-bottom: 16px;
 }
 
 .plan-preview .bible h3{

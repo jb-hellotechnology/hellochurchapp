@@ -3,18 +3,17 @@
 require '../../../vendor/autoload.php';
 require '../../../secrets.php';
 
+$template = file_get_contents('../../../email_template.html');
+
 if(!perch_member_logged_in()){
 	header("location:/");
 }
 
-if(!hello_church_email_owner(perch_get('id'))){
-	perch_member_log_out();
-	header("location:/");
-}
+$email = hello_church_get_email($_POST['id']);
+$recipient = $_POST['recipients'];
 
-$email = hello_church_get_email(perch_get('id'));
-
-perch_layout('header');
+$church = hello_church_church(true);
+$senderPostalAddress = "$church[churchName], $church[churchAddress1], $church[churchCity], $church[churchCountry]";
 
 $subject = $email['emailSubject'];
 $email = json_decode($email['emailContent'], true);
@@ -26,10 +25,10 @@ foreach($email as $type => $item){
 	$type = $typeParts[0];
 	
 	if($type=='heading'){
-		$emailContent .= '<h2>'.$item.'</h2>';
+		$emailContent .= '<h2 style="font-family: Helvetica, sans-serif; font-size: 24px; font-weight: strong; margin: 0; margin-bottom: 16px;">'.$item.'</h2>';
 	}
 	if($type=='text'){
-		$emailContent .= '<p>'.nl2br($item).'</p>';
+		$emailContent .= '<p style="font-family: Helvetica, sans-serif; font-size: 16px; font-weight: normal; margin: 0; margin-bottom: 16px;">'.nl2br($item).'</p>';
 	}
 	if($type=='youtube'){
 		$emailContent .= $item;
@@ -53,20 +52,34 @@ foreach($email as $type => $item){
 		}
 		curl_close($ch);
 		$json = json_decode($resultESV,true);
-		$emailContent .= '<div class="bible flow">'.$json['passages'][0].'</div>';
+		$passage = strip_tags($json['passages'][0],"<p><a>");
+		$emailContent .= '<div style="font-family: Helvetica, sans-serif !important; font-size: 16px; font-weight: normal; margin: 0; margin-bottom: 16px;background:#f0f2f9;padding:16px;">'.$passage.'</div>';
 
 	}
 	if($type=='link'){
-		$emailContent .= '<p><a class="button primary" href="'.$item.'">Click Here</a></p>';
+		$emailContent .= '<table role="presentation" border="0" cellpadding="0" cellspacing="0" class="btn btn-primary" style="border-collapse: separate; mso-table-lspace: 0pt; mso-table-rspace: 0pt; box-sizing: border-box; width: 100%; min-width: 100%;" width="100%">
+                    <tbody>
+                      <tr>
+                        <td align="left" style="font-family: Helvetica, sans-serif; font-size: 16px; vertical-align: top; padding-bottom: 16px;" valign="top">
+                          <table role="presentation" border="0" cellpadding="0" cellspacing="0" style="border-collapse: separate; mso-table-lspace: 0pt; mso-table-rspace: 0pt; width: auto;">
+                            <tbody>
+                              <tr>
+                                <td style="font-family: Helvetica, sans-serif; font-size: 16px; vertical-align: top; border-radius: 4px; text-align: center; background-color: #142c8e;" valign="top" align="center" bgcolor="#0867ec"> <a href="'.$item.'" target="_blank" style="border: solid 2px #142c8e; border-radius: 4px; box-sizing: border-box; cursor: pointer; display: inline-block; font-size: 16px; font-weight: bold; margin: 0; padding: 12px 24px; text-decoration: none; text-transform: capitalize; background-color: #142c8e; border-color: #142c8e; color: #ffffff;">Click Here</a> </td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>';
 	}
 	
 }
-
-if($_GET['send']==1){
 	
 	$to = $_POST['recipients'];
 	$message = $emailContent;
-	
+
+	echo 'Sent!'
 	// Configure API key authorization: api-key
 	$config = Brevo\Client\Configuration::getDefaultConfiguration()->setApiKey('api-key', $brevoAPI);
 	
@@ -78,57 +91,18 @@ if($_GET['send']==1){
 	);
 	$sendSmtpEmail = new \Brevo\Client\Model\SendSmtpEmail([
 	  	 'subject' => $subject,
-	     'sender' => ['name' => 'Hello Church', 'email' => 'email@hellochurch.tech'],
+	     'sender' => ['name' => 'Hello Church', 'email' => 'no-reply@hellochurch.tech'],
 	     'replyTo' => ['name' => 'Jack Barber', 'email' => 'jack@jackbarber.co.uk'],
-	     'to' => [[ 'email' => 'jack@jackbarber.co.uk' ]],
-	     'htmlContent' => '<html><body>'.$emailContent.'</body></html>',
+	     'to' => [[ 'email' => $recipient ]],
+	     'htmlContent' => $template,
+	     'params' => ['emailSubject' => $subject, 'emailContent' => $emailContent, 'senderPostalAddress' => $senderPostalAddress]
 	]);
 	
 	try {
 	    $result = $apiInstance->sendTransacEmail($sendSmtpEmail);
-	    print_r($result);
 	} catch (Exception $e) {
 	    echo 'Exception when calling TransactionalEmailsApi->sendTransacEmail: ', $e->getMessage(), PHP_EOL;
 	}
 	
-}
+
 ?>
-<main class="flow full">
-	<h1 class="with-button">Send Email</h1>
-	<?= $description ?>
-	<div class="section-grid">
-		<div>
-			<form id="form-email">
-			<section>
-				<header>
-					<h2><strong>Subject:</strong> <?= $subject ?></h2>
-				</header>
-				<article>
-					<div class="email-container sortable">
-						<?= $emailContent ?>
-					</div>
-				</article>
-				<footer>
-					
-				</footer>
-			</section>
-			</form>
-		</div>
-		<div>
-			<section>
-				<header>
-					<h2>Recipients</h2>
-				</header>
-				<form method="post" action="/communication/send-email?id=<?= perch_get('id') ?>&send=1">
-				<article class="flow">
-					<input type="text" name="recipients" class="tagify"></textarea>
-				</article>
-				<footer>
-					<input class="button primary" type="submit" value="Send" />
-				</footer>
-				</form>
-			</section>
-		</div>
-	</div>
-</main>
-<?php perch_layout('footer'); ?>
