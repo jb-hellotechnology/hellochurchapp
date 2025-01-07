@@ -100,7 +100,7 @@ foreach($email as $type => $item){
 	     'replyTo' => ['name' => 'Jack Barber', 'email' => 'jack@jackbarber.co.uk'],
 	     'to' => [[ 'email' => $recipient ]],
 	     'htmlContent' => $template,
-	     'params' => ['emailSubject' => $subject, 'emailContent' => $emailContent, 'senderPostalAddress' => $senderPostalAddress]
+	     'params' => ['emailSubject' => $subject, 'emailContent' => '{% autoescape off %}'.$emailContent.'{% endautoescape %}', 'senderPostalAddress' => $senderPostalAddress]
 	]);
 	
 	try {
