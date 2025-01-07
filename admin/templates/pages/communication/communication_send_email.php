@@ -8,8 +8,6 @@ require '../../../secrets.php';
 
 $template = file_get_contents('../../../email_template.html');
 
-echo $template;
-
 if(!perch_member_logged_in()){
 	header("location:/");
 }
@@ -84,7 +82,7 @@ foreach($email as $type => $item){
 	$to = $_POST['recipients'];
 	$message = $emailContent;
 
-	echo 'Sent!'
+	echo 'Sent!';
 	// Configure API key authorization: api-key
 	$config = Brevo\Client\Configuration::getDefaultConfiguration()->setApiKey('api-key', $brevoAPI);
 	
@@ -94,6 +92,21 @@ foreach($email as $type => $item){
 	    new GuzzleHttp\Client(),
 	    $config
 	);
-
+	$sendSmtpEmail = new \Brevo\Client\Model\SendSmtpEmail([
+	  	 'subject' => $subject,
+	     'sender' => ['name' => 'Hello Church', 'email' => 'no-reply@hellochurch.tech'],
+	     'replyTo' => ['name' => 'Jack Barber', 'email' => 'jack@jackbarber.co.uk'],
+	     'to' => [[ 'email' => $recipient ]],
+	     'htmlContent' => $template,
+	     'params' => ['emailSubject' => $subject, 'emailContent' => $emailContent, 'senderPostalAddress' => $senderPostalAddress]
+	]);
+	
+	try {
+	    $result = $apiInstance->sendTransacEmail($sendSmtpEmail);
+	    print_r($result);
+	} catch (Exception $e) {
+	    echo 'Exception when calling TransactionalEmailsApi->sendTransacEmail: ', $e->getMessage(), PHP_EOL;
+	}
+	
 
 ?>
