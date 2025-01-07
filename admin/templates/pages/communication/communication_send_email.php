@@ -94,20 +94,6 @@ foreach($email as $type => $item){
 	    new GuzzleHttp\Client(),
 	    $config
 	);
-	$sendSmtpEmail = new \Brevo\Client\Model\SendSmtpEmail([
-	  	 'subject' => $subject,
-	     'sender' => ['name' => 'Hello Church', 'email' => 'no-reply@hellochurch.tech'],
-	     'replyTo' => ['name' => 'Jack Barber', 'email' => 'jack@jackbarber.co.uk'],
-	     'to' => [[ 'email' => $recipient ]],
-	     'htmlContent' => $template
-	]);
-	
-	try {
-	    $result = $apiInstance->sendTransacEmail($sendSmtpEmail);
-	    print_r($result);
-	} catch (Exception $e) {
-	    echo 'Exception when calling TransactionalEmailsApi->sendTransacEmail: ', $e->getMessage(), PHP_EOL;
-	}
-	
+
 
 ?>
