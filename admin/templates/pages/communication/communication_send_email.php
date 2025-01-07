@@ -97,7 +97,7 @@ foreach($email as $type => $item){
 	$sendSmtpEmail = new \Brevo\Client\Model\SendSmtpEmail([
 	  	 'subject' => $subject,
 	     'sender' => ['name' => 'Hello Church', 'email' => 'no-reply@hellochurch.tech'],
-	     'replyTo' => ['name' => 'Jack Barber', 'email' => 'jack@jackbarber.co.uk'],
+	     'replyTo' => ['name' => $church['churchName'], 'email' => $church['churchEmail']],
 	     'to' => [[ 'email' => $recipient ]],
 	     'htmlContent' => $template,
 	     'params' => ['emailSubject' => $subject, 'emailContent' => $emailContent, 'senderPostalAddress' => $senderPostalAddress]
