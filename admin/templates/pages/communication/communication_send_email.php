@@ -85,7 +85,30 @@ foreach($email as $type => $item){
 	$message = $emailContent;
 
 	echo 'Sent!'
-
+	// Configure API key authorization: api-key
+	$config = Brevo\Client\Configuration::getDefaultConfiguration()->setApiKey('api-key', $brevoAPI);
+	
+	$apiInstance = new Brevo\Client\Api\TransactionalEmailsApi(
+	    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
+	    // This is optional, `GuzzleHttp\Client` will be used as default.
+	    new GuzzleHttp\Client(),
+	    $config
+	);
+	$sendSmtpEmail = new \Brevo\Client\Model\SendSmtpEmail([
+	  	 'subject' => $subject,
+	     'sender' => ['name' => 'Hello Church', 'email' => 'no-reply@hellochurch.tech'],
+	     'replyTo' => ['name' => 'Jack Barber', 'email' => 'jack@jackbarber.co.uk'],
+	     'to' => [[ 'email' => $recipient ]],
+	     'htmlContent' => $template,
+	     'params' => ['emailSubject' => $subject, 'emailContent' => $emailContent, 'senderPostalAddress' => $senderPostalAddress]
+	]);
+	
+	try {
+	    $result = $apiInstance->sendTransacEmail($sendSmtpEmail);
+	    print_r($result);
+	} catch (Exception $e) {
+	    echo 'Exception when calling TransactionalEmailsApi->sendTransacEmail: ', $e->getMessage(), PHP_EOL;
+	}
 	
 
 ?>
