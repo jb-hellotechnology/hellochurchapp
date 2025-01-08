@@ -80,6 +80,13 @@ if(perch_member_logged_in()){
 				<?php 
 				perch_pages_navigation();
   				?>
+  				<div class="highlight">
+	  				<p>Hello Church Blog</p>
+	  				<a href="https://hellochurch.tech/how-should-christians-view-technology/" target="_blank">
+		  				<img src="https://hellochurch.tech/wp-content/uploads/2025/01/AdobeStock_117786738-scaled.jpg" alt="Image">
+		  			</a>
+	  				<h2><a href="https://hellochurch.tech/how-should-christians-view-technology/" target="_blank">How Should Christians View Technology?</a></h2>
+  				</div>
 			</div>
 			<button popovertarget="account-nav">
 				<span class="material-symbols-outlined">

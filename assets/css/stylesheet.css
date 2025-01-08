@@ -563,6 +563,34 @@ header div.buttons{
 	display:none;
 }
 
+.highlight{
+	padding:1rem;
+	position: fixed;
+	bottom:0px;
+	left:0px;
+}
+
+.highlight img{
+	max-width: 120px;
+}
+
+.highlight h2{
+	padding:0;
+	margin:0;
+	margin-top:0.5rem;
+}
+
+.highlight p{
+	font-size:60%;
+	margin-bottom:0.5rem;
+}
+
+@media screen and (max-height:680px){
+	.highlight{
+		display:none;
+	}
+}
+
 @media screen and (max-width:900px){
 	button.menu{
 		display:block;
