@@ -14,29 +14,38 @@ if(!perch_member_logged_in()){
 	header("location:/");
 }
 
-$recpients = array();
+if($_POST['recipient']){
+	
+	$recpients = array();
 
-$contacts = json_decode($_POST['contacts']);
-foreach($contacts as $contact){
-	$recipients[] = $contact->id;
-}
-
-$groups = json_decode($_POST['groups']);
-foreach($groups as $group){
-	$members = process_search_members_list($group->id);
-	foreach($members as $member){
-		$recipients[] = $member['contactID'];
+	$contacts = json_decode($_POST['contacts']);
+	foreach($contacts as $contact){
+		$recipients[] = $contact->id;
 	}
+	
+	$groups = json_decode($_POST['groups']);
+	foreach($groups as $group){
+		$members = process_search_members_list($group->id);
+		foreach($members as $member){
+			$recipients[] = $member['contactID'];
+		}
+	}
+	
+	$to = array();
+	
+	foreach(array_unique($recipients) as $contact){
+		$contact = hello_church_contact($contact);
+		$to[] = (object) array('email' => $contact->contactEmail());
+	}
+	
+}else{
+	
+	$to = array();	
+	$to[] = (object) array('email' => $_POST['recipient']);
+	
 }
 
-$to = array();
 
-foreach(array_unique($recipients) as $contact){
-	$contact = hello_church_contact($contact);
-	$to[] = (object) array('email' => $contact->contactEmail());
-}
-
-print_r($to);
 
 $email = hello_church_get_email($_POST['email_id']);
 
@@ -126,7 +135,6 @@ foreach($email as $type => $item){
 	
 	try {
 	    $result = $apiInstance->sendTransacEmail($sendSmtpEmail);
-	    print_r($result);
 	} catch (Exception $e) {
 	    echo 'Exception when calling TransactionalEmailsApi->sendTransacEmail: ', $e->getMessage(), PHP_EOL;
 	}
