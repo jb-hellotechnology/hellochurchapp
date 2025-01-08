@@ -115,7 +115,7 @@ function send_email(){
 			$('.loading').toggleClass('show');
 			$('.loading p').text('Loading'); 
 		}, 2000);
-		location.href = '/communication/edit-email?id=' + pID + '&msg=sent';
+		location.href = '/communication/view-email?id=' + pID + '&msg=sent';
 	});
 	
 }
