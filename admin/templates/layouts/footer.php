@@ -47,7 +47,7 @@
 	    whitelist : <?= hello_church_venues_tagify() ?>
 	});
 	
-	var groups = document.querySelector('.groups');
+	var groups = document.querySelector('.groups-tagify');
 	new Tagify(groups, {
 		enforceWhitelist: true,
 	    whitelist : <?= hello_church_groups_tagify() ?>,
@@ -59,7 +59,7 @@
         }
 	});
 	
-	var contacts = document.querySelector('.contacts');
+	var contacts = document.querySelector('.contacts-tagify');
 	new Tagify(contacts, {
 		enforceWhitelist: true,
 	    whitelist : <?= hello_church_contacts_tagify() ?>,
