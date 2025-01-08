@@ -14,6 +14,9 @@ if(!perch_member_logged_in()){
 	header("location:/");
 }
 
+$email = hello_church_get_email($_POST['email_id']);
+$church = hello_church_church(true);
+
 if($_POST['recipient']){
 	
 	$recpients = array();
@@ -31,12 +34,14 @@ if($_POST['recipient']){
 		}
 	}
 	
-	$to = array();
+	$bcc = array();
 	
 	foreach(array_unique($recipients) as $contact){
 		$contact = hello_church_contact($contact);
-		$to[] = (object) array('email' => $contact->contactEmail());
+		$bcc[] = (object) array('email' => $contact->contactEmail());
 	}
+	
+	$to = $church['churchEmail'];
 	
 }else{
 	
@@ -45,11 +50,6 @@ if($_POST['recipient']){
 	
 }
 
-
-
-$email = hello_church_get_email($_POST['email_id']);
-
-$church = hello_church_church(true);
 $senderPostalAddress = "$church[churchName], $church[churchAddress1], $church[churchCity], $church[churchCountry]";
 
 $subject = $email['emailSubject'];
@@ -129,6 +129,7 @@ foreach($email as $type => $item){
 	     'sender' => ['name' => $church['churchName'], 'email' => 'no-reply@hellochurch.tech'],
 	     'replyTo' => ['name' => $church['churchName'], 'email' => $church['churchEmail']],
 	     'to' => $to,
+	     'bcc' => $bcc,
 	     'htmlContent' => $template,
 	     'params' => ['emailSubject' => $subject, 'emailContent' => $emailContent, 'senderPostalAddress' => $senderPostalAddress]
 	]);
