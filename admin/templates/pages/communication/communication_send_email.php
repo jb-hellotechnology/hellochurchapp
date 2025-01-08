@@ -17,8 +17,6 @@ if(!perch_member_logged_in()){
 $email = hello_church_get_email($_POST['email_id']);
 $church = hello_church_church(true);
 
-print_r($church);
-
 if($_POST['recipient']){
 	
 	$recpients = array();
@@ -52,6 +50,8 @@ if($_POST['recipient']){
 	$to[] = (object) array('email' => $_POST['recipient']);
 	
 }
+
+print_r($to);
 
 $senderPostalAddress = "$church[churchName], $church[churchAddress1], $church[churchCity], $church[churchCountry]";
 
