@@ -1789,10 +1789,12 @@ error_reporting(E_ALL);
 	function hello_church_log_email_contact($emailID, $recipients){
 		
 		$API  = new PerchAPI(1.0, 'hello_church');
+		
+		echo $emailID;
         
         $HelloChurchEmails = new HelloChurch_Emails($API);
 		
-		foreach($recpients as $recipient){
+		foreach($recipients as $recipient){
 			$HelloChurchEmails->log_email_contact($emailID, $recipient);
 		}
 		

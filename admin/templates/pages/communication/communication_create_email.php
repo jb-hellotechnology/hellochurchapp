@@ -74,11 +74,11 @@ perch_layout('header');
 						<h2>Preview</h2>
 						<div>
 							<input type="text" id="test_recipient" placeholder="you@example.com" />
-							<input type="hidden" id="email_id" value="<?= perch_get('id') ?>" name="email_id" />
 							<button class="button small primary" onclick="javascript:send_test();">Send Test</button>
 						</div>
 					</header>
 					<form id="send_email">
+						<input type="hidden" id="email_id" value="<?= perch_get('id') ?>" name="email_id" />
 						<article>
 							<div class="to">
 								<label>To Contacts</label>
