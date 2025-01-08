@@ -30,8 +30,6 @@ foreach(array_unique($recipients) as $contact){
 	$to .= "[ 'email' => ".$contact->contactEmail()." ]";
 }
 
-$to = substr($to, 0, -2);
-
 print_r($to);
 
 $template = file_get_contents('../../../email_template.html');
