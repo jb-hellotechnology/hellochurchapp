@@ -81,9 +81,9 @@ perch_layout('header');
 				<article>
 					<div class="to">
 						<label>To Contacts</label>
-						<input type="text" id="contacts" class="contacts_tagify" />
+						<input type="text" id="contacts" class="contacts-tagify" />
 						<label>To Groups</label>
-						<input type="text" id="groups" class="groups_tagify" />
+						<input type="text" id="groups" class="groups-tagify" />
 					</div>
 					<div class="email-preview flow">
 						
