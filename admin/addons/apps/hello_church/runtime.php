@@ -1775,6 +1775,16 @@ error_reporting(E_ALL);
 		return $email;
 	    
     }
+    
+    function hello_church_store_email_result($emailID, $result){
+	    
+	    $API  = new PerchAPI(1.0, 'hello_church');
+        
+        $HelloChurchEmails = new HelloChurch_Emails($API);
+		
+		$HelloChurchEmails->save_email_result($emailID, $result);
+	    
+    }
 	
 	function hello_church_event_owner($eventID){
 		

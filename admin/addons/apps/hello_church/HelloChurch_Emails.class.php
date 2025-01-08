@@ -69,5 +69,14 @@ class HelloChurch_Emails extends PerchAPI_Factory
 	    return $result['emailContent'];
 		
 	}
+	
+	public function save_email_result($emailID, $result){
+		
+		$timestamp = date('Y-m-d H:i:s');
+		
+		$sql = "UPDATE perch3_hellochurch_emails SET emailResult='".$result."', emailSent='".$timestamp."' WHERE emailID='".$emailID."'";
+		$result = $this->db->execute($sql);
+		
+	}
 
 }

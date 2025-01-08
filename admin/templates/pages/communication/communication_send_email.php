@@ -137,6 +137,7 @@ foreach($email as $type => $item){
 	
 	try {
 	    $result = $apiInstance->sendTransacEmail($sendSmtpEmail);
+	    hello_church_store_email_result($_POST['email_id'], $result);
 	} catch (Exception $e) {
 	    echo 'Exception when calling TransactionalEmailsApi->sendTransacEmail: ', $e->getMessage(), PHP_EOL;
 	}
