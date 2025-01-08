@@ -38,7 +38,7 @@ foreach(array_unique($recipients) as $contact){
 
 print_r($to);
 
-$email = hello_church_get_email($_POST['id']);
+$email = hello_church_get_email($_POST['email_id']);
 
 $church = hello_church_church(true);
 $senderPostalAddress = "$church[churchName], $church[churchAddress1], $church[churchCity], $church[churchCountry]";
