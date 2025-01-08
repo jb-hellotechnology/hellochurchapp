@@ -119,7 +119,7 @@ foreach($email as $type => $item){
 	  	 'subject' => $subject,
 	     'sender' => ['name' => $church['churchName'], 'email' => 'no-reply@hellochurch.tech'],
 	     'replyTo' => ['name' => $church['churchName'], 'email' => $church['churchEmail']],
-	     'to' => [$to],
+	     'to' => $to,
 	     'htmlContent' => $template,
 	     'params' => ['emailSubject' => $subject, 'emailContent' => $emailContent, 'senderPostalAddress' => $senderPostalAddress]
 	]);
