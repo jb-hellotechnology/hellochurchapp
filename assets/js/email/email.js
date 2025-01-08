@@ -108,7 +108,7 @@ function send_test(){
 function send_email(){
 	
 	$.post( "/communication/send-email", $( "#send_email" ).serialize()).done(function( data ) {
-		alert(data);
+		$('.loading p').text('Sent!');
 		setTimeout(function() { $('.loading').toggleClass('show');$('.loading p').text('Loading'); }, 2000);
 	});
 	
