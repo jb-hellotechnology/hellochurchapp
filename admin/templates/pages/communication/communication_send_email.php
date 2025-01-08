@@ -33,7 +33,7 @@ $to = array();
 
 foreach(array_unique($recipients) as $contact){
 	$contact = hello_church_contact($contact);
-	$to[] += "[ email => ".$contact->contactEmail()." ]";
+	$to[] = (object) array('email' => $contact->contactEmail());
 }
 
 print_r($to);
