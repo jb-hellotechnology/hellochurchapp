@@ -138,6 +138,7 @@ foreach($email as $type => $item){
 	try {
 	    $result = $apiInstance->sendTransacEmail($sendSmtpEmail);
 	} catch (Exception $e) {
+		print_r($to);
 		print_r($result);
 	    echo 'Exception when calling TransactionalEmailsApi->sendTransacEmail: ', $e->getMessage(), PHP_EOL;
 	}
