@@ -8,6 +8,12 @@ error_reporting(E_ALL);
 require '../../../vendor/autoload.php';
 require '../../../secrets.php';
 
+$template = file_get_contents('../../../email_template.html');
+
+if(!perch_member_logged_in()){
+	header("location:/");
+}
+
 $recpients = array();
 
 $contacts = json_decode($_POST['contacts']);
@@ -32,14 +38,7 @@ foreach(array_unique($recipients) as $contact){
 
 print_r($to);
 
-$template = file_get_contents('../../../email_template.html');
-
-if(!perch_member_logged_in()){
-	header("location:/");
-}
-
 $email = hello_church_get_email($_POST['id']);
-$recipient = $_POST['recipients'];
 
 $church = hello_church_church(true);
 $senderPostalAddress = "$church[churchName], $church[churchAddress1], $church[churchCity], $church[churchCountry]";
