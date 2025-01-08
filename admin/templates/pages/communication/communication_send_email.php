@@ -41,7 +41,7 @@ if($_POST['recipient']){
 		$bcc[] = (object) array('email' => $contact->contactEmail());
 	}
 	
-	$to = $church['churchEmail'];
+	$to = (object) array('email' => $church['churchEmail']);
 	
 }else{
 	
