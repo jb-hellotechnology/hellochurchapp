@@ -114,36 +114,36 @@ foreach($email as $type => $item){
 	
 }
 
-	$message = $emailContent;
+$message = $emailContent;
 
-	// Configure API key authorization: api-key
-	$config = Brevo\Client\Configuration::getDefaultConfiguration()->setApiKey('api-key', $brevoAPI);
-	
-	$apiInstance = new Brevo\Client\Api\TransactionalEmailsApi(
-	    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
-	    // This is optional, `GuzzleHttp\Client` will be used as default.
-	    new GuzzleHttp\Client(),
-	    $config
-	);
-	$sendSmtpEmail = new \Brevo\Client\Model\SendSmtpEmail([
-	  	 'subject' => $subject,
-	     'sender' => ['name' => $church['churchName'], 'email' => 'no-reply@hellochurch.tech'],
-	     'replyTo' => ['name' => $church['churchName'], 'email' => $church['churchEmail']],
-	     'to' => $to,
-	     'bcc' => $bcc,
-	     'htmlContent' => $template,
-	     'params' => ['emailSubject' => $subject, 'emailContent' => $emailContent, 'senderPostalAddress' => $senderPostalAddress]
-	]);
-	
-	try {
-	    $result = $apiInstance->sendTransacEmail($sendSmtpEmail);
-	    hello_church_store_email_result($_POST['email_id'], $result);
-	    if($recipients){
-			hello_church_log_email_contact($_POST['email_id'], $recipients);    
-	    }
-	} catch (Exception $e) {
-	    echo 'Exception when calling TransactionalEmailsApi->sendTransacEmail: ', $e->getMessage(), PHP_EOL;
-	}
+// Configure API key authorization: api-key
+$config = Brevo\Client\Configuration::getDefaultConfiguration()->setApiKey('api-key', $brevoAPI);
+
+$apiInstance = new Brevo\Client\Api\TransactionalEmailsApi(
+    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
+    // This is optional, `GuzzleHttp\Client` will be used as default.
+    new GuzzleHttp\Client(),
+    $config
+);
+$sendSmtpEmail = new \Brevo\Client\Model\SendSmtpEmail([
+	'subject' => $subject,
+	'sender' => ['name' => $church['churchName'], 'email' => 'no-reply@hellochurch.tech'],
+	'replyTo' => ['name' => $church['churchName'], 'email' => $church['churchEmail']],
+	'to' => $to,
+	'bcc' => $bcc,
+	'htmlContent' => $template,
+	'params' => ['emailSubject' => $subject, 'emailContent' => $emailContent, 'senderPostalAddress' => $senderPostalAddress]
+]);
+
+try {
+    $result = $apiInstance->sendTransacEmail($sendSmtpEmail);
+    hello_church_store_email_result($_POST['email_id'], $result);
+    if($recipients){
+		hello_church_log_email_contact($_POST['email_id'], $recipients);    
+    }
+} catch (Exception $e) {
+    echo 'Exception when calling TransactionalEmailsApi->sendTransacEmail: ', $e->getMessage(), PHP_EOL;
+}
 	
 
 ?>
