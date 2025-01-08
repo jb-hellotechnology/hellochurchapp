@@ -278,6 +278,7 @@ main .button {
 	padding: calc(.5rem - 1px) calc(1rem - 1px);
 	line-height:1;
 	min-height: auto;
+	justify-content: center;
 }
 
 .button.primary{
@@ -1268,13 +1269,32 @@ ul.list.files li{
 	grid-template-columns: auto 120px 60px;
 }
 
+ul.list.emails li{
+	grid-template-columns: auto auto;
+}
+
+ul.list.emails li form a{
+	float:right;
+}
+
 ul.list li *{
 	display:flex;
 	align-items: center;
 	justify-content: space-between;
 }
 
-ul.list.files li div{
+ul.list li p{
+	display:block;
+	text-align: right;
+	font-family: monospace;
+}
+
+ul.list.notes li p{
+	padding-right:1rem;
+}
+
+ul.list.files li div,
+ul.list.emails li div{
 	display:grid;
 	grid-template-columns: 30px auto;
 	justify-content: normal;
@@ -1302,6 +1322,7 @@ ul.list li h3{
 ul.list li form .button.danger.small.border{
 	max-width:100%;
 	text-align: center;
+	margin-left:auto;
 }
 
 @media screen and (max-width:600px){

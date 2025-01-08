@@ -25,14 +25,19 @@ perch_layout('header');
 			<div>
 				<section>
 					<header>
-						<h2>Email</h2>
+						<h2>Drafts</h2>
 					</header>
 					<article>
-						<?php hello_church_email(); ?>
+						<?php hello_church_email('Draft'); ?>
 					</article>
-					<footer>
-						
-					</footer>
+				</section>
+				<section>
+					<header>
+						<h2>Sent</h2>
+					</header>
+					<article>
+						<?php hello_church_email('Sent'); ?>
+					</article>
 				</section>
 			</div>
 			<div>

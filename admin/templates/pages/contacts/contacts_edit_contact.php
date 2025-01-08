@@ -64,6 +64,12 @@ $name = hello_church_contact_get(perch_get('id'), 'contactFirstName').' '.hello_
 			</section>
 			<section>
 				<header>
+					<h2>Communication</h2>
+				</header>
+				<?php hello_church_contact_emails(perch_get('id')); ?>
+			</section>
+			<section>
+				<header>
 					<h2>Notes</h2>
 				</header>
 				<?php hello_church_contact_notes(perch_get('id')); ?>

@@ -32,11 +32,11 @@ class HelloChurch_Emails extends PerchAPI_Factory
 	    
     }
 	
-	public function emails($churchID){
+	public function emails($churchID, $status){
 	    
 	    $API  = new PerchAPI(1.0, 'hello_church');
 	    
-	    $sql = "SELECT * FROM perch3_hellochurch_emails WHERE churchID='".$churchID."' ORDER BY emailID DESC";    
+	    $sql = "SELECT * FROM perch3_hellochurch_emails WHERE churchID='".$churchID."' AND emailStatus='".$status."' ORDER BY emailID DESC";    
 		
 	    $results = $this->db->get_rows($sql);
 
@@ -77,6 +77,29 @@ class HelloChurch_Emails extends PerchAPI_Factory
 		$sql = "UPDATE perch3_hellochurch_emails SET emailResult='".$result."', emailSent='".$timestamp."', emailStatus='Sent' WHERE emailID='".$emailID."'";
 		$result = $this->db->execute($sql);
 		
+	}
+	
+	public function log_email_contact($emailID,$contactID){
+		
+		$sql = "INSERT INTO perch3_hellochurch_email_contact (emailID, contactID) VALUES ('".$emailID."', '".$contactID."')";
+		$result = $this->db->execute($sql);
+		
+	}
+	
+	public function recipients($emailID){
+		
+		$sql = "SELECT * FROM perch3_hellochurch_email_contact WHERE emailID='".$emailID."'";
+	    $result = $this->db->get_rows($sql);
+	    return $result;
+		
+	}
+	
+	public function contact_emails($contactID){
+		
+		$sql = "SELECT * FROM perch3_hellochurch_email_contact WHERE contactID='".$contactID."'";
+	    $result = $this->db->get_rows($sql);
+	    return $result;
+	    
 	}
 
 }

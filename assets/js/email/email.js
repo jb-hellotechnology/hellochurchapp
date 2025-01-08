@@ -81,7 +81,7 @@ function preview_email(){
 	$('.email-preview').html('');
 	
 	let pEmail = $('.email-id').val();
-	
+
 	$.get( "/process/get-email", { emailID: pEmail }).done(function( data ) {
 		$('.email-preview').html(data);
 	});

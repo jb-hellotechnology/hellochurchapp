@@ -19,7 +19,7 @@ $church = hello_church_church(true);
 
 if(!$_POST['recipient']){
 	
-	$recpients = array();
+	$recipients = array();
 
 	$contacts = json_decode($_POST['contacts']);
 	foreach($contacts as $contact){
@@ -138,6 +138,9 @@ foreach($email as $type => $item){
 	try {
 	    $result = $apiInstance->sendTransacEmail($sendSmtpEmail);
 	    hello_church_store_email_result($_POST['email_id'], $result);
+	    if($recipients){
+			hello_church_log_email_contact($_POST['email_id'], $recipients);    
+	    }
 	} catch (Exception $e) {
 	    echo 'Exception when calling TransactionalEmailsApi->sendTransacEmail: ', $e->getMessage(), PHP_EOL;
 	}
