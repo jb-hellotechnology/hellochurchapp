@@ -70,7 +70,6 @@ perch_layout('header');
 		</div>
 		<div>
 			<section>
-				<form id="send_email">
 					<header>
 						<h2>Preview</h2>
 						<div>
@@ -79,18 +78,19 @@ perch_layout('header');
 							<button class="button small primary" onclick="javascript:send_test();">Send Test</button>
 						</div>
 					</header>
-					<article>
-						<div class="to">
-							<label>To Contacts</label>
-							<input type="text" id="contacts" name="contacts" class="contacts-tagify" />
-							<label>To Groups</label>
-							<input type="text" id="groups" name="groups" class="groups-tagify" />
-						</div>
-						<div class="email-preview flow">
-							
-						</div>
-					</article>
-				</form>
+					<form id="send_email">
+						<article>
+							<div class="to">
+								<label>To Contacts</label>
+								<input type="text" id="contacts" name="contacts" class="contacts-tagify" />
+								<label>To Groups</label>
+								<input type="text" id="groups" name="groups" class="groups-tagify" />
+							</div>
+							<div class="email-preview flow">
+								
+							</div>
+						</article>
+					</form>
 				<footer>
 					
 					<button class="button primary" onclick="javascript:send_email();">Send Email <span class="material-symbols-outlined">send</span></button>
