@@ -114,8 +114,8 @@ function send_email(){
 		setTimeout(function() { 
 			$('.loading').toggleClass('show');
 			$('.loading p').text('Loading'); 
-			location.href = '/communication/edit-email?id=' + pID + '&msg=sent';
 		}, 2000);
+		location.href = '/communication/edit-email?id=' + pID + '&msg=sent';
 	});
 	
 }
