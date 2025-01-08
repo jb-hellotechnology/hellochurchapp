@@ -23,12 +23,14 @@ foreach($groups as $group){
 	}
 }
 
-$to = array();
+$to = '';
 
 foreach(array_unique($recipients) as $contact){
 	$contact = hello_church_contact($contact);
-	$to[] = [ 'email' => $contact->contactEmail() ];
+	$to .= '[ "email" => '.$contact->contactEmail().' ], ';
 }
+
+$to = substr($to, 0, -2);
 
 print_r($to);
 
