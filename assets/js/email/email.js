@@ -107,10 +107,15 @@ function send_test(){
 
 function send_email(){
 	
+	let pID = $('#email_id').val();
 	$('.loading').toggleClass('show');
 	$.post( "/communication/send-email", $( "#send_email" ).serialize()).done(function( data ) {
 		$('.loading p').text('Sent!');
-		setTimeout(function() { $('.loading').toggleClass('show');$('.loading p').text('Loading'); }, 2000);
+		setTimeout(function() { 
+			$('.loading').toggleClass('show');
+			$('.loading p').text('Loading'); 
+			location.href = '/communication/edit-email?id=' + pID + '&msg=sent';
+		}, 2000);
 	});
 	
 }

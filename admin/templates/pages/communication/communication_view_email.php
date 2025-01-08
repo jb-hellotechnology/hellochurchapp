@@ -17,7 +17,11 @@ perch_layout('header');
 ?>
 <main class="flow full">
 	<h1><?= $email['emailSubject'] ?> <time><?= date('m/d/Y H:i:s', strtotime($email['emailSent'])) ?></time></h1>
-	<?= $description ?>
+	<?php
+		if(perch_get('msg')=='sent'){
+			echo '<p class="alert success">Email sent!</p>';
+		}	
+	?>
 	<div class="section-grid">
 		<div>
 			<section>
