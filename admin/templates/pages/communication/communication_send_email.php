@@ -139,7 +139,7 @@ try {
     $result = $apiInstance->sendTransacEmail($sendSmtpEmail);
     hello_church_store_email_result($_POST['email_id'], $result);
     if($recipients){
-		hello_church_log_email_contact($_POST['email_id'], $recipients);    
+		hello_church_log_email_contact($_POST['email_id'], array_unique($recipients));    
     }
 } catch (Exception $e) {
     echo 'Exception when calling TransactionalEmailsApi->sendTransacEmail: ', $e->getMessage(), PHP_EOL;
