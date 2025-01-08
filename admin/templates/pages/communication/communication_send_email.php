@@ -29,7 +29,7 @@ foreach($groups as $group){
 	}
 }
 
-$to = '';
+$to = array();
 
 foreach(array_unique($recipients) as $contact){
 	$contact = hello_church_contact($contact);
