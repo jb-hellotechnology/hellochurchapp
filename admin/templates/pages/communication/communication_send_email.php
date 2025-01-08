@@ -17,6 +17,8 @@ if(!perch_member_logged_in()){
 $email = hello_church_get_email($_POST['email_id']);
 $church = hello_church_church(true);
 
+print_r($church);
+
 if($_POST['recipient']){
 	
 	$recpients = array();
