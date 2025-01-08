@@ -17,7 +17,7 @@ if(!perch_member_logged_in()){
 $email = hello_church_get_email($_POST['email_id']);
 $church = hello_church_church(true);
 
-if($_POST['recipient']){
+if(!$_POST['recipient']){
 	
 	$recpients = array();
 
@@ -50,8 +50,6 @@ if($_POST['recipient']){
 	$to[] = (object) array('email' => $_POST['recipient']);
 	
 }
-
-print_r($to);
 
 $senderPostalAddress = "$church[churchName], $church[churchAddress1], $church[churchCity], $church[churchCountry]";
 
@@ -140,8 +138,6 @@ foreach($email as $type => $item){
 	try {
 	    $result = $apiInstance->sendTransacEmail($sendSmtpEmail);
 	} catch (Exception $e) {
-		print_r($to);
-		print_r($result);
 	    echo 'Exception when calling TransactionalEmailsApi->sendTransacEmail: ', $e->getMessage(), PHP_EOL;
 	}
 	
