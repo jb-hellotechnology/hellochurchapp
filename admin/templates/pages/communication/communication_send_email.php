@@ -8,6 +8,30 @@ error_reporting(E_ALL);
 require '../../../vendor/autoload.php';
 require '../../../secrets.php';
 
+$recpients = array();
+
+$contacts = json_decode($_POST['contacts']);
+foreach($contacts as $contact){
+	$recipients[] = $contact->id;
+}
+
+$groups = json_decode($_POST['groups']);
+foreach($groups as $group){
+	$members = process_search_members_list($group->id);
+	foreach($members as $member){
+		$recipients[] = $member['contactID'];
+	}
+}
+
+$to = array();
+
+foreach(array_unique($recipients) as $contact){
+	$contact = hello_church_contact($contact);
+	$to[] = [ 'email' => $contact->contactEmail() ];
+}
+
+print_r($to);
+
 $template = file_get_contents('../../../email_template.html');
 
 if(!perch_member_logged_in()){
@@ -80,11 +104,9 @@ foreach($email as $type => $item){
 	}
 	
 }
-	
-	$to = $_POST['recipients'];
+
 	$message = $emailContent;
 
-	echo 'Sent!';
 	// Configure API key authorization: api-key
 	$config = Brevo\Client\Configuration::getDefaultConfiguration()->setApiKey('api-key', $brevoAPI);
 	
@@ -98,7 +120,7 @@ foreach($email as $type => $item){
 	  	 'subject' => $subject,
 	     'sender' => ['name' => $church['churchName'], 'email' => 'no-reply@hellochurch.tech'],
 	     'replyTo' => ['name' => $church['churchName'], 'email' => $church['churchEmail']],
-	     'to' => [[ 'email' => $recipient ]],
+	     'to' => [$to],
 	     'htmlContent' => $template,
 	     'params' => ['emailSubject' => $subject, 'emailContent' => $emailContent, 'senderPostalAddress' => $senderPostalAddress]
 	]);

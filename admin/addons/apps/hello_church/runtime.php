@@ -201,6 +201,20 @@ error_reporting(E_ALL);
 		
 	}
 	
+	function hello_church_contact($id){
+		
+		$API  = new PerchAPI(1.0, 'hello_church');
+	    
+	    $Session = PerchMembers_Session::fetch();
+
+        $HelloChurchContacts = new HelloChurch_Contacts($API);
+        
+        $contact = $HelloChurchContacts->find($id);
+        
+        return $contact;
+		
+	}
+	
 	function hello_church_contacts_tagify(){
 	    
 	    $API  = new PerchAPI(1.0, 'hello_church');
@@ -952,8 +966,8 @@ error_reporting(E_ALL);
         
 		$html = '[';
         
-        foreach($groups as $groups){
-	        $html .=  "'".$groups['groupName']."', ";
+        foreach($groups as $group){
+	        $html .=  "{id: ".$group['groupID'].", value:'".$group['groupName']."'}, ";
         }
         
         if(strlen($html)>1){
@@ -1518,6 +1532,20 @@ error_reporting(E_ALL);
 	    
     }
     
+    function process_search_members_list($groupID){
+	    
+	    $API  = new PerchAPI(1.0, 'hello_church');
+
+        $HelloChurchGroups = new HelloChurch_Groups($API);
+        
+		$Session = PerchMembers_Session::fetch();
+		
+		$contacts = $HelloChurchGroups->group_members($memberID, $groupID);
+		
+		return $contacts;
+	    
+    }
+    
     function process_add_group_member($groupID, $contactID){
 	    
 	    $API  = new PerchAPI(1.0, 'hello_church');
@@ -1589,6 +1617,16 @@ error_reporting(E_ALL);
 		
 		$group = $HelloChurchGroups->find($id);
 		return $group->$field();
+		
+	}
+	
+	function hello_church_group($id){
+		
+		$API  = new PerchAPI(1.0, 'hello_church');
+		$HelloChurchGroups = new HelloChurch_Groups($API);
+		
+		$group = $HelloChurchGroups->find($id);
+		return $group;
 		
 	}
 	

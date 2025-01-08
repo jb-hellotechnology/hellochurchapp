@@ -107,14 +107,9 @@ function send_test(){
 
 function send_email(){
 	
-	let pID = $('#email_id').val();
-	let pContacts = $('.contacts').val();
-	let pGroups = $('.groups').val();
-	alert(pContacts + pGroups);
-/*
-	$.post( "/communication/send-email", { recipients: pRecipient, id: pID }).done(function( data ) {
+	$.post( "/communication/send-email", $( "#send_email" ).serialize()).done(function( data ) {
 		alert(data);
+		setTimeout(function() { $('.loading').toggleClass('show');$('.loading p').text('Loading'); }, 2000);
 	});
-*/
 	
 }
