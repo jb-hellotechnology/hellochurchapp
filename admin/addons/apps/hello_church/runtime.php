@@ -201,6 +201,34 @@ error_reporting(E_ALL);
 		
 	}
 	
+	function hello_church_contacts_tagify(){
+	    
+	    $API  = new PerchAPI(1.0, 'hello_church');
+	    
+	    $Session = PerchMembers_Session::fetch();
+	    
+	    $churchID = $Session->get('churchID');
+
+        $HelloChurchContacts = new HelloChurch_Contacts($API);
+        
+        $contacts = $HelloChurchContacts->all_contacts($churchID);
+        
+		$html = '[';
+        
+        foreach($contacts as $contact){
+	        $html .=  "{id: ".$contact['contactID'].", value:'".$contact['contactFirstName']." ".$contact['contactLastName']."'}, ";
+        }
+        
+        if(strlen($html)>1){
+        	$html = substr($html, 0 , -2);
+        }
+
+        $html .= ']';
+        
+        return $html;
+	    
+    }
+	
 	function hello_church_contacts($tag, $q, $page){
 		
 		$API  = new PerchAPI(1.0, 'hello_church');
@@ -906,6 +934,35 @@ error_reporting(E_ALL);
 
         echo '</ul>
         	</article>';
+	    
+    }
+    
+    function hello_church_groups_tagify(){
+	    
+	    $API  = new PerchAPI(1.0, 'hello_church');
+	    
+	    $Session = PerchMembers_Session::fetch();
+	    
+	    $memberID = $Session->get('memberID');
+	    $churchID = $Session->get('churchID');
+
+        $HelloChurchGroups = new HelloChurch_Groups($API);
+        
+        $groups = $HelloChurchGroups->groups($memberID, $churchID);
+        
+		$html = '[';
+        
+        foreach($groups as $groups){
+	        $html .=  "'".$groups['groupName']."', ";
+        }
+        
+        if(strlen($html)>1){
+        	$html = substr($html, 0 , -2);
+        }
+
+        $html .= ']';
+        
+        return $html;
 	    
     }
     
@@ -2620,6 +2677,19 @@ error_reporting(E_ALL);
 		return $email;
 		
 	}
+	
+	function hello_church_delete_email($emailID){
+	    
+	 	$API  = new PerchAPI(1.0, 'hello_church');
+	    
+	    $Session = PerchMembers_Session::fetch();
+
+        $HelloChurchEmails = new HelloChurch_Emails($API);
+        
+        $email = $HelloChurchEmails->find($emailID);
+        $email->delete();
+        
+    }
 	
 	/** SUBSCRIPTION FUNCTIONS **/
 	

@@ -79,12 +79,19 @@ perch_layout('header');
 					</div>
 				</header>
 				<article>
+					<div class="to">
+						<label>To Contacts</label>
+						<input type="text" id="contacts" class="contacts" />
+						<label>To Groups</label>
+						<input type="text" id="groups" class="groups" />
+					</div>
 					<div class="email-preview flow">
 						
 					</div>
 				</article>
 				<footer>
-					<button class="button primary" onclick="javascript:preview_email();">Update Preview</button>
+					
+					<button class="button primary" onclick="javascript:send_email();">Send Email <span class="material-symbols-outlined">send</span></button>
 				</footer>
 			</section>
 		</div>

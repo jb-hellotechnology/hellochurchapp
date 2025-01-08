@@ -47,6 +47,30 @@
 	    whitelist : <?= hello_church_venues_tagify() ?>
 	});
 	
+	var groups = document.querySelector('.groups');
+	new Tagify(groups, {
+		enforceWhitelist: true,
+	    whitelist : <?= hello_church_groups_tagify() ?>,
+	    dropdown: {
+            maxItems: 20,           // <- mixumum allowed rendered suggestions
+            classname: 'tags-look', // <- custom classname for this dropdown, so it could be targeted
+            enabled: 0,             // <- show suggestions on focus
+            closeOnSelect: false    // <- do not hide the suggestions dropdown once an item has been selected
+        }
+	});
+	
+	var contacts = document.querySelector('.contacts');
+	new Tagify(contacts, {
+		enforceWhitelist: true,
+	    whitelist : <?= hello_church_contacts_tagify() ?>,
+	    dropdown: {
+            maxItems: 20,           // <- mixumum allowed rendered suggestions
+            classname: 'tags-look', // <- custom classname for this dropdown, so it could be targeted
+            enabled: 0,             // <- show suggestions on focus
+            closeOnSelect: false    // <- do not hide the suggestions dropdown once an item has been selected
+        }
+	});
+	
 	function resetPagination(){
 		console.log(1);
 		$("#page").val($("#page option:first").val());

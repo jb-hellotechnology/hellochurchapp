@@ -14,7 +14,7 @@ perch_layout('header');
 	<h1>Communication</h1>
 	<?php
 		// DISPLAY MESSAGES
-		if($_GET['msg']=='audio_deleted'){
+		if($_GET['msg']=='deleted'){
 			echo '<p class="alert success">Email successfully deleted.</p>';
 		}
 	?>

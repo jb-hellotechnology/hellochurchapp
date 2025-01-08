@@ -10,7 +10,7 @@ class HelloChurch_Emails extends PerchAPI_Factory
 	protected $pk        = 'emailID';
 	protected $singular_classname = 'HelloChurch_Email';
 
-	protected $default_sort_column = 'audioID';
+	protected $default_sort_column = 'emailID';
 
 	public $static_fields = array('emailID', 'churchID', 'memberID', 'emailSubject', 'emailTo', 'emailContent', 'emailStatus', 'emailSent');
     

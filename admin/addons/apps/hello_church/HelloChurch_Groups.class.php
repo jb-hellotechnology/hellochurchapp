@@ -36,7 +36,7 @@ class HelloChurch_Groups extends PerchAPI_Factory
 	    
 	    $API  = new PerchAPI(1.0, 'hello_church');
 		
-		$sql = "SELECT * FROM perch3_hellochurch_groups WHERE memberID='".$memberID."' AND churchID='".$churchID."' ORDER BY groupName ASC";
+		$sql = "SELECT * FROM perch3_hellochurch_groups WHERE churchID='".$churchID."' ORDER BY groupName ASC";
 	    $results = $this->db->get_rows($sql);
 	    return $results;
 	    

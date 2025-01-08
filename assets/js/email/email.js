@@ -97,8 +97,24 @@ function send_test(){
 	
 	let pID = $('#email_id').val();
 	let pRecipient = $('#test_recipient').val();
+	$('.loading').show();
+	$.post( "/communication/send-email", { recipients: pRecipient, id: pID }).done(function( data ) {
+		$('.loading p').text('Sent!');
+		setTimeout(function() { $('.loading').hide() }, 2000);
+	});
+	
+}
+
+function send_email(){
+	
+	let pID = $('#email_id').val();
+	let pContacts = $('.contacts').val();
+	let pGroups = $('.groups').val();
+	alert(pContacts + pGroups);
+/*
 	$.post( "/communication/send-email", { recipients: pRecipient, id: pID }).done(function( data ) {
 		alert(data);
 	});
+*/
 	
 }
