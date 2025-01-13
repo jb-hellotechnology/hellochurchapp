@@ -2,40 +2,40 @@
 
 	<article class="flow">
 		<div>
-			<perch:label for="first_name">First name</perch:label>
+			<perch:label for="first_name">First name <span class="required">Required</span></perch:label>
 			<perch:input type="text" id="first_name" required="true" label="First name" />
-			<perch:error for="first_name" type="required"><p class="alert error">Please add your name</p></perch:error>
+			<perch:error for="first_name" type="required"><p class="alert error"><span class="material-symbols-outlined">error</span>Required field</p></perch:error>
 		</div>
 	
 		<div>
-			<perch:label for="last_name">Last name</perch:label>
+			<perch:label for="last_name">Last name <span class="required">Required</span></perch:label>
 			<perch:input type="text" id="last_name" required="true" label="Last name" />
-			<perch:error for="last_name" type="required"><p class="alert error">Please add your name</p></perch:error>
+			<perch:error for="last_name" type="required"><p class="alert error"><span class="material-symbols-outlined">error</span>Required field</p></perch:error>
 		</div>
 	
 		<div>
-			<perch:label for="email">Email</perch:label>
+			<perch:label for="email">Email <span class="required">Required</span></perch:label>
 			<perch:input type="email" id="email" required="true" placeholder="you@company.com" helper="PerchMembers_Members::check_email" />
-			<perch:error for="email" type="required"><p class="alert error">Please add your email address</p></perch:error>
-			<perch:error for="email" type="helper"><p class="alert error">That email address is already in use</p></perch:error>
+			<perch:error for="email" type="required"><p class="alert error"><span class="material-symbols-outlined">error</span>Please add your email address</p></perch:error>
+			<perch:error for="email" type="helper"><p class="alert error"><span class="material-symbols-outlined">error</span>That email address is already in use</p></perch:error>
 		</div>
 	
 		<div>
-			<perch:label for="password">Password</perch:label>
-			<perch:input type="password" id="password" required="true" match-with="password2" />
-			<perch:error for="password" type="required"><p class="alert error">Please add a password</p></perch:error>
-			<perch:error for="password" type="match"><p class="alert error">Passwords do not match</p></perch:error>
+			<perch:label for="password">Password (at least 12 characters)<span class="required">Required</span></perch:label>
+			<perch:input type="password" id="password" required="true" match-with="password2" minlength="12" />
+			<perch:error for="password" type="required"><p class="alert error"><span class="material-symbols-outlined">error</span>Please add a password</p></perch:error>
+			<perch:error for="password" type="match"><p class="alert error"><span class="material-symbols-outlined">error</span>Passwords do not match</p></perch:error>
 		</div>
 	
 		<div>
-			<perch:label for="password2">Password again</perch:label>
-			<perch:input type="password" id="password2" required="true" />
-			<perch:error for="password2" type="required"><p class="alert error">Please repeat your password</p></perch:error>
+			<perch:label for="password2">Password again <span class="required">Required</span></perch:label>
+			<perch:input type="password" id="password2" required="true" minlength="12" />
+			<perch:error for="password2" type="required"><p class="alert error"><span class="material-symbols-outlined">error</span>Please repeat your password</p></perch:error>
 		</div>
 		
 		<div>
 			<div class="h-captcha" data-sitekey="<perch:forms id="hcaptchaSiteKey" />"></div>
-			<perch:error for="all" type="hcaptcha"><p class="alert error">Required</p></perch:error>
+			<perch:error for="all" type="hcaptcha"><p class="alert error"><span class="material-symbols-outlined">error</span>Required field</p></perch:error>
 		</div>
 	</article>
 

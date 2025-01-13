@@ -2,23 +2,23 @@
 
 	<article class="flow">
 		<perch:success show-form="true">
-			<p class="alert success">Your details have been updated.</p>
+			<p class="alert success"><span class="material-symbols-outlined">check_circle</span>Your profile has been updated</p>
 		</perch:success>
 		<div>
-			<perch:label for="first_name">First name</perch:label>
+			<perch:label for="first_name">First Name <span class="required">Required</span></perch:label>
 			<perch:input type="text" id="first_name" required="true" label="First name" />
-			<perch:error for="first_name" type="required"><p class="help error">Please add a your name</p></perch:error>
+			<perch:error for="first_name" type="required"><p class="help error"><span class="material-symbols-outlined">error</span>Required field</p></perch:error>
 		</div>
 		<div>
-			<perch:label for="last_name">Last name</perch:label>
+			<perch:label for="last_name">Last Name <span class="required">Required</span></perch:label>
 			<perch:input type="text" id="last_name" required="true" label="Last name" />
-			<perch:error for="last_name" type="required"><p class="help error">Please add a your name</p></perch:error>
+			<perch:error for="last_name" type="required"><p class="help error"><span class="material-symbols-outlined">error</span>Required field</p></perch:error>
 		</div>
 		<div>
-			<perch:label for="email">Email</perch:label>
+			<perch:label for="email">Email <span class="required">Required</span></perch:label>
 			<perch:input type="email" id="email" required="true" placeholder="you@company.com" />
-			<perch:error for="email" type="required"><p class="help error">Please add a your email address</p></perch:error>
-			<perch:error for="email" type="format"><p class="help error">Please check a your email address</p></perch:error>
+			<perch:error for="email" type="required"><p class="help error"><span class="material-symbols-outlined">error</span>Please add a your email address</p></perch:error>
+			<perch:error for="email" type="format"><p class="help error"><span class="material-symbols-outlined">error</span>Please check a your email address</p></perch:error>
 		</div>
 	</article>
 

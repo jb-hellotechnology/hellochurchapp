@@ -66,7 +66,12 @@ class HelloChurch_Folders extends PerchAPI_Factory
 		
 		$sql = "SELECT * FROM perch3_hellochurch_folders WHERE churchID='".$churchID."' AND folderID='".$folderID."'";
 	    $results = $this->db->get_rows($sql);
-	    return count($results);
+
+	    if($results){
+		    return true;
+	    }else{
+		    return false;
+	    }
 	    
     }
     

@@ -2,15 +2,15 @@
 
 	<article class="flow">
 		<perch:success show-form="true">
-			<p class="alert success">Your details have been updated.</p>
+			<p class="alert success"><span class="material-symbols-outlined">check_circle</span>Your details have been updated</p>
 		</perch:success>
 		<div>
-			<perch:label for="churchName">Church or Organisation Name</perch:label>
+			<perch:label for="churchName">Church or Organisation Name <span class="required">Required</span></perch:label>
 			<perch:input type="text" id="churchName" required="true" label="Name" />
 			<perch:error for="churchName" type="required"><p class="help error">Please add a your organisation name</p></perch:error>
 		</div>
 		<div>
-			<perch:label for="churchAddress1">Address 1</perch:label>
+			<perch:label for="churchAddress1">Address 1 <span class="required">Required</span></perch:label>
 			<perch:input type="text" id="churchAddress1" required="true" label="Address 1" />
 			<perch:error for="churchAddress1" type="required"><p class="help error">Please add a your address</p></perch:error>
 		</div>
@@ -19,39 +19,39 @@
 			<perch:input type="text" id="churchAddress2" label="Address 2" />
 		</div>
 		<div>
-			<perch:label for="churchCity">City</perch:label>
+			<perch:label for="churchCity">City <span class="required">Required</span></perch:label>
 			<perch:input type="text" id="churchCity" required="true" label="City" />
 			<perch:error for="city" type="required"><p class="help error">Please add a your address</p></perch:error>
 			<perch:error for="city" type="format"><p class="help error">Please add a your address</p></perch:error>
 		</div>
 		<div>
-			<perch:label for="churchCounty">County</perch:label>
+			<perch:label for="churchCounty">County <span class="required">Required</span></perch:label>
 			<perch:input type="text" id="churchCounty" required="true" label="County" />
 			<perch:error for="churchCounty" type="required"><p class="help error">Please add a your address</p></perch:error>
 		</div>
 		<div>
-			<perch:label for="churchPostCode">Post Code</perch:label>
+			<perch:label for="churchPostCode">Post Code <span class="required">Required</span></perch:label>
 			<perch:input type="text" id="churchPostCode" required="true" label="Post Code" />
 			<perch:error for="churchPoostCode" type="required"><p class="help error">Please add a your address</p></perch:error>
 		</div>
 		<div>
-			<perch:label for="churchCountry">Country</perch:label>
+			<perch:label for="churchCountry">Country <span class="required">Required</span></perch:label>
 			<perch:input type="text" id="churchCountry" required="true" label="Country" />
 			<perch:error for="churchCountry" type="required"><p class="help error">Please add a your address</p></perch:error>
 		</div>
 		<div>
-			<perch:label for="churchPhone">Phone Number</perch:label>
+			<perch:label for="churchPhone">Phone Number <span class="required">Required</span></perch:label>
 			<perch:input type="text" id="churchPhone" required="true" label="Phone" />
 			<perch:error for="churchPhone" type="required"><p class="help error">Please add a your phone number</p></perch:error>
 		</div>
 		<div>
-			<perch:label for="churchEmail">Email</perch:label>
+			<perch:label for="churchEmail">Email <span class="required">Required</span></perch:label>
 			<perch:input type="email" id="churchEmail" required="true" label="Email" placeholder="you@example.com" value="<perch:forms id="email">" />
 			<perch:error for="churchEmail" type="required"><p class="help error">Please add a your email address</p></perch:error>
 		</div>
 		<div>
 			<perch:label for="churchWebsite">Website</perch:label>
-			<perch:input type="url" id="churchWebsite" required="true" label="Website" placeholder="https://example.com" pattern="https://.*" />
+			<perch:input type="url" id="churchWebsite" label="Website" placeholder="https://example.com" pattern="https://.*" />
 			<perch:error for="churchWebsite" type="required"><p class="help error">Please add a your website address</p></perch:error>
 		</div>
 	</article>

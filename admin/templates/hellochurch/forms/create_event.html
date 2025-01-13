@@ -3,14 +3,14 @@
 	<article class="flow">
 		<perch:success>
 			<article class="flow">
-				<p class="alert success">Event created.</p>
+				<p class="alert success"><span class="material-symbols-outlined">check_circle</span>Event created</p>
 			</article>
 			<footer>
 				<a class="button primary" href="/calendar">Calendar</a>
 			</footer>
 		</perch:success>
 		<div>
-			<perch:label for="eventName">Event Name</perch:label>
+			<perch:label for="eventName">Event Name <span class="required">Required</span></perch:label>
 			<perch:input type="text" id="eventName" required="true" label="Event Name" />
 			<perch:error for="eventName" type="required"><p class="help error">Please add a your event's name</p></perch:error>
 		</div>
@@ -23,11 +23,11 @@
 			<perch:input type="select" options="No|false,Yes|true" id="allDay" label="All Day" />
 		</div>
 		<div>
-			<perch:label for="start">Start</perch:label>
+			<perch:label for="start">Start <span class="required">Required</span></perch:label>
 			<perch:input type="datetime-local" id="start" required="true" label="Start" />
 		</div>
 		<div>
-			<perch:label for="end">End</perch:label>
+			<perch:label for="end">End <span class="required">Required</span></perch:label>
 			<perch:input type="datetime-local" id="end" required="true" label="End" />
 		</div>
 		<div>

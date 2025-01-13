@@ -2,14 +2,14 @@
 
 	<article class="flow">
 		<perch:success show-form="true">
-			<p class="alert success">Note updated.</p>
+			<p class="alert success"><span class="material-symbols-outlined">check_circle</span>Note updated</p>
 		</perch:success>
 		<div>
-			<perch:label for="subject">Subject</perch:label>
+			<perch:label for="subject">Subject <span class="required">Required</span></perch:label>
 			<perch:input type="text" id="subject" required="true" label="Subject" />
 		</div>
 		<div>
-			<perch:label for="contactNote">Edit Note</perch:label>
+			<perch:label for="contactNote">Edit Note <span class="required">Required</span></perch:label>
 			<perch:input type="textarea" id="note" required="true" label="Note" class="redactor" />
 		</div>
 	</article>

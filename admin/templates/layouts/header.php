@@ -49,6 +49,8 @@ if(perch_member_logged_in()){
 	<link rel="apple-touch-icon" href="/assets/images/icons/icon-512x512.png" />
 	<meta name="apple-mobile-web-app-status-bar" content="#f0f2f9" />
 	<meta name="theme-color" content="#f0f2f9" />
+
+	<link rel="stylesheet" href="https://use.typekit.net/prw8zqs.css">
 </head>
 <body>
 	<header class="site-header">
@@ -71,7 +73,7 @@ if(perch_member_logged_in()){
 			}
 		?>
 			
-		<h2><a href="/dashboard">Hello Church</a></h2>
+		<h2 class="gooddog"><a href="/dashboard">Hello Church</a></h2>
 		<nav>
 			<?php
 				if(perch_member_logged_in()){
@@ -88,7 +90,7 @@ if(perch_member_logged_in()){
 	  				<h2><a href="https://hellochurch.tech/how-should-christians-view-technology/" target="_blank">How Should Christians View Technology?</a></h2>
   				</div>
 			</div>
-			<button popovertarget="account-nav">
+			<button class="account-nav-button">
 				<span class="material-symbols-outlined">
 				account_circle
 				</span>

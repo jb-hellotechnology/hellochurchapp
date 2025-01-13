@@ -3,20 +3,20 @@
 	<article class="flow">
 		<perch:success>
 			<article class="flow">
-				<p class="alert success">Contact created.</p>
+				<p class="alert success"><span class="material-symbols-outlined">check_circle</span>Contact created</p>
 			</article>
 			<footer>
 				<a class="button primary" href="/contacts">Contacts</a>
 			</footer>
 		</perch:success>
 		<div>
-			<perch:label for="contactFirstName">First Name</perch:label>
+			<perch:label for="contactFirstName">First Name <span class="required">Required</span></perch:label>
 			<perch:input type="text" id="contactFirstName" required="true" label="First Name" />
 			<perch:error for="contactFirstName" type="required"><p class="help error">Please add a your contact's first name</p></perch:error>
 		</div>
 		<div>
-			<perch:label for="contactLastName">Last Name</perch:label>
-			<perch:input type="text" id="contactLastName" label="Last Name" />
+			<perch:label for="contactLastName">Last Name <span class="required">Required</span></perch:label>
+			<perch:input type="text" id="contactLastName" required="true" label="Last Name" />
 		</div>
 		<div>
 			<perch:label for="contactAddress1">Address 1</perch:label>

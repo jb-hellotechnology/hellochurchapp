@@ -1,9 +1,5 @@
 <?php
-/*
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
-*/
+
 class HelloChurch_Contact_Notes extends PerchAPI_Factory
 {
     protected $table     = 'hellochurch_contact_notes';
@@ -40,7 +36,12 @@ class HelloChurch_Contact_Notes extends PerchAPI_Factory
 		
 		$sql = "SELECT * FROM perch3_hellochurch_contact_notes WHERE churchID='".$churchID."' AND noteID='".$noteID."'";
 	    $results = $this->db->get_rows($sql);
-	    return count($results);
+	    
+	    if($results){
+		    return true;
+	    }else{
+		    return false;
+	    }
 	    
     }
     

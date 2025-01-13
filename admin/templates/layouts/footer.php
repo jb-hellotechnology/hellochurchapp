@@ -31,6 +31,9 @@
 	$('button.menu').click(function(){
 		$('.main-nav-container').toggleClass('show');
 	});
+	$('button.account-nav-button').click(function(){
+		$('.account-nav').toggleClass('show');
+	});
 	
 	var tagify = document.querySelector('.tagify');
 	new Tagify(tagify, {});

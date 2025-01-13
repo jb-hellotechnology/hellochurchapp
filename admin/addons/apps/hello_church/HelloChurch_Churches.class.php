@@ -46,7 +46,6 @@ class HelloChurch_Churches extends PerchAPI_Factory
 		
 		$sql = 'SELECT * FROM '.$this->table.' WHERE churchProperties LIKE "%\"reference\":'.$reference.'%"';
 		$data = $this->db->get_rows($sql);
-		
 		return $data;
 		
 	}
@@ -55,7 +54,6 @@ class HelloChurch_Churches extends PerchAPI_Factory
 		
 		$sql = 'SELECT * FROM '.$this->table.' WHERE churchCustomerID="'.$customer_id.'"';
 		$data = $this->db->get_row($sql);
-		
 		return $data;
 		
 	}

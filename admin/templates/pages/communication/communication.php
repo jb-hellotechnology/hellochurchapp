@@ -15,7 +15,7 @@ perch_layout('header');
 	<?php
 		// DISPLAY MESSAGES
 		if($_GET['msg']=='deleted'){
-			echo '<p class="alert success">Email successfully deleted.</p>';
+			echo '<p class="alert success"><span class="material-symbols-outlined">check_circle</span>Email successfully deleted</p>';
 		}
 	?>
 		<?php

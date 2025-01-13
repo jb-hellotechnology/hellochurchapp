@@ -2,10 +2,10 @@
 
 	<article class="flow">
 		<perch:success show-form="true">
-			<p class="alert success">Series updated.</p>
+			<p class="alert success"><span class="material-symbols-outlined">check_circle</span>Series updated</p>
 		</perch:success>
 		<div>
-			<perch:label for="seriesName">Series Name</perch:label>
+			<perch:label for="seriesName">Series Name <span class="required">Required</span></perch:label>
 			<perch:input type="text" id="seriesName" required="true" label="Series Name" />
 			<perch:error for="seriesName" type="required"><p class="help error">Please add a your series' name</p></perch:error>
 		</div>

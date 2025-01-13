@@ -3,14 +3,14 @@
 	<article class="flow">
 		<perch:success>
 			<article class="flow">
-				<p class="alert success">Speaker created.</p>
+				<p class="alert success"><span class="material-symbols-outlined">check_circle</span>Speaker created</p>
 			</article>
 			<footer>
 				
 			</footer>
 		</perch:success>
 		<div>
-			<perch:label for="speakerName">Speaker Name</perch:label>
+			<perch:label for="speakerName">Speaker Name <span class="required">Required</span></perch:label>
 			<perch:input type="text" id="speakerName" required="true" label="Series Name" />
 			<perch:error for="speakerName" type="required"><p class="help error">Please add a your speaker's name</p></perch:error>
 		</div>

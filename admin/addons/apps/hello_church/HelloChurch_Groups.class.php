@@ -1,9 +1,5 @@
 <?php
-/*
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
-*/
+
 class HelloChurch_Groups extends PerchAPI_Factory
 {
     protected $table     = 'hellochurch_groups';
@@ -32,7 +28,7 @@ class HelloChurch_Groups extends PerchAPI_Factory
 	     
 	}
     
-    public function groups($memberID, $churchID){
+    public function groups($churchID){
 	    
 	    $API  = new PerchAPI(1.0, 'hello_church');
 		
@@ -42,11 +38,11 @@ class HelloChurch_Groups extends PerchAPI_Factory
 	    
     }
     
-    public function recent_groups($memberID, $churchID){
+    public function recent_groups($churchID){
 	    
 	    $API  = new PerchAPI(1.0, 'hello_church');
 		
-		$sql = "SELECT * FROM perch3_hellochurch_groups WHERE memberID='".$memberID."' AND churchID='".$churchID."' ORDER BY groupID DESC LIMIT 3";
+		$sql = "SELECT * FROM perch3_hellochurch_groups WHERE churchID='".$churchID."' ORDER BY groupID DESC LIMIT 3";
 	    $results = $this->db->get_rows($sql);
 	    return $results;
 	    
@@ -58,15 +54,19 @@ class HelloChurch_Groups extends PerchAPI_Factory
 		
 		$sql = "SELECT * FROM perch3_hellochurch_groups WHERE churchID='".$churchID."' AND groupID='".$groupID."'";
 	    $results = $this->db->get_rows($sql);
-	    return count($results);
+	    if($results){
+		    return true;
+	    }else{
+		    return false;
+	    }
 	    
     }
     
-    public function remove_all_members($memberID, $groupID){
+    public function remove_all_members($churchID, $groupID){
 	    
 	    $API  = new PerchAPI(1.0, 'hello_church');
 	    
-	    $sql = "DELETE FROM perch3_hellochurch_groups_members WHERE memberID='".$memberID."' AND groupID='".$groupID."'";
+	    $sql = "DELETE FROM perch3_hellochurch_groups_members WHERE churchID='".$churchID."' AND groupID='".$groupID."'";
 	    $results = $this->db->execute($sql);
 	    
     }
@@ -75,7 +75,7 @@ class HelloChurch_Groups extends PerchAPI_Factory
 	    
 	    $API  = new PerchAPI(1.0, 'hello_church');
 	    
-	    $sql = "SELECT * FROM perch3_hellochurch_groups_members WHERE memberID='".$contactID."' AND groupID='".$groupID."'";
+	    $sql = "SELECT * FROM perch3_hellochurch_groups_members WHERE groupID='".$groupID."'";
 	    $results = $this->db->get_rows($sql);
 	    
 	    if(count($results)==0){
@@ -94,13 +94,12 @@ class HelloChurch_Groups extends PerchAPI_Factory
 	    
     }
     
-    public function group_members($memberID, $groupID){
+    public function group_members($groupID){
 		
 		$API  = new PerchAPI(1.0, 'hello_church');
 	    
 	    $sql = "SELECT perch3_hellochurch_contacts.*, perch3_hellochurch_groups_members.* FROM perch3_hellochurch_contacts, perch3_hellochurch_groups_members WHERE perch3_hellochurch_groups_members.contactID=perch3_hellochurch_contacts.contactID AND perch3_hellochurch_groups_members.groupID='".$groupID."'";
 	    $results = $this->db->get_rows($sql);
-	    
 	    return $results;
 		
 	}

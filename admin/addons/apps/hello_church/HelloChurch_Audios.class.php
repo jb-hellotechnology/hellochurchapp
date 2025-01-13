@@ -1,9 +1,5 @@
 <?php
-/*
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
-*/
+
 class HelloChurch_Audios extends PerchAPI_Factory
 {
     protected $table     = 'hellochurch_audio';
@@ -13,12 +9,6 @@ class HelloChurch_Audios extends PerchAPI_Factory
 	protected $default_sort_column = 'audioID';
 
 	public $static_fields = array('audioID', 'churchID', 'memberID', 'audioName', 'audioDate', 'audioDescription', 'audioSeries', 'audioSpeaker', 'audioBible', 'audioFileLocation', 'audioFileName');
-    
-    public function role_valid($data){
-	    
-	    return true;
-	    
-    }
     
     public function add_audio($memberID, $churchID, $audioName, $audioDate, $audioDescription, $audioSpeaker, $audioSeries, $audioBible, $audioFile){
 	    
@@ -30,7 +20,7 @@ class HelloChurch_Audios extends PerchAPI_Factory
 		
 		$sql = "INSERT INTO perch3_hellochurch_audio (memberID, churchID, audioName, audioDate, audioDescription, audioSpeaker, audioSeries, audioBible, audioFileLocation, audioFileName) VALUES 
 		('$memberID', '$churchID', '$audioName', '$audioDate', '$audioDescription', '$audioSpeaker', '$audioSeries', '$audioBible', '$audioFileLocation', '$audioFileName')";
-	    $results = $this->db->execute($sql);
+	    $this->db->execute($sql);
 	    
     }
     
@@ -39,7 +29,7 @@ class HelloChurch_Audios extends PerchAPI_Factory
 	    $API  = new PerchAPI(1.0, 'hello_church');
 		
 		$sql = "DELETE FROM perch3_hellochurch_audio WHERE audioID=".$audioID;
-	    $results = $this->db->execute($sql);
+	    $this->db->execute($sql);
 	    
     }
     
@@ -69,7 +59,11 @@ class HelloChurch_Audios extends PerchAPI_Factory
 		
 		$sql = "SELECT * FROM perch3_hellochurch_audio WHERE churchID='".$churchID."' AND audioID='".$audioID."'";
 	    $results = $this->db->get_rows($sql);
-	    return count($results);
+	    if($results){
+		    return true;
+	    }else{
+		    return false;
+	    }
 	    
     }
     

@@ -20,9 +20,9 @@ $name = hello_church_contact_get(perch_get('id'), 'contactFirstName').' '.hello_
 	<?php
 		// DISPLAY MESSAGES
 		if($_GET['msg']=='note_deleted'){
-			echo '<p class="alert success">Note successfully deleted.</p>';
+			echo '<p class="alert success"><span class="material-symbols-outlined">check_circle</span>Note successfully deleted.</p>';
 		}elseif($_GET['msg']=='note_created'){
-			echo '<p class="alert success">Note successfully created.</p>';
+			echo '<p class="alert success"><span class="material-symbols-outlined">check_circle</span>Note successfully created.</p>';
 		}
 	?>
 	<div class="section-grid">

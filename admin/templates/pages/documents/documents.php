@@ -70,7 +70,10 @@ if($folder){
 					<h2>Upload File</h2>
 				</header>
 				<article>
-					<input id="file" type="file" name="file" />
+					<div>
+						<label>File  <span class="required">Required</span></label>
+						<input id="file" type="file" name="file" required="true" />
+					</div>
 					<input type="hidden" name="folderID" id="folderID" value="<?= perch_get('id') ?>" />
 					<input type="hidden" name="contactID" id="contactID" value="0" />
 					<input type="hidden" name="groupID" id="groupID" value="0" />

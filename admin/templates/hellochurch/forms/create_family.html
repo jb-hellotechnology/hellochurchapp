@@ -3,14 +3,14 @@
 	<article class="flow">
 		<perch:success>
 			<article class="flow">
-				<p class="alert success">Family created.</p>
+				<p class="alert success"><span class="material-symbols-outlined">check_circle</span>Family created</p>
 			</article>
 			<footer>
 				
 			</footer>
 		</perch:success>
 		<div>
-			<perch:label for="familyName">Role Name</perch:label>
+			<perch:label for="familyName">Role Name <span class="required">Required</span></perch:label>
 			<perch:input type="text" id="familyName" required="true" label="Family Name" />
 			<perch:error for="familyName" type="required"><p class="help error">Please add a your family's name</p></perch:error>
 		</div>

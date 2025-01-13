@@ -3,14 +3,14 @@
 	<article class="flow">
 		<perch:success>
 			<article class="flow">
-				<p class="alert success">Role created.</p>
+				<p class="alert success"><span class="material-symbols-outlined">check_circle</span>Role created</p>
 			</article>
 			<footer>
 				
 			</footer>
 		</perch:success>
 		<div>
-			<perch:label for="roleName">Role Name</perch:label>
+			<perch:label for="roleName">Role Name <span class="required">Required</span></perch:label>
 			<perch:input type="text" id="roleName" required="true" label="Role Name" />
 			<perch:error for="roleName" type="required"><p class="help error">Please add a your role's name</p></perch:error>
 		</div>

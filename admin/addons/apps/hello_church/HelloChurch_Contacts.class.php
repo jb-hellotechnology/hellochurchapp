@@ -1,9 +1,4 @@
 <?php
-/*
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
-*/
 
 class HelloChurch_Contacts extends PerchAPI_Factory
 {
@@ -102,7 +97,12 @@ class HelloChurch_Contacts extends PerchAPI_Factory
 		
 		$sql = "SELECT * FROM perch3_hellochurch_contacts WHERE churchID='".$churchID."' AND contactID='".$contactID."'";
 	    $results = $this->db->get_rows($sql);
-	    return count($results);
+	    
+	    if($results){
+		    return true;
+	    }else{
+		    return false;
+	    }
 	    
     }
     
@@ -232,10 +232,10 @@ class HelloChurch_Contacts extends PerchAPI_Factory
 		$API  = new PerchAPI(1.0, 'hello_church');
 	    
 	    $sql = "INSERT INTO perch3_hellochurch_contacts_families (memberID, contactID_a, contactID_b) VALUES (".$memberID.", ".$contactID_a.", '".$contactID_b."')";
-	    $results = $this->db->execute($sql);
+	    $this->db->execute($sql);
 	    
 	    $sql = "INSERT INTO perch3_hellochurch_contacts_families (memberID, contactID_a, contactID_b) VALUES (".$memberID.", ".$contactID_b.", '".$contactID_a."')";
-		$results = $this->db->execute($sql);
+		$this->db->execute($sql);
 		
 	}
 	
@@ -244,10 +244,10 @@ class HelloChurch_Contacts extends PerchAPI_Factory
 		$API  = new PerchAPI(1.0, 'hello_church');
 		
 		$sql = "DELETE FROM perch3_hellochurch_contacts_families WHERE contactID_a='".$contactID_a."' AND contactID_b='".$contactID_b."'";
-	    $result = $this->db->execute($sql);
+	    $this->db->execute($sql);
 	    
 	    $sql = "DELETE FROM perch3_hellochurch_contacts_families WHERE contactID_a='".$contactID_b."' AND contactID_b='".$contactID_a."'";
-	    $result = $this->db->execute($sql);
+	    $this->db->execute($sql);
 		
 	}
 	
@@ -354,7 +354,6 @@ class HelloChurch_Contacts extends PerchAPI_Factory
 		$timestamp = date("Y-m-d H:i:s");
 
 		$sql = 'SELECT * FROM perch3_hellochurch_contacts WHERE contactMagicLink="'.$password.'" AND contactMagicLinkExpires>="'.$timestamp.'" AND contactEmail="'.$email.'"';
-		echo $sql;
 	    $contact = $this->db->get_row($sql);
 	    
 	    if($contact){

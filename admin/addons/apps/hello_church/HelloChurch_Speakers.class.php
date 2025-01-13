@@ -1,9 +1,5 @@
 <?php
-/*
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
-*/
+
 class HelloChurch_Speakers extends PerchAPI_Factory
 {
     protected $table     = 'hellochurch_speakers';
@@ -46,7 +42,12 @@ class HelloChurch_Speakers extends PerchAPI_Factory
 		
 		$sql = "SELECT * FROM perch3_hellochurch_speakers WHERE churchID='".$churchID."' AND speakerID='".$speakerID."'";
 	    $results = $this->db->get_rows($sql);
-	    return count($results);
+	    
+	    if($results){
+		    return true;
+	    }else{
+		    return false;
+	    }
 	    
     }
     

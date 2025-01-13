@@ -2,17 +2,17 @@
 
 	<perch:success show-form="true">
 		<article class="flow">
-			<p class="alert success">Audio added.</p>
+			<p class="alert success"><span class="material-symbols-outlined">check_circle</span>Audio added</p>
 		</article>
 	</perch:success>
 
 	<article class="flow">
 		<div>
-			<perch:label for="audioName">Audio Name</perch:label>
+			<perch:label for="audioName">Audio Name <span class="required">Required</span></perch:label>
 			<perch:input type="text" id="audioName" required="true" label="Audio Name" />
 		</div>
 		<div>
-			<perch:label for="audioDate">Audio Date</perch:label>
+			<perch:label for="audioDate">Audio Date <span class="required">Required</span></perch:label>
 			<perch:input type="date" id="audioDate" required="true" label="Audio Date" />
 		</div>
 		<div>

@@ -2,10 +2,10 @@
 
 	<article class="flow">
 		<perch:success show-form="true">
-			<p class="alert success">Role updated.</p>
+			<p class="alert success"><span class="material-symbols-outlined">check_circle</span>Role updated</p>
 		</perch:success>
 		<div>
-			<perch:label for="roleName">Role Name</perch:label>
+			<perch:label for="roleName">Role Name <span class="required">Required</span></perch:label>
 			<perch:input type="text" id="roleName" required="true" label="Role Name" />
 			<perch:error for="roleName" type="required"><p class="help error">Please add a your role's name</p></perch:error>
 		</div>

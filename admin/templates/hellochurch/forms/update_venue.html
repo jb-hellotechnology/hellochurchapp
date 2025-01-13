@@ -2,10 +2,10 @@
 
 	<article class="flow">
 		<perch:success show-form="true">
-			<p class="alert success">Venue updated.</p>
+			<p class="alert success"><span class="material-symbols-outlined">check_circle</span>Venue updated</p>
 		</perch:success>
 		<div>
-			<perch:label for="venueName">Venue Name</perch:label>
+			<perch:label for="venueName">Venue Name <span class="required">Required</span></perch:label>
 			<perch:input type="text" id="venueName" required="true" label="Venue Name" />
 			<perch:error for="venueName" type="required"><p class="help error">Please add a your venue's name</p></perch:error>
 		</div>
