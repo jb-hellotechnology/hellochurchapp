@@ -11,11 +11,17 @@ perch_layout('header');
 ?>
 
 <main class="flow full">
-	<h1>Media <a class="button primary" href=/media/add-audio>Add Audio<span class="material-symbols-outlined">cloud_upload</span></a></h1>
+	<h1>Media <a class="button primary" href=/media/add-audio>Add Audio</a></h1>
 	<?php
 		// DISPLAY MESSAGES
 		if($_GET['msg']=='audio_deleted'){
-			echo '<p class="alert success">Audio successfully deleted.</p>';
+			echo '<p class="alert success"><span class="material-symbols-outlined">check_circle</span>Audio deleted</p>';
+		}
+		if($_GET['msg']=='audio_uploaded'){
+			echo '<p class="alert success"><span class="material-symbols-outlined">check_circle</span>Audio uploaded</p>';
+		}
+		if($_GET['msg']=='audio_error'){
+			echo '<p class="alert success"><span class="material-symbols-outlined">error</span>Upload error</p>';
 		}
 	?>
 		<?php

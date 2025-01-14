@@ -13,7 +13,7 @@ perch_layout('header');
 	<?php
 		// DISPLAY MESSAGES
 		if($_GET['msg']=='series_deleted'){
-			echo '<p class="alert success">Series successfully deleted.</p>';
+			echo '<p class="alert success"><span class="material-symbols-outlined">check_circle</span>Series deleted</p>';
 		}
 	?>
 	<section>

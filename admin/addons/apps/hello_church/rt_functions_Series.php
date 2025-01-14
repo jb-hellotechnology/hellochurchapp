@@ -21,7 +21,7 @@
 	        echo '<li>
 	        		<div class="heading">
 	        			<span class="material-symbols-outlined">book</span>
-				        <h3>'.$series['seriesName'].'</h3>
+				        <h3><a href="/settings/series/edit-series?id='.$series['seriesID'].'">'.$series['seriesName'].'</a></h3>
 						<p>'.$description.'</p>
 					</div>
 					<div class="functions">

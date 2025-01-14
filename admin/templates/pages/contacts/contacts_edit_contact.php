@@ -82,6 +82,7 @@ $name = hello_church_contact_get(perch_get('id'), 'contactFirstName').' '.hello_
 					<h2>Upload File</h2>
 				</header>
 				<article>
+					<p class="alert hide" id="alert"></p>
 					<?php hello_church_files(0, perch_get('id'), 0, 0, 0); ?>
 					<input id="file" type="file" name="file" />
 					<input type="hidden" name="folderID" id="folderID" value="0" />

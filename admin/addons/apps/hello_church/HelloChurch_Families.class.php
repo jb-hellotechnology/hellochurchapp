@@ -41,7 +41,7 @@ class HelloChurch_Families extends PerchAPI_Factory
 	    $API  = new PerchAPI(1.0, 'hello_church');
 		
 		$sql = "SELECT * FROM perch3_hellochurch_families WHERE churchID='".$churchID."' AND familyID='".$familyID."'";
-	    $results = $this->db->get_rows($sql);
+	    $results = $this->db->get_row($sql);
 	    
 	    if($results){
 		    return true;

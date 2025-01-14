@@ -20,7 +20,7 @@
 	        echo '<li>
 	        		<div class="heading">
 	        			<span class="material-symbols-outlined">record_voice_over</span>
-				        <h3>'.$speaker['speakerName'].'</h3>
+				        <h3><a href="/settings/speakers/edit-speaker?id='.$speaker['speakerID'].'">'.$speaker['speakerName'].'</a></h3>
 						<p></p>
 					</div>
 					<div class="functions">

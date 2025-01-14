@@ -19,7 +19,7 @@ perch_layout('header');
 	<h1><?= $email['emailSubject'] ?> <time><?= date('m/d/Y H:i:s', strtotime($email['emailSent'])) ?></time></h1>
 	<?php
 		if(perch_get('msg')=='sent'){
-			echo '<p class="alert success">Email sent!</p>';
+			echo '<p class="alert success"><span class="material-symbols-outlined">check_circle</span>Email sent</p>';
 		}	
 	?>
 	<div class="section-grid">

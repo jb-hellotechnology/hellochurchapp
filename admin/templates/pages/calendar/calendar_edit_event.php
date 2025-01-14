@@ -19,6 +19,8 @@ $time = $pTime[1];
 $pDates = explode("-", perch_get('date'));
 $date = "$pDates[2]/$pDates[1]/$pDates[0]";
 
+PerchSystem::set_var('startDate', perch_get('date'));
+
 perch_layout('header');
 ?>
 <main class="flow full">
@@ -27,7 +29,10 @@ perch_layout('header');
 	<?php
 		// DISPLAY MESSAGES
 		if($_GET['msg']=='contact_added'){
-			echo '<p class="alert success">Contact added to role.</p>';
+			echo '<p class="alert success"><span class="material-symbols-outlined">check_circle</span>Contact added to role</p>';
+		}
+		if($_GET['msg']=='contact_deleted'){
+			echo '<p class="alert success"><span class="material-symbols-outlined">check_circle</span>Contact removed from role</p>';
 		}	
 	?>
 	<div class="section-grid">

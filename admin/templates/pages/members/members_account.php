@@ -13,6 +13,8 @@ if(!perch_member_logged_in()){
 
 perch_layout('header');
 
+$subscriptionCancel = stripe_data('churchCancel');
+
 ?>
 <main>
 	
@@ -29,7 +31,12 @@ perch_layout('header');
 		<header>
 			<h2>Change Password</h2>
 		</header>
-		<?php perch_member_form('password.html'); ?>
+		<article class="flow">
+			<p>Need to update your password? Click the button.</p>
+		</article>
+		<footer>
+			<a class="button primary" href="/account/password">Change Password</a>
+		</footer>
 	</section>
 	
 	<section>
@@ -37,14 +44,19 @@ perch_layout('header');
 			<h2>Delete Account</h2>
 		</header>
 		<article class="flow">
-			<p>Be careful. Deleting your account is permanent. All account information will be deleted. This cannot be reversed.</p>
+			<p><strong>Be careful.</strong> Deleting your account is permanent. All account information will be deleted. This cannot be reversed.</p>
+			<?php
+			if(!$subscriptionCancel){
+				echo '<p>Please cancel your subscription before deleting your account.</p>';;
+			}
+			?>
 		</article>
 		<footer>
 			<?php
-			if($cancel OR !$customer_id){
+			if($subscriptionCancel){
 				echo '<a class="button danger" href="/delete-account/">Delete Account</a>';
 			}else{
-				echo '<p>Please cancel your subscription before deleting your account.</p>';;
+				echo '<a class="button primary" href="/settings/subscription">Manage Subscription</a>';
 			}
 			?>
 		</footer>

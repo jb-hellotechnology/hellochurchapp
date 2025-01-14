@@ -184,7 +184,17 @@
 	        $time = $dates[1];
 	        $dates = explode("-", $dates[0]);
 	        $date = "$dates[2]/$dates[1]/$dates[0]";
-	        $html .= '<li><h3>'.$responsibility['roleName'].'</h3><p>'.$responsibility['eventName'].'</p><p>'.$date.'</p></li>';
+	        $html .= '<li>
+	        			<div class="heading">
+		        			<span class="material-symbols-outlined">event</span>
+	        				<h3><a href="/calendar/edit-event?id='.$responsibility['eventID'].'&date='.$responsibility['eventDate'].'">'.$responsibility['roleName'].'</a></h3>
+	        				<p class="mono">'.$responsibility['eventName'].'</p>
+	        				<p class="mono">'.$date.'</p>
+	        			</div>
+	        			<div class="functions">
+	        				<a href="/calendar/edit-event?id='.$responsibility['eventID'].'&date='.$responsibility['eventDate'].'" class="button secondary small">View</a>
+	        			</div>
+	        		</li>';
         }
         
         $html .= '</ul></article>';

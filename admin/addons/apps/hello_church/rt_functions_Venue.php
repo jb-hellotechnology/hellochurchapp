@@ -21,7 +21,7 @@
 	        echo '<li>
 	        		<div class="heading">
 		        		<span class="material-symbols-outlined">home_work</span>
-				        <h3>'.$venue['venueName'].'</h3>
+				        <h3><a href="/settings/venues/edit-venue?id='.$venue['venueID'].'">'.$venue['venueName'].'</a></h3>
 						<p>'.$description.'</p>
 					</div>
 					<div class="functions">

@@ -21,7 +21,7 @@
 	        echo '<li>
 	        		<div class="heading">
 		        		<span class="material-symbols-outlined">badge</span>
-				        <h3>'.$role['roleName'].'</h3>
+				        <h3><a href="/settings/roles/edit-role?id='.$role['roleID'].'">'.$role['roleName'].'</a></h3>
 				        <p>'.$description.'</p>
 			        </div>
 			        <div class="functions">
@@ -116,18 +116,23 @@
 				foreach($contacts as $contact){
 					$contactData = $HelloChurchContacts->contact($contact['contactID']);
 					$html .= '<li>
-							<h3><a href="/contacts/edit-contact?id='.$contactData['contactID'].'">'.$contactData['contactFirstName']." ".$contactData['contactLastName'];
+								<div class="heading">
+									<span class="material-symbols-outlined">person</span>
+									<h3><a href="/contacts/edit-contact?id='.$contactData['contactID'].'">'.$contactData['contactFirstName']." ".$contactData['contactLastName'];
 							if($roleData['roleType']=='Family'){
 								$html .= ' &plus; Family';
 							}
 					$html .= '</a></h3>
 							<p></p>
-							<form action="/process/remove-role-contact" method="post">
-								<input type="submit" class="button border danger small" value="Remove" />
-								<input type="hidden" name="roleContactID" value="'.$contact['roleContactID'].'" />
-								<input type="hidden" name="eventID" value="'.perch_get('id').'" />
-								<input type="hidden" name="date" value="'.perch_get('date').'" />
-							</form>
+							</div>
+							<div class="functions">
+								<form action="/process/remove-role-contact" method="post">
+									<input type="submit" class="button border danger small" value="Remove" />
+									<input type="hidden" name="roleContactID" value="'.$contact['roleContactID'].'" />
+									<input type="hidden" name="eventID" value="'.perch_get('id').'" />
+									<input type="hidden" name="date" value="'.perch_get('date').'" />
+								</form>
+							</div>
 						</li>';
 				}
 
@@ -149,7 +154,7 @@
         
 		$Session = PerchMembers_Session::fetch();
 		
-		$contacts = $HelloChurchContacts->search_role_members($Session->get('memberID'), $q, $eventID, $eventDate);
+		$contacts = $HelloChurchContacts->search_role_members($Session->get('churchID'), $q, $eventID, $eventDate);
 		
 		foreach($contacts as $contact){
 			echo '
@@ -158,7 +163,7 @@
 				<input type="hidden" name="eventDate" value="'.$eventDate.'" />
 				<input type="hidden" name="contactID" value="'.$contact['contactID'].'" />
 				<input type="hidden" name="roleID" value="'.$roleID.'" />
-				<button class="button primary small" value="Add Member">'.$contact['contactFirstName'].' '.$contact['contactLastName'].'<span class="material-symbols-outlined">person_add</span></button>
+				<button class="button primary small" value="Add Member">'.$contact['contactFirstName'].' '.$contact['contactLastName'].'</button>
 			</form>';
 		}
 	    

@@ -40,10 +40,10 @@ if($folder){
 	<?php
 		// DISPLAY MESSAGES
 		if($_GET['msg']=='folder_deleted'){
-			echo '<p class="alert success">Folder successfully deleted.</p>';
+			echo '<p class="alert success"><span class="material-symbols-outlined">check_circle</span>Folder deleted</p>';
 		}
 		if($_GET['msg']=='file_deleted'){
-			echo '<p class="alert success">File successfully deleted.</p>';
+			echo '<p class="alert success"><span class="material-symbols-outlined">check_circle</span>File deleted</p>';
 		}
 	?>
 	<div class="section-grid">
@@ -70,6 +70,7 @@ if($folder){
 					<h2>Upload File</h2>
 				</header>
 				<article>
+					<p class="alert hide" id="alert"></p>
 					<div>
 						<label>File  <span class="required">Required</span></label>
 						<input id="file" type="file" name="file" required="true" />

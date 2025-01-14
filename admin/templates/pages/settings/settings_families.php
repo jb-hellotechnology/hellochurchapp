@@ -13,7 +13,7 @@ perch_layout('header');
 	<?php
 		// DISPLAY MESSAGES
 		if($_GET['msg']=='family_deleted'){
-			echo '<p class="alert success">Family successfully deleted.</p>';
+			echo '<p class="alert success"><span class="material-symbols-outlined">check_circle</span>Family deleted</p>';
 		}
 	?>
 	<section>

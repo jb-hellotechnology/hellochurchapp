@@ -77,7 +77,7 @@ class HelloChurch_Events extends PerchAPI_Factory
 		
 		$date = date('Y-m-d');
 		
-		$sql = "SELECT r.roleName, e.eventName, e.start, rc.eventDate 
+		$sql = "SELECT r.roleName, e.eventName, e.start, e.eventID, rc.eventDate 
 		FROM perch3_hellochurch_roles_contacts rc
 		JOIN perch3_hellochurch_roles r ON rc.roleID = r.roleID
 		JOIN perch3_hellochurch_events e ON rc.eventID = e.eventID

@@ -188,7 +188,7 @@ class PerchMembers_Member extends PerchAPI_Base
         $Email->send();
     }
 
-    protected function _generate_password($length=8)
+    protected function _generate_password($length=12)
     {
         $vals = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
         $pwd = '';

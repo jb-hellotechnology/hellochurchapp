@@ -123,7 +123,7 @@
 	        echo '<li>
 	        		<div class="heading">
 		        		<span class="material-symbols-outlined">edit_note</span>
-			        	<h3>'.$note['subject'].'</h3>
+			        	<h3><a href="/contacts/edit-note?id='.$contactID.'&noteID='.$note['noteID'].'">'.$note['subject'].'</a></h3>
 						<p class="mono">'.$date.'</p>
 					</div>
 					<div class="functions">

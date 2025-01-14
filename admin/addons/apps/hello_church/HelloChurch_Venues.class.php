@@ -40,8 +40,8 @@ class HelloChurch_Venues extends PerchAPI_Factory
 	    
 	    $API  = new PerchAPI(1.0, 'hello_church');
 		
-		$sql = "SELECT * FROM perch3_hellochurch_roles WHERE churchID='".$churchID."' AND venueID='".$venueID."'";
-	    $results = $this->db->get_rows($sql);
+		$sql = "SELECT * FROM perch3_hellochurch_venues WHERE churchID='".$churchID."' AND venueID='".$venueID."'";
+	    $results = $this->db->get_row($sql);
 
 	    if($results){
 		    return true;

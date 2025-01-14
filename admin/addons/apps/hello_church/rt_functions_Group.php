@@ -29,7 +29,7 @@
 					$html .= '<li>
 								<div class="heading">
 									<span class="material-symbols-outlined">groups</span>
-									<h3>'.$group['groupName'].'</h3>
+									<h3><a href="/groups/edit-group?id='.$group['groupID'].'">'.$group['groupName'].'</a></h3>
 									<p>'.$description.'</p>
 								</div>
 								<div class="functions">
@@ -207,7 +207,7 @@
 	        echo '<li>
 	        		<div class="heading">
 		        		<span class="material-symbols-outlined">groups</span>
-				        <h3>'.$group['groupName'].'</h3>
+				        <h3><a href="/groups/edit-group?id='.$group['groupID'].'">'.$group['groupName'].'</a></h3>
 						<p>'.$description.'</p>
 					</div>
 					<div class="functions">

@@ -92,8 +92,7 @@ perch_layout('header');
 						</article>
 					</form>
 				<footer>
-					
-					<button class="button primary" onclick="javascript:send_email();">Send Email <span class="material-symbols-outlined">send</span></button>
+					<button class="button primary" onclick="javascript:send_email();">Send Email</button>
 				</footer>
 			</section>
 		</div>

@@ -1,4 +1,10 @@
 <?php
+include('../../../secrets.php');
+if($down){
+	include('../../../maintenance.html');
+	exit;	
+}
+
 if(perch_member_logged_in()){
 	$customer_id = stripe_data('churchCustomerID');	
 	$url = perch_pages_title(true);

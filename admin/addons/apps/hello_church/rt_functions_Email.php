@@ -61,7 +61,7 @@
 	        echo '<li>
 	        		<div class="heading">
 	        			<span class="material-symbols-outlined">mail</span>
-				        <h3>'.$emailContent->emailSubject().'</h3>
+				        <h3><a href="/communication/view-email?id='.$email['emailID'].'">'.$emailContent->emailSubject().'</a></h3>
 						<p class="mono">'.$date.'</p>
 					</div>
 					<div class="functions">

@@ -21,7 +21,7 @@
 	        echo '<li>
 	        		<div class="heading">
 	        			<span class="material-symbols-outlined">family_restroom</span>
-				        <h3>'.$family['familyName'].'</h3>
+				        <h3><a href="/settings/families/edit-family?id='.$family['familyID'].'">'.$family['familyName'].'</a></h3>
 						<p>'.$description.'</p>
 					</div>
 					<div class="functions">

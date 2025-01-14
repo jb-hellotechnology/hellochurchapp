@@ -13,7 +13,7 @@ perch_layout('header');
 	<?php
 		// DISPLAY MESSAGES
 		if($_GET['msg']=='event_deleted'){
-			echo '<p class="alert success">Event successfully deleted.</p>';
+			echo '<p class="alert success"><span class="material-symbols-outlined">check_circle</span>Event deleted</p>';
 		}
 	?>
 	<section>

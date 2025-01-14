@@ -24,14 +24,8 @@ $plan = hello_church_get_plan(perch_get('id'), perch_get('date'), $time);
 perch_layout('header');
 ?>
 <main class="flow full">
-	<h1 class="with-button"><span><?= $name ?> <time><?= $date ?> <?= $time ?></time></span><a class="button secondary border" href="/calendar/edit-event?id=<?= perch_get('id') ?>">Back</a></h1>
+	<h1 class="with-button"><span><?= $name ?> <time><?= $date ?> <?= $time ?></time></span><a class="button secondary border" href="/calendar/edit-event?id=<?= perch_get('id') ?>&date=<?= perch_get('date') ?>">Back</a></h1>
 	<?= $description ?>
-	<?php
-		// DISPLAY MESSAGES
-		if($_GET['msg']=='contact_added'){
-			echo '<p class="alert success">Contact added to role.</p>';
-		}	
-	?>
 	<div class="section-grid">
 		<div>
 			<form id="form-plan">

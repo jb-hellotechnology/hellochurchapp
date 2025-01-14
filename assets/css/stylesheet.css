@@ -811,6 +811,10 @@ textarea:focus,
 	background:var(--color-danger);
 }
 
+.alert.hide{
+	display:none;
+}
+
 .help{
 	font-size:80%;
 	text-transform: uppercase;

@@ -13,7 +13,7 @@ perch_layout('header');
 	<?php
 		// DISPLAY MESSAGES
 		if($_GET['msg']=='contact_deleted'){
-			echo '<p class="alert success">Contact successfully deleted.</p>';
+			echo '<p class="alert success"><span class="material-symbols-outlined">check_circle</span>Contact deleted</p>';
 		}
 	?>
 	<section>
