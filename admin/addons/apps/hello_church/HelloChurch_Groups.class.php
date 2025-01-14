@@ -75,7 +75,7 @@ class HelloChurch_Groups extends PerchAPI_Factory
 	    
 	    $API  = new PerchAPI(1.0, 'hello_church');
 	    
-	    $sql = "SELECT * FROM perch3_hellochurch_groups_members WHERE groupID='".$groupID."'";
+	    $sql = "SELECT * FROM perch3_hellochurch_groups_members WHERE groupID='".$groupID."' AND contactID='".$contactID."'";
 	    $results = $this->db->get_rows($sql);
 	    
 	    if(count($results)==0){

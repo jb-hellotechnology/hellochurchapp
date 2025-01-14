@@ -121,9 +121,14 @@
 	        $parts = explode("-", $parts[0]);
 	        $date = "$parts[2]/$parts[1]/$parts[0]";
 	        echo '<li>
-			        <h3>'.$note['subject'].'</h3>
-					<p>'.$date.'</p>
-					<a href="/contacts/edit-note?id='.$contactID.'&noteID='.$note['noteID'].'" class="button secondary small">View</a>
+	        		<div class="heading">
+		        		<span class="material-symbols-outlined">edit_note</span>
+			        	<h3>'.$note['subject'].'</h3>
+						<p class="mono">'.$date.'</p>
+					</div>
+					<div class="functions">
+						<a href="/contacts/edit-note?id='.$contactID.'&noteID='.$note['noteID'].'" class="button secondary small">View</a>
+					</div>
 				</li>';
         }
 

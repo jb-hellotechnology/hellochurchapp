@@ -102,12 +102,16 @@
 	        echo '<li>
 	        		<div class="heading">
 		        		<span class="material-symbols-outlined">mail</span>
-				        <h3><a href="/communication/'.$task.'-email?id='.$email['emailID'].'">'.$email['emailSubject'].'</a></h3>
-				        <p class="mono">'.date('m/d/Y H:i:s', strtotime($email['emailSent'])).'</p>
+				        <h3><a href="/communication/'.$task.'-email?id='.$email['emailID'].'">'.$email['emailSubject'].'</a></h3>';
+				        if($email['emailSent']){
+				        	echo '<p class="mono">'.date('m/d/Y H:i:s', strtotime($email['emailSent'])).'</p>';
+				        }
+				    echo '
 			        </div>
 			        <div class="functions">';
 			    if($status=='Draft'){
 				    echo '
+				    <a href="/communication/'.$task.'-email?id='.$email['emailID'].'" class="button secondary small">View</a>
 					<form><a href="/process/delete-email?id='.$email['emailID'].'" class="button danger small border"><span class="material-symbols-outlined">delete</span></a></form>';
 				}else{
 					echo '<a href="/communication/'.$task.'-email?id='.$email['emailID'].'" class="button secondary small">View</a>';

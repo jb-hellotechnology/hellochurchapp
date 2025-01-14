@@ -54,7 +54,14 @@ if($customer_id){
 	<?php
 		if(perch_get('success')==1){
 	?>
-	<p class="alert success">Success! Your subscription is active. Why not <a href="/contacts/add-contact">add your first contact</a>?</p>
+	<p class="alert success"><span class="material-symbols-outlined">check_circle</span>Your subscription is active</p>
+	<h2>What next?</h2>
+	<ul>
+		<li><a href="/contacts">Add a Contact?</a></li>
+		<li><a href="/calendar">Manage your Calendar?</a></li>
+		<li><a href="/dashboar">Something else?</a></li>
+	</ul>
+	<br />
 	<?php
 		}
 	?>
