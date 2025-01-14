@@ -90,7 +90,7 @@
 		
 		$family = $HelloChurchContacts->family_members($contactID);
 		
-		if(count($family)>0){
+		if($family){
 		
 			$html = '<ul class="cards">';
 			
