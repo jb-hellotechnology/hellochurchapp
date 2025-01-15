@@ -11,6 +11,11 @@ perch_layout('header');
 ?>
 
 <main class="flow">
+	<?php 
+		perch_pages_breadcrumbs(array(
+			'include-hidden' => true,
+		)); 
+	?>
 	<h1>Add Audio</h1>
 	<?php
 		// DISPLAY MESSAGES

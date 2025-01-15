@@ -14,6 +14,4 @@ if(!hello_church_member_owner($contactID)){
 
 process_remove_family_member($primary, $contactID);
 
-//header("location:/contacts/edit-contact?id=".$primary);
-
 ?>

@@ -16,6 +16,11 @@ $email = hello_church_get_email(perch_get('id'));
 perch_layout('header');
 ?>
 <main class="flow full">
+	<?php 
+		perch_pages_breadcrumbs(array(
+			'include-hidden' => true,
+		)); 
+	?>
 	<h1><?= $email['emailSubject'] ?> <time><?= date('m/d/Y H:i:s', strtotime($email['emailSent'])) ?></time></h1>
 	<?php
 		if(perch_get('msg')=='sent'){

@@ -16,6 +16,11 @@ $email = hello_church_get_email(perch_get('id'));
 perch_layout('header');
 ?>
 <main class="flow full">
+	<?php 
+		perch_pages_breadcrumbs(array(
+			'include-hidden' => true,
+		)); 
+	?>
 	<h1 class="with-button"><?= $email['emailSubject'] ?> <!-- <a class="button primary" href="/communication/send-email?id=<?= perch_get('id') ?>">Send<span class="material-symbols-outlined">send</span></a> --></h1>
 	<?= $description ?>
 	<div class="section-grid">

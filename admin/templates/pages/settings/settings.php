@@ -10,6 +10,11 @@ $church = hello_church_church(true);
 
 ?>
 <main class="flow full">
+	<?php 
+		perch_pages_breadcrumbs(array(
+			'include-hidden' => true,
+		)); 
+	?>
 	<h1>Settings</h1>
 	<ul class="cards menu">
 		<li>

@@ -24,6 +24,11 @@ $plan = hello_church_get_plan(perch_get('id'), perch_get('date'), $time);
 perch_layout('header');
 ?>
 <main class="flow full">
+	<?php 
+		perch_pages_breadcrumbs(array(
+			'include-hidden' => true,
+		)); 
+	?>
 	<h1 class="with-button"><span><?= $name ?> <time><?= $date ?> <?= $time ?></time></span><a class="button secondary border" href="/calendar/edit-event?id=<?= perch_get('id') ?>&date=<?= perch_get('date') ?>">Back</a></h1>
 	<?= $description ?>
 	<div class="section-grid">

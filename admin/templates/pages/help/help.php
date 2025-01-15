@@ -9,6 +9,11 @@ if(!perch_member_logged_in()){
 perch_layout('header');
 ?>
 <main class="flow full">
+	<?php 
+		perch_pages_breadcrumbs(array(
+			'include-hidden' => true,
+		)); 
+	?>
 	<h1>Help</h1>
 	<p>Browse our database of help articles to find answers to your questions:</p>
 	<?php 

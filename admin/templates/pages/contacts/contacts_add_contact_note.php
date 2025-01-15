@@ -14,8 +14,12 @@ if(!hello_church_member_owner(perch_get('id'))){
 perch_layout('header');
 ?>
 <main class="flow">
+	<?php 
+		perch_pages_breadcrumbs(array(
+			'include-hidden' => true,
+		)); 
+	?>
 	<h1>Add a Note</h1>
-	<p><a href="/contacts/edit-contact?id=<?= perch_get('id') ?>" class="button secondary small">Back</a></p>
 	<section>
 		<header>
 			<h2>Add Note</h2>

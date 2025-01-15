@@ -18,6 +18,11 @@ perch_layout('header');
 ?>
 
 <main class="flow full">
+	<?php 
+		perch_pages_breadcrumbs(array(
+			'include-hidden' => true,
+		)); 
+	?>
 	<h1>Edit Audio</h1>
 		<section>
 			<header>

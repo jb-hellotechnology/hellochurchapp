@@ -11,6 +11,11 @@ perch_layout('header');
 ?>
 
 <main class="flow full big-little">
+	<?php 
+		perch_pages_breadcrumbs(array(
+			'include-hidden' => true,
+		)); 
+	?>
 	<h1>Communication</h1>
 	<?php
 		// DISPLAY MESSAGES

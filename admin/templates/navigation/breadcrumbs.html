@@ -1,9 +1,12 @@
 <perch:before>
 <ul class="breadcrumbs">
+	<li>
+		<a href="/dashboard"><span class="material-symbols-outlined">home</span></a>  &gt;
+	</li>
 </perch:before>
     <li>
         <perch:if exists="perch_item_last">
-            <perch:pages id="pageNavText" />
+            <a href="<perch:pages id="pagePath" />"><perch:pages id="pageNavText" /></a>
         <perch:else />
             <a href="<perch:pages id="pagePath" />"><perch:pages id="pageNavText" /></a> &gt;
         </perch:if>

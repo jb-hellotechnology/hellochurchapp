@@ -17,7 +17,11 @@ $subscriptionCancel = stripe_data('churchCancel');
 
 ?>
 <main>
-	
+	<?php 
+		perch_pages_breadcrumbs(array(
+			'include-hidden' => true,
+		)); 
+	?>
 	<h1>Account</h1>
 	
 	<section>

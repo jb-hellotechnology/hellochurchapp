@@ -12,6 +12,11 @@ $church = hello_church_church(true);
 $podcast = podcast();
 ?>
 <main class="flow full big-little">
+	<?php 
+		perch_pages_breadcrumbs(array(
+			'include-hidden' => true,
+		)); 
+	?>
 	<h1>Podcast Settings</h1>
 	<div class="section-grid">
 		<div>

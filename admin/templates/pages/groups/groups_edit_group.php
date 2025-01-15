@@ -17,6 +17,11 @@ $description = hello_church_group_get(perch_get('id'), 'groupDescription');
 perch_layout('header');
 ?>
 <main class="flow">
+	<?php 
+		perch_pages_breadcrumbs(array(
+			'include-hidden' => true,
+		)); 
+	?>
 	<h1><?= $name ?></h1>
 	<?= $description ?>
 	<section>

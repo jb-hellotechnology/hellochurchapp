@@ -23,6 +23,11 @@ PerchSystem::set_var('folders', $folders);
 ?>
 
 <main class="flow">
+	<?php 
+		perch_pages_breadcrumbs(array(
+			'include-hidden' => true,
+		)); 
+	?>
 	<h1>Edit File</h1>
 	<div class="section-grid">
 		<?php

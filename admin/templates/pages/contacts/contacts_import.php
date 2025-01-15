@@ -9,6 +9,11 @@ if(!perch_member_logged_in()){
 perch_layout('header');
 ?>
 <main class="flow">
+	<?php 
+		perch_pages_breadcrumbs(array(
+			'include-hidden' => true,
+		)); 
+	?>
 	<h1>Import Contacts</h1>
 	<div class="section-grid">
 		<div>

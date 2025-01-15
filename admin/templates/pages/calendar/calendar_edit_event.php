@@ -24,6 +24,11 @@ PerchSystem::set_var('startDate', perch_get('date'));
 perch_layout('header');
 ?>
 <main class="flow full">
+	<?php 
+		perch_pages_breadcrumbs(array(
+			'include-hidden' => true,
+		)); 
+	?>
 	<h1 class="with-button"><span><?= $name ?> <time><?= $date ?> <?= $time ?></time></span><a class="button primary" href="/calendar/edit-event-plan?id=<?= perch_get('id') ?>&date=<?= perch_get('date') ?>">Plan</a></h1>
 	<?= $description ?>
 	<?php

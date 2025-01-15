@@ -196,6 +196,10 @@ blockquote {
   --flow-space: 1.5em;
 }
 
+:is(h1) {
+	--flow-space: 2rem;
+}
+
 :is(h1, h2, h3) + * {
   --flow-space: 0.5em;
 }
@@ -592,6 +596,31 @@ header div.buttons{
 	display:none;
 }
 
+ul.breadcrumbs{
+	list-style: none;
+	padding:0;
+	margin:0;
+	display:flex;
+	font-size:80%;
+	color:var(--color-light-grey);
+}
+
+ul.breadcrumbs li{
+	margin-right:0.3rem;
+	display: flex;
+	justify-content: center;
+}
+
+ul.breadcrumbs li a{
+	border-bottom: none;
+	margin-right:0.2rem;
+}
+
+ul.breadcrumbs li span{
+	margin-top:-0.1rem;
+	display:inline-block;
+}
+
 .highlight{
 	padding:1rem;
 	position: fixed;
@@ -676,7 +705,7 @@ header div.buttons{
 /* MAIN */
 main{
 	max-width:100%;
-	padding:4em 280px 100px 40px;
+	padding:2em 280px 100px 40px;
 	margin-left:240px;
 	min-height:100vh;
 	border-left:1px solid var(--color-light-grey);

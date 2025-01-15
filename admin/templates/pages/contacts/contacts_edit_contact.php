@@ -16,6 +16,11 @@ perch_layout('header');
 $name = hello_church_contact_get(perch_get('id'), 'contactFirstName').' '.hello_church_contact_get(perch_get('id'), 'contactLastName');
 ?>
 <main class="flow full">
+	<?php 
+		perch_pages_breadcrumbs(array(
+			'include-hidden' => true,
+		)); 
+	?>
 	<h1><?= $name ?></h1>
 	<?php
 		// DISPLAY MESSAGES

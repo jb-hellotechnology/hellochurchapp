@@ -15,16 +15,18 @@ perch_layout('header');
 
 ?>
 <main>
-	
+	<?php 
+		perch_pages_breadcrumbs(array(
+			'include-hidden' => true,
+		)); 
+	?>
 	<h1>Password</h1>
-	
 	<section>
 		<header>
 			<h2>Change Password</h2>
 		</header>
 		<?php perch_member_form('password.html'); ?>
 	</section>
-
 </main>
 
 <?php perch_layout('footer'); ?>

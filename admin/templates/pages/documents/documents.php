@@ -36,6 +36,11 @@ if($folder){
 ?>
 
 <main class="flow full big-little">
+	<?php 
+		perch_pages_breadcrumbs(array(
+			'include-hidden' => true,
+		)); 
+	?>
 	<h1><?= $name ?></h1>
 	<?php
 		// DISPLAY MESSAGES

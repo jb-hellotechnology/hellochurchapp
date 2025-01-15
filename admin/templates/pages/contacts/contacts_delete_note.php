@@ -19,6 +19,11 @@ if(!hello_church_note_owner(perch_get('noteID'))){
 perch_layout('header');
 ?>
 <main class="flow">
+	<?php 
+		perch_pages_breadcrumbs(array(
+			'include-hidden' => true,
+		)); 
+	?>
 	<h1>Delete a Note</h1>
 	<p><a href="/contacts/edit-note?id=<?= perch_get('id') ?>&noteID=<?= perch_get('noteID') ?>" class="button secondary small">Back</a></p>
 	<section>

@@ -9,6 +9,11 @@ if(!perch_member_logged_in()){
 perch_layout('header');
 ?>
 <main class="flow full">
+	<?php 
+		perch_pages_breadcrumbs(array(
+			'include-hidden' => true,
+		)); 
+	?>
 	<h1>Contacts</h1>
 	<?php
 		// DISPLAY MESSAGES

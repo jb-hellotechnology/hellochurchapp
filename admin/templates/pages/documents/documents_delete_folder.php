@@ -20,6 +20,11 @@ $folder = hello_church_folder(perch_get('id'));
 ?>
 
 <main class="flow">
+	<?php 
+		perch_pages_breadcrumbs(array(
+			'include-hidden' => true,
+		)); 
+	?>
 	<h1>Delete Folder</h1>
 	<div class="section-grid">
 		<?php

@@ -50,6 +50,11 @@ if($customer_id){
 }
 ?>
 <main class="flow">
+	<?php 
+		perch_pages_breadcrumbs(array(
+			'include-hidden' => true,
+		)); 
+	?>
 	<h1>Subscription Settings</h1>
 	<?php
 		if(perch_get('success')==1){

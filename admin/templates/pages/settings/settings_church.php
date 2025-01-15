@@ -9,6 +9,13 @@ if(!perch_member_logged_in()){
 perch_layout('header');
 ?>
 <main class="flow">
+	<?php 
+		if(perch_member_has_church()){
+			perch_pages_breadcrumbs(array(
+				'include-hidden' => true,
+			)); 
+		}
+	?>
 	<h1>Church Settings</h1>
 	<?php 
 		if(!perch_member_has_church()){

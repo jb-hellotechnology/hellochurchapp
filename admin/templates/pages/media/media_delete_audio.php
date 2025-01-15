@@ -11,6 +11,11 @@ perch_layout('header');
 ?>
 
 <main class="flow full">
+	<?php 
+		perch_pages_breadcrumbs(array(
+			'include-hidden' => true,
+		)); 
+	?>
 	<h1>Media <a class="button primary" href=/media/add-audio>Add Audio<span class="material-symbols-outlined">cloud_upload</span></a></h1>
 	<?php
 		// DISPLAY MESSAGES
