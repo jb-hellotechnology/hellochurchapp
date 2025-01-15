@@ -25,7 +25,7 @@ $('.add-to-email').click(function(){
 		$('.email-container').append('<div class="plan-item bible draggable"><a href=""><span class="material-symbols-outlined">drag_indicator</span></a><input type="text" name="bible_' + random + '" placeholder="John 3:16" /><a href="javascript:;" class="delete-from-email warning"><span class="material-symbols-outlined">delete</span></a></div>');
 	}
 	if(type=='link'){
-		$('.email-container').append('<div class="plan-item link draggable"><a href=""><span class="material-symbols-outlined">drag_indicator</span></a><div><input type="text" name="link_' + random + '_text" placeholder="Button Text" value="Click Here" /><input type="text" name="link_' + random + '_url" placeholder="https://hellochurch.tech" /></div><a href="javascript:;" class="delete-from-email warning"><span class="material-symbols-outlined">delete</span></a></div>');
+		$('.email-container').append('<div class="plan-item link draggable"><a href=""><span class="material-symbols-outlined">drag_indicator</span></a><div><input type="text" name="link_' + random + '_text" placeholder="Button Text" value="Click Here" /><input type="text" class="no-border-top" name="link_' + random + '_url" placeholder="https://hellochurch.tech" /></div><a href="javascript:;" class="delete-from-email warning"><span class="material-symbols-outlined">delete</span></a></div>');
 	}
 	
 	draggable_sortable();
