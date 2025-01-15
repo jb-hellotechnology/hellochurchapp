@@ -88,16 +88,12 @@ perch_layout('header');
 			<section>
 				<header>
 					<h2>Preview</h2>
-					<div>
-						<button class="button small primary" onclick="javascript:preview_plan();">Update Preview</button>
-					</div>
 				</header>
 				<article class="plan-preview flow">
 					
 				</article>
 				<footer>
 					<?php hello_church_form('download_plan_pdf.html'); ?>
-					<button class="button primary" onclick="javascript:preview_plan();">Update Preview</button>
 				</footer>
 			</section>
 		</div>

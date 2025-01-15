@@ -56,6 +56,7 @@ perch_layout('header');
 					<h2>Upload File</h2>
 				</header>
 				<article>
+					<p class="alert hide" id="alert"></p>
 					<?php hello_church_files(0, 0, 0, perch_get('id'), perch_get('date')); ?>
 					<input id="file" type="file" name="file" />
 					<input type="hidden" name="folderID" id="folderID" value="0" />

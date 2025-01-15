@@ -34,6 +34,7 @@ $('.add-to-email').click(function(){
 
 $('body').on('click', 'a.delete-from-email', function() {
 	$(this).parent().remove();
+	save_email();
 });
 
 function handleSubmit(event) {

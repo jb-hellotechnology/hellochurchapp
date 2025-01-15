@@ -1571,6 +1571,11 @@ ul.list li form .button.danger.small.border{
 	text-align:right;
 }
 
+#form1_download_plan_pdf{
+	width:100%;
+	display:flex;
+}
+
 .email-preview .bible{
 	background:var(--color-light);
 	margin:1rem 0;

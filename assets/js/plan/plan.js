@@ -34,6 +34,7 @@ $('.add-to-plan').click(function(){
 
 $('body').on('click', 'a.delete-from-plan', function() {
 	$(this).parent().remove();
+	save_plan();
 });
 
 function handleSubmit(event) {
@@ -56,6 +57,7 @@ function handleSubmit(event) {
   	$.post( "/process/save-plan", { planID: pPlan, date: pDate, time: pTime, plan: json }).done(function( data ) {
 		setTimeout(function(){	
 			$('.save-plan').prop("value", "Saved!");
+			preview_plan();
 		},200);
 		setTimeout(function(){	
 			$('.save-plan').prop("value", "Save Plan");

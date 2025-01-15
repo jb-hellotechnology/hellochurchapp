@@ -211,15 +211,21 @@
 								<p><a href="/documents/edit-file?id='.$file['fileID'].'">'.$file['fileName'].'</a>';
 								if($file['contactID']){
 									$contact = $HelloChurchContacts->contact($file['contactID']);
-									$html .= '<br /><small><a href="/contacts/edit-contact?id='.$file['contactID'].'">'.$contact['contactFirstName'].' '.$contact['contactLastName'].'</a></small>';
+									if($contact){
+										$html .= '<br /><small><a href="/contacts/edit-contact?id='.$file['contactID'].'">'.$contact['contactFirstName'].' '.$contact['contactLastName'].'</a></small>';
+									}
 								}elseif($file['groupID']){
 									$group = $HelloChurchGroups->group($file['groupID']);
-									$html .= '<br /><small><a href="/groups/edit-group?id='.$file['groupID'].'">'.$group['groupName'].'</a></small>';
+									if($group){
+										$html .= '<br /><small><a href="/groups/edit-group?id='.$file['groupID'].'">'.$group['groupName'].'</a></small>';
+									}
 								}elseif($file['eventID']){
 									$event = $HelloChurchEvents->event($file['eventID']);
-									$dateParts = explode("-", $file['eventDate']);
-									$date = "$dateParts[2]/$dateParts[1]/$dateParts[0]";
-									$html .= '<br /><small><a href="/calendar/edit-event?id='.$event['editID'].'&date='.$event['eventDate'].'">'.$event['eventName'].' &bull; '.$date.'</a></small>';
+									if($event){
+										$dateParts = explode("-", $file['eventDate']);
+										$date = "$dateParts[2]/$dateParts[1]/$dateParts[0]";
+										$html .= '<br /><small><a href="/calendar/edit-event?id='.$event['editID'].'&date='.$event['eventDate'].'">'.$event['eventName'].' &bull; '.$date.'</a></small>';
+									}
 								}
 							$html .= '</p>
 							</div>
