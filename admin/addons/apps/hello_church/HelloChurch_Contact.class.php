@@ -72,5 +72,41 @@ class HelloChurch_Contact extends PerchAPI_Base
 	    $results = $this->db->execute($sql);
 	    
     }
+    
+    public function export($contactID){
+	    
+	    $API  = new PerchAPI(1.0, 'hello_church');
+		
+		$sql = "SELECT * FROM perch3_hellochurch_contacts WHERE contactID='".$contactID."'";
+	    $results = $this->db->get_rows($sql);
+	    // Start the output buffer.
+		ob_start();
+		
+		// Set PHP headers for CSV output.
+		header('Content-Type: text/csv; charset=utf-8');
+		header('Content-Disposition: attachment; filename=hello_church_contact.csv');
+		
+		// Create the headers.
+		$header_args = array( 'ID', 'Church', 'Member', 'First Name', 'Last Name', 'Address 1', 'Address 2', 'City', 'County', 'Post Code', 'Country', 'Email', 'Phone', 'Accepts Emai', 'Accepts SMS', 'Tags', 'Additional Data' );
+		
+		// Clean up output buffer before writing anything to CSV file.
+		ob_end_clean();
+		
+		// Create a file pointer with PHP.
+		$output = fopen( 'php://output', 'w' );
+		
+		// Write headers to CSV file.
+		fputcsv( $output, $header_args );
+		
+		// Loop through the prepared data to output it to CSV file.
+		foreach( $results as $data_item ){
+		    fputcsv( $output, $data_item );
+		}
+		
+		// Close the file pointer with PHP with the updated output.
+		fclose( $output );
+		exit;
+	    
+    }
 
 }

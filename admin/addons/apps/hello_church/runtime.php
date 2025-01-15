@@ -109,6 +109,9 @@ error_reporting(E_ALL);
 			
 			$data = $HelloChurchContacts->contact($_GET['id']);
 			
+		}elseif($template == 'export_contact.html'){
+			
+			
 		}elseif($template == 'export_contacts.html'){
 			
 			
@@ -424,6 +427,9 @@ error_reporting(E_ALL);
 		        $contact = $HelloChurchContacts->find($SubmittedForm->data['contactID']);
 		        $contact->delete_tags($contact->id(), $data);
 		        $contact->delete(); 
+            break;
+            case 'export_contact':
+				$data = $HelloChurchContact->export($SubmittedForm->data['contactID']); 
             break;
             case 'export_contacts':
 		        $church = $HelloChurchChurches->church($Session->get('churchID'));

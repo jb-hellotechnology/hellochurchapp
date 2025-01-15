@@ -105,6 +105,7 @@ $name = hello_church_contact_get(perch_get('id'), 'contactFirstName').' '.hello_
 	
 	<div class="panel flow">
 		<h3>More Options</h3>
+		<p><a href="/contacts/export-contact/?id=<?= perch_get('id') ?>">Export contact</a></p>
 		<p><a href="/contacts/delete-contact/?id=<?= perch_get('id') ?>" class="warning">Delete contact</a></p>
 	</div>
 </main>

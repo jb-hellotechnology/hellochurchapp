@@ -53,7 +53,13 @@ perch_layout('header');
 								echo '<div class="plan-item bible draggable"><a href=""><span class="material-symbols-outlined">drag_indicator</span></a><input type="text" name="bible_'.rand().'" placeholder="John 3:16" value="'.$item.'" /><a href="javascript:;" class="delete-from-email warning"><span class="material-symbols-outlined">delete</span></a></div>';
 							}
 							if($type=='link'){
-								echo '<div class="plan-item link draggable"><a href=""><span class="material-symbols-outlined">drag_indicator</span></a><input type="text" name="link_'.rand().'" placeholder="https://hellochurch.tech" value="'.$item.'" /><a href="javascript:;" class="delete-from-email warning"><span class="material-symbols-outlined">delete</span></a></div>';
+								
+								if($typeParts[2]=='text'){
+									$buttonText = $item;	
+								}else{
+									echo '<div class="plan-item link draggable"><a href=""><span class="material-symbols-outlined">drag_indicator</span></a><div><input type="text" name="link_'.rand().'_text" placeholder="Button Text" value="'.$buttonText.'" /><input type="text" name="link_'.rand().'_url" placeholder="https://hellochurch.tech" value="'.$item.'" /></div><a href="javascript:;" class="delete-from-email warning"><span class="material-symbols-outlined">delete</span></a></div>';
+								}
+								
 							}
 						}	
 						?>

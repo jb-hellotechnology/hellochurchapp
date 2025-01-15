@@ -1,0 +1,22 @@
+<perch:form id="export_contact" method="post" app="hello_church" action="/contacts/export-contact?id=<perch:forms id="contactID">">
+
+	<article class="flow">
+		<perch:success show-form="true">
+			<article class="flow">
+				<p class="alert success"><span class="material-symbols-outlined">check_circle</span>Contact exported</p>
+			</article>
+			<footer>
+				<a class="button primary" href="/contacts">Contacts</a>
+			</footer>
+		</perch:success>
+		<div>
+			<p>Use this option to export the data you hold on this contact.</p>
+		</div>
+	</article>
+
+	<footer>
+		<perch:input type="hidden" value="<perch:forms id="contactID">" name="contactID" />
+		<perch:input type="submit" value="Export Contact" class="button primary" />
+	</footer>
+
+</perch:form>

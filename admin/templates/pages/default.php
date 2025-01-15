@@ -13,6 +13,11 @@ perch_content_create('Page', array(
 perch_layout('header');
 ?>
 <main class="flow">
+	<?php 
+		perch_pages_breadcrumbs(array(
+			'include-hidden' => true,
+		)); 
+	?>
 	<?php perch_content('Page'); ?>
 </main>
 <?php perch_layout('footer'); ?>
