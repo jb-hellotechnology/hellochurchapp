@@ -31,6 +31,19 @@
 			<perch:label for="audioBible">Bible Book</perch:label>
 			<perch:input type="select" id="audioBible" label="Audio Bible" options="<perch:forms id="audioBible_options" />" />
 		</div>
+		<div>
+			<perch:label for="audioPublish">Publish to Podcast?</perch:label>
+			<perch:input type="select" id="audioPublish" label="Publish to Podcast?" options="No,Yes" />
+		</div>
+		<div>
+			<perch:label>Preview</perch:label>
+			<audio controls>
+				<source src="horse.ogg" type="audio/ogg">
+				<source src="/podcast/episode/<perch:forms id="audioID">/audio.mp3" type="audio/mpeg">
+				Your browser does not support the audio element.
+			</audio> 
+			
+		</div>
 	</article>
 
 	<footer>

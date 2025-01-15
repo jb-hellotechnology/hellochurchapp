@@ -8,7 +8,7 @@ class HelloChurch_Audios extends PerchAPI_Factory
 
 	protected $default_sort_column = 'audioID';
 
-	public $static_fields = array('audioID', 'churchID', 'memberID', 'audioName', 'audioDate', 'audioDescription', 'audioSeries', 'audioSpeaker', 'audioBible', 'audioFileLocation', 'audioFileName');
+	public $static_fields = array('audioID', 'churchID', 'memberID', 'audioName', 'audioDate', 'audioDescription', 'audioSeries', 'audioSpeaker', 'audioBible', 'audioFileLocation', 'audioFileName', 'audioPublish');
     
     public function add_audio($memberID, $churchID, $audioName, $audioDate, $audioDescription, $audioSpeaker, $audioSeries, $audioBible, $audioFile){
 	    
@@ -48,6 +48,16 @@ class HelloChurch_Audios extends PerchAPI_Factory
 	    $API  = new PerchAPI(1.0, 'hello_church');
 		
 		$sql = "SELECT * FROM perch3_hellochurch_audio WHERE churchID='".$churchID."' ORDER BY audioID DESC";
+	    $results = $this->db->get_rows($sql);
+	    return $results;
+	    
+    }
+    
+    public function audiosPodcast($churchID){
+	    
+	    $API  = new PerchAPI(1.0, 'hello_church');
+		
+		$sql = "SELECT * FROM perch3_hellochurch_audio WHERE churchID='".$churchID."' AND audioPublish='Yes' ORDER BY audioID DESC";
 	    $results = $this->db->get_rows($sql);
 	    return $results;
 	    

@@ -7,7 +7,7 @@
 
         $HelloChurchAudios = new HelloChurch_Audios($API);
 	    
-		$audios = $HelloChurchAudios->audios($churchID);
+		$audios = $HelloChurchAudios->audiosPodcast($churchID);
 		
 		foreach($audios as $audio){
 			
