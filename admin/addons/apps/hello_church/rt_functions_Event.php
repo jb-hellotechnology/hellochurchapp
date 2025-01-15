@@ -210,7 +210,7 @@
 
         $HelloChurchEvents = new HelloChurch_Events($API);
 	    
-		$events = $HelloChurchEvents->events($churchID);
+		$events = $HelloChurchEvents->eventsFeed($churchID);
 		
 		foreach($events as $event){
 			

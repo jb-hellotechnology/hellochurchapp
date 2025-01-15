@@ -8,11 +8,20 @@ class HelloChurch_Events extends PerchAPI_Factory
 
 	protected $default_sort_column = 'start';
 
-	public $static_fields = array('eventID', 'churchID', 'memberID', 'eventName', 'eventDescription', 'allDay', 'start', 'end', 'repeatEvent', 'repeatEnd', 'roles');
+	public $static_fields = array('eventID', 'churchID', 'memberID', 'eventName', 'eventDescription', 'allDay', 'start', 'end', 'repeatEvent', 'repeatEnd', 'roles', 'venues', 'eventPublish');
 	
 	public function events($churchID){
 		
 		$sql = "SELECT * FROM perch3_hellochurch_events WHERE churchID='".$churchID."' ORDER BY start ASC";
+	    $results = $this->db->get_rows($sql);
+	    
+	    return $results;
+	    
+	}
+	
+	public function eventsFeed($churchID){
+		
+		$sql = "SELECT * FROM perch3_hellochurch_events WHERE churchID='".$churchID."' AND eventPublish='Yes' ORDER BY start ASC";
 	    $results = $this->db->get_rows($sql);
 	    
 	    return $results;
