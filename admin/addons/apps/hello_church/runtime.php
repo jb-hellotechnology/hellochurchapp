@@ -714,7 +714,14 @@ error_reporting(E_ALL);
 					}
 					if($type=='link'){
 						$pdf->SetFont('Arial','',12);
-						$pdf->WriteHTML("<p>".$item."<p><br><br>");
+						
+						if($typeParts[2]=='text'){
+							$buttonText = $item;	
+						}else{
+							$pdf->WriteHTML("<p>[".$buttonText."] ".$item."<p><br><br>");
+						}
+								
+						
 					}
 					
 				}

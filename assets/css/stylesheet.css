@@ -1556,6 +1556,21 @@ ul.list li form .button.danger.small.border{
 	margin-bottom:1rem;
 }
 
+.plan-item label{
+	grid-row: 1;
+	grid-column: 1 / 4;
+	padding-right:40px;
+	font-size:80%;
+	font-weight: 400;
+	text-transform: uppercase;
+	color:var(--color-light-grey);
+	text-align: right;
+}
+
+.plan-item:hover label{
+	color:var(--color-primary);
+}
+
 .plan-item span{
 	height:30px;
 }

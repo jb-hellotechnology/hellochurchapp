@@ -51,7 +51,13 @@ foreach($plan as $type => $item){
 
 	}
 	if($type=='link'){
-		echo '<p><a class="button primary" href="'.$item.'">Click Here</a></p>';
+		
+		if($typeParts[2]=='text'){
+			$buttonText = $item;	
+		}else{
+			echo '<p><a class="button primary" href="'.$item.'">'.$buttonText.'</a></p>';
+		}
+		
 	}
 	
 }
