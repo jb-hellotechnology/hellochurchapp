@@ -120,7 +120,7 @@ foreach($email as $type => $item){
 	}
 	if($type=='image'){
 		$image = hello_church_file($item);
-		$emailContent .= '<img src="https://app.hellochurch.tech/feed/file-image/'.$image['churchID'].'/'.$image['fileID'].'" alt="Image" style="margin-bottom:16px;" />';
+		$emailContent .= '<img src="https://app.hellochurch.tech/feed/file-image/'.$image['churchID'].'/'.$image['fileID'].'" alt="Image" style="margin-bottom:16px;max-width:100%;width:100%;" />';
 	}
 	if($type=='file'){
 		$file = hello_church_file($item);
