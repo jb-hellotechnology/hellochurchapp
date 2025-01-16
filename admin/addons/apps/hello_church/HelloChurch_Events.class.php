@@ -129,10 +129,6 @@ class HelloChurch_Events extends PerchAPI_Factory
 		    $result = $this->db->execute($sql);
 		    
 	    }
-	    
-	    echo $sql;
-	    
-	    //echo 'Saved';
 		
 	}
 	
@@ -142,6 +138,87 @@ class HelloChurch_Events extends PerchAPI_Factory
 	    $result = $this->db->get_row($sql);
 	    
 	    return $result['eventPlan'];
+		
+	}
+	
+	public function events_for_email($churchID){
+		
+		$today = date('Y-m-d');
+		
+		$sql = "SELECT * FROM perch3_hellochurch_events WHERE churchID='".$churchID."' AND 
+			(
+				LEFT(start, 10)>='".$today."' OR 
+				(repeatEvent!='' AND repeatEnd>='".$today."')
+			)
+			ORDER BY start ASC";
+	    $results = $this->db->get_rows($sql);
+	    
+	    //print_r($results);
+	    
+	    $events = array();
+		
+	    $results = $this->db->get_rows($sql);
+	    
+	    foreach($results as $event){
+		    
+		    $startParts = explode(" ", $event['start']);
+		    $dateParts = explode("-", $startParts[0]);
+		    $startDate = "$dateParts[2]/$dateParts[1]/$dateParts[0] $startParts[1]";
+		    
+		    $thisEvent = array('value' => $event['eventID'].'_'.$event['start'], 'text' => $event['eventName'].' - '.$startDate, 'date' => strtotime($startParts[0]));
+		    $events[] = $thisEvent;
+		    
+		    if($event['repeatEvent']){
+			    
+			    if($event['repeatEvent']=='daily'){
+				   
+				    $eDate = $today;
+				    while($eDate<$event['repeatEnd']){
+					    $pDate = explode("-", $eDate);
+					    $eDate = date("Y-m-d", mktime(0, 0, 0, $pDate[1], $pDate[2]+1, $pDate[0]));
+					    $fDate = date("d/m/Y", mktime(0, 0, 0, $pDate[1], $pDate[2]+1, $pDate[0]));
+					    $thisEvent = array('value' => $event['eventID'].'_'.$eDate.' '.$startParts[1], 'text' => $event['eventName'].' - '.$fDate.' '.$startParts[1], 'date' => strtotime($eDate));
+					    $events[] = $thisEvent;
+				    }
+				    
+			    }elseif($event['repeatEvent']=='weekly'){
+				    
+				    $eDate = $startParts[0];
+				    while($eDate<$event['repeatEnd']){
+					    $pDate = explode("-", $eDate);
+					    $eDate = date("Y-m-d", mktime(0, 0, 0, $pDate[1], $pDate[2]+7, $pDate[0]));
+					    $fDate = date("d/m/Y", mktime(0, 0, 0, $pDate[1], $pDate[2]+7, $pDate[0]));
+					    $thisEvent = array('value' => $event['eventID'].'_'.$eDate.' '.$startParts[1], 'text' => $event['eventName'].' - '.$fDate.' '.$startParts[1], 'date' => strtotime($eDate));
+					    $events[] = $thisEvent;
+				    }
+				    
+			    }elseif($event['repeatEvent']=='weekdays'){
+				    
+				    $eDate = $startParts[0];
+				    while($eDate<$event['repeatEnd']){
+					    $pDate = explode("-", $eDate);
+					    $eDay = date("N", mktime(0, 0, 0, $pDate[1], $pDate[2]+1, $pDate[0]));
+					    
+					    $eDate = date("Y-m-d", mktime(0, 0, 0, $pDate[1], $pDate[2]+1, $pDate[0]));
+					    $fDate = date("d/m/Y", mktime(0, 0, 0, $pDate[1], $pDate[2]+1, $pDate[0]));
+					    if($eDay<6){
+						    $thisEvent = array('value' => $event['eventID'].'_'.$eDate.' '.$startParts[1], 'text' => $event['eventName'].' - '.$fDate.' '.$startParts[1], 'date' => strtotime($eDate));
+						    $events[] = $thisEvent;
+					    }
+				    }
+				    
+			    }
+			    
+		    }
+		    
+	    }
+	    
+	    //** SORT THE ARRAY **//
+	    array_multisort(array_column($events,'date'), SORT_ASC, SORT_NUMERIC, 
+	    	array_keys($events), SORT_NUMERIC, SORT_ASC,$events);
+	  	
+	    $events = json_encode($events);
+	    return $events;
 		
 	}
 

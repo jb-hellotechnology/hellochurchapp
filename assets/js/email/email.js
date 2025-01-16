@@ -27,9 +27,118 @@ $('.add-to-email').click(function(){
 	if(type=='link'){
 		$('.email-container').append('<div class="plan-item link draggable"><label>Button</label><a href=""><span class="material-symbols-outlined">drag_indicator</span></a><div><input type="text" name="link_' + random + '_text" placeholder="Button Text" value="Click Here" /><input type="text" class="no-border-top" name="link_' + random + '_url" placeholder="https://hellochurch.tech" /></div><a href="javascript:;" class="delete-from-email warning"><span class="material-symbols-outlined">delete</span></a></div>');
 	}
+	if(type=='image'){
+		$('.email-container').append('<div class="plan-item image draggable"><label>Image</label><a href=""><span class="material-symbols-outlined">drag_indicator</span></a><select name="image_' + random + '" id="image_' + random +'"></select><a href="javascript:;" class="delete-from-email warning"><span class="material-symbols-outlined">delete</span></a></div>');
+		populate_select('image_' + random, 'image');
+	}
+	if(type=='file'){
+		$('.email-container').append('<div class="plan-item file draggable"><label>File</label><a href=""><span class="material-symbols-outlined">drag_indicator</span></a><select name="file_' + random + '" id="file_' + random +'"></select><a href="javascript:;" class="delete-from-email warning"><span class="material-symbols-outlined">delete</span></a></div>');
+		populate_select('file_' + random, 'file');
+	}
+	if(type=='event'){
+		$('.email-container').append('<div class="plan-item event draggable"><label>Event</label><a href=""><span class="material-symbols-outlined">drag_indicator</span></a><select name="event_' + random + '" id="event_' + random +'"></select><a href="javascript:;" class="delete-from-email warning"><span class="material-symbols-outlined">delete</span></a></div>');
+		populate_select('event_' + random, 'event');
+	}
 	
 	draggable_sortable();
 	save_email();
+});
+
+function populate_select(pItem, pType){
+
+	$.get( "/process/populate-select", { type: pType }).done(function( items ) {
+		$('#' + pItem).append($('<option>', { 
+	        value: 0,
+	        text : 'Please Select' 
+	    }));
+		$.each(JSON.parse(items), function (i, item) {
+		    $('#' + pItem).append($('<option>', { 
+		        value: item.value,
+		        text : item.text 
+		    }));
+		});
+		
+	});
+	
+}
+
+$(document).ready(function(){
+	
+	$('.image-select').each(function(){
+		let active = $(this).data('image');
+		let id = $(this).data('id');
+		$.get( "/process/populate-select", { type: 'image' }).done(function( items ) {
+			$('#image_'+id).append($('<option>', { 
+		        value: 0,
+		        text : 'Please Select' 
+		    }));
+			$.each(JSON.parse(items), function (i, item) {
+				if(item.value == active){
+					$('#image_'+id).append($('<option>', { 
+				        value: item.value,
+				        text : item.text,
+				        selected: true
+				    }));
+				}else{
+					$('#image_'+id).append($('<option>', { 
+				        value: item.value,
+				        text : item.text,
+				    }));	
+				}
+			});
+		});
+	});
+	
+	$('.file-select').each(function(){
+		let active = $(this).data('file');
+		let id = $(this).data('id');
+		$.get( "/process/populate-select", { type: 'file' }).done(function( items ) {
+			$('#file_'+id).append($('<option>', { 
+		        value: 0,
+		        text : 'Please Select' 
+		    }));
+			$.each(JSON.parse(items), function (i, item) {
+				if(item.value == active){
+					$('#file_'+id).append($('<option>', { 
+				        value: item.value,
+				        text : item.text,
+				        selected: true
+				    }));
+				}else{
+					$('#file_'+id).append($('<option>', { 
+				        value: item.value,
+				        text : item.text,
+				    }));	
+				}
+			});
+		});
+	});
+	
+	$('.event-select').each(function(){
+		let active = $(this).data('event');
+		let id = $(this).data('id');
+		$.get( "/process/populate-select", { type: 'event' }).done(function( items ) {
+			$('#event_'+id).append($('<option>', { 
+		        value: 0,
+		        text : 'Please Select' 
+		    }));
+			$.each(JSON.parse(items), function (i, item) {
+				if(item.value == active){
+					$('#event_'+id).append($('<option>', { 
+				        value: item.value,
+				        text : item.text,
+				        selected: true
+				    }));
+				}else{
+					$('#event_'+id).append($('<option>', { 
+				        value: item.value,
+				        text : item.text,
+				    }));	
+				}
+			});
+		});
+	});
+	
 });
 
 $('body').on('click', 'a.delete-from-email', function() {

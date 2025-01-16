@@ -165,5 +165,57 @@ class HelloChurch_Folders extends PerchAPI_Factory
 	    return $results;
 	    
     }
+    
+    public function files_for_email($churchID){
+	    
+	    $API  = new PerchAPI(1.0, 'hello_church');
+	    
+	    $sql = "SELECT * FROM perch3_hellochurch_files WHERE churchID='".$churchID."' ORDER BY fileCreated DESC LIMIT 100";   
+	    
+	    $files = array();
+		
+	    $results = $this->db->get_rows($sql);
+	    
+	    foreach($results as $file){
+		    
+		    $thisFile = array('value' => $file['fileID'], 'text' => $file['fileName']);
+		    $files[] = $thisFile;
+		    
+	    }
+	    
+	    $files = json_encode($files);
+	    return $files;
+	    
+    }
+    
+    public function images_for_email($churchID){
+	    
+	    $API  = new PerchAPI(1.0, 'hello_church');
+	    
+	    $sql = "SELECT * FROM perch3_hellochurch_files WHERE churchID='".$churchID."' AND 
+	    	(
+	    		RIGHT(fileLocation,3)='jpg' OR 
+	    		RIGHT(fileLocation,3)='JPG' OR 
+	    		RIGHT(fileLocation,4)='jpeg' OR 
+	    		RIGHT(fileLocation,4)='JPEG'
+	    		
+	    	) 
+	    	ORDER BY fileCreated DESC LIMIT 100";   
+	    
+	    $files = array();
+		
+	    $results = $this->db->get_rows($sql);
+	    
+	    foreach($results as $file){
+		    
+		    $thisFile = array('value' => $file['fileID'], 'text' => $file['fileName']);
+		    $files[] = $thisFile;
+		    
+	    }
+	    
+	    $files = json_encode($files);
+	    return $files;
+	    
+    }
 
 }

@@ -61,6 +61,18 @@ perch_layout('header');
 								}
 								
 							}
+							if($type=='image'){
+								$rand = rand();
+								echo '<div class="plan-item image draggable"><label>Image</label><a href=""><span class="material-symbols-outlined">drag_indicator</span></a><select name="image_'.$rand.'" data-image="'.$item.'" data-id="'.$rand.'" id="image_'.$rand.'" class="image-select"></select><a href="javascript:;" class="delete-from-email warning"><span class="material-symbols-outlined">delete</span></a></div>';
+							}
+							if($type=='file'){
+								$rand = rand();
+								echo '<div class="plan-item file draggable"><label>File</label><a href=""><span class="material-symbols-outlined">drag_indicator</span></a><select name="file_'.$rand.'" data-file="'.$item.'" data-id="'.$rand.'" id="file_'.$rand.'" class="file-select"></select><a href="javascript:;" class="delete-from-email warning"><span class="material-symbols-outlined">delete</span></a></div>';
+							}
+							if($type=='event'){
+								$rand = rand();
+								echo '<div class="plan-item image draggable"><label>Event</label><a href=""><span class="material-symbols-outlined">drag_indicator</span></a><select name="event_'.$rand.'" data-event="'.$item.'" data-id="'.$rand.'" id="event_'.$rand.'" class="event-select"></select><a href="javascript:;" class="delete-from-email warning"><span class="material-symbols-outlined">delete</span></a></div>';
+							}
 						}	
 						?>
 					</div>
@@ -70,6 +82,9 @@ perch_layout('header');
 						<button class="button secondary add-to-email" data-type="text">Text <span class="material-symbols-outlined">description</span></button>
 						<button class="button secondary add-to-email" data-type="bible">Bible Passage <span class="material-symbols-outlined">menu_book</span></button>
 						<button class="button secondary add-to-email" data-type="link">Button <span class="material-symbols-outlined">link</span></button>
+						<button class="button secondary add-to-email" data-type="image">Image <span class="material-symbols-outlined">image</span></button>
+						<button class="button secondary add-to-email" data-type="file">File <span class="material-symbols-outlined">attach_file</span></button>
+						<button class="button secondary add-to-email" data-type="event">Event <span class="material-symbols-outlined">event</span></button>
 					</div>
 				</article>
 				<footer>
