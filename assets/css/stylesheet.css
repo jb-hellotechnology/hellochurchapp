@@ -1554,7 +1554,7 @@ ul.list li form .button.danger.small.border{
 
 .plan-item{
 	display:grid;
-	grid-template-columns: 40px auto 40px;
+	grid-template-columns: 20px auto 20px;
 	margin-bottom:1rem;
 }
 
@@ -1581,7 +1581,7 @@ ul.list li form .button.danger.small.border{
 	border-bottom: none;
 	display:flex;
 	align-items: center;
-	justify-content: center;
+	justify-content: left;
 }
 
 .plan-item span:first-child{
@@ -1590,6 +1590,7 @@ ul.list li form .button.danger.small.border{
 
 .plan-item span:last-child{
 	text-align:right;
+	justify-content: right;
 }
 
 #form1_download_plan_pdf{
