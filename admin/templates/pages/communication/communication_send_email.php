@@ -142,7 +142,7 @@ foreach($email as $type => $item){
 	}
 	if($type=='event'){
 		$parts = explode("_", $item);
-		$event = $HelloChurchEvents->event($parts[0]);
+		$event = hello_church_event($parts[0]);
 		$tParts = explode(" ", $parts[1]);
 		$dParts = explode("-", $tParts[0]);
 		$timeStamp = "$dParts[2]/$dParts[1]/$dParts[0] $tParts[1]";

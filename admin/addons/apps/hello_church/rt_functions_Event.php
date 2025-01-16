@@ -162,6 +162,17 @@
 		
 	}
 	
+	/** GET EVENT **/
+	function hello_church_event($id){
+		
+		$API  = new PerchAPI(1.0, 'hello_church');
+		$HelloChurchEvents = new HelloChurch_Events($API);
+		
+		$event = $HelloChurchEvents->find($id);
+		return $event;
+		
+	}
+	
 	/** LIST RESPONSIBILITIES **/
 	function hello_church_contact_responsibilities($id){
 		
