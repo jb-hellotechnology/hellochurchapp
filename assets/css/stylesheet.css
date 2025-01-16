@@ -786,6 +786,7 @@ input[type=password],
 input[type=email],
 input[type=url],
 input[type=tel],
+select,
 textarea,
 .redactor-styles{
 	border:1px solid var(--color-light-grey);
