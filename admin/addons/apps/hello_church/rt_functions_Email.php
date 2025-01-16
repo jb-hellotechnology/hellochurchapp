@@ -227,7 +227,7 @@
 				$tParts = explode(" ", $parts[1]);
 				$dParts = explode("-", $tParts[0]);
 				$timeStamp = "$dParts[2]/$dParts[1]/$dParts[0] $tParts[1]";
-				$emailContent .= '<div style="font-family: Helvetica, sans-serif !important; font-size: 16px; font-weight: normal; margin: 0; margin-bottom: 16px;background:#f0f2f9;padding:16px;"><h2 style="font-family: Helvetica, sans-serif; font-size: 20px; font-weight: strong; margin: 0; margin-bottom: 16px;">'.$event['eventName'].'</h2><p style="font-family: Helvetica, sans-serif; font-size: 16px; font-weight: normal; font-style:italic; margin: 0; margin-bottom: 16px;">'.$timeStamp.'</p><p style="font-family: Helvetica, sans-serif; font-size: 16px; font-weight: normal; margin: 0; margin-bottom: 16px;">'.nl2br($event['eventDescription']).'</p></div>';
+				$emailContent .= '<div style="font-family: Helvetica, sans-serif !important; font-size: 16px; font-weight: normal; margin: 0; margin-bottom: 16px;background:#f0f2f9;padding:16px;"><h2 style="font-family: Helvetica, sans-serif; font-size: 20px; font-weight: strong; margin: 0; margin-bottom: 16px;">'.$event['eventName'].'</h2><p style="font-family: Helvetica, sans-serif; font-size: 16px; font-weight: normal; font-style:italic; margin: 0; margin-bottom: 16px;">'.$timeStamp.'</p><p style="font-family: Helvetica, sans-serif; font-size: 16px; font-weight: normal; margin: 0;">'.nl2br($event['eventDescription']).'</p></div>';
 		
 			}
 			
