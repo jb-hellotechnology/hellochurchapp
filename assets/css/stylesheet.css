@@ -1584,11 +1584,7 @@ ul.list li form .button.danger.small.border{
 	justify-content: left;
 }
 
-.plan-item span:first-child{
-	text-align:left;
-}
-
-.plan-item span:last-child{
+.plan-item a:last-child{
 	text-align:right;
 	justify-content: right;
 }
