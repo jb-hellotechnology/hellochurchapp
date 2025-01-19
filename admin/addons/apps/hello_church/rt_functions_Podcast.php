@@ -44,7 +44,7 @@
 	    
 	    $Session = PerchMembers_Session::fetch();
 	    
-		$podcast = $HelloChurchPodcasts->podcast($Session->get('churchID'));
+		$podcast = $HelloChurchPodcasts->podcast(perch_member_get('churchID'));
 		
 		return $podcast;
 	    

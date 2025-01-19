@@ -394,6 +394,16 @@ header{
 	z-index:1000;
 }
 
+.admin_alert{
+	background: var(--color-dark);
+	color:var(--color-light-grey);
+	font-size:80%;
+	max-width: 100%;
+	font-family: monospace;
+	text-align: center;
+	padding:0 1rem;
+}
+
 header h2{
 	font-size:var(--size-step-0);
 	margin:0.5em 1em;
@@ -403,6 +413,13 @@ header h2{
 
 header h2.gooddog{
 	font-family: "gooddog-new", sans-serif;
+	max-width: 100%;
+}
+
+@media screen and (max-width:640px){
+	header h2.gooddog span{
+		display:none;
+	}
 }
 
 header h2 a{
@@ -580,6 +597,19 @@ header .account-nav li .material-symbols-outlined{
 
 header .account-nav li:first-child{
 	border-top:none;
+}
+
+header .account-nav-button{
+	font-family: "gooddog-new", sans-serif;
+	display:flex;
+	justify-content: center;
+	align-items: center;
+}
+
+@media screen and (max-width:900px){
+	header .account-nav-button .welcome{
+		display: none;
+	}
 }
 
 button.menu{

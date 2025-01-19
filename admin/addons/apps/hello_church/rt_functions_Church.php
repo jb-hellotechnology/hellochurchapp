@@ -32,7 +32,7 @@
 		
 		$Session = PerchMembers_Session::fetch();
 		
-		$church = $HelloChurchChurches->church($Session->get('churchID'));
+		$church = $HelloChurchChurches->church(perch_member_get('churchID'));
 		
 		if($return){
 			return $church;
@@ -66,7 +66,7 @@
 	    $API  = new PerchAPI(1.0, 'hello_church');
 		$Session = PerchMembers_Session::fetch();
 		$Churches = new HelloChurch_Churches($API);
-		return $Churches->current_period_end($Session->get('churchID'));
+		return $Churches->current_period_end(perch_member_get('churchID'));
     }
     
     /** RETURN STRIPE DATA BASED ON INPUT **/
@@ -74,7 +74,7 @@
 	    $API  = new PerchAPI(1.0, 'hello_church');
 		$Session = PerchMembers_Session::fetch();
 		$Churches = new HelloChurch_Churches($API);
-		return $Churches->get_stripe_data($Session->get('churchID'), $field);
+		return $Churches->get_stripe_data(perch_member_get('churchID'), $field);
     }
 
 	/** UPDATE STRIPE CUSTOMER ID AND REFRESH SESSION DATA **/
@@ -103,9 +103,9 @@
 		$Church = new HelloChurch_Church($API);
 
 		if(is_object($Churches)){
-			$Church = $Churches->find($Session->get('churchID'));
+			$Church = $Churches->find(perch_member_get('churchID'));
         	if(is_object($Church)) {
-				$Church->update_subscription_id($Session->get('churchID'), $id);
+				$Church->update_subscription_id(perch_member_get('churchID'), $id);
 				$PerchMembers_Auth = new PerchMembers_Auth($API);
                 $PerchMembers_Auth->refresh_session_data($Member);
 			}
@@ -143,6 +143,14 @@
                 $PerchMembers_Auth->refresh_session_data($Member);
 			}
 		}
+    }
+    
+    /** UPDATE CURRENT SESSION CHURCH ID **/
+    function hello_church_update_church_session($churchID){
+	    $API  = new PerchAPI(1.0, 'hello_church');
+	    $PerchMembers_Auth = new PerchMembers_Auth($API);
+        $PerchMembers_Auth->update_church_session($churchID);
+	    
     }
     
 ?>

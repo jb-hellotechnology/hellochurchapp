@@ -16,7 +16,7 @@ perch_layout('header');
 $subscriptionCancel = stripe_data('churchCancel');
 
 ?>
-<main>
+<main class="flow">
 	<?php 
 		perch_pages_breadcrumbs(array(
 			'include-hidden' => true,

@@ -31,6 +31,7 @@
 	function perch_member_has_church(){
 		$API  = new PerchAPI(1.0, 'perch_members');
 		$Session = PerchMembers_Session::fetch();
+		session_start();
 		if($Session->get('churchID')){
 			return true;
 		}else{
@@ -243,7 +244,7 @@
             $Session = PerchMembers_Session::fetch();
 
             if ($Session->logged_in) {
-                return $Session->get($property);
+	            return $Session->get($property);    
             }
         }
 

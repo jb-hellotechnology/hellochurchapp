@@ -7,9 +7,11 @@ if(!perch_member_logged_in()){
 }
 
 perch_layout('header');
+
+$church = hello_church_church(true);
 ?>
 <main class="full">
-	<h1>Dashboard</h1>
+	<h1><?= $church['churchName'] ?></h1>
 	<section class="no-shadow">
 	<ul class="cards menu">
 		<li>
@@ -54,9 +56,9 @@ perch_layout('header');
 		</li>
 		<li>
 			<div>
-				<a href="/media">
-					<span class="material-symbols-outlined">perm_media</span>
-					<h3>Media</h3>
+				<a href="/audio">
+					<span class="material-symbols-outlined">mic</span>
+					<h3>Audio</h3>
 				</a>
 			</div>
 		</li>
@@ -68,6 +70,7 @@ perch_layout('header');
 				</a>
 			</div>
 		</li>
+<!--
 		<li>
 			<div>
 				<a href="/help">
@@ -76,6 +79,7 @@ perch_layout('header');
 				</a>
 			</div>
 		</li>
+-->
 	</ul>
 	</section>
 	<section>

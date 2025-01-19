@@ -57,9 +57,7 @@ class PerchMembers_Auth extends PerchAPI_Factory
 						$Perch = Perch::fetch();
 						$Perch->event('members.login', $user_row);
 
-						if (isset($SubmittedForm->data['r']) && $SubmittedForm->data['r']!='') {
-							PerchUtil::redirect($SubmittedForm->data['r']);
-						}
+						PerchUtil::redirect('/check');
 
 						return true;
 
@@ -119,12 +117,18 @@ class PerchMembers_Auth extends PerchAPI_Factory
 				unset($user_row['memberProperties']);
 			}
 			
-			$sql = 'SELECT * FROM '.PERCH_DB_PREFIX.'hellochurch_churches WHERE memberID="'.$memberID.'" LIMIT 1';
-			$row = $this->db->get_row($sql);
-			if($row){
-				$churchID = $row['churchID'];
+			if(perch_get('id')){
+				$churchID = perch_get('id');
+			}elseif(perch_member_get('churchID')){
+				$churchID = perch_member_get('churchID');
 			}else{
-				$churchID = 0;
+				$sql = 'SELECT * FROM '.PERCH_DB_PREFIX.'hellochurch_churches WHERE memberID="'.$memberID.'" ORDER BY churchID ASC LIMIT 1';
+				$row = $this->db->get_row($sql);
+				if($row){
+					$churchID = $row['churchID'];
+				}else{
+					$churchID = 0;
+				}
 			}
 
 			$session_data = $user_row;
@@ -307,6 +311,30 @@ class PerchMembers_Auth extends PerchAPI_Factory
 	protected function _generate_csrf_token($seed)
 	{
 		return sha1($seed.uniqid(mt_rand(), true));
+	}
+	
+	public function update_church_session($churchID){
+		
+		$Members = new PerchMembers_Members($this->api);
+		
+		$Session = PerchMembers_Session::fetch();
+		
+		$sql = 'UPDATE perch3_members_sessions SET churchID="'.$churchID.'" WHERE memberID='.perch_member_get('memberID');
+		$this->db->execute($sql);
+		
+		$sql = 'SELECT * FROM perch3_members_sessions WHERE memberID='.perch_member_get('memberID');
+		$result = $this->db->get_rows($sql);
+		
+		foreach($result as $item){
+			
+			$sessionData = json_decode($item['sessionData'], true);
+			$sessionData['churchID'] = $churchID;
+			$sessionData = json_encode($sessionData);
+			
+			$sql = "UPDATE perch3_members_sessions SET churchID='".$churchID."', sessionData='".$sessionData."' WHERE memberID=".perch_member_get('memberID');
+			$this->db->execute($sql);
+			
+		}
 	}
 }
 

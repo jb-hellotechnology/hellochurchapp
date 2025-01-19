@@ -8,7 +8,7 @@
 		
 		$Session = PerchMembers_Session::fetch();
 		
-		$owner = $HelloChurchAudios->check_audio_owner($Session->get('churchID'), $audioID);
+		$owner = $HelloChurchAudios->check_audio_owner(perch_member_get('churchID'), $audioID);
 		
 		return $owner;
 		
@@ -22,7 +22,7 @@
         
 		$Session = PerchMembers_Session::fetch();
 		
-		$HelloChurchAudios->add_audio($Session->get('memberID'), $Session->get('churchID'), $audioName, $audioDate, $audioDescription, $audioSpeaker, $audioSeries, $audioBible, $audioFile);
+		$HelloChurchAudios->add_audio($Session->get('memberID'), perch_member_get('churchID'), $audioName, $audioDate, $audioDescription, $audioSpeaker, $audioSeries, $audioBible, $audioFile);
 	    
     }
     
@@ -36,7 +36,7 @@
 		
 		$Session = PerchMembers_Session::fetch();
 		
-		$files = $HelloChurchAudios->audios($Session->get('churchID'));
+		$files = $HelloChurchAudios->audios(perch_member_get('churchID'));
 		
 		if($files){
 			$html .= '<ul class="list audio">';
@@ -47,7 +47,7 @@
 				$html .= '<li>
 							<div class="heading">
 								<span class="material-symbols-outlined">record_voice_over</span>
-								<p><a href="/media/edit-audio?id='.$file['audioID'].'">'.$file['audioName'].'</a></p>
+								<p><a href="/audio/edit-audio?id='.$file['audioID'].'">'.$file['audioName'].'</a></p>
 							</div>
 							<div class="functions">
 								<form method="post" action="/process/download-audio">

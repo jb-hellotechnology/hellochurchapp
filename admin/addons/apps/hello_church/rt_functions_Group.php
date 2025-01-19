@@ -9,7 +9,7 @@
 		
 		$Session = PerchMembers_Session::fetch();
 		
-		$churchID = $Session->get('churchID');
+		$churchID = perch_member_get('churchID');
 		
 		$html = '';
 		
@@ -62,7 +62,7 @@
 		
 		$Session = PerchMembers_Session::fetch();
 		
-		$owner = $HelloChurchGroups->check_owner($Session->get('churchID'), $groupID);
+		$owner = $HelloChurchGroups->check_owner(perch_member_get('churchID'), $groupID);
 		return $owner;
 		
 	}
@@ -76,7 +76,7 @@
         
 		$Session = PerchMembers_Session::fetch();
 		
-		$contacts = $HelloChurchContacts->search_members($Session->get('churchID'), $q);
+		$contacts = $HelloChurchContacts->search_members(perch_member_get('churchID'), $q);
 		
 		foreach($contacts as $contact){
 			echo '
@@ -113,7 +113,7 @@
         
         $Session = PerchMembers_Session::fetch();
 
-	    $HelloChurchGroups->add_group_member($Session->get('memberID'), $Session->get('churchID'), $groupID, $contactID);
+	    $HelloChurchGroups->add_group_member($Session->get('memberID'), perch_member_get('churchID'), $groupID, $contactID);
 	    
     }
     
@@ -229,7 +229,7 @@
 	    $Session = PerchMembers_Session::fetch();
 	    
 	    $memberID = $Session->get('memberID');
-	    $churchID = $Session->get('churchID');
+	    $churchID = perch_member_get('churchID');
 
         $HelloChurchGroups = new HelloChurch_Groups($API);
         

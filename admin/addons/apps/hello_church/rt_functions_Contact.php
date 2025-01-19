@@ -10,7 +10,7 @@
         
 		$Session = PerchMembers_Session::fetch();
 		
-		$church = $HelloChurchChurches->church($Session->get('churchID'));
+		$church = $HelloChurchChurches->church(perch_member_get('churchID'));
 		$HelloChurchContacts->tag_options($church['churchID'], $tag);
 	    
     }
@@ -27,7 +27,7 @@
 		$contacts = explode(",", $data);
 		
 		foreach($data as $contact){
-			$owner = $HelloChurchContacts->check_owner($Session->get('churchID'), $contact);
+			$owner = $HelloChurchContacts->check_owner(perch_member_get('churchID'), $contact);
 			if($owner){
 				$contact = $HelloChurchContacts->find($contact);
 				$contact->delete_tags($contact->id(), $data);
@@ -47,7 +47,7 @@
 		$Session = PerchMembers_Session::fetch();
 
 		foreach($contacts as $contactID){
-			$owner = $HelloChurchContacts->check_owner($Session->get('churchID'), $contactID);
+			$owner = $HelloChurchContacts->check_owner(perch_member_get('churchID'), $contactID);
 			if($owner){
 				$contact = $HelloChurchContacts->find($contactID);
 				$HelloChurchContacts->bulk_update_tags($contactID, $tag);
@@ -170,7 +170,7 @@
 	    
 	    $Session = PerchMembers_Session::fetch();
 	    
-	    $churchID = $Session->get('churchID');
+	    $churchID = perch_member_get('churchID');
 
         $HelloChurchContacts = new HelloChurch_Contacts($API);
         
@@ -201,7 +201,7 @@
 		
 		$Session = PerchMembers_Session::fetch();
 		
-		$churchID = $Session->get('churchID');
+		$churchID = perch_member_get('churchID');
 		
 		$html = '';
 		
@@ -326,7 +326,7 @@
 		
 		$Session = PerchMembers_Session::fetch();
 		
-		$churchID = $Session->get('churchID');
+		$churchID = perch_member_get('churchID');
 		
 		$html = '';
 		
@@ -418,7 +418,7 @@
 		
 		$Session = PerchMembers_Session::fetch();
 		
-		$owner = $HelloChurchContacts->check_owner($Session->get('churchID'), $contactID);
+		$owner = $HelloChurchContacts->check_owner(perch_member_get('churchID'), $contactID);
 		
 		return $owner;
 		

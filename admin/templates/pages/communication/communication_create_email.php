@@ -122,6 +122,14 @@ perch_layout('header');
 				</footer>
 			</section>
 		</div>
+		<div>
+			<section>
+				<header>
+					<h2>Email Subject</h2>
+				</header>
+				<?php hello_church_form('update_email.html'); ?>
+			</section>
+		</div>
 	</div>
 </main>
 <?php perch_layout('footer'); ?>

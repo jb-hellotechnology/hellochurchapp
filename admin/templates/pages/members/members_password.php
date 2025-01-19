@@ -14,7 +14,7 @@ if(!perch_member_logged_in()){
 perch_layout('header');
 
 ?>
-<main>
+<main class="flow">
 	<?php 
 		perch_pages_breadcrumbs(array(
 			'include-hidden' => true,

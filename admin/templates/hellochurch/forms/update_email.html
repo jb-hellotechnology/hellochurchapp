@@ -1,0 +1,21 @@
+<perch:form id="update_email" method="post" app="hello_church" action="/communication/edit-email?id=<perch:forms id="emailID" />">
+
+	<perch:success show-form="true">
+		<article class="flow">
+			<p class="alert success"><span class="material-symbols-outlined">check_circle</span>Email updated</p>
+		</article>
+	</perch:success>
+
+	<article class="flow">
+		<div>
+			<perch:label for="emailSubject">Email Subject <span class="required">Required</span></perch:label>
+			<perch:input type="text" id="emailSubject" required="true" label="Email Subject" />
+		</div>
+	</article>
+
+	<footer>
+		<perch:input type="hidden" value="<perch:forms id="emailID">" name="emailID" />
+		<perch:input type="submit" value="Create Email" class="button primary" />
+	</footer>
+
+</perch:form>

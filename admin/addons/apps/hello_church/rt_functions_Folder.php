@@ -10,15 +10,15 @@
 	
 		$folderString = " |0,";
 		
-		$folders = $HelloChurchFolders->folders($Session->get('churchID'), $folderParent);
+		$folders = $HelloChurchFolders->folders(perch_member_get('churchID'), $folderParent);
 		
 		foreach($folders as $folder){
 			$folderString .= "- $folder[folderName]|$folder[folderID],";
 			
-			$subFolders = $HelloChurchFolders->folders($Session->get('churchID'), $folder['folderID']);
+			$subFolders = $HelloChurchFolders->folders(perch_member_get('churchID'), $folder['folderID']);
 			foreach($subFolders as $subFolder){
 				$folderString .= "-- $subFolder[folderName]|$subFolder[folderID],";
-				$subFolders_2 = $HelloChurchFolders->folders($Session->get('churchID'), $subFolder['folderID']);	
+				$subFolders_2 = $HelloChurchFolders->folders(perch_member_get('churchID'), $subFolder['folderID']);	
 				foreach($subFolders_2 as $subFolder_2){	
 					$folderString .= "-- $subFolder_2[folderName]|$subFolder_2[folderID],";
 				}
@@ -37,7 +37,7 @@
 		
 		$Session = PerchMembers_Session::fetch();
 		
-		$folders = $HelloChurchFolders->folders($Session->get('churchID'), $folderParent);
+		$folders = $HelloChurchFolders->folders(perch_member_get('churchID'), $folderParent);
 		
 		$html = '<ul class="folders">';
 		
@@ -73,7 +73,7 @@
 		
 		$Session = PerchMembers_Session::fetch();
 		
-		$owner = $HelloChurchFolders->check_owner($Session->get('churchID'), $folderID);
+		$owner = $HelloChurchFolders->check_owner(perch_member_get('churchID'), $folderID);
 		
 		return $owner;
 		
@@ -87,7 +87,7 @@
 		
 		$Session = PerchMembers_Session::fetch();
 		
-		$folders = $HelloChurchFolders->folders($Session->get('churchID'), $folderID);	
+		$folders = $HelloChurchFolders->folders(perch_member_get('churchID'), $folderID);	
 		
 		if(count($folders)>0){
 			return true;
@@ -106,7 +106,7 @@
         
 		$Session = PerchMembers_Session::fetch();
 		
-		$HelloChurchFolders->add_file($Session->get('churchID'), $Session->get('memberID'), $folderID, $contactID, $groupID, $eventID, $eventDate, $fileName);
+		$HelloChurchFolders->add_file(perch_member_get('churchID'), $Session->get('memberID'), $folderID, $contactID, $groupID, $eventID, $eventDate, $fileName);
 	    
     }
     
@@ -173,13 +173,13 @@
 		$Session = PerchMembers_Session::fetch();
 		
 		if($contactParent>0){
-			$files = $HelloChurchFolders->files($Session->get('churchID'), 0, $contactParent, 0, 0, 0);
+			$files = $HelloChurchFolders->files(perch_member_get('churchID'), 0, $contactParent, 0, 0, 0);
 		}elseif($groupParent>0){
-			$files = $HelloChurchFolders->files($Session->get('churchID'), 0, 0, $groupParent, 0, 0);
+			$files = $HelloChurchFolders->files(perch_member_get('churchID'), 0, 0, $groupParent, 0, 0);
 		}elseif($eventParent>0){
-			$files = $HelloChurchFolders->files($Session->get('churchID'), 0, 0, 0, $eventParent, $eventDate);
+			$files = $HelloChurchFolders->files(perch_member_get('churchID'), 0, 0, 0, $eventParent, $eventDate);
 		}else{
-			$files = $HelloChurchFolders->files($Session->get('churchID'), $folderParent, 0, 0, $eventParent, $eventDate);
+			$files = $HelloChurchFolders->files(perch_member_get('churchID'), $folderParent, 0, 0, $eventParent, $eventDate);
 		}
 		
 		$html = '<p class="section-heading">Files:</p>';
@@ -261,7 +261,7 @@
 		
 		$Session = PerchMembers_Session::fetch();
 		
-		$owner = $HelloChurchFolders->check_file_owner($Session->get('churchID'), $fileID);
+		$owner = $HelloChurchFolders->check_file_owner(perch_member_get('churchID'), $fileID);
 		
 		if($owner==1){
 		    return true;

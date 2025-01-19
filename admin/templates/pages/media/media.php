@@ -16,7 +16,7 @@ perch_layout('header');
 			'include-hidden' => true,
 		)); 
 	?>
-	<h1>Media <a class="button primary" href=/media/add-audio>Add Audio</a></h1>
+	<h1>Media <a class="button primary" href=/audio/add-audio>Add Audio</a></h1>
 	<?php
 		// DISPLAY MESSAGES
 		if($_GET['msg']=='audio_deleted'){

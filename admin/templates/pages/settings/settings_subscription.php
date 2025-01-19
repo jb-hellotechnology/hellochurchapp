@@ -50,6 +50,9 @@ if($customer_id){
 }
 ?>
 <main class="flow">
+	<?php
+		if($adminType=='owner'){
+	?>
 	<?php 
 		perch_pages_breadcrumbs(array(
 			'include-hidden' => true,
@@ -112,5 +115,10 @@ if($customer_id){
 			?>
 		</footer>
 	</section>
+	<?php
+		}else{
+			echo '<h1>Owner Access Only</h1><p>Profile administrators cannot access this page for security reasons.</p>';	
+		}	
+	?>
 </main>
 <?php perch_layout('footer'); ?>

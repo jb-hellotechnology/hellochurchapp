@@ -16,8 +16,17 @@ perch_layout('header');
 			)); 
 		}
 	?>
+	<?php
+		if(perch_get('create')=='true'){
+	?>
+	<h1>Create Church Profile</h1>
+	<?php
+		}else{
+	?>
 	<h1>Church Settings</h1>
-	<?php 
+	<?php
+		}
+
 		if(!perch_member_has_church()){
 			echo '<p class="alert success">Success! Please now add your church contact details using the form below:</p>';
 		}
@@ -28,7 +37,7 @@ perch_layout('header');
 		</header>
 		
 		<?php 
-			if(perch_member_has_church()){
+			if(perch_member_has_church() && perch_get('create')!=='true'){
 				hello_church_form('update_church.html'); 
 			}else{
 				hello_church_form('create_church.html');

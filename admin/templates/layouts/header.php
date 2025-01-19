@@ -5,24 +5,23 @@ if($down){
 	exit;	
 }
 
+session_start();
+
 if(perch_member_logged_in()){
 	$customer_id = stripe_data('churchCustomerID');	
 	$url = perch_pages_title(true);
-	
-	perch_members_refresh_session_data();
-	
+
 	$subscription = stripe_data('churchPeriodEnd');
 	
-	if(!perch_member_has_church() AND $url !== 'Settings - Church'){
-		header("location:/settings/church");	
-	}
+	$adminType = admin_type();
 
-	if(perch_member_has_church() AND $subscription <= time() AND $subscription !== '' AND $url !== 'Setup Subscription'){
+	if($subscription <= time() AND $subscription !== '' AND ($url !== 'Setup Subscription' AND $url !== 'Switch')){
 		header("location:/subscription");	
-	}elseif($subscription <= time() AND $subscription > 0 AND $url !== 'Setup Subscription'){
-		header("/settings/subscription");
+	}elseif($subscription <= time() AND $subscription > 0 AND $url !== 'Setup Subscription' AND $url !== 'Switch'){
+		header("location:/settings/subscription");
 	}
-
+	
+	$church = hello_church_church(true);
 }
 ?>
 <!doctype html>
@@ -59,6 +58,11 @@ if(perch_member_logged_in()){
 	<link rel="stylesheet" href="https://use.typekit.net/prw8zqs.css">
 </head>
 <body>
+	<?php
+		if($adminType=='admin'){
+			echo '<p class="admin_alert">You are acting as an administrator for <strong>'.$church['churchName'].'</strong></p>';
+		}
+	?>
 	<header class="site-header">
 		<?php
 			if(perch_member_logged_in()){
@@ -79,7 +83,7 @@ if(perch_member_logged_in()){
 			}
 		?>
 			
-		<h2 class="gooddog"><a href="/dashboard">Hello Church</a></h2>
+		<h2 class="gooddog"><a href="/dashboard">Hello Church <?php if($church){ ?><span>&bull; <?= $church['churchName'] ?><?php } ?></a></h2>
 		<nav>
 			<?php
 				if(perch_member_logged_in()){
@@ -97,6 +101,7 @@ if(perch_member_logged_in()){
   				</div>
 			</div>
 			<button class="account-nav-button">
+				<span class="welcome">Hi, <?= perch_member_get('first_name') ?> 👋</span>
 				<span class="material-symbols-outlined">
 				account_circle
 				</span>

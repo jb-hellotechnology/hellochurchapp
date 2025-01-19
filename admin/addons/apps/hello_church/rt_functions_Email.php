@@ -9,7 +9,7 @@
         
 		$Session = PerchMembers_Session::fetch();
 		$memberID = $Session->get('memberID');
-		$churchID = $Session->get('churchID');
+		$churchID = perch_member_get('churchID');
 		
 		$email = $HelloChurchEmails->save_email($memberID, $churchID, $emailID, $plan);
 		
@@ -83,7 +83,7 @@
 	    
 	    $Session = PerchMembers_Session::fetch();
 	    
-	    $churchID = $Session->get('churchID');
+	    $churchID = perch_member_get('churchID');
 
         $HelloChurchEmails = new HelloChurch_Emails($API);
 
@@ -264,7 +264,7 @@
 		
 		$Session = PerchMembers_Session::fetch();
 		
-		$owner = $HelloChurchEmails->check_owner($Session->get('churchID'), $emailID);
+		$owner = $HelloChurchEmails->check_owner(perch_member_get('churchID'), $emailID);
 		return $owner;
 		
 	}
@@ -306,13 +306,13 @@
 	    $HelloChurchEvents = new HelloChurch_Events($API);
 	    
 	    if($type=='image'){
-		    $files = $HelloChurchFolders->images_for_email($Session->get('churchID'));
+		    $files = $HelloChurchFolders->images_for_email(perch_member_get('churchID'));
 			echo $files;
 	    }elseif($type=='file'){
-		    $files = $HelloChurchFolders->files_for_email($Session->get('churchID'));
+		    $files = $HelloChurchFolders->files_for_email(perch_member_get('churchID'));
 			echo $files;
 	    }elseif($type=='event'){
-		    $events = $HelloChurchEvents->events_for_email($Session->get('churchID'));
+		    $events = $HelloChurchEvents->events_for_email(perch_member_get('churchID'));
 			echo $events;
 	    }
 	    

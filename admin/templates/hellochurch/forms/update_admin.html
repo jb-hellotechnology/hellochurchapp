@@ -1,0 +1,21 @@
+<perch:form id="update_admin" method="post" app="hello_church" action="/settings/admin/edit-admin?id=<perch:forms id="adminID" />">
+
+	<article class="flow">
+		<perch:success show-form="true">
+			<p class="alert success"><span class="material-symbols-outlined">check_circle</span>Administrator updated</p>
+		</perch:success>
+		<div>
+			<perch:label for="adminEmail">Administrator Email Address <span class="required">Required</span></perch:label>
+			<perch:input type="email" id="adminEmail" required="true" label="Admin Email" />
+			<perch:error for="adminEmail" type="required"><p class="help error">Please add a your administrator's email address</p></perch:error>
+		</div>
+	</article>
+
+	<footer>
+		<perch:input type="hidden" value="<perch:forms id="memberID">" name="memberID" />
+		<perch:input type="hidden" value="<perch:forms id="churchID">" name="churchID" />
+		<perch:input type="hidden" value="<perch:forms id="adminID">" name="adminID" />
+		<perch:input type="submit" value="Save" class="button primary" />
+	</footer>
+
+</perch:form>

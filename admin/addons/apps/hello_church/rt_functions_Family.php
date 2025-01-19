@@ -7,7 +7,7 @@
 	    
 	    $Session = PerchMembers_Session::fetch();
 	    
-	    $churchID = $Session->get('churchID');
+	    $churchID = perch_member_get('churchID');
 
         $HelloChurchFamilies = new HelloChurch_Families($API);
         
@@ -42,7 +42,7 @@
 	    
 	    $Session = PerchMembers_Session::fetch();
 	    
-	    $churchID = $Session->get('churchID');
+	    $churchID = perch_member_get('churchID');
 
         $HelloChurchFamilies = new HelloChurch_Families($API);
         
@@ -70,7 +70,7 @@
 		
 		$Session = PerchMembers_Session::fetch();
 		
-		$owner = $HelloChurchFamilies->check_owner($Session->get('churchID'), $familyID);
+		$owner = $HelloChurchFamilies->check_owner(perch_member_get('churchID'), $familyID);
 		if($owner==1){
 		    return true;
 	    }else{

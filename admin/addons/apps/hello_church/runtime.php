@@ -29,6 +29,7 @@ error_reporting(E_ALL);
 
     PerchSystem::register_template_handler('HelloChurch_Template');
     
+    include(__DIR__.'/rt_functions_Admin.php');
     include(__DIR__.'/rt_functions_Audio.php');
     include(__DIR__.'/rt_functions_Church.php');
     include(__DIR__.'/rt_functions_Contact_Note.php');
@@ -60,6 +61,7 @@ error_reporting(E_ALL);
         $HelloChurchFamilies = new HelloChurch_Families($API);
         $HelloChurchFolders = new HelloChurch_Folders($API);
         $HelloChurchSpeakers = new HelloChurch_Speakers($API);
+        $HelloChurchAdmins = new HelloChurch_Admins($API);
         $HelloChurchSeriess = new HelloChurch_Seriess($API);
         $HelloChurchAudios = new HelloChurch_Audios($API);
         $HelloChurchEmails = new HelloChurch_Emails($API);
@@ -257,6 +259,21 @@ error_reporting(E_ALL);
 			
 			$data['speakerID'] = $_GET['id'];
 			
+		}elseif($template == 'create_admin.html'){
+
+			
+		}elseif($template == 'update_admin.html'){
+
+			$data = $HelloChurchAdmins->admin($_GET['id']);
+			
+		}elseif($template == 'delete_admin.html'){
+			
+			$data['adminID'] = $_GET['id'];
+			
+		}elseif($template == 'update_email.html'){
+			
+			$data = $HelloChurchEmails->email($_GET['id']);
+			
 		}elseif($template == 'add_audio.html'){
 			
 			$speakers = $HelloChurchSpeakers->speakers($data['churchID']);
@@ -304,6 +321,10 @@ error_reporting(E_ALL);
 
 			$data = $HelloChurchPodcasts->podcast($data['churchID']);
 			
+		}elseif($template == 'switch_key.html'){
+
+			$data['churchID'] = $_GET['id'];
+			
 		}
 		
         $html = $Template->render($data);
@@ -338,6 +359,8 @@ error_reporting(E_ALL);
 	    $HelloChurchFolders = new HelloChurch_Folders($API);
 	    $HelloChurchSpeaker = new HelloChurch_Speaker($API);
 	    $HelloChurchSpeakers = new HelloChurch_Speakers($API);
+	    $HelloChurchAdmin = new HelloChurch_Admin($API);
+	    $HelloChurchAdmins = new HelloChurch_Admins($API);
 		$HelloChurchSeries = new HelloChurch_Series($API);
         $HelloChurchSeriess = new HelloChurch_Seriess($API);
         $HelloChurchAudios = new HelloChurch_Audios($API);
@@ -351,6 +374,8 @@ error_reporting(E_ALL);
 
         switch($SubmittedForm->formID) {
             case 'create_church':
+            	session_start();
+            	unset($_SESSION['churchID']);
 	            $valid = $HelloChurchChurches->church_valid($SubmittedForm->data);
 	            if(!$valid){
 		            //$SubmittedForm->throw_error($valid['reason'], $valid['field']);
@@ -366,9 +391,12 @@ error_reporting(E_ALL);
 					
 		            $data = $SubmittedForm->data;
 		            $data['churchSlug'] = strtolower(str_replace(" ", "-", $data['churchName']));
+		            $data['churchSlug'] = $data['churchSlug'].'-'.rand();
 		            $data['churchCustomerID'] = $customer_id;
 		            $data['churchProperties'] = '';
-	            	$HelloChurchChurches->create($data);
+	            	$church = $HelloChurchChurches->create($data);
+	            	$PerchMembers_Auth->update_church_session($church->churchID());
+	            	header("location:/dashboard");
 	            } 
             break;
             case 'update_church':
@@ -770,6 +798,31 @@ error_reporting(E_ALL);
 	            $speaker = $HelloChurchSpeakers->find($SubmittedForm->data['speakerID']);
 		        $speaker->delete();
             break;
+            case 'create_admin':
+	            $data = $SubmittedForm->data;
+	            $chars = "abcdefghijkmnopqrstuvwxyz0123456789"; 
+			    srand((double)microtime()*1000000); 
+			    $i = 0; 
+			    $pass = '' ; 
+			
+			    while ($i <= 11) { 
+			        $num = rand() % 33; 
+			        $tmp = substr($chars, $num, 1); 
+			        $pass = $pass . $tmp; 
+			        $i++; 
+			    }
+			    $data['adminCode'] = $pass;
+		        $admin = $HelloChurchAdmins->create($data);
+            break;
+            case 'update_admin':
+	            $admin = $HelloChurchAdmins->find($SubmittedForm->data['adminID']);
+		        $admin->update($SubmittedForm->data);
+            break;
+            case 'delete_admin':
+	            $admin = $HelloChurchAdmins->find($SubmittedForm->data['adminID']);
+	            // DELETE SESSIONS - JUST IN CASE!
+		        $admin->delete();
+            break;
             case 'update_audio':
 	            $audio = $HelloChurchAudios->find($SubmittedForm->data['audioID']);
 	            $audio->update($SubmittedForm->data);
@@ -778,6 +831,10 @@ error_reporting(E_ALL);
 	            $data = $SubmittedForm->data;
 		        $email = $HelloChurchEmails->create($data);
             break;
+            case 'update_email':
+	            $email = $HelloChurchEmails->find($SubmittedForm->data['emailID']);
+	            $email->update($SubmittedForm->data);
+            break;
             case 'create_podcast':
 	            $data = $SubmittedForm->data;
 		        $podcast = $HelloChurchPodcasts->create($data);
@@ -785,6 +842,17 @@ error_reporting(E_ALL);
             case 'update_podcast':
 	            $podcast = $HelloChurchPodcasts->find($SubmittedForm->data['podcastID']);
 		        $podcast->update($SubmittedForm->data);
+            break;
+            case 'switch_key':
+	            $admin = $HelloChurchAdmins->confirm($SubmittedForm->data['key'],$SubmittedForm->data['churchID'],$Session->get('memberID'));
+		        if($admin){
+			        // SET CHURCH ID SESSION AND REDIRECT
+			        $PerchMembers_Auth->update_church_session($SubmittedForm->data['churchID']);
+			        //perch_members_refresh_session_data();
+			        //header("location:/dashboard");
+		        }else{
+			        $SubmittedForm->throw_error('required', 'key');
+		        }
             break;
         }
     	

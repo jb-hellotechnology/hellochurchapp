@@ -7,7 +7,7 @@
 	    
 	    $Session = PerchMembers_Session::fetch();
 	    
-	    $churchID = $Session->get('churchID');
+	    $churchID = perch_member_get('churchID');
 
         $HelloChurchRoles = new HelloChurch_Roles($API);
         
@@ -42,7 +42,7 @@
 	    
 	    $Session = PerchMembers_Session::fetch();
 	    
-	    $churchID = $Session->get('churchID');
+	    $churchID = perch_member_get('churchID');
 
         $HelloChurchRoles = new HelloChurch_Roles($API);
         
@@ -72,7 +72,7 @@
 		
 		$Session = PerchMembers_Session::fetch();
 		
-		$owner = $HelloChurchRoles->check_owner($Session->get('churchID'), $roleID);
+		$owner = $HelloChurchRoles->check_owner(perch_member_get('churchID'), $roleID);
 		
 		return $owner;
 		
@@ -85,7 +85,7 @@
 	    
 	    $Session = PerchMembers_Session::fetch();
 	    
-	    $churchID = $Session->get('churchID');
+	    $churchID = perch_member_get('churchID');
 
         $HelloChurchEvents = new HelloChurch_Events($API);
         $HelloChurchRoles = new HelloChurch_Roles($API);
@@ -154,7 +154,7 @@
         
 		$Session = PerchMembers_Session::fetch();
 		
-		$contacts = $HelloChurchContacts->search_role_members($Session->get('churchID'), $q, $eventID, $eventDate);
+		$contacts = $HelloChurchContacts->search_role_members(perch_member_get('churchID'), $q, $eventID, $eventDate);
 		
 		foreach($contacts as $contact){
 			echo '
@@ -178,7 +178,7 @@
         
         $Session = PerchMembers_Session::fetch();
 
-	    $HelloChurchEvents->add_role_contact($Session->get('memberID'), $Session->get('churchID'), $eventID, $eventDate, $contactID, $roleID);
+	    $HelloChurchEvents->add_role_contact($Session->get('memberID'), perch_member_get('churchID'), $eventID, $eventDate, $contactID, $roleID);
 	    
     }
     

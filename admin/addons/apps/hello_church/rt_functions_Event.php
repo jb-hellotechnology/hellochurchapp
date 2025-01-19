@@ -7,7 +7,7 @@
 		$HelloChurchEvents = new HelloChurch_Events($API);
 		
 		$Session = PerchMembers_Session::fetch();
-		$churchID = $Session->get('churchID');
+		$churchID = perch_member_get('churchID');
 		
 		$events = $HelloChurchEvents->events($churchID);
 		
@@ -108,7 +108,7 @@
         
 		$Session = PerchMembers_Session::fetch();
 		$memberID = $Session->get('memberID');
-		$churchID = $Session->get('churchID');
+		$churchID = perch_member_get('churchID');
 		
 		$plan = $HelloChurchEvents->save_plan($memberID, $churchID, $planID, $date, $time, $plan);
 		
@@ -125,7 +125,7 @@
         
 		$Session = PerchMembers_Session::fetch();
 		$memberID = $Session->get('memberID');
-		$churchID = $Session->get('churchID');
+		$churchID = perch_member_get('churchID');
 		
 		$plan = $HelloChurchEvents->get_plan($memberID, $churchID, $eventID, $date, $time);
 		
@@ -141,7 +141,7 @@
 		
 		$Session = PerchMembers_Session::fetch();
 		
-		$owner = $HelloChurchEvents->check_owner($Session->get('churchID'), $eventID);
+		$owner = $HelloChurchEvents->check_owner(perch_member_get('churchID'), $eventID);
 		
 		if($owner==1){
 		    return true;
@@ -180,7 +180,7 @@
 	    
 	    $Session = PerchMembers_Session::fetch();
 	    
-	    $churchID = $Session->get('churchID');
+	    $churchID = perch_member_get('churchID');
 
         $HelloChurchEvents = new HelloChurch_Events($API);
         $HelloChurchRoles = new HelloChurch_Roles($API);

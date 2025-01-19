@@ -8,7 +8,7 @@
 		
 		$Session = PerchMembers_Session::fetch();
 		
-		$owner = $HelloChurchContacts->check_owner($Session->get('churchID'), $noteID);
+		$owner = $HelloChurchContacts->check_owner(perch_member_get('churchID'), $noteID);
 		
 		return $owner;
 		

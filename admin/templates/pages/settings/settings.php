@@ -81,6 +81,14 @@ $church = hello_church_church(true);
 				</a>
 			</div>
 		</li>
+		<li>
+			<div>
+				<a href="/settings/admin">
+					<span class="material-symbols-outlined">shield_person</span>
+					<h3>Administrators</h3>
+				</a>
+			</div>
+		</li>
 	</ul>
 	<h2>Feeds</h2>
 	<div class="panel">
