@@ -446,7 +446,6 @@ error_reporting(E_ALL);
 		            if(!$data['contactAcceptEmail']){
 			            $data['contactAcceptEmail'] = '';
 		            }
-		            print_r($data);
 		            $contact->update($data);
 	            } 
             break;
