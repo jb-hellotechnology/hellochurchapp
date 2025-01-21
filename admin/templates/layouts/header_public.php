@@ -20,5 +20,5 @@
 </head>
 <body>
 	<header class="site-header">
-		<h2>Hello Church</h2>
+		<h2 class="gooddog">Hello Church</h2>
 	</header>
