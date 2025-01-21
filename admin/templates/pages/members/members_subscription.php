@@ -31,6 +31,7 @@ $stripeData = $stripe->customerSessions->create([
 		<option value="eur" data-button="<?= $eur ?>">EUR</option>
 		<option value="cad" data-button="<?= $cad ?>">CAD</option>
 		<option value="aud" data-button="<?= $aud ?>">AUD</option>
+		<option value="chf" data-button="<?= $chf ?>">CHF</option>
 	</select>
 
 	<br />
@@ -75,6 +76,14 @@ $stripeData = $stripe->customerSessions->create([
 	<div class="currency hide aud">
 		<stripe-buy-button
 		  buy-button-id="<?= $aud ?>"
+		  publishable-key="<?= $stripePK ?>"
+		  customer-session-client-secret="<?= $stripeData->client_secret ?>">
+		>
+		</stripe-buy-button>
+	</div>
+	<div class="currency hide chf">
+		<stripe-buy-button
+		  buy-button-id="<?= $chf ?>"
 		  publishable-key="<?= $stripePK ?>"
 		  customer-session-client-secret="<?= $stripeData->client_secret ?>">
 		>
