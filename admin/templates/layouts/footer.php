@@ -18,6 +18,7 @@
 	    })(document, window, 'BrevoConversations');
 	</script>
 	<!-- /Brevo Conversations {/literal} -->
+	
 	<script src="/assets/js/jquery.3.7.1.min.js"></script>
 	<script src="/assets/js/jquery-ui.1.14.0.js"></script>
 	<script src="/assets/js/tagify/tagify.js"></script>
@@ -27,6 +28,8 @@
 	<script src="/assets/js/upload/upload.js?v=<?= rand() ?>"></script>
 	<script src="/assets/js/upload-audio/upload.js?v=<?= rand() ?>"></script>
 	<script src="/assets/js/upload-podcast-image/upload.js?v=<?= rand() ?>"></script>
+	<script src="/assets/redactor/redactor.min.js"></script>
+	
 	<script>
 	$('button.menu').click(function(){
 		$('.main-nav-container').toggleClass('show');
@@ -77,6 +80,7 @@
 	function resetPagination(){
 		$("#page").val($("#page option:first").val());
 	}
+	
 	$('input[type=checkbox].contact_select').click(function(){
 		if($("input:checkbox.contact_select:checked").length > 0){
 			$('.footer-form').addClass('show');		
@@ -84,6 +88,7 @@
 			$('.footer-form').removeClass('show');
 		}
 	});
+	
 	function confirm_contactDelete(){
 		let text = "Are you sure you want to delete these contacts? This cannot be un-done.";
 		if(confirm(text) == true) {
@@ -96,6 +101,7 @@
 			});
 		}
 	}
+	
 	function confirm_addTag(){
 		let text = "Are you sure you want to tag these contacts?";
 		if(confirm(text) == true) {
@@ -109,6 +115,7 @@
 			});
 		}
 	}
+	
 	function searchContacts(){
 		let pQ = $('#q').val();
 		let pID = $('#q').data('group-id');
@@ -122,6 +129,7 @@
 			$('.results').hide();
 		}
 	}
+	
 	function searchRoleContacts(pRole){
 		let pQ = $('#'+pRole+' .q').val();
 		let pID = $('#'+pRole+' .q').data('event-id');
@@ -137,6 +145,7 @@
 			$('#'+pRole+' .results').hide();
 		}
 	}
+	
 	$('input').blur(function(){
 		$('.results').delay(1000).fadeOut();
 	});
@@ -146,14 +155,12 @@
 		$('.currency').hide();
 		$('.currency.'+currency).show();
 	})
-	</script>
-	<script src="/assets/redactor/redactor.min.js"></script>
-    <script>
+
 	$R('.redactor', {
 	  "buttons": ["format", "bold", "italic", "lists", "link"],
 	  "linkNewTab": true,
 	  "toolbarFixed": true,
-	  "formatting": ["p","h2", "h3"]
+	  "formatting": ["p", "h2", "h3"]
 	});
     </script>
 </body>
