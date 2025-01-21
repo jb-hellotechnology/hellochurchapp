@@ -1102,7 +1102,7 @@ ul.checks li span{
 }
 
 .grid.contacts .row{
-	grid-template-columns: 200px 200px auto 300px 24px;
+	grid-template-columns: 200px 200px auto 300px 100px 24px;
 	grid-column-gap: 1rem;
 	border-bottom:1px solid #eee;
 }
@@ -1123,6 +1123,10 @@ ul.checks li span{
 
 .grid .td{
 	padding:0.5em 0;
+}
+
+.grid.contacts .row .td .button{
+	float:left;
 }
 
 .grid a,

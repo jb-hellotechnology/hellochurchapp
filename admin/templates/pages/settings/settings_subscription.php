@@ -81,9 +81,8 @@ $adminType = admin_type();
 			
 			try {
 			    $result = $apiInstance->createContact($createContact);
-			    print_r($result);
 			} catch (Exception $e) {
-			    echo 'Exception when calling ContactsApi->createContact: ', $e->getMessage(), PHP_EOL;
+			    //echo 'Exception when calling ContactsApi->createContact: ', $e->getMessage(), PHP_EOL;
 			}
 			
 	?>

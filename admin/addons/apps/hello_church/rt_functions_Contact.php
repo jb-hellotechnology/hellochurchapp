@@ -256,6 +256,9 @@
 								<h3>Tags</h3>
 							</div>
 							<div class="th">
+								<h3>View</h3>
+							</div>
+							<div class="th">
 							
 							</div>
 						</div>';
@@ -287,6 +290,9 @@
 							</div>
 							<div class="td">
 								'.$tags.'
+							</div>
+							<div class="td">
+								<a href="/contacts/edit-contact?id='.$contact['contactID'].'" class="button secondary small">View</a>
 							</div>
 							<div class="td">
 								<input type="checkbox" class="contact_select" name="select_'.$contact['contactID'].'" data-contact="'.$contact['contactID'].'" />
@@ -369,7 +375,9 @@
 								<h3>Tags</h3>
 							</div>
 							<div class="th">
-							
+								<h3>View</h3>
+							</div>
+							<div class="th">
 							</div>
 						</div>';
 				
@@ -382,6 +390,7 @@
 						<div class="row">
 							<div class="td">
 								<a href="/contacts/edit-contact?id='.$contact['contactID'].'"><span class="material-symbols-outlined">person</span>'.$contact['contactFirstName'].' '.$contact['contactLastName'].'</a>
+								
 							</div>
 							<div class="td">';
 							if($contact['contactAddress1']){
@@ -402,7 +411,10 @@
 								'.$tags.'
 							</div>
 							<div class="td">
-								
+								<a href="/contacts/edit-contact?id='.$contact['contactID'].'" class="button secondary small">View</a>
+							</div>
+							<div class="td">
+								<input type="checkbox" class="contact_select" name="select_'.$contact['contactID'].'" data-contact="'.$contact['contactID'].'" />
 							</div>
 						</div>';
 				}
