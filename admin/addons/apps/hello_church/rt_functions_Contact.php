@@ -26,11 +26,10 @@
 		
 		$contacts = explode(",", $data);
 		
-		foreach($contacts as $contact){
-			$owner = $HelloChurchContacts->check_owner(perch_member_get('churchID'), $contact);
+		foreach($contacts as $contactID){
+			$owner = $HelloChurchContacts->check_owner(perch_member_get('churchID'), $contactID);
 			if($owner){
-				$contact = $HelloChurchContacts->find($contact);
-				$contact->delete_tags($contact->id(), $data);
+				$contact = $HelloChurchContacts->find($contactID);
 		        $contact->delete(); 
 			}
 		}
