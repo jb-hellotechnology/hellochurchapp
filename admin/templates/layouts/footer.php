@@ -19,6 +19,10 @@
 	</script>
 	<!-- /Brevo Conversations {/literal} -->
 	
+	<!-- Fathom - beautiful, simple website analytics -->
+	<script src="https://cdn.usefathom.com/script.js" data-site="AWHJKUYH" defer></script>
+	<!-- / Fathom -->
+	
 	<script src="/assets/js/jquery.3.7.1.min.js"></script>
 	<script src="/assets/js/jquery-ui.1.14.0.js"></script>
 	<script src="/assets/js/tagify/tagify.js"></script>
