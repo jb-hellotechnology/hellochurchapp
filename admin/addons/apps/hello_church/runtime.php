@@ -542,7 +542,6 @@ error_reporting(E_ALL);
 								$inputData['contactProperties'] = 	'';
 								
 								$count = count($HelloChurchContacts->all_contacts($Session->get('churchID')));
-								
 								if($count<200){
 					            	$contact = $HelloChurchContacts->create($inputData);
 					            	$contact->update_tags($contact->id(), $inputData);
