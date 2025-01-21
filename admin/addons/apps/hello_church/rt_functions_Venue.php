@@ -51,7 +51,7 @@
 		$html = '[';
         
         foreach($venues as $venue){
-	        $html .=  "'".$venue['venueName']."', ";
+	        $html .=  "'".addslashes($venue['venueName'])."', ";
         }
         
         if(strlen($html)>1){

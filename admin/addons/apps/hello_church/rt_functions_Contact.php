@@ -174,7 +174,7 @@
 
         $HelloChurchContacts = new HelloChurch_Contacts($API);
         
-        $contacts = $HelloChurchContacts->all_contacts($churchID);
+        $contacts = $HelloChurchContacts->all_contacts_email($churchID);
         
 		$html = '[';
         

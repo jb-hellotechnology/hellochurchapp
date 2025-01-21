@@ -51,7 +51,7 @@
 		$html = '[';
         
         foreach($roles as $role){
-	        $html .=  "'".$role['roleName']."', ";
+	        $html .=  "'".addslashes($role['roleName'])."', ";
         }
         
         if(strlen($html)>1){
