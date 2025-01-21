@@ -24,12 +24,11 @@
         
 		$Session = PerchMembers_Session::fetch();
 		
-		//$contacts = explode(",", $data);
-		
 		foreach($data as $contactID){
 			$owner = $HelloChurchContacts->check_owner(perch_member_get('churchID'), $contactID);
 			if($owner){
 				$contact = $HelloChurchContacts->find($contactID);
+				$contact->delete_tags($contact->id(), $data);
 		        $contact->delete(); 
 			}
 		}

@@ -95,7 +95,6 @@
 			var checked_contacts = $('.contact_select:checked').map(function () {
 			  return $(this).data("contact");
 			}).toArray();
-			alert(checked_contacts);
 			$.post( "/process/delete-contacts", { contacts: checked_contacts }, function( data ) {
 alert(data);
 				alert("Contacts Deleted");
