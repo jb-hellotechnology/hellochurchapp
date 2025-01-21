@@ -1773,8 +1773,12 @@ ul.folders li span{
 	display:none;
 }
 
-select#currency{
+#currency{
 	max-width:200px;
+}
+
+.center p{
+	max-width: 100%;
 }
 
 .to{
