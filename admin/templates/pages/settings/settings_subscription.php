@@ -76,7 +76,7 @@ $adminType = admin_type();
 			$createContact = new \Brevo\Client\Model\CreateContact([
 			     'email' => perch_member_get('email'),
 			     'updateEnabled' => true,    
-			     'listIds' =>[[5]]
+			     'listIds' =>[5]
 			]); // \Brevo\Client\Model\CreateContact | Values to create a contact
 			
 			try {
