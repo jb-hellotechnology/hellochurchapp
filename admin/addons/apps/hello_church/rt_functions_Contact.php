@@ -24,12 +24,7 @@
         
 		$Session = PerchMembers_Session::fetch();
 		
-		$contacts = explode(",", $data);
-		
-		foreach($data as $contact){
-			$owner = $HelloChurchContacts->check_owner(perch_member_get('churchID'), $contact);
-			echo $owner;
-		}
+		echo 'here';
 	    
     }
     
