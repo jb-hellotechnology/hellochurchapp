@@ -163,6 +163,23 @@
 		
 	}
 	
+	/** COUNT CONTACTS **/
+	function hello_church_contacts_count(){
+	    
+	    $API  = new PerchAPI(1.0, 'hello_church');
+	    
+	    $Session = PerchMembers_Session::fetch();
+	    
+	    $churchID = perch_member_get('churchID');
+
+        $HelloChurchContacts = new HelloChurch_Contacts($API);
+        
+        $contacts = $HelloChurchContacts->all_contacts($churchID);
+        
+		return count($contacts);
+	    
+    }
+	
 	/** CREATE LIST OF CONTACTS FOR TAGIFY FIELD **/
 	function hello_church_contacts_tagify(){
 	    
@@ -282,11 +299,11 @@
 					</div>';
 				
 			}elseif($q<>'' AND $tag<>''){
-				$html .= '<p class="alert">No contacts found. Try removing the tag or changing your search query.</p>';
+				$html .= '<p class="alert error"><span class="material-symbols-outlined">error</span>No contacts found, try removing the tag or changing your search query</p>';
 			}elseif($q<>''){
-				$html .= '<p class="alert">No contacts matching this search query.</p>';
+				$html .= '<p class="alert error"><span class="material-symbols-outlined">error</span>No contacts matching this search query</p>';
 			}else{
-				$html .= '<p class="alert warning">No contacts.</p>';
+				$html .= '<p class="alert error"><span class="material-symbols-outlined">error</span>No contacts</p>';
 			}
 			
 			if($pages>0){

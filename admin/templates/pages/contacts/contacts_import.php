@@ -7,12 +7,19 @@ if(!perch_member_logged_in()){
 }
 
 perch_layout('header');
+$contacts = hello_church_contacts_count();
 ?>
 <main class="flow">
 	<?php 
 		perch_pages_breadcrumbs(array(
 			'include-hidden' => true,
 		)); 
+		if($contacts>=200){
+	?>
+	<h1>Allowance Reached</h1>
+	<p>We currently only permit 200 contacts per church profile. If you need more than this please contact <a href="mailto:support@hellochurch.tech">support@hellochurch.tech</a> to discuss your requirements.</p>
+	<?php
+		}else{
 	?>
 	<h1>Import Contacts</h1>
 	<div class="section-grid">
@@ -31,5 +38,8 @@ perch_layout('header');
 			</div>	
 		</div>
 	</div>
+	<?php
+		}
+	?>
 </main>
 <?php perch_layout('footer'); ?>

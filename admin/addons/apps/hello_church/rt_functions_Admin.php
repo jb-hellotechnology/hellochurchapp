@@ -1,7 +1,7 @@
 <?php
 	
 	/** GET LIST OF SPEAKERS **/
-	function hello_church_admins(){
+	function hello_church_admins($return){
 	    
 	    $API  = new PerchAPI(1.0, 'hello_church');
 	    
@@ -13,24 +13,30 @@
         
         $admins = $HelloChurchAdmins->admins($churchID);
         
-		echo '<article>
-				<ul class="list">';
+        if($return){
+	        return $admins;
+        }else{
         
-        foreach($admins as $admin){
-	        echo '<li>
-	        		<div class="heading">
-	        			<span class="material-symbols-outlined">record_voice_over</span>
-				        <h3><a href="/settings/admin/edit-admin?id='.$admin['adminID'].'">'.$admin['adminEmail'].'</a></h3>
-						<p class="mono">KEY: '.$admin['adminCode'].'</p>
-					</div>
-					<div class="functions">
-						<a href="/settings/admin/edit-admin?id='.$admin['adminID'].'" class="button secondary small">View</a>
-					</div>
-				</li>';
+			echo '<article>
+					<ul class="list">';
+	        
+	        foreach($admins as $admin){
+		        echo '<li>
+		        		<div class="heading">
+		        			<span class="material-symbols-outlined">record_voice_over</span>
+					        <h3><a href="/settings/admin/edit-admin?id='.$admin['adminID'].'">'.$admin['adminEmail'].'</a></h3>
+							<p class="mono">KEY: '.$admin['adminCode'].'</p>
+						</div>
+						<div class="functions">
+							<a href="/settings/admin/edit-admin?id='.$admin['adminID'].'" class="button secondary small">View</a>
+						</div>
+					</li>';
+	        }
+	
+	        echo '</ul>
+	        	</article>';
+        	
         }
-
-        echo '</ul>
-        	</article>';
 	    
     }
     

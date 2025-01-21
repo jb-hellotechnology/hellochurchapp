@@ -9,6 +9,8 @@ if(!perch_member_logged_in()){
 perch_layout('header');
 
 $adminType = admin_type();
+
+$admins = hello_church_admins(true);
 ?>
 <main class="flow">
 	<?php
@@ -31,11 +33,14 @@ $adminType = admin_type();
 		<header>
 			<h2>Administrators</h2>
 		</header>
-		<?php hello_church_admins(); ?>
+		<?php hello_church_admins(false); ?>
 		<footer>
 			
 		</footer>
 	</section>
+	<?php
+		if(count($admins)<2){
+	?>
 	<section>
 		<header>
 			<h2>Create Administrator</h2>
@@ -43,6 +48,7 @@ $adminType = admin_type();
 		<?php hello_church_form('create_admin.html'); ?>
 	</section>
 	<?php
+		}
 		}else{
 			echo '<h1>Owner Access Only</h1><p>Profile administrators cannot access this page for security reasons.</p>';	
 		}	
