@@ -17,11 +17,15 @@
     
     /** BULK DELETE **/
     function process_delete_contacts($data){
-
+	    
+	    $API  = new PerchAPI(1.0, 'hello_church');
+        
+        $HelloChurchContacts = new HelloChurch_Contacts($API);
+        
+		$Session = PerchMembers_Session::fetch();
 		
 		$contacts = explode(",", $data);
-		print_r($contacts);
-/*
+		
 		foreach($data as $contact){
 			$owner = $HelloChurchContacts->check_owner(perch_member_get('churchID'), $contact);
 			if($owner){
@@ -30,7 +34,6 @@
 		        $contact->delete(); 
 			}
 		}
-*/
 	    
     }
     
