@@ -30,6 +30,7 @@
 			$owner = $HelloChurchContacts->check_owner(perch_member_get('churchID'), $contactID);
 			if($owner){
 				$contact = $HelloChurchContacts->find($contactID);
+				print_r($contact);
 		        $contact->delete(); 
 			}
 		}
