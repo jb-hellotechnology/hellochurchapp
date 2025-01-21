@@ -30,12 +30,12 @@ $('#signin').click(function(){
 	let church = $('#slug').val();
 	let email = $('#email_address').val();
 	
-	$.get( "/public/send-magic-link", { c: church, e: email}).done(function( data ) {
+	$.post( "/public/send-magic-link", { c: church, e: email}).done(function( data ) {
 		if(data == 'success'){
-			$('#result').html('<p class="alert success">Success! Check your inbox for a sign in link.</p>');
+			$('#result').html('<p class="alert success"><span class="material-symbols-outlined">check_circle</span>Success - check your inbox for a sign in link</p>');
 			$('input[type=submit]').hide();
 		}else{
-			$('#result').html('<p class="alert error">Error. Something went wrong.</p>');
+			$('#result').html('<p class="alert error"><span class="material-symbols-outlined">error</span>Error - please try again</p>');
 		}
 	});
 	

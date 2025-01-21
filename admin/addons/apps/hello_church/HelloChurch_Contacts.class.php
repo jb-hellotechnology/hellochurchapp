@@ -312,21 +312,46 @@ class HelloChurch_Contacts extends PerchAPI_Factory
 		
 		require '../../../vendor/autoload.php';
 		include('../../../secrets.php');
+		$template = file_get_contents('../../../email_template.html');
 		
 		$API  = new PerchAPI(1.0, 'hello_church');
 
 		$sql = 'SELECT * FROM perch3_hellochurch_contacts WHERE churchID="'.$churchID.'" AND contactEmail="'.$email.'"';
 	    $contact = $this->db->get_row($sql);
 	    
+	    $sql2 = 'SELECT * FROM perch3_hellochurch_churches WHERE churchID="'.$churchID.'"';
+	    $church = $this->db->get_row($sql2);
+	    
+	    $senderPostalAddress = "$church[churchName], $church[churchAddress1], $church[churchCity], $church[churchCountry]";
+	    
 	    $salt  = "big string of random stuff"; // you can generate this once like above
 		$link = md5( $salt . time());
 	    
 	    $timestamp = date("Y-m-d H:i:s", strtotime("+10 minutes"));
+	    $timestampH = date("d/m/Y H:i:s", strtotime("+10 minutes"));
 	    
 	    $sql = 'UPDATE perch3_hellochurch_contacts SET contactMagicLink="'.$link.'", contactMagicLinkExpires="'.$timestamp.'" WHERE churchID="'.$churchID.'" AND contactEmail="'.$email.'"';
 	    $result = $this->db->execute($sql);
 	    
-		$emailContent = '<h1>Hello Church</h1><p>Click the link to sign in:</p><p><a href="https://app.hellochurch.tech/profile/magic?p='.$link.'&e='.$email.'">Sign In</a></p><p>This link expires at '.$timestamp.' so please use it promptly.</p>';
+	    $emailContent = '<h2 style="font-family: Helvetica, sans-serif; font-size: 24px; font-weight: strong; margin: 0; margin-bottom: 16px;">Sign In Link</h2>';
+	    $emailContent .= '<p style="font-family: Helvetica, sans-serif; font-size: 16px; font-weight: normal; margin: 0; margin-bottom: 16px;">Click the button below to sign in and manage your profile:</p>';
+	    $emailContent .= '<table role="presentation" border="0" cellpadding="0" cellspacing="0" class="btn btn-primary" style="border-collapse: separate; mso-table-lspace: 0pt; mso-table-rspace: 0pt; box-sizing: border-box; width: 100%; min-width: 100%;" width="100%">
+                    <tbody>
+                      <tr>
+                        <td align="left" style="font-family: Helvetica, sans-serif; font-size: 16px; vertical-align: top; padding-bottom: 16px;" valign="top">
+                          <table role="presentation" border="0" cellpadding="0" cellspacing="0" style="border-collapse: separate; mso-table-lspace: 0pt; mso-table-rspace: 0pt; width: auto;">
+                            <tbody>
+                              <tr>
+                                <td style="font-family: Helvetica, sans-serif; font-size: 16px; vertical-align: top; border-radius: 4px; text-align: center; background-color: #142c8e;" valign="top" align="center" bgcolor="#0867ec"> <a href="https://app.hellochurch.tech/profile/magic?p='.$link.'&e='.$email.'" target="_blank" style="border: solid 2px #142c8e; border-radius: 4px; box-sizing: border-box; cursor: pointer; display: inline-block; font-size: 16px; font-weight: bold; margin: 0; padding: 12px 24px; text-decoration: none; text-transform: capitalize; background-color: #142c8e; border-color: #142c8e; color: #ffffff;">Sign In</a> </td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>';
+	    $emailContent .= '<p style="font-family: Helvetica, sans-serif; font-size: 16px; font-weight: normal; margin: 0; margin-bottom: 16px;">This link expires at '.$timestampH.' so please use it promptly.</p>';
+	    $emailContent .= '<p style="font-family: Helvetica, sans-serif; font-size: 16px; font-weight: normal; margin: 0; margin-bottom: 16px;">If you did not request this email please contact <a href="mailto:support@hellochurch.tech">support@hellochurch.tech</a>.</p>';
 		
 		// Configure API key authorization: api-key
 		$config = Brevo\Client\Configuration::getDefaultConfiguration()->setApiKey('api-key', $brevoAPI);
@@ -338,11 +363,12 @@ class HelloChurch_Contacts extends PerchAPI_Factory
 		    $config
 		);
 		$sendSmtpEmail = new \Brevo\Client\Model\SendSmtpEmail([
-		  	 'subject' => 'Sign In Link - Hello Church',
-		     'sender' => ['name' => 'Hello Church', 'email' => 'email@hellochurch.tech'],
-		     'replyTo' => ['name' => 'Hello Church', 'email' => 'email@hellochurch.tech'],
+		  	 'subject' => 'Sign In Link - '.$church['churchName'],
+		     'sender' => ['name' => $church['churchName'], 'email' => 'no-reply@hellochurch.tech'],
+		     'replyTo' => ['name' => $church['churchName'], 'email' => $church['churchEmail']],
 		     'to' => [[ 'email' => $email ]],
-		     'htmlContent' => '<html><body>'.$emailContent.'</body></html>',
+		     'htmlContent' => $template,
+			 'params' => ['emailSubject' => $subject, 'emailContent' => $emailContent, 'senderPostalAddress' => $senderPostalAddress]
 		]);
 		
 		try {

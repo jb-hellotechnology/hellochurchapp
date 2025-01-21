@@ -37,7 +37,7 @@ perch_layout('header_public');
 	<h1>Sign In</h1>
 	<?php
 		if(perch_get('msg')=='success'){
-			echo '<p class="alert success">Signed out.</p>';
+			echo '<p class="alert success"><span class="material-symbols-outlined">check_circle</span>Signed out</p>';
 		}
 	?>
 	<section>
