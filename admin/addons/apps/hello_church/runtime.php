@@ -450,7 +450,7 @@ error_reporting(E_ALL);
 	            } 
             break;
             case 'delete_contact':
-	            $data = $HelloChurchContacts->valid($data['data']);
+	            $data = $HelloChurchContacts->valid($SubmittedForm->data);
 	            if(!$data){
 		            //$SubmittedForm->throw_error($valid['reason'], $valid['field']);
 	            }else{
