@@ -38,7 +38,9 @@ if(!$_POST['recipient']){
 	
 	foreach(array_unique($recipients) as $contact){
 		$contact = hello_church_contact($contact);
-		$bcc[] = (object) array('email' => $contact->contactEmail());
+		if($contact['contactAcceptEmail']=='Yes'){
+			$bcc[] = (object) array('email' => $contact->contactEmail());
+		}
 	}
 	
 	$to = array();
