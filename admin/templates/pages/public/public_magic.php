@@ -14,6 +14,7 @@ if(signed_in()){
 ?>
 <main class="flow public narrow">
 	<h1>Error</h1>
-	<p class="alert error">Sign in failed. Please <a href="/profile">try again</a>.</p>
+	<p class="alert error"><span class="material-symbols-outlined">error</span> Sign in failed</p>
+	<p><a class="button primary" href="/profile/">Try Again</a></p>
 </main>
 <?php perch_layout('footer_public'); ?>
