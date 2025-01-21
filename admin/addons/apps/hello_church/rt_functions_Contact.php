@@ -28,10 +28,7 @@
 		
 		foreach($data as $contact){
 			$owner = $HelloChurchContacts->check_owner(perch_member_get('churchID'), $contact);
-			if($owner){
-				$contact = $HelloChurchContacts->find($contact);
-		        $contact->delete(); 
-			}
+			
 		}
 	    
     }
