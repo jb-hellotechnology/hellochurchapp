@@ -1773,6 +1773,10 @@ ul.folders li span{
 	display:none;
 }
 
+select#currency{
+	max-width:200px;
+}
+
 .to{
 	width:100%;
 	padding-bottom:1rem;
