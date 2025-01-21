@@ -15,7 +15,7 @@ perch_layout('header');
 		)); 
 	?>
 	<h1>Onboarding</h1>
-	<p>Need some advice? Want help importing your contacts? Book a session with Jack:
+	<p>Need some advice? Want help importing your contacts? Book a session with Jack:</p>
 	<!-- static button start -->
 	<link href="https://meetings.brevo.com/assets/styles/popup.css" rel="stylesheet" />
 	<script src="https://meetings.brevo.com/assets/libs/popup.min.js" type="text/javascript"></script>
