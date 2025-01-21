@@ -414,7 +414,7 @@
 								<a href="/contacts/edit-contact?id='.$contact['contactID'].'" class="button secondary small">View</a>
 							</div>
 							<div class="td">
-								<input type="checkbox" class="contact_select" name="select_'.$contact['contactID'].'" data-contact="'.$contact['contactID'].'" />
+								
 							</div>
 						</div>';
 				}
