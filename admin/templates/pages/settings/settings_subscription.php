@@ -62,7 +62,6 @@ $adminType = admin_type();
 	?>
 	<h1>Subscription Settings</h1>
 	<?php
-		echo perch_member_get('first_name');
 		if(perch_get('success')==1){
 			
 			// Configure API key authorization: api-key
@@ -76,8 +75,7 @@ $adminType = admin_type();
 			);
 			$createContact = new \Brevo\Client\Model\CreateContact([
 			     'email' => perch_member_get('email'),
-			     'updateEnabled' => true,
-			     'attributes' => [[ 'FIRSTNAME' => perch_member_get('first_name'), 'LASTNAME' => perch_member_get('last_name') ]],     
+			     'updateEnabled' => true,    
 			     'listIds' =>[[5]]
 			]); // \Brevo\Client\Model\CreateContact | Values to create a contact
 			
