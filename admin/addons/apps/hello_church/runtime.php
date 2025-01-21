@@ -438,7 +438,7 @@ error_reporting(E_ALL);
 	            } 
             break;
             case 'update_contact_public':
-	            $data = $HelloChurchContacts->contact_valid($data['data']);
+	            $data = $HelloChurchContacts->valid($data['data']);
 	            if(!$data){
 		            //$SubmittedForm->throw_error($valid['reason'], $valid['field']);
 	            }else{
