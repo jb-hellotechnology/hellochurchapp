@@ -26,7 +26,7 @@
 		
 		$contacts = explode(",", $data);
 		
-		foreach($data as $contact){
+		foreach($contacts as $contact){
 			$owner = $HelloChurchContacts->check_owner(perch_member_get('churchID'), $contact);
 			if($owner){
 				$contact = $HelloChurchContacts->find($contact);
