@@ -21,7 +21,7 @@ class HelloChurch_Churches extends PerchAPI_Factory
 	    $clean = array();
 	
 		foreach($data as $key => $value){
-			$clean[$key] = strip_tags($value, '<p><a><h2><h3><em><strong><i>');
+			$clean[$key] = strip_tags($value, '<p><a><h2><h3><em><strong><i><li><ul><ol>');
 		}
 		
 		return $clean;

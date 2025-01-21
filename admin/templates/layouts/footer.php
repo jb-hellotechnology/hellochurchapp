@@ -150,7 +150,7 @@
 	<script src="/assets/redactor/redactor.min.js"></script>
     <script>
 	$R('.redactor', {
-	  "buttons": ["format", "bold", "italic", "unorderedlist", "orderedlist", "link"],
+	  "buttons": ["format", "bold", "italic", "lists", "link"],
 	  "linkNewTab": true,
 	  "toolbarFixed": true,
 	  "formatting": ["p","h2", "h3"]
