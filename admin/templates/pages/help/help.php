@@ -15,7 +15,7 @@ perch_layout('header');
 		)); 
 	?>
 	<h1>Help</h1>
-	<p>Browse our database of help articles to find answers to your questions:</p>
+	<p>Browse our database of help articles to find answers to your questions.</p>
 	<?php 
 /*
 		perch_search_form(); 
@@ -34,5 +34,7 @@ perch_layout('header');
 	        'template'  => 'help.html'
 	    ));
     ?>
+    <h2>Free Onboarding Sessions</h2>
+    <p>Need more support? Book an <a href="/help/onboarding">onboarding session</a> with Jack.</p>
 </main>
 <?php perch_layout('footer'); ?>
