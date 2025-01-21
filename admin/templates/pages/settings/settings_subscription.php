@@ -62,6 +62,7 @@ $adminType = admin_type();
 	?>
 	<h1>Subscription Settings</h1>
 	<?php
+		echo perch_member_get('first_name');
 		if(perch_get('success')==1){
 			
 			// Configure API key authorization: api-key
