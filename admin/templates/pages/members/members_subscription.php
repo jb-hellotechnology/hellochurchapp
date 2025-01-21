@@ -5,11 +5,9 @@ ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 */
 
-require '../../vendor/autoload.php';
-include('../../secrets.php');
+require '../../../vendor/autoload.php';
+include('../../../secrets.php');
 perch_layout('header');
-
-echo $brevoAPI;
 
 $customerID = stripe_data('churchCustomerID');
 
