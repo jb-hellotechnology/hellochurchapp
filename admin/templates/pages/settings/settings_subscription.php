@@ -63,6 +63,30 @@ $adminType = admin_type();
 	<h1>Subscription Settings</h1>
 	<?php
 		if(perch_get('success')==1){
+			
+			// Configure API key authorization: api-key
+			$config = Brevo\Client\Configuration::getDefaultConfiguration()->setApiKey('api-key',  $brevoAPI);
+			
+			$apiInstance = new Brevo\Client\Api\ContactsApi(
+			    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
+			    // This is optional, `GuzzleHttp\Client` will be used as default.
+			    new GuzzleHttp\Client(),
+			    $config
+			);
+			$createContact = new \Brevo\Client\Model\CreateContact([
+			     'email' => perch_member_get('email'),
+			     'updateEnabled' => true,
+			     'attributes' => [[ 'FIRSTNAME' => perch_member_get('first_name'), 'LASTNAME' => perch_member_get('last_name') ]],     
+			     'listIds' =>[[5]]
+			]); // \Brevo\Client\Model\CreateContact | Values to create a contact
+			
+			try {
+			    $result = $apiInstance->createContact($createContact);
+			    print_r($result);
+			} catch (Exception $e) {
+			    echo 'Exception when calling ContactsApi->createContact: ', $e->getMessage(), PHP_EOL;
+			}
+			
 	?>
 	<p class="alert success"><span class="material-symbols-outlined">check_circle</span>Your subscription is active</p>
 	<h2>What next?</h2>

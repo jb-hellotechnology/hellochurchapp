@@ -6,6 +6,10 @@ if(!perch_member_logged_in()){
 	header("location:/");
 }
 
+if(!perch_member_has_church() && !perch_member_has_admin_rights()){
+	header("location:/settings/church?create=true");
+}
+
 if(perch_get('id')){
 	$church = church_by_slug(perch_get('id'));
 	if(($church['memberID'] == perch_member_get('memberID')) OR ($church['churchID'] == perch_member_get('churchID'))){
