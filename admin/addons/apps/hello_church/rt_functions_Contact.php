@@ -179,7 +179,7 @@
 		$html = '[';
         
         foreach($contacts as $contact){
-	        $html .=  "{id: ".$contact['contactID'].", value:'".$contact['contactFirstName']." ".$contact['contactLastName']."'}, ";
+	        $html .=  "{id: ".$contact['contactID'].", value:'".addslashes($contact['contactFirstName'])." ".addslashes($contact['contactLastName'])."'}, ";
         }
         
         if(strlen($html)>1){
