@@ -9,6 +9,8 @@ require '../../../vendor/autoload.php';
 include('../../../secrets.php');
 perch_layout('header');
 
+echo $brevoAPI;
+
 $customerID = stripe_data('churchCustomerID');
 
 $stripe = new \Stripe\StripeClient($stripeSK);
