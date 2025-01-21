@@ -89,7 +89,7 @@ if(perch_member_logged_in()){
 			}
 		?>
 			
-		<h2 class="gooddog"><a href="/dashboard">Hello Church <?php if($church){ ?><span>&bull; <?= $church['churchName'] ?><?php } ?></a></h2>
+		<h2 class="gooddog"><a href="/dashboard">Hello Church <?php if($church){ ?><span>&bull; <?= $church['churchName'] ?><?php } ?></span></a></h2>
 		<nav>
 			<?php
 				if(perch_member_logged_in()){

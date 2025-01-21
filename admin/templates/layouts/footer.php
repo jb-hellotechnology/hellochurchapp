@@ -96,6 +96,7 @@
 			  return $(this).data("contact");
 			}).toArray();
 			$.post( "/process/delete-contacts", { contacts: checked_contacts }, function( data ) {
+alert(data);
 				alert("Contacts Deleted");
 				window.location.href = "/contacts";
 			});

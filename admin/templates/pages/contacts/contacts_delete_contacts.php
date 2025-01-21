@@ -5,7 +5,7 @@ if(!perch_member_logged_in()){
 }
 
 $contacts = strip_tags(addslashes($_POST['contacts']));
-
-process_delete_contacts($contacts);
+print_r($contacts);
+//process_delete_contacts($contacts);
 
 ?>
