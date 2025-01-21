@@ -15,6 +15,8 @@
 	<link href="/assets/css/stylesheet_public.css?v=<?= rand() ?>" rel="stylesheet">
 	
 	<script src='https://www.hCaptcha.com/1/api.js' async defer></script>
+	
+	<link rel="stylesheet" href="https://use.typekit.net/prw8zqs.css">
 </head>
 <body>
 	<header class="site-header">
