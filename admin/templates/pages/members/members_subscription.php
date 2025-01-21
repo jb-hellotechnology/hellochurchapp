@@ -21,7 +21,7 @@ $stripeData = $stripe->customerSessions->create([
 ?>
 <main class="wide center full">
 	<h2>Start Your Free Trial</h2>
-	
+	<p>No Card Required &bull; 30 Days Free</p>
 	<br />
 	
 	<label>Select Your Preferred Currency</label>
