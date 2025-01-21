@@ -9,6 +9,18 @@ class HelloChurch_Audios extends PerchAPI_Factory
 	protected $default_sort_column = 'audioID';
 
 	public $static_fields = array('audioID', 'churchID', 'memberID', 'audioName', 'audioDate', 'audioDescription', 'audioSeries', 'audioSpeaker', 'audioBible', 'audioFileLocation', 'audioFileName', 'audioPublish');
+	
+	public function valid($data){
+	    
+	    $clean = array();
+	
+		foreach($data as $key => $value){
+			$clean[$key] = strip_tags($value, '<p><a><h2><h3><em><strong><i>');
+		}
+		
+		return $clean;
+	    
+    }
     
     public function add_audio($memberID, $churchID, $audioName, $audioDate, $audioDescription, $audioSpeaker, $audioSeries, $audioBible, $audioFile){
 	    

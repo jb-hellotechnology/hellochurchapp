@@ -7,6 +7,8 @@ if(!perch_member_logged_in()){
 }
 
 perch_layout('header');
+
+$adminType = admin_type();
 ?>
 <main class="flow">
 	<?php

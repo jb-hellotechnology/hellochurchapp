@@ -14,9 +14,15 @@ class HelloChurch_Folders extends PerchAPI_Factory
 
 	public $static_fields = array('folderID', 'churchID', 'memberID', 'folderName', 'folderParent');
     
-    public function role_valid($data){
+    public function valid($data){
 	    
-	    return true;
+	    $clean = array();
+	
+		foreach($data as $key => $value){
+			$clean[$key] = strip_tags($value, '<p><a><h2><h3><em><strong><i>');
+		}
+		
+		return $clean;
 	    
     }
     

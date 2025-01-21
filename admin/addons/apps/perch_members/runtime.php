@@ -32,11 +32,20 @@
 		$API  = new PerchAPI(1.0, 'perch_members');
 		$Session = PerchMembers_Session::fetch();
 		session_start();
-		if($Session->get('churchID')){
+		if($Session->get('churchID')>0){
 			return true;
 		}else{
 			return false;
 		}
+	}
+	
+	function clear_churchID(){
+		
+		$API  = new PerchAPI(1.0, 'perch_members');
+		$PerchMembers_Auth = new PerchMembers_Auth($API);
+		
+		$PerchMembers_Auth->update_church_session(0);
+			
 	}
 	
 	function perch_members_refresh_session_data(){

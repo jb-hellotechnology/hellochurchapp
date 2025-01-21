@@ -458,7 +458,7 @@ header nav ul.main-nav li:first-child{
 header nav ul.main-nav li:last-child{
 	margin-right:0px;
 	border-top:1px solid #ccc;
-	margin-top:2rem;
+	margin-top:1rem;
 }
 
 header nav ul.main-nav li ul{
@@ -1046,6 +1046,18 @@ section article{
 	}
 }
 
+@media screen and (max-width:640px){
+	section header div select{
+		display:none;
+	}
+}
+
+@media screen and (max-width:480px){
+	section header div input[type=text]{
+		width:100px;
+	}
+}
+
 .pagination{
 	
 }
@@ -1359,9 +1371,15 @@ ul.cards{
 	margin:0;
 	width:100%;
 	display:grid;
-	grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+	grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
 	grid-column-gap: 1rem;
 	grid-row-gap: 1rem;
+}
+
+@media screen and (max-width:640px){
+	ul.cards{
+		grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+	}
 }
 
 ul.cards li{
@@ -1759,4 +1777,8 @@ ul.folders li span{
 	width:100%;
 	padding-bottom:1rem;
 	border-bottom:1px solid var(--color-light-grey);
+}
+
+.redactor-toolbar{
+	padding-bottom:1rem !important;
 }

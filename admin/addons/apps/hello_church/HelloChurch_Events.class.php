@@ -10,6 +10,18 @@ class HelloChurch_Events extends PerchAPI_Factory
 
 	public $static_fields = array('eventID', 'churchID', 'memberID', 'eventName', 'eventDescription', 'allDay', 'start', 'end', 'repeatEvent', 'repeatEnd', 'roles', 'venues', 'eventPublish');
 	
+	public function valid($data){
+	    
+	    $clean = array();
+	
+		foreach($data as $key => $value){
+			$clean[$key] = strip_tags($value, '<p><a><h2><h3><em><strong><i>');
+		}
+		
+		return $clean;
+	    
+    }
+	
 	public function events($churchID){
 		
 		$sql = "SELECT * FROM perch3_hellochurch_events WHERE churchID='".$churchID."' ORDER BY start ASC";

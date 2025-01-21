@@ -12,8 +12,12 @@ if(!hello_church_admin_owner(perch_get('id'))){
 }
 
 perch_layout('header');
+$adminType = admin_type();
 ?>
 <main class="flow">
+	<?php
+		if($adminType=='owner'){
+	?>
 	<?php 
 		perch_pages_breadcrumbs(array(
 			'include-hidden' => true,
@@ -36,5 +40,10 @@ perch_layout('header');
 		<h3>More Options</h3>
 		<p><a href="/settings/admin/delete-admin?id=<?= perch_get('id') ?>" class="warning">Delete administrator</a></p>
 	</div>
+	<?php
+		}else{
+			echo '<h1>Owner Access Only</h1><p>Profile administrators cannot access this page for security reasons.</p>';	
+		}	
+	?>
 </main>
 <?php perch_layout('footer'); ?>

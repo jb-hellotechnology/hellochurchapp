@@ -48,6 +48,8 @@ if($customer_id){
 	$currency = strtoupper($price_data->currency);
 
 }
+
+$adminType = admin_type();
 ?>
 <main class="flow">
 	<?php

@@ -10,9 +10,15 @@ class HelloChurch_Roles extends PerchAPI_Factory
 
 	public $static_fields = array('roleID', 'churchID', 'memberID', 'roleName', 'roleDescription', 'roleType');
     
-    public function role_valid($data){
-	    
-	    return true;
+    public function valid($data){
+	
+		$clean = array();
+	
+		foreach($data as $key => $value){
+			$clean[$key] = strip_tags($value, '<p><a><h2><h3><em><strong><i>');
+		}
+		
+		return $clean;
 	    
     }
     

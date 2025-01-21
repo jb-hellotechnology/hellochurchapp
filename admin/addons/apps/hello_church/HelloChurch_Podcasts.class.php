@@ -9,6 +9,18 @@ class HelloChurch_Podcasts extends PerchAPI_Factory
 	protected $default_sort_column = 'podcastName';
 
 	public $static_fields = array('podcastID', 'churchID', 'podcastName', 'podcastDescription', 'podcastImage');
+	
+	public function valid($data){
+	    
+	    $clean = array();
+	
+		foreach($data as $key => $value){
+			$clean[$key] = strip_tags($value, '<p><a><h2><h3><em><strong><i>');
+		}
+		
+		return $clean;
+	    
+    }
     
 	public function podcast($churchID){
 	    

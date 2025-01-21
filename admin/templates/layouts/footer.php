@@ -75,7 +75,6 @@
 	});
 	
 	function resetPagination(){
-		console.log(1);
 		$("#page").val($("#page option:first").val());
 	}
 	$('input[type=checkbox].contact_select').click(function(){
@@ -105,30 +104,16 @@
 			}).toArray();
 			var pTag = $('#tag').val();
 			$.post( "/process/tag-contacts", { contacts: checked_contacts, tag: pTag }, function( data ) {
-				console.log(data);
 				alert("Contacts Tagged");
 				window.location.href = "/contacts";
 			});
-		}
-	}
-	function searchFamilyMembers(){
-		let pQ = $('#q').val();
-		let pID = $('#q').data('member-id');
-		if(pQ.length>2){
-			$.get( "/process/search-family-members", { q: pQ, memberID: pID }, function( data ) {
-				if(data){
-					$('.results').html(data).show();
-				}
-			});
-		}else{
-			$('.results').hide();
 		}
 	}
 	function searchContacts(){
 		let pQ = $('#q').val();
 		let pID = $('#q').data('group-id');
 		if(pQ.length>2){
-			$.get( "/process/search-contacts", { q: pQ, groupID: pID }, function( data ) {
+			$.post( "/process/search-contacts", { q: pQ, groupID: pID }, function( data ) {
 				if(data){
 					$('.results').html(data).show();
 				}
@@ -143,15 +128,12 @@
 		let pDate = $('#'+pRole+' .q').data('event-date');
 		let pRoleID = $('#'+pRole+' .q').data('event-role');
 		if(pQ.length>2){
-			$.get( "/process/search-role-contacts", { q: pQ, eventID: pID, date: pDate, roleID: pRoleID }, function( data ) {
-				console.log(data);
+			$.post( "/process/search-role-contacts", { q: pQ, eventID: pID, date: pDate, roleID: pRoleID }, function( data ) {
 				if(data){
-					console.log(data);
 					$('#'+pRole+' .results').html(data).show();
 				}
 			});
 		}else{
-			console.log('here');
 			$('#'+pRole+' .results').hide();
 		}
 	}
@@ -168,10 +150,10 @@
 	<script src="/assets/redactor/redactor.min.js"></script>
     <script>
 	$R('.redactor', {
-		toolbar: false
-	});
-	$R('.redactor-toolbar', {
-
+	  "buttons": ["format", "bold", "italic", "unorderedlist", "orderedlist", "link"],
+	  "linkNewTab": true,
+	  "toolbarFixed": true,
+	  "formatting": ["p","h2", "h3"]
 	});
     </script>
 </body>

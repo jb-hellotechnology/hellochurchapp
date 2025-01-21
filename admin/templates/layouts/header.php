@@ -14,10 +14,16 @@ if(perch_member_logged_in()){
 	$subscription = stripe_data('churchPeriodEnd');
 	
 	$adminType = admin_type();
-
-	if($subscription <= time() AND $subscription !== '' AND ($url !== 'Setup Subscription' AND $url !== 'Switch')){
+	
+	if($_SESSION['codeError']==1 && $url !== 'Switch'){
+		header("location:/switch?msg=error");
+	}
+	
+	if(!perch_member_has_church() AND ($url !== 'Setup Subscription' AND $url !== 'Switch' AND $url !== 'Settings - Church')){
+		header("location:/switch");
+	}elseif(perch_member_has_church() AND $subscription <= time() AND $subscription !== '' AND ($url !== 'Setup Subscription' AND $url !== 'Switch')){
 		header("location:/subscription");	
-	}elseif($subscription <= time() AND $subscription > 0 AND $url !== 'Setup Subscription' AND $url !== 'Switch'){
+	}elseif(perch_member_has_church() AND $subscription <= time() AND $subscription > 0 AND $url !== 'Setup Subscription' AND $url !== 'Switch'){
 		header("location:/settings/subscription");
 	}
 	

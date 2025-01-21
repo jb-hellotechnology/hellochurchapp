@@ -10,6 +10,18 @@ class HelloChurch_Contact_Notes extends PerchAPI_Factory
 
 	public $static_fields = array('noteID', 'memberID', 'churchID', 'contactID', 'timestamp', 'note');
 	
+	public function valid($data){
+	    
+	    $clean = array();
+	
+		foreach($data as $key => $value){
+			$clean[$key] = strip_tags($value, '<p><a><h2><h3><em><strong><i>');
+		}
+		
+		return $clean;
+	    
+    }
+	
 	public function by_contactID($contactID){
 	    
 	    $API  = new PerchAPI(1.0, 'hello_church');

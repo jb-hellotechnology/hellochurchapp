@@ -10,9 +10,15 @@ class HelloChurch_Emails extends PerchAPI_Factory
 
 	public $static_fields = array('emailID', 'churchID', 'memberID', 'emailSubject', 'emailTo', 'emailContent', 'emailStatus', 'emailSent');
     
-    public function role_valid($data){
+    public function valid($data){
 	    
-	    return true;
+	    $clean = array();
+	
+		foreach($data as $key => $value){
+			$clean[$key] = strip_tags($value, '<p><a><h2><h3><em><strong><i>');
+		}
+		
+		return $clean;
 	    
     }
 

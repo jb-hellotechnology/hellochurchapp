@@ -7,20 +7,26 @@ if(!perch_member_logged_in()){
 }
 
 if(perch_get('id')){
-	$church = hello_church_church_public(perch_get('id'));
-	if($church['memberID'] == perch_member_get('memberID') OR perch_get('id') == perch_member_get('churchID')){
+	$church = church_by_slug(perch_get('id'));
+	if(($church['memberID'] == perch_member_get('memberID')) OR ($church['churchID'] == perch_member_get('churchID'))){
 		// SET SESSION DATA
-		hello_church_update_church_session(perch_get('id'));
+		hello_church_update_church_session($church['churchID']);
 		// REDIRECT TO DASHBOARD
 		header("location:/dashboard");
 	}
 }
+
+PerchSystem::set_var('churchSlug', perch_get('id'));
 
 perch_layout('header');
 ?>
 <main class="flow">
 	<h1>Select Church</h1>
 	<?php
+		if($_SESSION['codeError'] == 1){
+			echo '<p class="alert error"><span class="material-symbols-outlined">error</span>Error - please try again</p>';
+			$_SESSION['codeError'] = 0;
+		}
 		if(perch_get('id')){
 	?>
 	<section>

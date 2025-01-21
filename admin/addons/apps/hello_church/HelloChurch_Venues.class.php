@@ -10,9 +10,15 @@ class HelloChurch_Venues extends PerchAPI_Factory
 
 	public $static_fields = array('venueID', 'churchID', 'memberID', 'venueName', 'venueDescription');
     
-    public function venue_valid($data){
+    public function valid($data){
 	    
-	    return true;
+	    $clean = array();
+	
+		foreach($data as $key => $value){
+			$clean[$key] = strip_tags($value, '<p><a><h2><h3><em><strong><i>');
+		}
+		
+		return $clean;
 	    
     }
     

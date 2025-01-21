@@ -71,7 +71,7 @@
 		$options = $HelloChurchAdmins->admin_options($Session->get('memberID'));
 		
 		foreach($options as $church){
-			echo '<li><a href="/switch?id='.$church['churchID'].'">'.$church['churchName'].'</a></li>';
+			echo '<li><a href="/switch?id='.$church['churchSlug'].'">'.$church['churchName'].'</a></li>';
 		}
 		
 	}

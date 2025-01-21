@@ -25,7 +25,6 @@ perch_layout('header');
 		)); 
 	?>
 	<h1>Edit a Note</h1>
-	<p><a href="/contacts/edit-contact?id=<?= perch_get('id') ?>" class="button secondary small">Back</a></p>
 	<section>
 		<header>
 			<h2>Update Note</h2>

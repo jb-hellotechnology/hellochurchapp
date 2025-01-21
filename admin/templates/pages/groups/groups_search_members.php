@@ -4,6 +4,6 @@ if(!perch_member_logged_in()){
 	exit;
 }
 
-process_search_members(perch_get('q'), perch_get('groupID'));
+process_search_members(strip_tags(addslashes($_POST['q'])), strip_tags(addslashes($_POST['groupID'])));
 
 ?>

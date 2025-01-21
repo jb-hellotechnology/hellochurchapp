@@ -28,7 +28,7 @@ perch_layout('header');
 		}
 
 		if(!perch_member_has_church()){
-			echo '<p class="alert success">Success! Please now add your church contact details using the form below:</p>';
+			echo '<p class="alert success">Please add your church contact details using the form below:</p>';
 		}
 	?>
 	<section>

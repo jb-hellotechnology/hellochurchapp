@@ -12,9 +12,15 @@ class HelloChurch_Contacts extends PerchAPI_Factory
 
     public $dynamic_fields_column = 'contactProperties';
     
-    public function contact_valid($data){
+    public function valid($data){
 	    
-	    return true;
+	    $clean = array();
+	
+		foreach($data as $key => $value){
+			$clean[$key] = strip_tags($value, '<p><a><h2><h3><em><strong><i>');
+		}
+		
+		return $clean;
 	    
     }
     

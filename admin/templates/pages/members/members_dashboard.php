@@ -70,7 +70,6 @@ $church = hello_church_church(true);
 				</a>
 			</div>
 		</li>
-<!--
 		<li>
 			<div>
 				<a href="/help">
@@ -79,7 +78,6 @@ $church = hello_church_church(true);
 				</a>
 			</div>
 		</li>
--->
 	</ul>
 	</section>
 	<section>

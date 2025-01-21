@@ -10,9 +10,15 @@ class HelloChurch_Admins extends PerchAPI_Factory
 
 	public $static_fields = array('adminID', 'churchID', 'memberID', 'adminEmail', 'adminCode');
     
-    public function role_valid($data){
+    public function valid($data){
 	    
-	    return true;
+	    $clean = array();
+	
+		foreach($data as $key => $value){
+			$clean[$key] = strip_tags($value, '<p><a><h2><h3><em><strong><i>');
+		}
+		
+		return $clean;
 	    
     }
     
@@ -109,7 +115,14 @@ class HelloChurch_Admins extends PerchAPI_Factory
 		$sql = "SELECT * FROM perch3_members WHERE memberID='".$memberID."'";
 	    $result = $this->db->get_row($sql);
 	    
-	    $sql2 = "SELECT * FROM perch3_hellochurch_admins WHERE adminEmail='".$result['memberEmail']."' AND churchID='".$churchID."' AND adminCode='".$key."'";
+	    $sql1 = "SELECT * FROM perch3_hellochurch_churches WHERE churchSlug='".$churchID."'";
+	    $result1 = $this->db->get_row($sql1);
+	    
+	    
+	    echo $sql1;
+	    
+	    $sql2 = "SELECT * FROM perch3_hellochurch_admins WHERE adminEmail='".$result['memberEmail']."' AND churchID='".$result1['churchID']."' AND adminCode='".$key."'";
+	    echo $sql2;
 	    $result2 = $this->db->get_row($sql2);
 	    if($result2){
 		    return true;

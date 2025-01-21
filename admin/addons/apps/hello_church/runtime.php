@@ -376,8 +376,8 @@ error_reporting(E_ALL);
             case 'create_church':
             	session_start();
             	unset($_SESSION['churchID']);
-	            $valid = $HelloChurchChurches->church_valid($SubmittedForm->data);
-	            if(!$valid){
+	            $data = $HelloChurchChurches->valid($SubmittedForm->data);
+	            if(!$data){
 		            //$SubmittedForm->throw_error($valid['reason'], $valid['field']);
 	            }else{
 
@@ -400,20 +400,20 @@ error_reporting(E_ALL);
 	            } 
             break;
             case 'update_church':
-	            $valid = $HelloChurchChurches->church_valid($SubmittedForm->data);
-	            if(!$valid){
+	            $data = $HelloChurchChurches->valid($SubmittedForm->data);
+	            if(!$data){
 		            //$SubmittedForm->throw_error($valid['reason'], $valid['field']);
 	            }else{
-		            $church = $HelloChurchChurches->find($SubmittedForm->data['churchID']);
-		            $church->update($SubmittedForm->data);
+		            $church = $HelloChurchChurches->find($data['churchID']);
+		            $church->update($data);
 	            } 
             break;
+            
 			case 'create_contact':
-	            $valid = $HelloChurchContacts->contact_valid($SubmittedForm->data);
-	            if(!$valid){
+	            $data = $HelloChurchContacts->valid($SubmittedForm->data);
+	            if(!$data){
 		            //$SubmittedForm->throw_error($valid['reason'], $valid['field']);
 	            }else{
-		            $data = $SubmittedForm->data;
 		            $data['contactProperties'] = '';
 	            	$contact = $HelloChurchContacts->create($data);
 	            	$contact->update_tags($contact->id(), $data);
@@ -421,12 +421,11 @@ error_reporting(E_ALL);
 	            } 
             break;
             case 'update_contact':
-	            $valid = $HelloChurchContacts->contact_valid($SubmittedForm->data);
-	            if(!$valid){
+	            $data = $HelloChurchContacts->valid($SubmittedForm->data);
+	            if(!$data){
 		            //$SubmittedForm->throw_error($valid['reason'], $valid['field']);
 	            }else{
-		            $contact = $HelloChurchContacts->find($SubmittedForm->data['contactID']);
-		            $data = $SubmittedForm->data;
+		            $contact = $HelloChurchContacts->find($data['contactID']);
 		            if(!$data['contactAcceptSMS']){
 			            $data['contactAcceptSMS'] = '';
 		            }
@@ -439,12 +438,11 @@ error_reporting(E_ALL);
 	            } 
             break;
             case 'update_contact_public':
-	            $valid = $HelloChurchContacts->contact_valid($SubmittedForm->data);
-	            if(!$valid){
+	            $data = $HelloChurchContacts->contact_valid($data['data']);
+	            if(!$data){
 		            //$SubmittedForm->throw_error($valid['reason'], $valid['field']);
 	            }else{
 		            $contact = $HelloChurchContacts->find($_SESSION['hellochurch_active_contact']);
-		            $data = $SubmittedForm->data;
 		            if(!$data['contactAcceptEmail']){
 			            $data['contactAcceptEmail'] = '';
 		            }
@@ -452,10 +450,16 @@ error_reporting(E_ALL);
 	            } 
             break;
             case 'delete_contact':
-		        $contact = $HelloChurchContacts->find($SubmittedForm->data['contactID']);
-		        $contact->delete_tags($contact->id(), $data);
-		        $contact->delete(); 
+	            $data = $HelloChurchContacts->contact_valid($data['data']);
+	            if(!$data){
+		            //$SubmittedForm->throw_error($valid['reason'], $valid['field']);
+	            }else{
+			        $contact = $HelloChurchContacts->find($data['contactID']);
+			        $contact->delete_tags($contact->id(), $data);
+			        $contact->delete(); 
+			    }
             break;
+            
             case 'export_contact':
 				$data = $HelloChurchContact->export($SubmittedForm->data['contactID']); 
             break;
@@ -548,83 +552,149 @@ error_reporting(E_ALL);
 					}
 				}
             break;
+            
             case 'create_note':
-	            $data = $SubmittedForm->data;
-		        $note = $HelloChurchContactNotes->create($data);
+            	$data = $HelloChurchContactNotes->valid($SubmittedForm->data);
+	            if(!$data){
+					$SubmittedForm->throw_error('all', 'general');
+	            }else{
+					$HelloChurchContactNotes->create($data);    
+	            }
             break;
             case 'update_note':
-	            $note = $HelloChurchContactNotes->find($SubmittedForm->data['noteID']);
-		        $note->update($SubmittedForm->data);
+	            $data = $HelloChurchContactNotes->valid($SubmittedForm->data);
+	            if(!$data){
+					$SubmittedForm->throw_error('all', 'general');
+	            }else{
+					$note = $HelloChurchContactNotes->find($data['noteID']);
+					$note->update($data);   
+	            }
             break;
             case 'delete_note':
 	            $note = $HelloChurchContactNotes->find($SubmittedForm->data['noteID']);
 		        $note->delete();
             break;
+            
             case 'create_group':
-	            $data = $SubmittedForm->data;
-		        $group = $HelloChurchGroups->create($data);
-		        $group->update_tags($data);
-		        $group->update_members($group->id(), $data);
+            	$data = $HelloChurchGroups->valid($SubmittedForm->data);
+	            if(!$data){
+					$SubmittedForm->throw_error('all', 'general');
+	            }else{
+					$HelloChurchGroups->create($data);    
+					$group->update_tags($data);
+					$group->update_members($group->id(), $data);
+	            }
             break;
             case 'update_group':
-	            $group = $HelloChurchGroups->find($SubmittedForm->data['groupID']);
-		        $group->update($SubmittedForm->data);
-		        $group->update_tags($SubmittedForm->data);
-		        $group->update_members($group->id(), $SubmittedForm->data);
+	            $data = $HelloChurchGroups->valid($SubmittedForm->data);
+	            if(!$data){
+					$SubmittedForm->throw_error('all', 'general');
+	            }else{
+					$group = $HelloChurchGroups->find($data['groupID']);
+			        $group->update($data);
+			        $group->update_tags($data);
+			        $group->update_members($group->id(), $data);
+	            }
             break;
             case 'delete_group':
 	            $group = $HelloChurchGroups->find($SubmittedForm->data['groupID']);
 				$HelloChurchGroups->remove_all_members($Session->get('churchID'), $SubmittedForm->data['groupID']);
 		        $group->delete();
             break;
+            
             case 'create_event':
-	            $data = $SubmittedForm->data;
-		        $note = $HelloChurchEvents->create($data);
+	            $data = $HelloChurchEvents->valid($SubmittedForm->data);
+	            if(!$data){
+					$SubmittedForm->throw_error('all', 'general');
+	            }else{
+					$HelloChurchEvents->create($data);    
+	            }
             break;
             case 'update_event':
-	            $event = $HelloChurchEvents->find($SubmittedForm->data['eventID']);
-		        $event->update($SubmittedForm->data);
+	            $data = $HelloChurchEvents->valid($SubmittedForm->data);
+	            if(!$data){
+					$SubmittedForm->throw_error('all', 'general');
+	            }else{
+					$event = $HelloChurchEvents->find($data['eventID']);
+					$event->update($data);   
+	            }
             break;
             case 'delete_event':
 	            $event = $HelloChurchEvents->find($SubmittedForm->data['eventID']);
 		        $event->delete();
             break;
+            
             case 'create_role':
-	            $data = $SubmittedForm->data;
-		        $role = $HelloChurchRoles->create($data);
+            	$data = $HelloChurchRoles->valid($SubmittedForm->data);
+	            if(!$data){
+					$SubmittedForm->throw_error('all', 'general');
+	            }else{
+					$HelloChurchRoles->create($data);    
+	            }
             break;
             case 'update_role':
-	            $role = $HelloChurchRoles->find($SubmittedForm->data['roleID']);
-		        $role->update($SubmittedForm->data);
+	            $data = $HelloChurchRoles->valid($SubmittedForm->data);
+	            if(!$data){
+					$SubmittedForm->throw_error('all', 'general');
+	            }else{
+					$role = $HelloChurchRoles->find($data['roleID']);
+					$role->update($data);    
+	            }
             break;
             case 'delete_role':
-	            $role = $HelloChurchRoles->find($SubmittedForm->data['roleID']);
-		        $role->delete();
+	            $data = $HelloChurchRoles->valid($SubmittedForm->data);
+	            if(!$data){
+					$SubmittedForm->throw_error('all', 'general');
+	            }else{
+					$role = $HelloChurchRoles->find($data['roleID']);
+					$role->delete();    
+	            }
             break;
+            
             case 'create_venue':
-	            $data = $SubmittedForm->data;
-		        $venue = $HelloChurchVenues->create($data);
+	            $data = $HelloChurchVenues->valid($SubmittedForm->data);
+	            if(!$data){
+					$SubmittedForm->throw_error('all', 'general');
+	            }else{
+					$HelloChurchVenues->create($data);    
+	            }
             break;
             case 'update_venue':
-	            $venue = $HelloChurchVenues->find($SubmittedForm->data['venueID']);
-		        $venue->update($SubmittedForm->data);
+            	$data = $HelloChurchVenues->valid($SubmittedForm->data);
+	            if(!$data){
+					$SubmittedForm->throw_error('all', 'general');
+	            }else{
+					$venue = $HelloChurchVenues->find($data['venueID']);
+					$venue->update($data); 
+	            }
             break;
             case 'delete_venue':
 	            $venue = $HelloChurchVenues->find($SubmittedForm->data['venueID']);
 		        $venue->delete();
             break;
+            
             case 'create_family':
-	            $data = $SubmittedForm->data;
-		        $family = $HelloChurchFamilies->create($data);
+            	$data = $HelloChurchFamilies->valid($SubmittedForm->data);
+	            if(!$data){
+					$SubmittedForm->throw_error('all', 'general');
+	            }else{
+					$HelloChurchFamilies->create($data);    
+	            }
             break;
             case 'update_family':
-	            $family = $HelloChurchFamilies->find($SubmittedForm->data['familyID']);
-		        $family->update($SubmittedForm->data);
+            	$data = $HelloChurchFamilies->valid($SubmittedForm->data);
+	            if(!$data){
+					$SubmittedForm->throw_error('all', 'general');
+	            }else{
+					$family = $HelloChurchFamilies->find($data['familyID']);
+					$family->update($data);   
+	            }
             break;
             case 'delete_family':
 	            $family = $HelloChurchFamilies->find($SubmittedForm->data['familyID']);
 		        $family->delete();
             break;
+            
             case 'download_rota_contact':
 	            $contact = $HelloChurchContacts->find($SubmittedForm->data['contactID']);
 	            $responsibilities = $HelloChurchEvents->event_responsibilities($SubmittedForm->data['contactID']);
@@ -756,101 +826,194 @@ error_reporting(E_ALL);
 				$pdf->Output();
 
             break;
+            
             case 'add_folder':
-	            $data = $SubmittedForm->data;
-	            if($data['folderParent']==''){
-		            $data['folderParent'] = 0;
+		        $data = $HelloChurchFolders->valid($SubmittedForm->data);
+	            if(!$data){
+					$SubmittedForm->throw_error('all', 'general');
+	            }else{
+		            if($data['folderParent']==''){
+			            $data['folderParent'] = 0;
+		            }
+					$HelloChurchFolders->create($data);    
 	            }
-		        $folder = $HelloChurchFolders->create($data);
             break;
             case 'update_folder':
-	            $folder = $HelloChurchFolders->find($SubmittedForm->data['folderID']);
-		        $folder->update($SubmittedForm->data);
+            	$data = $HelloChurchFolders->valid($SubmittedForm->data);
+	            if(!$data){
+					$SubmittedForm->throw_error('all', 'general');
+	            }else{
+		            if($data['folderParent']==''){
+			            $data['folderParent'] = 0;
+		            }
+					$folder = $HelloChurchFolders->find($data['folderID']);
+					$folder->update($data);   
+	            } 
             break;
             case 'delete_folder':
 	            $folder = $HelloChurchFolders->find($SubmittedForm->data['folderID']);
 		        $folder->delete();
             break;
             case 'update_file':
-	            $HelloChurchFolders->update_file($SubmittedForm->data);
+	            $data = $HelloChurchFolders->valid($SubmittedForm->data);
+				if(!$data){
+					$SubmittedForm->throw_error('all', 'general');
+	            }else{
+		            $HelloChurchFolders->update_file($data);
+		        }
             break;
+            
             case 'create_series':
-	            $data = $SubmittedForm->data;
-		        $series = $HelloChurchSeriess->create($data);
+            	$data = $HelloChurchSeriess->valid($SubmittedForm->data);
+	            if(!$data){
+					$SubmittedForm->throw_error('all', 'general');
+	            }else{
+					$HelloChurchSeriess->create($data);    
+	            }
             break;
             case 'update_series':
-	            $series = $HelloChurchSeriess->find($SubmittedForm->data['seriesID']);
-		        $series->update($SubmittedForm->data);
+            	$data = $HelloChurchSeriess->valid($SubmittedForm->data);
+	            if(!$data){
+					$SubmittedForm->throw_error('all', 'general');
+	            }else{
+					$series = $HelloChurchSeriess->find($data['seriesID']);
+					$series->update($data);   
+	            }
             break;
             case 'delete_series':
 	            $series = $HelloChurchSeriess->find($SubmittedForm->data['seriesID']);
 		        $series->delete();
             break;
+            
             case 'create_speaker':
-	            $data = $SubmittedForm->data;
-		        $speaker = $HelloChurchSpeakers->create($data);
+	            $data = $HelloChurchSpeakers->valid($SubmittedForm->data);
+	            if(!$data){
+					$SubmittedForm->throw_error('all', 'general');
+	            }else{
+					$HelloChurchSpeakers->create($data);    
+	            }
             break;
             case 'update_speaker':
-	            $speaker = $HelloChurchSpeakers->find($SubmittedForm->data['speakerID']);
-		        $speaker->update($SubmittedForm->data);
+            	$data = $HelloChurchSpeakers->valid($SubmittedForm->data);
+	            if(!$data){
+					$SubmittedForm->throw_error('all', 'general');
+	            }else{
+					$speaker = $HelloChurchSpeakers->find($data['speakerID']);
+					$speaker->update($data); 
+	            }
             break;
             case 'delete_speaker':
 	            $speaker = $HelloChurchSpeakers->find($SubmittedForm->data['speakerID']);
 		        $speaker->delete();
             break;
+            
             case 'create_admin':
-	            $data = $SubmittedForm->data;
-	            $chars = "abcdefghijkmnopqrstuvwxyz0123456789"; 
-			    srand((double)microtime()*1000000); 
-			    $i = 0; 
-			    $pass = '' ; 
-			
-			    while ($i <= 11) { 
-			        $num = rand() % 33; 
-			        $tmp = substr($chars, $num, 1); 
-			        $pass = $pass . $tmp; 
-			        $i++; 
-			    }
-			    $data['adminCode'] = $pass;
-		        $admin = $HelloChurchAdmins->create($data);
+	            $data = $HelloChurchAdmins->valid($SubmittedForm->data);
+	            if(!$data){
+					$SubmittedForm->throw_error('all', 'general');
+	            }else{
+		            $data = $SubmittedForm->data;
+		            $chars = "abcdefghijkmnopqrstuvwxyz0123456789"; 
+				    srand((double)microtime()*1000000); 
+				    $i = 0; 
+				    $pass = '' ; 
+				
+				    while ($i <= 11) { 
+				        $num = rand() % 33; 
+				        $tmp = substr($chars, $num, 1); 
+				        $pass = $pass . $tmp; 
+				        $i++; 
+				    }
+				    $data['adminCode'] = $pass;
+				    $HelloChurchAdmins->create($data);    
+	            }
             break;
             case 'update_admin':
-	            $admin = $HelloChurchAdmins->find($SubmittedForm->data['adminID']);
-		        $admin->update($SubmittedForm->data);
+		        $data = $HelloChurchAdmins->valid($SubmittedForm->data);
+	            if(!$data){
+					$SubmittedForm->throw_error('all', 'general');
+	            }else{
+		            $data = $SubmittedForm->data;
+		            $chars = "abcdefghijkmnopqrstuvwxyz0123456789"; 
+				    srand((double)microtime()*1000000); 
+				    $i = 0; 
+				    $pass = '' ; 
+				
+				    while ($i <= 11) { 
+				        $num = rand() % 33; 
+				        $tmp = substr($chars, $num, 1); 
+				        $pass = $pass . $tmp; 
+				        $i++; 
+				    }
+				    $data['adminCode'] = $pass;
+				    $admin = $HelloChurchAdmins->find($data['adminID']);
+					$admin->update($data);  
+	            }
             break;
             case 'delete_admin':
 	            $admin = $HelloChurchAdmins->find($SubmittedForm->data['adminID']);
 	            // DELETE SESSIONS - JUST IN CASE!
 		        $admin->delete();
             break;
+            
             case 'update_audio':
-	            $audio = $HelloChurchAudios->find($SubmittedForm->data['audioID']);
-	            $audio->update($SubmittedForm->data);
+	            $data = $HelloChurchAudios->valid($SubmittedForm->data);
+	            if(!$data){
+					$SubmittedForm->throw_error('all', 'general');
+	            }else{
+					$audio = $HelloChurchAudios->find($data['audioID']);
+					$audio->update($data);
+	            }
             break;
+            
             case 'add_email':
-	            $data = $SubmittedForm->data;
-		        $email = $HelloChurchEmails->create($data);
+            	$data = $HelloChurchEMails->valid($SubmittedForm->data);
+	            if(!$data){
+					$SubmittedForm->throw_error('all', 'general');
+	            }else{
+					$HelloChurchEmails->create($data);    
+	            }
             break;
             case 'update_email':
-	            $email = $HelloChurchEmails->find($SubmittedForm->data['emailID']);
-	            $email->update($SubmittedForm->data);
+	            $data = $HelloChurchEmails->valid($SubmittedForm->data);
+	            if(!$data){
+					$SubmittedForm->throw_error('all', 'general');
+	            }else{
+					$email = $HelloChurchEmails->find($data['emailID']);
+					$email->update($data);    
+	            }
             break;
+            
             case 'create_podcast':
-	            $data = $SubmittedForm->data;
-		        $podcast = $HelloChurchPodcasts->create($data);
+            	$data = $HelloChurchPodcasts->valid($SubmittedForm->data);
+	            if(!$data){
+					$SubmittedForm->throw_error('all', 'general');
+	            }else{
+					$HelloChurchPodcasts->create($data);    
+	            }
             break;
             case 'update_podcast':
-	            $podcast = $HelloChurchPodcasts->find($SubmittedForm->data['podcastID']);
-		        $podcast->update($SubmittedForm->data);
+		        $data = $HelloChurchPodcasts->valid($SubmittedForm->data);
+	            if(!$data){
+					$SubmittedForm->throw_error('all', 'general');
+	            }else{
+					$podcast = $HelloChurchPodcasts->find($data['podcastID']);
+					$podcast->update($data);  
+	            }
             break;
+           
             case 'switch_key':
-	            $admin = $HelloChurchAdmins->confirm($SubmittedForm->data['key'],$SubmittedForm->data['churchID'],$Session->get('memberID'));
+	            $admin = $HelloChurchAdmins->confirm(
+	            	addslashes(strip_tags($SubmittedForm->data['key'])),
+	            	addslashes(strip_tags($SubmittedForm->data['churchSlug'])),
+	            	addslashes(strip_tags($Session->get('memberID')))
+	            );
 		        if($admin){
-			        // SET CHURCH ID SESSION AND REDIRECT
-			        $PerchMembers_Auth->update_church_session($SubmittedForm->data['churchID']);
-			        //perch_members_refresh_session_data();
-			        //header("location:/dashboard");
+			        $church = $HelloChurchChurches->church_by_slug(addslashes(strip_tags($SubmittedForm->data['churchSlug'])));
+			        $PerchMembers_Auth->update_church_session($church['churchID']);
 		        }else{
+			        session_start();
+			        $_SESSION['codeError'] = 1;
 			        $SubmittedForm->throw_error('required', 'key');
 		        }
             break;
