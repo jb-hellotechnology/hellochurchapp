@@ -967,7 +967,7 @@ error_reporting(E_ALL);
             break;
             
             case 'add_email':
-            	$data = $HelloChurchEMails->valid($SubmittedForm->data);
+            	$data = $HelloChurchEmails->valid($SubmittedForm->data);
 	            if(!$data){
 					$SubmittedForm->throw_error('all', 'general');
 	            }else{
