@@ -1663,14 +1663,15 @@ ul.list li form .button.danger.small.border{
 	font-weight:700;
 }
 
-.email-preview .bible h2,
-.email-preview .bible h3,
-.email-preview .bible p{
+.email-preview h2,
+.email-preview h3,
+.email-preview p{
 	font-family: Helvetica, sans-serif !important; 
 	font-size: 16px; 
 	font-weight: normal; 
 	margin: 0; 
 	margin-bottom: 16px;
+	max-width:100%;
 }
 
 .plan-preview .bible h3{
