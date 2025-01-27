@@ -148,7 +148,6 @@
 				<li class="flow">
 					<span class="material-symbols-outlined">person</span>
 					<h3><a href="/contacts/edit-contact?id='.$member['contactID'].'">'.$member['contactFirstName'].' '.$member['contactLastName'].'</a></h3>
-					<p><a class="button secondary small" href="/contacts/edit-contact?id='.$member['contactID'].'">View</a></p>
 					<form method="post" action="/process/remove-group-member">
 						<input type="hidden" name="groupID" value="'.$member['groupID'].'" />
 						<input type="hidden" name="contactID" value="'.$member['contactID'].'" />
