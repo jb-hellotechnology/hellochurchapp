@@ -252,18 +252,18 @@ $dateParts = explode(" ", $event['end']);
 $end = str_replace("-", "", $dateParts[0])."T".str_replace(":", "", $dateParts[1]);
 if($event['repeatEvent']=='daily'){
 	$html .='
-RRULE:FREQ=DAILY;INTERVAL=1;UNTIL='.str_replace("-", "", $event['repeatEnd']).'T235959';
+RRULE:FREQ=DAILY;INTERVAL=1;UNTIL='.str_replace("-", "", $event['repeatEnd']).'T235959Z';
 }elseif($event['repeatEvent']=='weekly'){
 	$html .= '
-RRULE:FREQ=WEEKLY;INTERVAL=1;BYDAY='.$day.';UNTIL='.str_replace("-", "", $event['repeatEnd']).'T235959';
+RRULE:FREQ=WEEKLY;INTERVAL=1;BYDAY='.$day.';UNTIL='.str_replace("-", "", $event['repeatEnd']).'T235959Z';
 }elseif($event['repeatEvent']=='weekdays'){
 	$html .= '
-RRULE:FREQ=WEEKLY;INTERVAL=1;BYDAY=MO,TU,WE,TH,FR;UNTIL='.str_replace("-", "", $event['repeatEnd']).'T235959';
+RRULE:FREQ=WEEKLY;INTERVAL=1;BYDAY=MO,TU,WE,TH,FR;UNTIL='.str_replace("-", "", $event['repeatEnd']).'T235959Z';
 }
 $html .= '
 DTSTART;TZID=Europe/London:'.$start.'
 DTEND;TZID=Europe/London:'.$end.'
-DTSTAMP;TZID=Europe/London:'.$start.'
+DTSTAMP;TZID=Europe/London:20250122T120000Z
 DESCRIPTION:'.strip_tags($event['eventDescription']).'
 END:VEVENT
 ';			
