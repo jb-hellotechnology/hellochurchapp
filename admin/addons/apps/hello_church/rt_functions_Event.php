@@ -255,7 +255,7 @@ if($event['repeatEvent']=='daily'){
 RRULE:FREQ=DAILY;INTERVAL=1;UNTIL='.str_replace("-", "", $event['repeatEnd']).'T235959';
 }elseif($event['repeatEvent']=='weekly'){
 	$html .= '
-RRULE:FREQ=WEEKLY;INTERVAL=1;BYDAY='.$day.'UNTIL='.str_replace("-", "", $event['repeatEnd']).'T235959';
+RRULE:FREQ=WEEKLY;INTERVAL=1;BYDAY='.$day.';UNTIL='.str_replace("-", "", $event['repeatEnd']).'T235959';
 }elseif($event['repeatEvent']=='weekdays'){
 	$html .= '
 RRULE:FREQ=WEEKLY;INTERVAL=1;BYDAY=MO,TU,WE,TH,FR;UNTIL='.str_replace("-", "", $event['repeatEnd']).'T235959';
