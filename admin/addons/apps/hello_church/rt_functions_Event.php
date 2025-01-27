@@ -235,7 +235,7 @@ X-WR-CALNAME:'.$churchName.' - Hello Church
 			
 $html .= 'BEGIN:VEVENT
 SUMMARY:'.$event['eventName'].'
-UID:hellochurch_'.$event['eventID'];
+UID:hellochurch_'.$event['eventID'].'_a';
 $dateParts = explode(" ", $event['start']);
 $start = str_replace("-", "", $dateParts[0])."T".str_replace(":", "", $dateParts[1])."Z";
 $timestamp = strtotime($dateParts[0]);
@@ -263,6 +263,7 @@ $html .= '
 DTSTART:'.$start.'
 DTEND:'.$end.'
 DTSTAMP:'.$start.'
+DESCRIPTION:'.strip_tags($event['eventDescription']).'
 END:VEVENT
 ';			
 		}
