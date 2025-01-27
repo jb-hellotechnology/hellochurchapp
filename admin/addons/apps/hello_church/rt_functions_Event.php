@@ -265,10 +265,10 @@ DTSTART;TZID=Europe/London:'.$start.'
 DTEND;TZID=Europe/London:'.$end.'
 DTSTAMP:'.date('Ymd').'T'.date('His').'Z
 DESCRIPTION:'.strip_tags($event['eventDescription']).'
-END:VEVENT
-';			
+END:VEVENT';			
 		}
-$html .= 'END:VCALENDAR';
+$html .= '
+END:VCALENDAR';
 
 echo $html;
 	    
