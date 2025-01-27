@@ -220,12 +220,21 @@
 	    $API  = new PerchAPI(1.0, 'hello_church');
 
         $HelloChurchEvents = new HelloChurch_Events($API);
-	    
+	    HelloChurchChurches = new HelloChurch_Churches($API);
+		
+		$church = $HelloChurchChurches->church($churchID);
 		$events = $HelloChurchEvents->eventsFeed($churchID);
+		
+$html = 'BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//hellchurch.tech//hellochurch 1.0//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+X-WR-CALNAME:'.$church['churchName'].' - Hello Church';
 		
 		foreach($events as $event){
 			
-echo 'BEGIN:VEVENT
+$html .= 'BEGIN:VEVENT
 SUMMARY:'.$event['eventName'].'
 UID:hellochurch_'.$event['eventID'];
 $dateParts = explode(" ", $event['start']);
@@ -242,16 +251,13 @@ if($dateDay==7){$day='SU';}
 $dateParts = explode(" ", $event['end']);
 $end = str_replace("-", "", $dateParts[0])."T".str_replace(":", "", $dateParts[1])."Z";
 if($event['repeatEvent']=='daily'){
-	echo '
-RRULE:FREQ=DAILY;INTERVAL=1;UNTIL='.str_replace("-", "", $event['repeatEnd']).'T235959Z';
+	$html .='RRULE:FREQ=DAILY;INTERVAL=1;UNTIL='.str_replace("-", "", $event['repeatEnd']).'T235959Z';
 }elseif($event['repeatEvent']=='weekly'){
-	echo '
-RRULE:FREQ=WEEKLY;INTERVAL=1;BYDAY='.$day.';UNTIL='.str_replace("-", "", $event['repeatEnd']).'T235959Z';
+	$html .= 'RRULE:FREQ=WEEKLY;INTERVAL=1;BYDAY='.$day.';UNTIL='.str_replace("-", "", $event['repeatEnd']).'T235959Z';
 }elseif($event['repeatEvent']=='weekdays'){
-	echo '
-RRULE:FREQ=WEEKLY;INTERVAL=1;BYDAY=MO,TU,WE,TH,FR;UNTIL='.str_replace("-", "", $event['repeatEnd']).'T235959Z';
+	$html .= 'RRULE:FREQ=WEEKLY;INTERVAL=1;BYDAY=MO,TU,WE,TH,FR;UNTIL='.str_replace("-", "", $event['repeatEnd']).'T235959Z';
 }
-echo '
+$html .= '
 DTSTART:'.$start.'
 DTEND:'.$end.'
 DTSTAMP:'.$start.'
@@ -259,6 +265,20 @@ DESCRIPTION:'.strip_tags($event['eventDescription']).'
 END:VEVENT
 ';			
 		}
+$html .= 'END:VCALENDAR';
+
+		$r = wordwrap(
+			preg_replace(
+				array( '/,/', '/;/', '/[\r\n]/' ),
+				array( '\,', '\;', '\n' ),
+				$html
+			), 73, "\n", TRUE
+		);
+		
+		// Indent all lines but first:
+		$r = preg_replace( '/\n/', "\n  ", $r );
+		
+		echo $r;
 	    
     }
     
