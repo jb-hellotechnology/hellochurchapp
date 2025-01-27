@@ -228,12 +228,12 @@ VERSION:2.0
 PRODID:-//hellchurch.tech//hellochurch 1.0//EN
 CALSCALE:GREGORIAN
 METHOD:PUBLISH
-X-WR-CALNAME:'.$churchName.' - Hello Church';
+X-WR-CALNAME:'.$churchName.' - Hello Church
+';
 		
 		foreach($events as $event){
 			
-$html .= '
-BEGIN:VEVENT
+$html .= 'BEGIN:VEVENT
 SUMMARY:'.$event['eventName'].'
 UID:hellochurch_'.$event['eventID'];
 $dateParts = explode(" ", $event['start']);
