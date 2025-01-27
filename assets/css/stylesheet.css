@@ -1399,6 +1399,10 @@ ul.cards li p{
 	max-width: 100%;
 }
 
+ul.cards li h3{
+	font-size:var(--size-step-1);
+}
+
 ul.cards li span{
 	font-size:36px;
 	color:var(--color-primary);
