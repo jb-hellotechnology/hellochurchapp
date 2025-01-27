@@ -1,11 +1,10 @@
 <?php
 include('../../../secrets.php');
+
 if($down){
 	include('../../../maintenance.html');
 	exit;	
 }
-
-session_start();
 
 if(perch_member_logged_in()){
 	$customer_id = stripe_data('churchCustomerID');	

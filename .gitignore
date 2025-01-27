@@ -21,7 +21,7 @@
 # unignores the contents of that directory.
 
 !admin
-admin/*
+admin/**
 
 !admin/templates/
 !admin/templates/**
