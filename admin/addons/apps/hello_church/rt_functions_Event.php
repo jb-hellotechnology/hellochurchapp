@@ -255,7 +255,7 @@ if($event['repeatEvent']=='daily'){
 RRULE:FREQ=DAILY;INTERVAL=1;UNTIL='.str_replace("-", "", $event['repeatEnd']).'T235959Z';
 }elseif($event['repeatEvent']=='weekly'){
 	$html .= '
-RRULE:FREQ=WEEKLY;INTERVAL=1;BYDAY='.$day.';UNTIL='.str_replace("-", "", $event['repeatEnd']).'T235959Z';
+RRULE:FREQ=WEEKLY;UNTIL='.str_replace("-", "", $event['repeatEnd']).'T235959Z';
 }elseif($event['repeatEvent']=='weekdays'){
 	$html .= '
 RRULE:FREQ=WEEKLY;INTERVAL=1;BYDAY=MO,TU,WE,TH,FR;UNTIL='.str_replace("-", "", $event['repeatEnd']).'T235959Z';
@@ -263,7 +263,7 @@ RRULE:FREQ=WEEKLY;INTERVAL=1;BYDAY=MO,TU,WE,TH,FR;UNTIL='.str_replace("-", "", $
 $html .= '
 DTSTART;TZID=Europe/London:'.$start.'
 DTEND;TZID=Europe/London:'.$end.'
-DTSTAMP:20250122T120000Z
+DTSTAMP:'.date('Ymd').'T'.date('His').'Z
 END:VEVENT
 ';			
 		}
