@@ -194,7 +194,9 @@
 		$html = '[';
         
         foreach($contacts as $contact){
-	        $html .=  "{id: ".$contact['contactID'].", value:'".addslashes($contact['contactFirstName'])." ".addslashes($contact['contactLastName'])."'}, ";
+			if($contact['contactEmail']){
+	     	   $html .=  "{id: ".$contact['contactID'].", value:'".addslashes($contact['contactFirstName'])." ".addslashes($contact['contactLastName'])."'}, ";
+			}
         }
         
         if(strlen($html)>1){
