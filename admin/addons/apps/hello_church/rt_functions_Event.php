@@ -263,7 +263,6 @@ $html .= '
 DTSTART:'.$start.'
 DTEND:'.$end.'
 DTSTAMP:'.$start.'
-DESCRIPTION:'.strip_tags($event['eventDescription']).'
 END:VEVENT
 ';			
 		}
