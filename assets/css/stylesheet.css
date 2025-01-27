@@ -409,6 +409,7 @@ header h2{
 	margin:0.5em 1em;
 	color:var(--color-primary);
 	align-content:center;
+	max-width:100%;
 }
 
 header h2.gooddog{
@@ -1515,7 +1516,7 @@ ul.list li:last-child{
 ul.list li h3{
 	font-size:var(--size-step-0);
 	font-weight:700;
-	max-width:auto;
+	max-width:100%;
 }
 
 ul.list li form .button.danger.small.border{
