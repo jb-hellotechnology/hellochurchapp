@@ -263,7 +263,7 @@ RRULE:FREQ=WEEKLY;INTERVAL=1;BYDAY=MO,TU,WE,TH,FR;UNTIL='.str_replace("-", "", $
 $html .= '
 DTSTART;TZID=Europe/London:'.$start.'
 DTEND;TZID=Europe/London:'.$end.'
-DTSTAMP:20250122T120000Z'
+DTSTAMP:20250122T120000Z
 END:VEVENT
 ';			
 		}
