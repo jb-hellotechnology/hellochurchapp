@@ -1515,6 +1515,7 @@ ul.list li:last-child{
 ul.list li h3{
 	font-size:var(--size-step-0);
 	font-weight:700;
+	max-width:auto;
 }
 
 ul.list li form .button.danger.small.border{
