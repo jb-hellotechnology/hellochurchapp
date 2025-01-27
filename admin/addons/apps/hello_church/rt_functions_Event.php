@@ -215,14 +215,12 @@
 	}
 	
 	/** CREATE ICAL FEED FOR CALENDAR **/
-	function ical_feed($churchID){
+	function ical_feed($churchName, $churchID){
 	    
 	    $API  = new PerchAPI(1.0, 'hello_church');
 
         $HelloChurchEvents = new HelloChurch_Events($API);
-	    HelloChurchChurches = new HelloChurch_Churches($API);
-		
-		$church = $HelloChurchChurches->church($churchID);
+
 		$events = $HelloChurchEvents->eventsFeed($churchID);
 		
 $html = 'BEGIN:VCALENDAR
@@ -230,11 +228,12 @@ VERSION:2.0
 PRODID:-//hellchurch.tech//hellochurch 1.0//EN
 CALSCALE:GREGORIAN
 METHOD:PUBLISH
-X-WR-CALNAME:'.$church['churchName'].' - Hello Church';
+X-WR-CALNAME:'.$churchName.' - Hello Church';
 		
 		foreach($events as $event){
 			
-$html .= 'BEGIN:VEVENT
+$html .= '
+BEGIN:VEVENT
 SUMMARY:'.$event['eventName'].'
 UID:hellochurch_'.$event['eventID'];
 $dateParts = explode(" ", $event['start']);
@@ -267,18 +266,19 @@ END:VEVENT
 		}
 $html .= 'END:VCALENDAR';
 
-		$r = wordwrap(
-			preg_replace(
-				array( '/,/', '/;/', '/[\r\n]/' ),
-				array( '\,', '\;', '\n' ),
-				$html
-			), 73, "\n", TRUE
-		);
-		
-		// Indent all lines but first:
-		$r = preg_replace( '/\n/', "\n  ", $r );
-		
-		echo $r;
+echo $html;
+		// $r = wordwrap(
+		// 	preg_replace(
+		// 		array( '/,/', '/;/', '/[\r\n]/' ),
+		// 		array( '\,', '\;', '\n' ),
+		// 		$html
+		// 	), 73, "\n", TRUE
+		// );
+		// 
+		// // Indent all lines but first:
+		// $r = preg_replace( '/\n/', "\n  ", $r );
+		// 
+		// echo $r;
 	    
     }
     
