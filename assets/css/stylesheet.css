@@ -1025,7 +1025,16 @@ section footer{
 	display:flex;
 	padding:1em;
 	border-top:1px solid var(--color-light-grey);
+}
+
+section footer.end{
+	display:flex;
 	justify-content: flex-end;
+}
+
+section footer.end button,
+section footer.end .button{
+	margin-left:1rem;
 }
 
 section footer p{
@@ -1034,7 +1043,7 @@ section footer p{
 
 section footer button,
 section footer .button{
-	margin-left:1rem;
+	margin-left:auto;
 }
 
 section article{
