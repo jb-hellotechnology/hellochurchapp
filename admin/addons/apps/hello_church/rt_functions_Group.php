@@ -152,7 +152,7 @@
 						<input type="hidden" name="groupID" value="'.$member['groupID'].'" />
 						<input type="hidden" name="contactID" value="'.$member['contactID'].'" />
 						<input type="hidden" name="primary" value="'.$Session->get('memberID').'" />
-						<input type="submit" class="button border danger small" value="Remove" />
+						<button class="button border danger small"><span class="material-symbols-outlined">person_remove</span></button>
 					</form>
 				</li>';
 			}
