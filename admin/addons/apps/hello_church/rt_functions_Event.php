@@ -229,6 +229,7 @@ PRODID:-//hellchurch.tech//hellochurch 1.0//EN
 CALSCALE:GREGORIAN
 METHOD:PUBLISH
 X-WR-CALNAME:'.$churchName.' - Hello Church
+X-WR-TIMEZONE:Europe/London
 ';
 		
 		foreach($events as $event){
@@ -237,7 +238,7 @@ $html .= 'BEGIN:VEVENT
 SUMMARY:'.$event['eventName'].'
 UID:hellochurch_'.$event['eventID'].'_a';
 $dateParts = explode(" ", $event['start']);
-$start = str_replace("-", "", $dateParts[0])."T".str_replace(":", "", $dateParts[1])."Z";
+$start = str_replace("-", "", $dateParts[0])."T".str_replace(":", "", $dateParts[1]);
 $timestamp = strtotime($dateParts[0]);
 $dateDay = date('N', $timestamp);
 if($dateDay==1){$day='MO';}
@@ -248,20 +249,20 @@ if($dateDay==5){$day='FR';}
 if($dateDay==6){$day='SA';}
 if($dateDay==7){$day='SU';}
 $dateParts = explode(" ", $event['end']);
-$end = str_replace("-", "", $dateParts[0])."T".str_replace(":", "", $dateParts[1])."Z";
+$end = str_replace("-", "", $dateParts[0])."T".str_replace(":", "", $dateParts[1]);
 if($event['repeatEvent']=='daily'){
 	$html .='
-RRULE:FREQ=DAILY;INTERVAL=1;UNTIL='.str_replace("-", "", $event['repeatEnd']).'T235959Z';
+RRULE:FREQ=DAILY;INTERVAL=1;UNTIL='.str_replace("-", "", $event['repeatEnd']).'T235959';
 }elseif($event['repeatEvent']=='weekly'){
 	$html .= '
-RRULE:FREQ=WEEKLY;INTERVAL=1;BYDAY='.$day.';UNTIL='.str_replace("-", "", $event['repeatEnd']).'T235959Z';
+RRULE:FREQ=WEEKLY;INTERVAL=1;BYDAY='.$day;
 }elseif($event['repeatEvent']=='weekdays'){
 	$html .= '
-RRULE:FREQ=WEEKLY;INTERVAL=1;BYDAY=MO,TU,WE,TH,FR;UNTIL='.str_replace("-", "", $event['repeatEnd']).'T235959Z';
+RRULE:FREQ=WEEKLY;INTERVAL=1;BYDAY=MO,TU,WE,TH,FR;UNTIL='.str_replace("-", "", $event['repeatEnd']).'T235959';
 }
 $html .= '
-DTSTART:'.$start.'
-DTEND:'.$end.'
+DTSTART;TZID=Europe/London:'.$start.'
+DTEND;TZID=Europe/London:'.$end.'
 DTSTAMP:'.$start.'
 DESCRIPTION:'.strip_tags($event['eventDescription']).'
 END:VEVENT
