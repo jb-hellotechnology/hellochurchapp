@@ -1652,6 +1652,11 @@ ul.list li form .button.danger.small.border{
 	display:flex;
 }
 
+.email-preview h2,
+.email-preview h3{
+	max-width:100%;
+}
+
 .email-preview .bible{
 	background:var(--color-light);
 	margin:1rem 0;
