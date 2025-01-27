@@ -266,19 +266,19 @@ END:VEVENT
 		}
 $html .= 'END:VCALENDAR';
 
-echo $html;
-		// $r = wordwrap(
-		// 	preg_replace(
-		// 		array( '/,/', '/;/', '/[\r\n]/' ),
-		// 		array( '\,', '\;', '\n' ),
-		// 		$html
-		// 	), 73, "\n", TRUE
-		// );
-		// 
-		// // Indent all lines but first:
-		// $r = preg_replace( '/\n/', "\n  ", $r );
-		// 
-		// echo $r;
+//echo $html;
+		$r = wordwrap(
+			preg_replace(
+				array( '/,/', '/;/', '/[\r\n]/' ),
+				array( '\,', '\;', '\n' ),
+				$html
+			), 73, "\n", TRUE
+		);
+		
+		// Indent all lines but first:
+		$r = preg_replace( '/\n/', "\n  ", $r );
+		
+		echo $r;
 	    
     }
     
