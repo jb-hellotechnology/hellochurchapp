@@ -250,11 +250,14 @@ if($dateDay==7){$day='SU';}
 $dateParts = explode(" ", $event['end']);
 $end = str_replace("-", "", $dateParts[0])."T".str_replace(":", "", $dateParts[1])."Z";
 if($event['repeatEvent']=='daily'){
-	$html .='RRULE:FREQ=DAILY;INTERVAL=1;UNTIL='.str_replace("-", "", $event['repeatEnd']).'T235959Z';
+	$html .='
+RRULE:FREQ=DAILY;INTERVAL=1;UNTIL='.str_replace("-", "", $event['repeatEnd']).'T235959Z';
 }elseif($event['repeatEvent']=='weekly'){
-	$html .= 'RRULE:FREQ=WEEKLY;INTERVAL=1;BYDAY='.$day.';UNTIL='.str_replace("-", "", $event['repeatEnd']).'T235959Z';
+	$html .= '
+RRULE:FREQ=WEEKLY;INTERVAL=1;BYDAY='.$day.';UNTIL='.str_replace("-", "", $event['repeatEnd']).'T235959Z';
 }elseif($event['repeatEvent']=='weekdays'){
-	$html .= 'RRULE:FREQ=WEEKLY;INTERVAL=1;BYDAY=MO,TU,WE,TH,FR;UNTIL='.str_replace("-", "", $event['repeatEnd']).'T235959Z';
+	$html .= '
+RRULE:FREQ=WEEKLY;INTERVAL=1;BYDAY=MO,TU,WE,TH,FR;UNTIL='.str_replace("-", "", $event['repeatEnd']).'T235959Z';
 }
 $html .= '
 DTSTART:'.$start.'
