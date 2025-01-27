@@ -236,7 +236,7 @@ X-WR-TIMEZONE:Europe/London
 			
 $html .= 'BEGIN:VEVENT
 SUMMARY:'.$event['eventName'].'
-UID:hellochurch_'.$event['eventID'].'_e';
+UID:hellochurch_'.$event['eventID'].'_f';
 $dateParts = explode(" ", $event['start']);
 $start = str_replace("-", "", $dateParts[0])."T".str_replace(":", "", $dateParts[1]);
 $timestamp = strtotime($dateParts[0]);
