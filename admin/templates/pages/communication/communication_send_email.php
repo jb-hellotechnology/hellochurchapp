@@ -17,6 +17,8 @@ if(!perch_member_logged_in()){
 $email = hello_church_get_email($_POST['email_id']);
 $church = hello_church_church(true);
 
+$test = $_POST['email_test'];
+
 if(!$_POST['recipient']){
 	
 	$recipients = array();
@@ -177,10 +179,12 @@ $sendSmtpEmail = new \Brevo\Client\Model\SendSmtpEmail([
 
 try {
     $result = $apiInstance->sendTransacEmail($sendSmtpEmail);
-    hello_church_store_email_result($_POST['email_id'], $result);
-    if($recipients){
-		hello_church_log_email_contact($_POST['email_id'], array_unique($recipients));    
-    }
+	if(!$test){
+		hello_church_store_email_result($_POST['email_id'], $result);
+		if($recipients){
+			hello_church_log_email_contact($_POST['email_id'], array_unique($recipients));    
+		}
+	}
 } catch (Exception $e) {
     echo 'Exception when calling TransactionalEmailsApi->sendTransacEmail: ', $e->getMessage(), PHP_EOL;
 }
