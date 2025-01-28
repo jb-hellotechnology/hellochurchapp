@@ -5,9 +5,9 @@
 			<article class="flow">
 				<p class="alert success"><span class="material-symbols-outlined">check_circle</span>Event created</p>
 			</article>
-			<footer>
+			<footer class="end">
+				<a class="button secondary" href="/calendar/add-event">Add Event</a>
 				<a class="button primary" href="/calendar">Calendar</a>
-				<a class="button secondary" href="/contacts/add-event">Add Event</a>
 			</footer>
 		</perch:success>
 		<div>
@@ -46,6 +46,10 @@
 		<div>
 			<perch:label for="venues">Venues</perch:label>
 			<perch:input type="text" id="venues" label="Venues" class="venues" />
+		</div>
+		<div>
+			<perch:label for="eventPublish">Publish to Calendar Feed?</perch:label>
+			<perch:input type="select" id="eventPublish" label="Publish to Calendar Feed?" options="Yes,No" />
 		</div>
 	</article>
 

@@ -20,9 +20,9 @@ $('#upload_audio').on('click', function(event) {
         type: 'post',
         success: function(php_script_response){
             if(php_script_response=='Success'){
-	            window.location.href = "/media?msg=audio_uploaded";
+	            window.location.href = "/audio?msg=audio_uploaded";
             }else{
-	            window.location.href = "/media?msg=audio_error";
+	            window.location.href = "/audio?msg=audio_error";
             }
             $('.loading').toggleClass('show'); 
         }

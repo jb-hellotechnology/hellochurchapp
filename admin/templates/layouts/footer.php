@@ -48,13 +48,23 @@
 	var roles = document.querySelector('.roles');
 	new Tagify(roles, {
 		enforceWhitelist: true,
-	    whitelist : <?= hello_church_roles_tagify() ?>
+	    whitelist : <?= hello_church_roles_tagify() ?>,
+		focusable: false,
+		dropdown: {
+			position: 'input',
+			enabled: 0 // always opens dropdown when input gets focus
+		}
 	});
 	
 	var venues = document.querySelector('.venues');
 	new Tagify(venues, {
 		enforceWhitelist: true,
-	    whitelist : <?= hello_church_venues_tagify() ?>
+	    whitelist : <?= hello_church_venues_tagify() ?>,
+		focusable: false,
+		dropdown: {
+			position: 'input',
+			enabled: 0 // always opens dropdown when input gets focus
+		}
 	});
 	
 	var groups = document.querySelector('.groups-tagify');
@@ -65,7 +75,8 @@
             maxItems: 20,           // <- mixumum allowed rendered suggestions
             classname: 'tags-look', // <- custom classname for this dropdown, so it could be targeted
             enabled: 0,             // <- show suggestions on focus
-            closeOnSelect: false    // <- do not hide the suggestions dropdown once an item has been selected
+            closeOnSelect: false,    // <- do not hide the suggestions dropdown once an item has been selected
+			position: 'input'
         }
 	});
 	
@@ -77,7 +88,8 @@
             maxItems: 20,           // <- mixumum allowed rendered suggestions
             classname: 'tags-look', // <- custom classname for this dropdown, so it could be targeted
             enabled: 0,             // <- show suggestions on focus
-            closeOnSelect: false    // <- do not hide the suggestions dropdown once an item has been selected
+            closeOnSelect: false,    // <- do not hide the suggestions dropdown once an item has been selected
+			position: 'input'    // <- do not hide the suggestions dropdown once an item has been selected
         }
 	});
 	

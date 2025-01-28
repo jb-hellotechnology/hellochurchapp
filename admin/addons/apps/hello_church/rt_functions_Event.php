@@ -264,7 +264,18 @@ $html .= '
 DTSTART;TZID=Europe/London:'.$start.'
 DTEND;TZID=Europe/London:'.$end.'
 DTSTAMP:'.date('Ymd').'T'.date('His').'Z
-DESCRIPTION:'.strip_tags($event['eventDescription']).'
+DESCRIPTION:'.strip_tags($event['eventDescription']);
+if($event['venues']){
+	$venues = json_decode($event['venues'], true);
+	$venuesText = '';
+	foreach($venues[0] as $venue){
+		$venuesText .= $venue.', ';
+	}
+	$venuesText = substr($venuesText, 0, -2);
+	$html .= '
+LOCATION:'.$venuesText;
+}
+$html .= '
 END:VEVENT
 ';			
 		}
