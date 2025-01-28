@@ -13,7 +13,7 @@ if(!perch_member_logged_in()){
 	header("location:/");
 }
 
-$email = hello_church_get_email($_GET['email_id']);
+$email = hello_church_get_email($_POST['email_id']);
 $church = hello_church_church(true);
 
 $test = $_POST['email_test'];
