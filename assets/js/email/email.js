@@ -221,7 +221,6 @@ function send_email(){
 	$('.loading').toggleClass('show');
 	$.post( "/communication/send-email", $( "#send_email" ).serialize()).done(function( data ) {
 		$('.loading p').text('Sent!');
-		alert(data);
 		setTimeout(function() { 
 			$('.loading').toggleClass('show');
 			$('.loading p').text('Loading'); 
