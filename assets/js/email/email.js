@@ -223,7 +223,7 @@ function send_email(){
 		$('.loading p').text('Sent!');
 		setTimeout(function() { 
 			$('.loading').toggleClass('show');
-			$('.loading p').text('Loading'); 
+			$('.loading p').text('Loading' + data); 
 		}, 2000);
 		location.href = '/communication/view-email?id=' + pID + '&msg=sent';
 	});
