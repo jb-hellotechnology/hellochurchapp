@@ -222,11 +222,11 @@ function send_email(){
 	$.post( "/communication/send-email", $( "#send_email" ).serialize()).done(function( data ) {
 		$('.loading p').text('Sent!');
 		alert(data);
-		// setTimeout(function() { 
-		// 	$('.loading').toggleClass('show');
-		// 	$('.loading p').text('Loading' + data); 
-		// }, 2000);
-		// location.href = '/communication/view-email?id=' + pID + '&msg=sent';
+		setTimeout(function() { 
+			$('.loading').toggleClass('show');
+			$('.loading p').text('Loading'); 
+		}, 2000);
+		location.href = '/communication/view-email?id=' + pID + '&msg=sent';
 	});
 	
 }
