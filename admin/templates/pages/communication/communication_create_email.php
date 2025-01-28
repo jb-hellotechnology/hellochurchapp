@@ -116,7 +116,7 @@ perch_layout('header');
 								
 							</div>
 						</article>
-						<input type="hidden" name="email_test" value="false" />
+						<input type="hidden" name="email_test" value="" />
 					</form>
 				<footer>
 					<button class="button primary" onclick="javascript:send_email();">Send Email</button>
