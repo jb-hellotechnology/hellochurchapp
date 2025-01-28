@@ -1,9 +1,9 @@
 <?php
-/*
+
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
-*/
+
 
 require '../../../vendor/autoload.php';
 require '../../../secrets.php';
@@ -38,7 +38,7 @@ if(!$_POST['recipient']){
 	
 	foreach(array_unique($recipients) as $contact){
 		$contact = hello_church_contact($contact);
-		if($contact['contactAcceptEmail']=='Yes'){
+		if($contact->contactAcceptEmail()=='Yes'){
 			$bcc[] = (object) array('email' => $contact->contactEmail());
 		}
 	}
@@ -177,10 +177,12 @@ $sendSmtpEmail = new \Brevo\Client\Model\SendSmtpEmail([
 
 try {
     $result = $apiInstance->sendTransacEmail($sendSmtpEmail);
-    hello_church_store_email_result($_POST['email_id'], $result);
-    if($recipients){
-		hello_church_log_email_contact($_POST['email_id'], array_unique($recipients));    
-    }
+	if(!$_POST['recipient']){
+		hello_church_store_email_result($_POST['email_id'], $result);
+		if($recipients){
+			hello_church_log_email_contact($_POST['email_id'], array_unique($recipients));    
+		}
+	}
 } catch (Exception $e) {
     echo 'Exception when calling TransactionalEmailsApi->sendTransacEmail: ', $e->getMessage(), PHP_EOL;
 }
