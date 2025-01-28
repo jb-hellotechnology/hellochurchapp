@@ -90,7 +90,6 @@ class HelloChurch_Emails extends PerchAPI_Factory
 		$timestamp = date('Y-m-d H:i:s');
 		
 		$sql = "INSERT INTO perch3_hellochurch_email_contact (emailID, contactID, timestamp) VALUES ('".$emailID."', '".$contactID."', '".$timestamp."')";
-		echo $sql;
 		$result = $this->db->execute($sql);
 		
 	}
