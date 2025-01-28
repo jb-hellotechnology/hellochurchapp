@@ -45,6 +45,7 @@ perch_layout('header');
 							?>
 						</div>
 					</article>
+					<input type="hidden" name="email_test" value="false" />
 				</form>
 			</section>
 		</div>
