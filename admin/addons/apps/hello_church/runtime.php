@@ -394,7 +394,6 @@ error_reporting(E_ALL);
 		            $data['churchProperties'] = '';
 	            	$church = $HelloChurchChurches->create($data);
 	            	$PerchMembers_Auth->update_church_session($church->churchID());
-	            	header("location:/dashboard");
 	            } 
             break;
             case 'update_church':
