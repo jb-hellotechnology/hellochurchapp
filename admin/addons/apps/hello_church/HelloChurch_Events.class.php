@@ -153,6 +153,38 @@ class HelloChurch_Events extends PerchAPI_Factory
 		
 	}
 	
+	public function get_plan_by_id($planID){
+		
+		$sql = "SELECT * FROM perch3_hellochurch_event_plans WHERE eventPlanID='".$planID."'";
+		$result = $this->db->get_row($sql);
+		
+		return $result['eventPlan'];
+		
+	}
+	
+	public function event_plans_for_email($churchID){
+		
+		$today = date('Y-m-d');
+		
+		$sql = "SELECT * FROM perch3_hellochurch_event_plans WHERE churchID='".$churchID."' AND eventDate>='".$today."' ORDER BY eventDate ASC";
+		$results = $this->db->get_rows($sql);
+		
+		$plans = array();
+		
+		foreach($results as $plan){
+			$sql2 = "SELECT * FROM perch3_hellochurch_events WHERE eventID='".$plan['eventID']."'";
+			$result2 = $this->db->get_row($sql2);
+			
+			$fDate = date("d/m/Y H:i:s", strtotime($plan['eventDate'].' '.$plan['eventTime']));
+			
+			$thisPlan = array('value' => $plan['eventPlanID'], 'text' => $result2['eventName'].' - '.$fDate);
+			$plans[] = $thisPlan;
+		}
+		
+		return json_encode($plans);
+	}
+	
+	
 	public function events_for_email($churchID){
 		
 		$today = date('Y-m-d');

@@ -1667,20 +1667,25 @@ ul.list li form .button.danger.small.border{
 	max-width:100%;
 }
 
-.email-preview .bible{
+.email-preview .bible,
+.plan-preview .bible{
 	background:var(--color-light);
 	margin:1rem 0;
 	padding:1rem;
 }
 
-.email-preview .bible h2{
+.email-preview .bible h2,
+.plan-preview .bible h2{
 	font-size:var(--size-step-1);
 	font-weight:700;
 }
 
 .email-preview .bible h2,
 .email-preview .bible h3,
-.email-preview .bible p{
+.email-preview .bible p,
+.plan-preview .bible h2,
+.plan-preview .bible h3,
+.plan-preview .bible p{
 	font-family: Helvetica, sans-serif !important; 
 	font-size: 16px; 
 	font-weight: normal; 

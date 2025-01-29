@@ -19,7 +19,7 @@ $('.add-to-plan').click(function(){
 		$('.plan-container').append('<div class="plan-item text draggable"><label>Text</label><a href=""><span class="material-symbols-outlined">drag_indicator</span></a><textarea name="text_' + random + '" placeholder="Type something..."></textarea><a href="javascript:;" class="delete-from-plan warning"><span class="material-symbols-outlined">delete</span></a></div>');
 	}
 	if(type=='youtube'){
-		$('.plan-container').append('<div class="plan-item youtube draggable"><label>YouTube</label><a href=""><span class="material-symbols-outlined">drag_indicator</span></a><textarea name="youtube_' + random + '" placeholder="<iframe..."></textarea><a href="javascript:;" class="delete-from-plan warning"><span class="material-symbols-outlined">delete</span></a></div>');
+		$('.plan-container').append('<div class="plan-item youtube draggable"><label>YouTube</label><a href=""><span class="material-symbols-outlined">drag_indicator</span></a><input type="text" name="youtube_' + random + '" placeholder="https://www.youtube.com..." value="" /><a href="javascript:;" class="delete-from-plan warning"><span class="material-symbols-outlined">delete</span></a></div>');
 	}
 	if(type=='bible'){
 		$('.plan-container').append('<div class="plan-item bible draggable"><label>Bible Passage</label><a href=""><span class="material-symbols-outlined">drag_indicator</span></a><input type="text" name="bible_' + random + '" placeholder="John 3:16" /><a href="javascript:;" class="delete-from-plan warning"><span class="material-symbols-outlined">delete</span></a></div>');
@@ -70,11 +70,17 @@ form.addEventListener('submit', handleSubmit);
 
 $(document).ready(function(){
 	$( ".sortable" ).sortable({
-		revert: true
+		revert: true,
+		stop: function( event, ui ) {
+			save_plan();
+		}
 	});
 	$( ".draggable" ).draggable({
 		connectToSortable: ".sortable",
 		revert: "invalid",
+		stop: function( event, ui ) {
+			save_plan();
+		}
 	});	
 	preview_plan();
 });
@@ -95,5 +101,6 @@ function preview_plan(){
 function save_plan(){
 	
 	$("input[type=submit].save-plan").click();
+	preview_plan();
 	
 }

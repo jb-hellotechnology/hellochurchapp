@@ -39,6 +39,10 @@ $('.add-to-email').click(function(){
 		$('.email-container').append('<div class="plan-item event draggable"><label>Event</label><a href=""><span class="material-symbols-outlined">drag_indicator</span></a><select name="event_' + random + '" id="event_' + random +'"></select><a href="javascript:;" class="delete-from-email warning"><span class="material-symbols-outlined">delete</span></a></div>');
 		populate_select('event_' + random, 'event');
 	}
+	if(type=='plan'){
+		$('.email-container').append('<div class="plan-item plan draggable"><label>Plan</label><a href=""><span class="material-symbols-outlined">drag_indicator</span></a><select name="plan_' + random + '" id="plan_' + random +'"></select><a href="javascript:;" class="delete-from-email warning"><span class="material-symbols-outlined">delete</span></a></div>');
+		populate_select('plan_' + random, 'plan');
+	}
 	
 	draggable_sortable();
 	save_email();
@@ -57,7 +61,6 @@ function populate_select(pItem, pType){
 		        text : item.text 
 		    }));
 		});
-		
 	});
 	
 }
@@ -134,6 +137,31 @@ $(document).ready(function(){
 				        value: item.value,
 				        text : item.text,
 				    }));	
+				}
+			});
+		});
+	});
+	
+	$('.plan-select').each(function(){
+		let active = $(this).data('plan');
+		let id = $(this).data('id');
+		$.get( "/process/populate-select", { type: 'plan' }).done(function( items ) {
+			$('#plan_'+id).append($('<option>', { 
+				value: 0,
+				text : 'Please Select' 
+			}));
+			$.each(JSON.parse(items), function (i, item) {
+				if(item.value == active){
+					$('#plan_'+id).append($('<option>', { 
+						value: item.value,
+						text : item.text,
+						selected: true
+					}));
+				}else{
+					$('#plan_'+id).append($('<option>', { 
+						value: item.value,
+						text : item.text,
+					}));	
 				}
 			});
 		});
