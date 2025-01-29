@@ -134,7 +134,7 @@
     }
 	
 	/** GET EVENT PLAN BY ID **/
-	function hello_church_get_plan($planID){
+	function hello_church_get_event_plan_by_id($planID){
 		
 		$API  = new PerchAPI(1.0, 'hello_church');
 		

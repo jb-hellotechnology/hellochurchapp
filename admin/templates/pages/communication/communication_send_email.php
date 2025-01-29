@@ -153,7 +153,7 @@ foreach($email as $type => $item){
 	}
 	if($type=='plan'){
 		
-		$plan = get_event_plan_by_id($item);
+		$plan = hello_church_get_event_plan_by_id($item);
 		$plan = json_decode($plan, true);
 		
 		foreach($plan as $type => $item){
