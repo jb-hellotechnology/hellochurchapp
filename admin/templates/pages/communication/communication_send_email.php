@@ -56,6 +56,9 @@ if(!$_POST['recipient']){
 $senderPostalAddress = "$church[churchName], $church[churchAddress1], $church[churchCity], $church[churchCountry]";
 
 $subject = $email['emailSubject'];
+if($_POST['recipient']){
+	$subject = 'PREVIEW - '.$subject;
+}
 $email = json_decode($email['emailContent'], true);
 
 $emailContent = '';
