@@ -20,13 +20,13 @@ if(perch_member_logged_in()){
 	
 	if(!perch_member_has_church() AND ($url !== 'Setup Subscription' AND $url !== 'Switch' AND $url !== 'Settings - Church')){
 		// PROMPT USER TO SELECT CHURCH
-		//header("location:/switch");
+		header("location:/switch");
 	}elseif(perch_member_has_church() AND $subscription <= time() AND $subscription !== '' AND ($url !== 'Setup Subscription' AND $url !== 'Switch')){
 		// SETUP SUBSCRIPTION
-		//header("location:/subscription");	
+		header("location:/subscription");	
 	}elseif(perch_member_has_church() AND $subscription <= time() AND $subscription > 0 AND $url !== 'Setup Subscription' AND $url !== 'Switch'){
 		// UPDATE SUBSCRIPTION
-		//header("location:/settings/subscription");
+		header("location:/settings/subscription");
 	}
 	
 	$church = hello_church_church(true);
