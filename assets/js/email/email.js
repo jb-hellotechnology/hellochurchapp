@@ -237,8 +237,8 @@ function send_test(){
 	let pRecipient = $('#test_recipient').val();
 	$('.loading').toggleClass('show');
 	$.post( "/communication/send-email", { recipient: pRecipient, email_id: pID, email_test: true }).done(function( data ) {
-		$('.loading p').text('Sent - Please Check Your Inbox' + data);
-		//setTimeout(function() { $('.loading').toggleClass('show');$('.loading p').text('Loading'); }, 2000);
+		$('.loading p').text('Sent - Please Check Your Inbox');
+		setTimeout(function() { $('.loading').toggleClass('show');$('.loading p').text('Loading'); }, 2000);
 	});
 	
 }

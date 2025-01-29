@@ -132,6 +132,19 @@
 		return $plan;
 		
     }
+	
+	/** GET EVENT PLAN BY ID **/
+	function hello_church_get_plan($planID){
+		
+		$API  = new PerchAPI(1.0, 'hello_church');
+		
+		$HelloChurchEvents = new HelloChurch_Events($API);
+		
+		$plan = $HelloChurchEvents->get_plan_by_id($planID);
+		
+		return $plan;
+		
+	}
     
     /** CHECK SIGNED IN USER IS OWNER OF EVENT **/
     function hello_church_event_owner($eventID){
