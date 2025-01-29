@@ -140,7 +140,7 @@
 		
 		$HelloChurchEvents = new HelloChurch_Events($API);
 		
-		$plan = $HelloChurchEvents->get_plan_by_id($planID);
+		$plan = $HelloChurchEvents->get_plan_by_id($planID); 
 		
 		return $plan;
 		
