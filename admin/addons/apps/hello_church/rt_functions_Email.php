@@ -50,7 +50,7 @@
         
         $emails = $HelloChurchEmails->contact_emails($contactID);
 		
-		print_r($emails);
+		//print_r($emails);
 		
 		echo '<article>
 				<ul class="list">';
@@ -58,6 +58,7 @@
         foreach($emails as $email){
 	
 	        $emailContent = $HelloChurchEmails->find($email['emailID']);
+			print_r($emailContent);
 			if($emailContent){
 	        	$date = date('m/d/Y H:i:s', strtotime($emailContent->emailSent()));
 			}
