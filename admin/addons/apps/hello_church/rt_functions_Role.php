@@ -1,6 +1,21 @@
 <?php
 	
 	/** GET LIST OF ROLES **/
+	function hello_church_roles_exist(){
+		
+		$API  = new PerchAPI(1.0, 'hello_church');
+		$churchID = perch_member_get('churchID');
+		$HelloChurchRoles = new HelloChurch_Roles($API);
+		$roles = $HelloChurchRoles->roles($churchID);
+		if($roles){
+			return true;
+		}else{
+			return false;
+		}
+		
+	}
+	
+	/** GET LIST OF ROLES **/
 	function hello_church_roles(){
 	    
 	    $API  = new PerchAPI(1.0, 'hello_church');
