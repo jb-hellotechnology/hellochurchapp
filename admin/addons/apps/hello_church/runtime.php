@@ -415,7 +415,7 @@ error_reporting(E_ALL);
 					if($data['contactAddress1'] && $data['contactCity'] && $data['contactPostCode']){
 						$address = urlencode("$data[contactAddress1], $data[contactCity], $data[contactPostCode]");
 						$streetmap = file_get_contents('https://nominatim.openstreetmap.org/search?q='.$address.'&format=json&addressdetails=0&limit=1');
-						$streetmap = json_decode($streetmap, $data);
+						$streetmap = json_decode($streetmap, true);
 						$data['contactLat'] = $streetmap[0]['lat'];
 						$data['contactLng'] = $streetmap[0]['lat'];
 					}
@@ -440,7 +440,7 @@ error_reporting(E_ALL);
 						$address = urlencode("$data[contactAddress1], $data[contactCity], $data[contactPostCode]");
 						$streetmap = file_get_contents('https://nominatim.openstreetmap.org/search?q='.$address.'&format=json&addressdetails=0&limit=1');
 						print_r($streemap);
-						$streetmap = json_decode($streetmap, $data);
+						$streetmap = json_decode($streetmap, true);
 						$data['contactLat'] = $streetmap[0]['lat'];
 						$data['contactLng'] = $streetmap[0]['lat'];
 					}
