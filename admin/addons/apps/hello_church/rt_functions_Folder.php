@@ -297,4 +297,18 @@
 		
 	}
 	
+	/** GET PUBLIC FILE DATA **/
+	function hello_church_public_file($fileString){
+		
+		$API  = new PerchAPI(1.0, 'hello_church');
+		$HelloChurchFolders = new HelloChurch_Folders($API);
+		
+		$Session = PerchMembers_Session::fetch();
+		
+		$file = $HelloChurchFolders->get_file_by_string($fileString);
+		
+		return $file;
+		
+	}
+	
 ?>

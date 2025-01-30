@@ -161,6 +161,16 @@ class HelloChurch_Folders extends PerchAPI_Factory
 	    return $results;
 	    
     }
+	
+	public function get_file_by_string($fileString){
+		
+		$API  = new PerchAPI(1.0, 'hello_church');
+		
+		$sql = "SELECT * FROM perch3_hellochurch_files WHERE fileString='".$fileString."'";
+		$result = $this->db->get_row($sql);
+		return $result;
+		
+	}
     
     public function files($churchID, $folderParent, $contactParent, $groupParent, $eventParent, $eventDate){
 	    
