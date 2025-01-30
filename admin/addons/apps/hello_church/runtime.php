@@ -445,8 +445,8 @@ error_reporting(E_ALL);
 						];
 						$context = stream_context_create($options);
 						$response = file_get_contents('https://nominatim.openstreetmap.org/search?q='.$address.'&format=json&addressdetails=0&limit=1', false, $context);
-						print_r($streemap);
-						$streetmap = json_decode($streetmap, true);
+						print_r($response);
+						$streetmap = json_decode($response, true);
 						$data['contactLat'] = $streetmap[0]['lat'];
 						$data['contactLng'] = $streetmap[0]['lat'];
 					}
