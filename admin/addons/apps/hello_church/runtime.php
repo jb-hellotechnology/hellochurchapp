@@ -438,7 +438,13 @@ error_reporting(E_ALL);
 		            }
 					if($data['contactAddress1'] && $data['contactCity'] && $data['contactPostCode']){
 						$address = urlencode("$data[contactAddress1], $data[contactCity], $data[contactPostCode]");
-						$streetmap = file_get_contents('https://nominatim.openstreetmap.org/search?q='.$address.'&format=json&addressdetails=0&limit=1');
+						$options = [
+							'http' => [
+								'user_agent' => 'Hello Church',
+							],
+						];
+						$context = stream_context_create($options);
+						$response = file_get_contents('https://nominatim.openstreetmap.org/search?q='.$address.'&format=json&addressdetails=0&limit=1', false, $context);
 						print_r($streemap);
 						$streetmap = json_decode($streetmap, true);
 						$data['contactLat'] = $streetmap[0]['lat'];
