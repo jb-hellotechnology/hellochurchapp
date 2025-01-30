@@ -237,7 +237,7 @@
 		$html = '[';
         
         foreach($groups as $group){
-	        $html .=  "{id: ".$group['groupID'].", value:'".$group['groupName']."'}, ";
+	        $html .=  "{id: ".$group['groupID'].", value:'".addslashes($group['groupName'])."'}, ";
         }
         
         if(strlen($html)>1){
