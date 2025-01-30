@@ -423,7 +423,7 @@
 						$response = file_get_contents('https://nominatim.openstreetmap.org/search?q='.$address.'&format=json&addressdetails=0&limit=1', false, $context);
 						$streetmap = json_decode($response, true);
 						$data['contactLat'] = $streetmap[0]['lat'];
-						$data['contactLng'] = $streetmap[0]['lng'];
+						$data['contactLng'] = $streetmap[0]['lon'];
 					}
 	            	$contact = $HelloChurchContacts->create($data);
 	            	$contact->update_tags($contact->id(), $data);
@@ -453,7 +453,7 @@
 						$response = file_get_contents('https://nominatim.openstreetmap.org/search?q='.$address.'&format=json&addressdetails=0&limit=1', false, $context);
 						$streetmap = json_decode($response, true);
 						$data['contactLat'] = $streetmap[0]['lat'];
-						$data['contactLng'] = $streetmap[0]['lng'];
+						$data['contactLng'] = $streetmap[0]['lon'];
 					}
 		            $contact->update($data);
 		            $contact->update_tags($contact->id(), $data);
