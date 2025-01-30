@@ -1,9 +1,9 @@
 <?php
-/*
+
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
-*/
+
 
     spl_autoload_register(function($class_name){
         if (strpos($class_name, 'HelloChurch')===0) {
@@ -439,6 +439,7 @@ error_reporting(E_ALL);
 					if($data['contactAddress1'] && $data['contactCity'] && $data['contactPostCode']){
 						$address = urlencode("$data[contactAddress1], $data[contactCity], $data[contactPostCode]");
 						$streetmap = file_get_contents('https://nominatim.openstreetmap.org/search?q='.$address.'&format=json&addressdetails=0&limit=1');
+						print_r($streemap);
 						$streetmap = json_decode($streetmap, $data);
 						$data['contactLat'] = $streetmap[0]['lat'];
 						$data['contactLng'] = $streetmap[0]['lat'];
