@@ -50,6 +50,8 @@
         
         $emails = $HelloChurchEmails->contact_emails($contactID);
 		
+		print_r($emails);
+		
 		echo '<article>
 				<ul class="list">';
         
