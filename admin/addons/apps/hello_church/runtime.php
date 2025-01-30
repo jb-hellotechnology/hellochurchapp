@@ -1,8 +1,8 @@
 <?php
 
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
+// ini_set('display_errors', 1);
+// ini_set('display_startup_errors', 1);
+// error_reporting(E_ALL);
 
 
     spl_autoload_register(function($class_name){
@@ -414,10 +414,16 @@ error_reporting(E_ALL);
 		            $data['contactProperties'] = '';
 					if($data['contactAddress1'] && $data['contactCity'] && $data['contactPostCode']){
 						$address = urlencode("$data[contactAddress1], $data[contactCity], $data[contactPostCode]");
-						$streetmap = file_get_contents('https://nominatim.openstreetmap.org/search?q='.$address.'&format=json&addressdetails=0&limit=1');
-						$streetmap = json_decode($streetmap, true);
+						$options = [
+							'http' => [
+								'user_agent' => 'Hello Church',
+							],
+						];
+						$context = stream_context_create($options);
+						$response = file_get_contents('https://nominatim.openstreetmap.org/search?q='.$address.'&format=json&addressdetails=0&limit=1', false, $context);
+						$streetmap = json_decode($response, true);
 						$data['contactLat'] = $streetmap[0]['lat'];
-						$data['contactLng'] = $streetmap[0]['lat'];
+						$data['contactLng'] = $streetmap[0]['lng'];
 					}
 	            	$contact = $HelloChurchContacts->create($data);
 	            	$contact->update_tags($contact->id(), $data);
@@ -445,10 +451,9 @@ error_reporting(E_ALL);
 						];
 						$context = stream_context_create($options);
 						$response = file_get_contents('https://nominatim.openstreetmap.org/search?q='.$address.'&format=json&addressdetails=0&limit=1', false, $context);
-						print_r($response);
 						$streetmap = json_decode($response, true);
 						$data['contactLat'] = $streetmap[0]['lat'];
-						$data['contactLng'] = $streetmap[0]['lat'];
+						$data['contactLng'] = $streetmap[0]['lng'];
 					}
 		            $contact->update($data);
 		            $contact->update_tags($contact->id(), $data);
