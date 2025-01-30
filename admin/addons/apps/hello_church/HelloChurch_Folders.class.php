@@ -128,8 +128,17 @@ class HelloChurch_Folders extends PerchAPI_Factory
 	    $fileName = explode("/", $fileLocation);
 		$fileName = pathinfo($fileName[1], PATHINFO_FILENAME);
 		
-		$sql = "INSERT INTO perch3_hellochurch_files (churchID, memberID, folderID, contactID, groupID, eventID, eventDate, fileLocation, fileName) VALUES 
-		('".$churchID."', '".$memberID."', '".$folderID."', '".$contactID."', '".$groupID."', '".$eventID."', '".$eventDate."', '".$fileLocation."', '".$fileName."')";
+		$length = 128;
+		$characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+		$charactersLength = strlen($characters);
+		$fileString = '';
+		
+		for ($i = 0; $i < $length; $i++) {
+			$fileString .= $characters[random_int(0, $charactersLength - 1)];
+		}
+		
+		$sql = "INSERT INTO perch3_hellochurch_files (churchID, memberID, folderID, contactID, groupID, eventID, eventDate, fileLocation, fileName, fileString) VALUES 
+		('".$churchID."', '".$memberID."', '".$folderID."', '".$contactID."', '".$groupID."', '".$eventID."', '".$eventDate."', '".$fileLocation."', '".$fileName."', '".$fileString."')";
 	    $results = $this->db->execute($sql);
 	    
     }
@@ -223,5 +232,15 @@ class HelloChurch_Folders extends PerchAPI_Factory
 	    return $files;
 	    
     }
+	
+	public function get_public_url($fileID){
+		
+		$API  = new PerchAPI(1.0, 'hello_church');
+		
+		$sql = "SELECT * FROM perch3_hellochurch_files WHERE fileID='".$fileID."'";
+		$result = $this->db->get_row($sql);
+		return "https://app.hellochurch.tech/file/".$result['fileString'];
+		
+	}
 
 }

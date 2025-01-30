@@ -285,4 +285,16 @@
 		
 	}
 	
+	/** PUBLIC URL **/
+	function hello_church_file_public_url($fileID){
+		
+		$API  = new PerchAPI(1.0, 'hello_church');
+		$HelloChurchFolders = new HelloChurch_Folders($API);
+		
+		$file = $HelloChurchFolders->get_public_url($fileID);
+		
+		return $file;
+		
+	}
+	
 ?>

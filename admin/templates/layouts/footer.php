@@ -43,6 +43,11 @@
 		$('.account-nav').toggleClass('show');
 	});
 	
+	function copy(url){
+		navigator.clipboard.writeText(url);
+		alert("Copied the URL: " + url);
+	}
+	
 	var tagify = document.querySelector('.tagify');
 	new Tagify(tagify, {});
 	
