@@ -43,7 +43,6 @@
 			      endRecur: "'.$event['repeatEnd'].' 23:59:59",';
 		      }
 		    $eventsHTML .= '
-		      allDay: '.$event['allDay'].',
 		      url: "/calendar/edit-event?id='.$event['eventID'].'&date=",
 		      displayEventEnd: true
 		    },';
