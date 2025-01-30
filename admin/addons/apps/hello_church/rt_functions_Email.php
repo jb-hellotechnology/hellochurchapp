@@ -56,7 +56,9 @@
         foreach($emails as $email){
 	
 	        $emailContent = $HelloChurchEmails->find($email['emailID']);
-	        $date = date('m/d/Y H:i:s', strtotime($emailContent->emailSent()));
+			if($emailContent){
+	        	$date = date('m/d/Y H:i:s', strtotime($emailContent->emailSent()));
+			}
 
 	        echo '<li>
 	        		<div class="heading">
