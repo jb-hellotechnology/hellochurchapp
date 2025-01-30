@@ -412,6 +412,13 @@ error_reporting(E_ALL);
 		            //$SubmittedForm->throw_error($valid['reason'], $valid['field']);
 	            }else{
 		            $data['contactProperties'] = '';
+					if($data['contactAddress1'] && $data['contactCity'] && $data['contactPostCode']){
+						$address = urlencode("$data[contactAddress1], $data[contactCity], $data[contactPostCode]");
+						$streetmap = file_get_contents('https://nominatim.openstreetmap.org/search?q='.$address.'&format=json&addressdetails=0&limit=1');
+						$streetmap = json_decode($streetmap, $data);
+						$data['contactLat'] = $streetmap[0]['lat'];
+						$data['contactLng'] = $streetmap[0]['lat'];
+					}
 	            	$contact = $HelloChurchContacts->create($data);
 	            	$contact->update_tags($contact->id(), $data);
 	            	$contact->update_groups($contact->id(), $data);
@@ -429,6 +436,13 @@ error_reporting(E_ALL);
 		            if(!$data['contactAcceptEmail']){
 			            $data['contactAcceptEmail'] = '';
 		            }
+					if($data['contactAddress1'] && $data['contactCity'] && $data['contactPostCode']){
+						$address = urlencode("$data[contactAddress1], $data[contactCity], $data[contactPostCode]");
+						$streetmap = file_get_contents('https://nominatim.openstreetmap.org/search?q='.$address.'&format=json&addressdetails=0&limit=1');
+						$streetmap = json_decode($streetmap, $data);
+						$data['contactLat'] = $streetmap[0]['lat'];
+						$data['contactLng'] = $streetmap[0]['lat'];
+					}
 		            $contact->update($data);
 		            $contact->update_tags($contact->id(), $data);
 		            $contact->update_groups($contact->id(), $data);
