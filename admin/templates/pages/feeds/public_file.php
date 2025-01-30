@@ -1,7 +1,7 @@
 <?php
 $file = hello_church_public_file(perch_get('fileID'));
 
-if($file){
+if($file && perch_get('fileID')){
 	$fileLocation = '../../../../hc_uploads/'.$file['churchID'].'/'.$file['fileLocation'];
 	
 	header('Content-Description: File Transfer');
