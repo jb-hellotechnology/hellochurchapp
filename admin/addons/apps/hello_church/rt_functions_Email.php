@@ -61,18 +61,19 @@
 			print_r($emailContent);
 			if($emailContent){
 	        	$date = date('m/d/Y H:i:s', strtotime($emailContent->emailSent()));
+			
+				echo '<li>
+						<div class="heading">
+							<span class="material-symbols-outlined">mail</span>
+							<h3><a href="/communication/view-email?id='.$email['emailID'].'">'.$emailContent->emailSubject().'</a></h3>
+							<p class="mono">'.$date.'</p>
+						</div>
+						<div class="functions">
+							<a href="/communication/view-email?id='.$email['emailID'].'" class="button secondary small">View</a>
+						</div>
+					</li>';
+					
 			}
-
-	        echo '<li>
-	        		<div class="heading">
-	        			<span class="material-symbols-outlined">mail</span>
-				        <h3><a href="/communication/view-email?id='.$email['emailID'].'">'.$emailContent->emailSubject().'</a></h3>
-						<p class="mono">'.$date.'</p>
-					</div>
-					<div class="functions">
-						<a href="/communication/view-email?id='.$email['emailID'].'" class="button secondary small">View</a>
-					</div>
-				</li>';
 				
         }
 
