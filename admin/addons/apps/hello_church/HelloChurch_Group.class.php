@@ -7,11 +7,9 @@ class HelloChurch_Group extends PerchAPI_Base
 
     public $static_fields = array('groupID', 'churchID', 'memberID', 'groupName', 'groupDescription', 'groupAutoAdd', 'groupProperites');
 
-	public function update_tags($data){
+	public function update_tags($groupID){
 		
 		$API  = new PerchAPI(1.0, 'hello_church');
-		
-		$groupID = $data['groupID'];
 		
 		$sql = "DELETE FROM perch3_hellochurch_groups_tags WHERE groupID='".$groupID."'";
 	    $results = $this->db->execute($sql);

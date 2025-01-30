@@ -581,7 +581,7 @@ error_reporting(E_ALL);
 					$SubmittedForm->throw_error('all', 'general');
 	            }else{
 					$group = $HelloChurchGroups->create($data);    
-					$group->update_tags($data);
+					$group->update_tags($group->id());
 					$group->update_members($group->id(), $data);
 	            }
             break;
