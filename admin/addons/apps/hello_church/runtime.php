@@ -469,6 +469,19 @@
 		            if(!$data['contactAcceptEmail']){
 			            $data['contactAcceptEmail'] = '';
 		            }
+					if($data['contactAddress1'] && $data['contactCity'] && $data['contactPostCode']){
+						$address = urlencode("$data[contactAddress1], $data[contactCity], $data[contactPostCode]");
+						$options = [
+							'http' => [
+								'user_agent' => 'Hello Church',
+							],
+						];
+						$context = stream_context_create($options);
+						$response = file_get_contents('https://nominatim.openstreetmap.org/search?q='.$address.'&format=json&addressdetails=0&limit=1', false, $context);
+						$streetmap = json_decode($response, true);
+						$data['contactLat'] = $streetmap[0]['lat'];
+						$data['contactLng'] = $streetmap[0]['lon'];
+					}
 		            $contact->update($data);
 	            } 
             break;
