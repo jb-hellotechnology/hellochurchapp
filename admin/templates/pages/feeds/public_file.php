@@ -16,7 +16,7 @@ if($file){
 	flush();
 	readfile($fileLocation);
 }else{
-	header("HTTP/1.0 404 Not Found");
+	header("location:/errors/404");
 }
 
 ?>
