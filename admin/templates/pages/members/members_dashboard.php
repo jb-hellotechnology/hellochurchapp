@@ -12,6 +12,14 @@ $church = hello_church_church(true);
 ?>
 <main class="full">
 	<h1><?= $church['churchName'] ?></h1>
+	<?php
+	$paymentMethod = stripe_data('churchPaymentMethod');
+	if(!$paymentMethod){
+		$time = stripe_data('churchPeriodEnd');
+		$date = date('d/m/Y', $time);
+		echo '<div class="panel"><p><strong>Free Trial</strong></p><p>Don\'t forget to add your payment details before '.$date.' to avoid any interuption to your account. You can do this via your <a href="/settings/subscription">subscription</a> settings.</p></div><br />';
+	}
+	?>
 	<section class="no-shadow">
 	<ul class="cards menu">
 		<li>

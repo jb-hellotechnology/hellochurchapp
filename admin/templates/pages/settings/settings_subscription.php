@@ -22,6 +22,7 @@ if($customer_id){
 	$current_period = stripe_data('churchPeriodEnd');
 	$cancel = stripe_data('churchCancel');
 	$price = stripe_data('churchPlanID');
+	$paymentMethod = stripe_data('churchPaymentMethod');
 	
 	$stripe = new \Stripe\StripeClient($stripeSK);
 	
@@ -114,8 +115,13 @@ $adminType = admin_type();
 				}elseif($current_period <= time()){
 			?>
 			<p><strong>Your subscription is inactive.</strong></p>
-			<p><strong>Please click the button below to visit the payment portal.</strong></p>
+			<p>Please click the button below to visit the payment portal.</p>
 			<?php
+				}elseif($current_period > time() && !$paymentMethod){
+			?>		
+				<p><strong>Your need to add a payment method.</strong></p>
+				<p>Please click the button below to visit the payment portal and add a debit or credit card.</p>	
+			<?php	
 				}else{
 			?>
 			<p><strong>Your subscription is active.</strong></p>
