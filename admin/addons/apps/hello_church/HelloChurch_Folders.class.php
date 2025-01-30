@@ -129,7 +129,7 @@ class HelloChurch_Folders extends PerchAPI_Factory
 		$fileName = pathinfo($fileName[1], PATHINFO_FILENAME);
 		
 		$length = 128;
-		$characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+		$characters = '0123456789abcdefghijklmnopqrstuvwxyz';
 		$charactersLength = strlen($characters);
 		$fileString = '';
 		
