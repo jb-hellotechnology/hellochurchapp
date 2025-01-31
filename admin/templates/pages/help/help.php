@@ -16,6 +16,8 @@ perch_layout('header');
 	?>
 	<h1>Help</h1>
 	<p>Browse our database of help articles to find answers to your questions.</p>
+	<p><strong>Video:</strong> Video tutorials will be available soon, in the meantime 
+	if you need support please use the live chat tool in the bottom right hand corner of the screen.</p>
 	<?php 
 /*
 		perch_search_form(); 
