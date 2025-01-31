@@ -102,5 +102,86 @@ class HelloChurch_Churches extends PerchAPI_Factory
 	    return $html;
 	    
 	}
+	
+	function delete_data($churchID){
+		
+		$API  = new PerchAPI(1.0, 'hello_church');
+		
+		$sql = "DELETE FROM perch3_hellochurch_admins WHERE churchID=$churchID";
+		$this->db->execute($sql);
+		
+		$sql = "DELETE FROM perch3_hellochurch_audio WHERE churchID=$churchID";
+		$this->db->execute($sql);
+		
+		$sql = "DELETE FROM perch3_hellochurch_churches WHERE churchID=$churchID";
+		$this->db->execute($sql);
+		
+		$sql = "DELETE FROM perch3_hellochurch_contacts WHERE churchID=$churchID";
+		$this->db->execute($sql);
+		
+		$sql = "DELETE FROM perch3_hellochurch_contacts_tags WHERE churchID=$churchID";
+		$this->db->execute($sql);
+		
+		$sql = "DELETE FROM perch3_hellochurch_contact_notes WHERE churchID=$churchID";
+		$this->db->execute($sql);
+		
+		$sql = "DELETE FROM perch3_hellochurch_emails WHERE churchID=$churchID";
+		$this->db->execute($sql);
+		
+		$sql = "DELETE FROM perch3_hellochurch_events WHERE churchID=$churchID";
+		$this->db->execute($sql);
+		
+		$sql = "DELETE FROM perch3_hellochurch_event_plans WHERE churchID=$churchID";
+		$this->db->execute($sql);
+		
+		$sql = "DELETE FROM perch3_hellochurch_families WHERE churchID=$churchID";
+		$this->db->execute($sql);
+		
+		$sql = "DELETE FROM perch3_hellochurch_files WHERE churchID=$churchID";
+		$this->db->execute($sql);
+		
+		$sql = "DELETE FROM perch3_hellochurch_folders WHERE churchID=$churchID";
+		$this->db->execute($sql);
+		
+		$sql = "DELETE FROM perch3_hellochurch_groups WHERE churchID=$churchID";
+		$this->db->execute($sql);
+		
+		$sql = "DELETE FROM perch3_hellochurch_groups_members WHERE churchID=$churchID";
+		$this->db->execute($sql);
+		
+		$sql = "DELETE FROM perch3_hellochurch_groups_tags WHERE churchID=$churchID";
+		$this->db->execute($sql);
+		
+		$sql = "DELETE FROM perch3_hellochurch_podcasts WHERE churchID=$churchID";
+		$this->db->execute($sql);
+		
+		$sql = "DELETE FROM perch3_hellochurch_roles WHERE churchID=$churchID";
+		$this->db->execute($sql);
+		
+		$sql = "DELETE FROM perch3_hellochurch_roles_contacts WHERE churchID=$churchID";
+		$this->db->execute($sql);
+		
+		$sql = "DELETE FROM perch3_hellochurch_series WHERE churchID=$churchID";
+		$this->db->execute($sql);
+		
+		$sql = "DELETE FROM perch3_hellochurch_speakers WHERE churchID=$churchID";
+		$this->db->execute($sql);
+		
+		$sql = "DELETE FROM perch3_hellochurch_venues WHERE churchID=$churchID";
+		$this->db->execute($sql);
+		
+	}
+	
+	function no_subscriptions($id){
+		
+		$sql = "SELECT * FROM perch3_hellochurch_churches WHERE memberID=$id";
+		$results = $this->db->get_rows($sql);
+		if($results){
+			return false;
+		}else{
+			return true;
+		}
+		
+	}
 
 }

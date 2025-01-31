@@ -8,6 +8,10 @@ function draggable_sortable(){
 	});
 }
 
+$(document).ready(function() {
+	$('.js-example-basic-single').select2();
+});
+
 $('.add-to-email').click(function(){
 	let type = $(this).data('type');
 	let random = Math.floor(Math.random() * 1000001);
@@ -28,24 +32,26 @@ $('.add-to-email').click(function(){
 		$('.email-container').append('<div class="plan-item link draggable"><label>Button</label><a href=""><span class="material-symbols-outlined">drag_indicator</span></a><div><input type="text" name="link_' + random + '_text" placeholder="Button Text" value="Click Here" /><input type="text" class="no-border-top" name="link_' + random + '_url" placeholder="https://hellochurch.tech" /></div><a href="javascript:;" class="delete-from-email warning"><span class="material-symbols-outlined">delete</span></a></div>');
 	}
 	if(type=='image'){
-		$('.email-container').append('<div class="plan-item image draggable"><label>Image</label><a href=""><span class="material-symbols-outlined">drag_indicator</span></a><select name="image_' + random + '" id="image_' + random +'"></select><a href="javascript:;" class="delete-from-email warning"><span class="material-symbols-outlined">delete</span></a></div>');
+		$('.email-container').append('<div class="plan-item image draggable"><label>Image</label><a href=""><span class="material-symbols-outlined">drag_indicator</span></a><select name="image_' + random + '" id="image_' + random +'" class="js-example-basic-single"></select><a href="javascript:;" class="delete-from-email warning"><span class="material-symbols-outlined">delete</span></a></div>');
 		populate_select('image_' + random, 'image');
 	}
 	if(type=='file'){
-		$('.email-container').append('<div class="plan-item file draggable"><label>File</label><a href=""><span class="material-symbols-outlined">drag_indicator</span></a><select name="file_' + random + '" id="file_' + random +'"></select><a href="javascript:;" class="delete-from-email warning"><span class="material-symbols-outlined">delete</span></a></div>');
+		$('.email-container').append('<div class="plan-item file draggable"><label>File</label><a href=""><span class="material-symbols-outlined">drag_indicator</span></a><select name="file_' + random + '" id="file_' + random +'" class="js-example-basic-single"></select><a href="javascript:;" class="delete-from-email warning"><span class="material-symbols-outlined">delete</span></a></div>');
 		populate_select('file_' + random, 'file');
 	}
 	if(type=='event'){
-		$('.email-container').append('<div class="plan-item event draggable"><label>Event</label><a href=""><span class="material-symbols-outlined">drag_indicator</span></a><select name="event_' + random + '" id="event_' + random +'"></select><a href="javascript:;" class="delete-from-email warning"><span class="material-symbols-outlined">delete</span></a></div>');
+		$('.email-container').append('<div class="plan-item event draggable"><label>Event</label><a href=""><span class="material-symbols-outlined">drag_indicator</span></a><select name="event_' + random + '" id="event_' + random +'" class="js-example-basic-single"></select><a href="javascript:;" class="delete-from-email warning"><span class="material-symbols-outlined">delete</span></a></div>');
 		populate_select('event_' + random, 'event');
 	}
 	if(type=='plan'){
-		$('.email-container').append('<div class="plan-item plan draggable"><label>Plan</label><a href=""><span class="material-symbols-outlined">drag_indicator</span></a><select name="plan_' + random + '" id="plan_' + random +'"></select><a href="javascript:;" class="delete-from-email warning"><span class="material-symbols-outlined">delete</span></a></div>');
+		$('.email-container').append('<div class="plan-item plan draggable"><label>Plan</label><a href=""><span class="material-symbols-outlined">drag_indicator</span></a><select name="plan_' + random + '" id="plan_' + random +'" class="js-example-basic-single"></select><a href="javascript:;" class="delete-from-email warning"><span class="material-symbols-outlined">delete</span></a></div>');
 		populate_select('plan_' + random, 'plan');
 	}
 	
 	draggable_sortable();
 	save_email();
+	
+	$('.js-example-basic-single').select2();
 });
 
 function populate_select(pItem, pType){

@@ -34,6 +34,7 @@
 	<script src="/assets/js/upload-podcast-image/upload.js?v=<?= rand() ?>"></script>
 	<script src="/assets/js/forms/validation.js?v=<?= rand() ?>"></script>
 	<script src="/assets/redactor/redactor.min.js"></script>
+	<script src="/assets/js/select2/js/select2.min.js"></script>
 	
 	<script>
 	$('button.menu').click(function(){

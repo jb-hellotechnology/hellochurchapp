@@ -43,29 +43,30 @@ $subscriptionCancel = stripe_data('churchCancel');
 		</footer>
 	</section>
 	
+	<?php
+	if(hello_church_no_subscriptions(perch_member_get('id'))){
+	?>
 	<section>
 		<header>
 			<h2>Delete Account</h2>
 		</header>
 		<article class="flow">
 			<p><strong>Be careful.</strong> Deleting your account is permanent. All account information will be deleted. This cannot be reversed.</p>
-			<?php
-			if(!$subscriptionCancel){
-				echo '<p>Please cancel your subscription before deleting your account.</p>';;
-			}
-			?>
 		</article>
 		<footer>
-			<?php
-			if($subscriptionCancel){
-				echo '<a class="button danger" href="/delete-account/">Delete Account</a>';
-			}else{
-				echo '<a class="button primary" href="/settings/subscription">Manage Subscription</a>';
-			}
-			?>
+			<a class="button danger" href="/delete-account/">Delete Account</a>
 		</footer>
 	</section>
-
+	<?php
+	}else{
+	?>
+	<div class="panel">
+		<p><strong>Delete Account</strong></p>
+		<p>Before deleting your account your must cancel all <a href="/settings/subscription">existing subscriptions</a> and delete the church profiles associated with your account.</p>
+	</div>
+	<?php
+	}
+	?>
 </main>
 
 <?php perch_layout('footer'); ?>

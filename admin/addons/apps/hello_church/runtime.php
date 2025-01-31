@@ -323,6 +323,8 @@
 
 			$data['churchID'] = $_GET['id'];
 			
+		}elseif($template == 'delete_church.html'){
+			
 		}
 		
         $html = $Template->render($data);
@@ -1059,6 +1061,48 @@
 			        $SubmittedForm->throw_error('required', 'key');
 		        }
             break;
+			
+			case 'delete_church':
+				// DELETE DATA FROM DATABASE
+				$HelloChurchChurches->delete_data($Session->get('churchID'));
+				
+				// DELETE FILES
+				$dir = '../../../../hc_uploads/'.$Session->get('churchID');
+				
+				function deleteAll($str) { 
+					  
+					// Check for files 
+					if (is_file($str)) { 
+						  
+						// If it is file then remove by 
+						// using unlink function 
+						return unlink($str); 
+					} 
+					  
+					// If it is a directory. 
+					elseif (is_dir($str)) { 
+						  
+						// Get the list of the files in this 
+						// directory 
+						$scan = glob(rtrim($str, '/').'/*'); 
+						  
+						// Loop through the list of files 
+						foreach($scan as $index=>$path) { 
+							  
+							// Call recursive function 
+							deleteAll($path); 
+						} 
+						  
+						// Remove the directory itself 
+						return @rmdir($str); 
+					} 
+				} 
+				
+				deleteAll($dir);
+				
+				// SIGN OUT
+				perch_member_log_out();
+			break;
         }
     	
     	// access logged errors

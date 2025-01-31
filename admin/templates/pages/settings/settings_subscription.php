@@ -146,6 +146,22 @@ $adminType = admin_type();
 		</footer>
 	</section>
 	<?php
+	if($cancel){
+	?>
+	<section>
+		<header>Delete Church Profile</header>
+		<article>
+			<p><strong>Your subscription is scheduled for cancellation.</strong></p>
+			<p>If you would like to delete your church profile please click the button below. Be careful, this is immediate and permanent and cannot be reversed.</p>
+		</article>
+		<footer>
+			<a class="button danger" href="/settings/subscription/delete-church/">Delete Church</a>
+		</footer>
+	</section>
+	<?php
+	}
+	?>
+	<?php
 		}else{
 			echo '<h1>Owner Access Only</h1><p>Profile administrators cannot access this page for security reasons.</p>';	
 		}	

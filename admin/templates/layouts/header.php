@@ -7,6 +7,12 @@ if($down){
 }
 
 if(perch_member_logged_in()){
+	
+	if(perch_member_has_tag('deactivated')){
+		perch_member_log_out();
+		header("location:/");
+	}
+	
 	$customer_id = stripe_data('churchCustomerID');	
 	$url = perch_pages_title(true);
 
@@ -18,7 +24,7 @@ if(perch_member_logged_in()){
 		header("location:/switch?msg=error");
 	}
 	
-	if(!perch_member_has_church() AND ($url !== 'Setup Subscription' AND $url !== 'Switch' AND $url !== 'Settings - Church')){
+	if(!perch_member_has_church() AND ($url !== 'Setup Subscription' AND $url !== 'Switch' AND $url !== 'Settings - Church' AND $url !== 'Account')){
 		// PROMPT USER TO SELECT CHURCH
 		header("location:/switch");
 	}elseif(perch_member_has_church() AND $url == 'Settings - Church' AND $subscription==''){
@@ -67,6 +73,7 @@ if(perch_member_logged_in()){
 	<meta name="theme-color" content="#f0f2f9" />
 
 	<link rel="stylesheet" href="https://use.typekit.net/prw8zqs.css">
+	<link href="/assets/js/select2/css/select2.min.css" rel="stylesheet" />
 </head>
 <body>
 	<?php

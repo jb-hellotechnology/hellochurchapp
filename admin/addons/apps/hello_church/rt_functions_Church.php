@@ -152,5 +152,14 @@
         $PerchMembers_Auth->update_church_session($churchID);
 	    
     }
+	
+	/** CHECK USER HAS NOT ACTIVE SUBSCRTIPIONS */
+	function hello_church_no_subscriptions($id){
+		
+		$Churches = new HelloChurch_Churches($API);
+		$subscriptions = $Churches->no_subscriptions($id);
+		return $subscriptions;
+		
+	}
     
 ?>

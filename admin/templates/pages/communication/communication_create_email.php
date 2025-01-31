@@ -63,19 +63,19 @@ perch_layout('header');
 							}
 							if($type=='image'){
 								$rand = rand();
-								echo '<div class="plan-item image draggable"><label>Image</label><a href=""><span class="material-symbols-outlined">drag_indicator</span></a><select name="image_'.$rand.'" data-image="'.$item.'" data-id="'.$rand.'" id="image_'.$rand.'" class="image-select"></select><a href="javascript:;" class="delete-from-email warning"><span class="material-symbols-outlined">delete</span></a></div>';
+								echo '<div class="plan-item image draggable"><label>Image</label><a href=""><span class="material-symbols-outlined">drag_indicator</span></a><select name="image_'.$rand.'" data-image="'.$item.'" data-id="'.$rand.'" id="image_'.$rand.'" class="image-select js-example-basic-single"></select><a href="javascript:;" class="delete-from-email warning"><span class="material-symbols-outlined">delete</span></a></div>';
 							}
 							if($type=='file'){
 								$rand = rand();
-								echo '<div class="plan-item file draggable"><label>File</label><a href=""><span class="material-symbols-outlined">drag_indicator</span></a><select name="file_'.$rand.'" data-file="'.$item.'" data-id="'.$rand.'" id="file_'.$rand.'" class="file-select"></select><a href="javascript:;" class="delete-from-email warning"><span class="material-symbols-outlined">delete</span></a></div>';
+								echo '<div class="plan-item file draggable"><label>File</label><a href=""><span class="material-symbols-outlined">drag_indicator</span></a><select name="file_'.$rand.'" data-file="'.$item.'" data-id="'.$rand.'" id="file_'.$rand.'" class="file-select js-example-basic-single"></select><a href="javascript:;" class="delete-from-email warning"><span class="material-symbols-outlined">delete</span></a></div>';
 							}
 							if($type=='event'){
 								$rand = rand();
-								echo '<div class="plan-item image draggable"><label>Event</label><a href=""><span class="material-symbols-outlined">drag_indicator</span></a><select name="event_'.$rand.'" data-event="'.$item.'" data-id="'.$rand.'" id="event_'.$rand.'" class="event-select"></select><a href="javascript:;" class="delete-from-email warning"><span class="material-symbols-outlined">delete</span></a></div>';
+								echo '<div class="plan-item image draggable"><label>Event</label><a href=""><span class="material-symbols-outlined">drag_indicator</span></a><select name="event_'.$rand.'" data-event="'.$item.'" data-id="'.$rand.'" id="event_'.$rand.'" class="event-select js-example-basic-single"></select><a href="javascript:;" class="delete-from-email warning"><span class="material-symbols-outlined">delete</span></a></div>';
 							}
 							if($type=='plan'){
 								$rand = rand();
-								echo '<div class="plan-item image draggable"><label>Plan</label><a href=""><span class="material-symbols-outlined">drag_indicator</span></a><select name="plan_'.$rand.'" data-plan="'.$item.'" data-id="'.$rand.'" id="plan_'.$rand.'" class="plan-select"></select><a href="javascript:;" class="delete-from-email warning"><span class="material-symbols-outlined">delete</span></a></div>';
+								echo '<div class="plan-item image draggable"><label>Plan</label><a href=""><span class="material-symbols-outlined">drag_indicator</span></a><select name="plan_'.$rand.'" data-plan="'.$item.'" data-id="'.$rand.'" id="plan_'.$rand.'" class="plan-select js-example-basic-single"></select><a href="javascript:;" class="delete-from-email warning"><span class="material-symbols-outlined">delete</span></a></div>';
 							}
 						}	
 						?>
