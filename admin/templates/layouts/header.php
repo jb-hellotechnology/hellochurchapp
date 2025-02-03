@@ -74,6 +74,19 @@ if(perch_member_logged_in()){
 
 	<link rel="stylesheet" href="https://use.typekit.net/prw8zqs.css">
 	<link href="/assets/js/select2/css/select2.min.css" rel="stylesheet" />
+	
+	<script src="https://cdn.brevo.com/js/sdk-loader.js" async></script>
+	<script>
+		// Version: 2.0
+		window.Brevo = window.Brevo || [];
+		Brevo.push([
+			"init",
+			{
+				client_key: "8cqow0ygwo4jc6z3299w43gq",
+				// Optional: Add other initialization options, see documentation
+			}
+		]);
+	</script>
 </head>
 <body>
 	<?php
