@@ -49,7 +49,7 @@ class HelloChurch_Contact extends PerchAPI_Base
 		$results = $this->db->execute($sql);
 		
 		foreach($tags as $tag){
-			
+
 			// FIND MEMBERS WITH TAG
 			$sql = "SELECT * FROM perch3_hellochurch_groups_tags WHERE tag='".$tag['value']."' AND churchID='".$churchID."'";
 			$results = $this->db->get_rows($sql);

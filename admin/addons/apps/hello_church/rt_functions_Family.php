@@ -106,7 +106,7 @@
 			$html .= '</ul>';
 		
 		}else{
-			$html = '<p class="alert">No family members defined.</p>';
+			$html = '<p class="alert">No family members</p>';
 		}
 		
 		echo $html;

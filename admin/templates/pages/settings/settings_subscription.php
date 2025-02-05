@@ -87,12 +87,17 @@ $adminType = admin_type();
 			}
 			
 	?>
-	<p class="alert success"><span class="material-symbols-outlined">check_circle</span>Your subscription is active</p>
+	<script>
+	window.addEventListener('load', (event) => {
+	  fathom.trackEvent('Trial Started'');
+	});
+	</script>
+	<p class="alert success"><span class="material-symbols-outlined">check_circle</span>Your 30 day free trial is active</p>
 	<h2>What next?</h2>
 	<ul>
 		<li><a href="/contacts">Add a Contact?</a></li>
 		<li><a href="/calendar">Manage your Calendar?</a></li>
-		<li><a href="/dashboar">Something else?</a></li>
+		<li><a href="/dashboard">Something else?</a></li>
 	</ul>
 	<br />
 	<?php

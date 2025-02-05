@@ -13,13 +13,20 @@ class HelloChurch_Group extends PerchAPI_Base
 		
 		$sql = "DELETE FROM perch3_hellochurch_groups_tags WHERE groupID='".$groupID."'";
 	    $results = $this->db->execute($sql);
-	    $tags = json_decode($data['groupAutoAdd'], true);
+		
+		$sql = "SELECT * FROM perch3_hellochurch_groups WHERE groupID='".$groupID."'";
+		$result = $this->db->get_row($sql);
+
+	    $tags = json_decode($result['groupAutoAdd'], true);
+		
+		print_r($tags);
 	    
 	    if($tags){
 		    foreach($tags as $tag){
 			    if($tag<>''){
 				    $sql = "INSERT INTO perch3_hellochurch_groups_tags (memberID, churchID, groupID, tag) VALUES 
-				    ('".$data['memberID']."', '".$data['churchID']."', '".$groupID."', '".strtolower($tag['value'])."')";
+				    ('".$result['memberID']."', '".$result['churchID']."', '".$groupID."', '".strtolower($tag['value'])."')";
+					echo $sql;
 					$results = $this->db->execute($sql);
 				}
 		    }

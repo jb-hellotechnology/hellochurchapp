@@ -42,7 +42,7 @@
 					</ul>';
 				
 			}else{
-				$html .= '<p class="alert warning">No groups.</p>';
+				$html .= '<p class="alert warning">No groups</p>';
 			}
 			
 			
@@ -81,10 +81,9 @@
 		foreach($contacts as $contact){
 			echo '
 			<form method="post" action="/process/add-group-member">
-				<label>'.$contact['contactFirstName'].' '.$contact['contactLastName'].'</label>
 				<input type="hidden" name="groupID" value="'.$groupID.'" />
 				<input type="hidden" name="contactID" value="'.$contact['contactID'].'" />
-				<input type="submit" class="button primary small" value="Add Member" />
+				<input type="submit" class="button primary small" value="'.$contact['contactFirstName'].' '.$contact['contactLastName'].'" />
 			</form>';
 		}
 	    
@@ -160,7 +159,7 @@
 			$html .= '</ul>';
 		
 		}else{
-			$html = '<p class="alert">No group members defined.</p>';
+			$html = '<p class="alert">No group members</p>';
 		}
 		
 		echo $html;

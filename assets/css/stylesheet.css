@@ -975,17 +975,17 @@ section header div select{
 }
 
 section header div input[type=submit]{
-	margin-left:2rem;
+	margin-left:1rem;
 }
 
 section header .results{
 	position: absolute;
 	top:calc(34px);
-	width:auto;
+	right:0px;
+	width:240px;
 	background:#fff;
 	padding:1rem 1rem 0;
 	display:block;
-	width:100%;
 	box-shadow: var(--shadow);
 	display:none;
 	z-index:20000;
@@ -997,10 +997,24 @@ section header .results ul{
 	list-style:none;
 }
 
-section header .results button{
-	width:100%;
+section header .results ul li{
+	margin-bottom:2rem;
+	display:block;
+}
+
+section header .results form{
 	margin-bottom:1rem;
 }
+
+section header .results label{
+	font-size:80%;
+}
+
+section header .results button,
+section header .results input[type=submit]{
+	width:100%;
+}
+
 
 button span,
 .button span{
@@ -1065,7 +1079,7 @@ section article{
 
 @media screen and (max-width:480px){
 	section header div input[type=text]{
-		width:100px;
+		max-width:140px;
 	}
 }
 

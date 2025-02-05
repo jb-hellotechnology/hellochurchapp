@@ -633,7 +633,7 @@
 	            }else{
 					$group = $HelloChurchGroups->find($data['groupID']);
 			        $group->update($data);
-			        $group->update_tags($data);
+			        $group->update_tags($data['groupID']);
 			        $group->update_members($group->id(), $data);
 	            }
             break;
