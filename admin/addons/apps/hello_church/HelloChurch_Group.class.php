@@ -18,15 +18,12 @@ class HelloChurch_Group extends PerchAPI_Base
 		$result = $this->db->get_row($sql);
 
 	    $tags = json_decode($result['groupAutoAdd'], true);
-		
-		print_r($tags);
 	    
 	    if($tags){
 		    foreach($tags as $tag){
 			    if($tag<>''){
 				    $sql = "INSERT INTO perch3_hellochurch_groups_tags (memberID, churchID, groupID, tag) VALUES 
 				    ('".$result['memberID']."', '".$result['churchID']."', '".$groupID."', '".strtolower($tag['value'])."')";
-					echo $sql;
 					$results = $this->db->execute($sql);
 				}
 		    }
