@@ -50,6 +50,7 @@ if(perch_member_logged_in()){
 	<link rel="preconnect" href="https://fonts.googleapis.com">
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&display=swap" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
 	<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
 	<link href="/assets/css/stylesheet.css?v=<?= rand() ?>" rel="stylesheet">
 	
@@ -125,10 +126,10 @@ if(perch_member_logged_in()){
   				?>
   				<div class="highlight">
 	  				<p>Hello Church Blog</p>
-	  				<a href="https://hellochurch.tech/how-should-christians-view-technology/" target="_blank">
-		  				<img src="https://hellochurch.tech/wp-content/uploads/2025/01/AdobeStock_117786738-scaled.jpg" alt="Image">
+	  				<a href="https://hellochurch.tech/blog/how-should-christians-think-about-technology" target="_blank">
+		  				<img src="https://hellochurch.tech/admin/resources/ales-nesetril-im7lzjxelhg-unsplash-w600h400.jpg" alt="Image">
 		  			</a>
-	  				<h2><a href="https://hellochurch.tech/how-should-christians-view-technology/" target="_blank">How Should Christians View Technology?</a></h2>
+	  				<h2><a href="https://hellochurch.tech/blog/how-should-christians-think-about-technology" target="_blank">How Should Christians View Technology?</a></h2>
   				</div>
 			</div>
 			<button class="account-nav-button">
