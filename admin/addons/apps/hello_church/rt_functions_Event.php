@@ -62,7 +62,7 @@
 	          headerToolbar: {
 		        left: 'prev,next today',
 		        center: 'title',
-		        right: 'listWeek,month'
+		        right: 'listWeek,dayGridMonth'
 		      },
 		      $eventsHTML,
 		      eventTimeFormat: { // like '14:30:00'
