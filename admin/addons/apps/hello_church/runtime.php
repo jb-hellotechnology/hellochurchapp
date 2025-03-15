@@ -788,7 +788,7 @@ error_reporting(E_ALL);
 						if($responsibility['roleType']=='Individual'){
 							$pdf->Cell(400,10,$contact->contactFirstName().' '.$contact->contactLastName().' - '.$responsibility['eventName'].' - '.$date,0,2);
 						}else{
-							if($HelloChurch_Contacts->family_members($contact->contactID())){
+							if($HelloChurchContacts->family_members($contact->contactID())){
 								$pdf->Cell(400,10,$contact->contactFirstName().' '.$contact->contactLastName().' + Family - '.$responsibility['eventName'].' - '.$date,0,2);
 							}else{
 								$pdf->Cell(400,10,$contact->contactFirstName().' '.$contact->contactLastName().' - '.$responsibility['eventName'].' - '.$date,0,2);	
@@ -804,7 +804,7 @@ error_reporting(E_ALL);
 						if($responsibility['roleType']=='Individual'){
 							$pdf->Cell(400,10,$contact->contactFirstName().' '.$contact->contactLastName().' - '.$responsibility['eventName'].' - '.$date,0,2);
 						}else{
-							if($HelloChurch_Contacts->family_members($contact->contactID())){
+							if($HelloChurchContacts->family_members($contact->contactID())){
 								$pdf->Cell(400,10,$contact->contactFirstName().' '.$contact->contactLastName().' + Family - '.$responsibility['eventName'].' - '.$date,0,2);
 							}else{
 								$pdf->Cell(400,10,$contact->contactFirstName().' '.$contact->contactLastName().' - '.$responsibility['eventName'].' - '.$date,0,2);	
