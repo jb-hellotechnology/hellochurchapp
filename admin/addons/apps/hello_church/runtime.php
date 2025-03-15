@@ -812,11 +812,10 @@
 						}
 						
 					}
-					
-					$pdf->SetFont('Arial','',10);
-					$pdf->WriteHTML($role->roleDescription());
 
 				}
+				$pdf->SetFont('Arial','',10);
+				$pdf->WriteHTML($role->roleDescription());
 				$pdf->Output();
 
             break;
