@@ -815,7 +815,8 @@
 
 				}
 				$pdf->SetFont('Arial','',10);
-				$pdf->WriteHTML("<br><hr>".str_replace(" />", ">", $role->roleDescription()));
+				$pdf->WriteHTML("<br><br>".strip_tags($role->roleDescription()));
+				
 				$pdf->Output();
 
             break;
