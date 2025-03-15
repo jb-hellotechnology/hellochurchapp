@@ -58,11 +58,11 @@
 	      document.addEventListener('DOMContentLoaded', function() {
 	        var calendarEl = document.getElementById('calendar');
 	        var calendar = new FullCalendar.Calendar(calendarEl, {
-			  initialView: 'listWeek',
+			  initialView: 'dayGridMonth',
 	          headerToolbar: {
 		        left: 'prev,next today',
 		        center: 'title',
-		        right: 'listWeek'
+		        right: 'listWeek,month'
 		      },
 		      $eventsHTML,
 		      eventTimeFormat: { // like '14:30:00'
