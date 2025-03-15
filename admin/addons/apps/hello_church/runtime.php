@@ -782,8 +782,8 @@
 						// Output rota data including date
 						$dates = explode("-", $dates[0]);
 						$date = "$dates[2]/$dates[1]/$dates[0]";
-						$pdf->SetFont('Arial','B',12);
-						$pdf->Cell(400,10,$date,0,2);
+						$pdf->SetFont('Arial','B',10);
+						$pdf->Cell(400,6,$date,0,2);
 						
 						$pdf->SetFont('Arial','',10);
 						if($responsibility['roleType']=='Individual'){
