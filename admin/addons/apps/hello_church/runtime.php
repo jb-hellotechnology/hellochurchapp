@@ -766,7 +766,6 @@
 				$pdf->AddPage();
 				$pdf->SetFont('Arial','B',16);
 				$pdf->Cell(40,10,'Rota For: '.$roleName,0,2);
-				$pdf->SetFont('Arial','B',12);
 				
 				$thisDate = '';
 				foreach($responsibilities as $responsibility){
@@ -783,15 +782,17 @@
 						// Output rota data including date
 						$dates = explode("-", $dates[0]);
 						$date = "$dates[2]/$dates[1]/$dates[0]";
+						$pdf->SetFont('Arial','B',12);
 						$pdf->Cell(400,10,$date,0,2);
 						
+						$pdf->SetFont('Arial','',10);
 						if($responsibility['roleType']=='Individual'){
-							$pdf->Cell(400,10,$contact->contactFirstName().' '.$contact->contactLastName().' - '.$responsibility['eventName'].' - '.$date,0,2);
+							$pdf->Cell(400,10,$contact->contactFirstName().' '.$contact->contactLastName().' - '.$responsibility['eventName'],0,2);
 						}else{
 							if($HelloChurchContacts->family_members($contact->contactID())){
-								$pdf->Cell(400,10,$contact->contactFirstName().' '.$contact->contactLastName().' + Family - '.$responsibility['eventName'].' - '.$date,0,2);
+								$pdf->Cell(400,10,$contact->contactFirstName().' '.$contact->contactLastName().' + Family - '.$responsibility['eventName'],0,2);
 							}else{
-								$pdf->Cell(400,10,$contact->contactFirstName().' '.$contact->contactLastName().' - '.$responsibility['eventName'].' - '.$date,0,2);	
+								$pdf->Cell(400,10,$contact->contactFirstName().' '.$contact->contactLastName().' - '.$responsibility['eventName'],0,2);	
 							}
 						}
 						
@@ -799,15 +800,14 @@
 						// Date the same
 						
 						// Output rota data excluding date
-						$dates = explode("-", $dates[0]);
-						$date = "$dates[2]/$dates[1]/$dates[0]";
+						$pdf->SetFont('Arial','',10);
 						if($responsibility['roleType']=='Individual'){
-							$pdf->Cell(400,10,$contact->contactFirstName().' '.$contact->contactLastName().' - '.$responsibility['eventName'].' - '.$date,0,2);
+							$pdf->Cell(400,10,$contact->contactFirstName().' '.$contact->contactLastName().' - '.$responsibility['eventName'],0,2);
 						}else{
 							if($HelloChurchContacts->family_members($contact->contactID())){
-								$pdf->Cell(400,10,$contact->contactFirstName().' '.$contact->contactLastName().' + Family - '.$responsibility['eventName'].' - '.$date,0,2);
+								$pdf->Cell(400,10,$contact->contactFirstName().' '.$contact->contactLastName().' + Family - '.$responsibility['eventName'],0,2);
 							}else{
-								$pdf->Cell(400,10,$contact->contactFirstName().' '.$contact->contactLastName().' - '.$responsibility['eventName'].' - '.$date,0,2);	
+								$pdf->Cell(400,10,$contact->contactFirstName().' '.$contact->contactLastName().' - '.$responsibility['eventName'],0,2);	
 							}
 						}
 						
