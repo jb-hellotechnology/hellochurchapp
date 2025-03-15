@@ -767,17 +767,48 @@
 				$pdf->SetFont('Arial','B',16);
 				$pdf->Cell(40,10,'Rota For: '.$roleName,0,2);
 				$pdf->SetFont('Arial','B',12);
+				
+				$thisDate = '';
 				foreach($responsibilities as $responsibility){
 					$contact = $HelloChurchContacts->find($responsibility['contactID']);
 			        $dates = explode(" ", $responsibility['eventDate']);
 			        $time = $dates[1];
-			        $dates = explode("-", $dates[0]);
-			        $date = "$dates[2]/$dates[1]/$dates[0]";
-			        if($responsibility['roleType']=='Individual'){
-			        	$pdf->Cell(400,10,$contact->contactFirstName().' '.$contact->contactLastName().' - '.$responsibility['eventName'].' - '.$date,0,2);
-			        }else{
-				        $pdf->Cell(400,10,$contact->contactFirstName().' '.$contact->contactLastName().' + Family - '.$responsibility['eventName'].' - '.$date,0,2);
-			        }
+					
+					//Check if date the same or not
+					if($dates[0]!==$thisDate){
+						// Date different
+						// Store new date
+						$thisDate = $dates[0];
+						
+						// Output rota data including date
+						$dates = explode("-", $dates[0]);
+						$date = "$dates[2]/$dates[1]/$dates[0]";
+						$pdf->Cell(400,10,$date,0,2);
+						
+						if($responsibility['roleType']=='Individual'){
+							$pdf->Cell(400,10,$contact->contactFirstName().' '.$contact->contactLastName().' - '.$responsibility['eventName'].' - '.$date,0,2);
+						}else{
+							$pdf->Cell(400,10,$contact->contactFirstName().' '.$contact->contactLastName().' + Family - '.$responsibility['eventName'].' - '.$date,0,2);
+						}
+						
+					}else{
+						// Date the same
+						
+						// Output rota data excluding date
+						$dates = explode("-", $dates[0]);
+						$date = "$dates[2]/$dates[1]/$dates[0]";
+						if($responsibility['roleType']=='Individual'){
+							$pdf->Cell(400,10,$contact->contactFirstName().' '.$contact->contactLastName().' - '.$responsibility['eventName'].' - '.$date,0,2);
+						}else{
+							if($HelloChurchFamilies->family_members($contact->contactID())){
+								$pdf->Cell(400,10,$contact->contactFirstName().' '.$contact->contactLastName().' + Family - '.$responsibility['eventName'].' - '.$date,0,2);
+							}else{
+								$pdf->Cell(400,10,$contact->contactFirstName().' '.$contact->contactLastName().' - '.$responsibility['eventName'].' - '.$date,0,2);	
+							}
+						}
+						
+					}
+
 				}
 				$pdf->Output();
 
