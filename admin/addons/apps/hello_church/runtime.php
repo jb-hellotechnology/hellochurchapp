@@ -1,8 +1,8 @@
 <?php
 
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
+// ini_set('display_errors', 1);
+// ini_set('display_startup_errors', 1);
+// error_reporting(E_ALL);
 
 
     spl_autoload_register(function($class_name){
@@ -788,7 +788,11 @@ error_reporting(E_ALL);
 						if($responsibility['roleType']=='Individual'){
 							$pdf->Cell(400,10,$contact->contactFirstName().' '.$contact->contactLastName().' - '.$responsibility['eventName'].' - '.$date,0,2);
 						}else{
-							$pdf->Cell(400,10,$contact->contactFirstName().' '.$contact->contactLastName().' + Family - '.$responsibility['eventName'].' - '.$date,0,2);
+							if($HelloChurch_Contacts->family_members($contact->contactID())){
+								$pdf->Cell(400,10,$contact->contactFirstName().' '.$contact->contactLastName().' + Family - '.$responsibility['eventName'].' - '.$date,0,2);
+							}else{
+								$pdf->Cell(400,10,$contact->contactFirstName().' '.$contact->contactLastName().' - '.$responsibility['eventName'].' - '.$date,0,2);	
+							}
 						}
 						
 					}else{
@@ -800,7 +804,7 @@ error_reporting(E_ALL);
 						if($responsibility['roleType']=='Individual'){
 							$pdf->Cell(400,10,$contact->contactFirstName().' '.$contact->contactLastName().' - '.$responsibility['eventName'].' - '.$date,0,2);
 						}else{
-							if($HelloChurchFamilies->family_members($contact->contactID())){
+							if($HelloChurch_Contacts->family_members($contact->contactID())){
 								$pdf->Cell(400,10,$contact->contactFirstName().' '.$contact->contactLastName().' + Family - '.$responsibility['eventName'].' - '.$date,0,2);
 							}else{
 								$pdf->Cell(400,10,$contact->contactFirstName().' '.$contact->contactLastName().' - '.$responsibility['eventName'].' - '.$date,0,2);	
