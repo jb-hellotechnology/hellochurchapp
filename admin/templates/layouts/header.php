@@ -126,10 +126,10 @@ if(perch_member_logged_in()){
   				?>
   				<div class="highlight">
 	  				<p>Hello Church Blog</p>
-	  				<a href="https://hellochurch.tech/blog/how-should-christians-think-about-technology" target="_blank">
-		  				<img src="https://hellochurch.tech/admin/resources/ales-nesetril-im7lzjxelhg-unsplash-w600h400.jpg" alt="Image">
+	  				<a href="https://churchplanner.co.uk/blog/how-should-christians-think-about-technology" target="_blank">
+		  				<img src="https://churchplanner.co.uk/admin/resources/ales-nesetril-im7lzjxelhg-unsplash-w600h400.jpg" alt="Image">
 		  			</a>
-	  				<h2><a href="https://hellochurch.tech/blog/how-should-christians-think-about-technology" target="_blank">How Should Christians View Technology?</a></h2>
+	  				<h2><a href="https://churchplanner.co.uk/blog/how-should-christians-think-about-technology" target="_blank">How Should Christians View Technology?</a></h2>
   				</div>
 			</div>
 			<button class="account-nav-button">
