@@ -205,7 +205,7 @@
 			}
 			if($type=='image'){
 				$image = hello_church_file($item);
-				$emailContent .= '<img src="https://app.hellochurch.tech/feed/file-image/'.$image['churchID'].'/'.$image['fileID'].'" alt="Image" style="margin-bottom:16px;" />';
+				$emailContent .= '<img src="https://app.churchplanner.co.uk/feed/file-image/'.$image['churchID'].'/'.$image['fileID'].'" alt="Image" style="margin-bottom:16px;" />';
 			}
 			if($type=='file'){
 				$file = hello_church_file($item);
@@ -216,7 +216,7 @@
 		                          <table role="presentation" border="0" cellpadding="0" cellspacing="0" style="border-collapse: separate; mso-table-lspace: 0pt; mso-table-rspace: 0pt; width: auto;">
 		                            <tbody>
 		                              <tr>
-		                                <td style="font-family: Helvetica, sans-serif; font-size: 16px; vertical-align: top; border-radius: 4px; text-align: center; background-color: #142c8e;" valign="top" align="center" bgcolor="#0867ec"> <a href="https://app.hellochurch.tech/feed/file/'.$file['churchID'].'/'.$file['fileID'].'" target="_blank" style="border: solid 2px #142c8e; border-radius: 4px; box-sizing: border-box; cursor: pointer; display: inline-block; font-size: 16px; font-weight: bold; margin: 0; padding: 12px 24px; text-decoration: none; text-transform: capitalize; background-color: #142c8e; border-color: #142c8e; color: #ffffff;">Download: '.$file['fileName'].'</a> </td>
+		                                <td style="font-family: Helvetica, sans-serif; font-size: 16px; vertical-align: top; border-radius: 4px; text-align: center; background-color: #142c8e;" valign="top" align="center" bgcolor="#0867ec"> <a href="https://app.churchplanner.co.uk/feed/file/'.$file['churchID'].'/'.$file['fileID'].'" target="_blank" style="border: solid 2px #142c8e; border-radius: 4px; box-sizing: border-box; cursor: pointer; display: inline-block; font-size: 16px; font-weight: bold; margin: 0; padding: 12px 24px; text-decoration: none; text-transform: capitalize; background-color: #142c8e; border-color: #142c8e; color: #ffffff;">Download: '.$file['fileName'].'</a> </td>
 		                              </tr>
 		                            </tbody>
 		                          </table>

@@ -239,7 +239,7 @@ $apiInstance = new Brevo\Client\Api\TransactionalEmailsApi(
 );
 $sendSmtpEmail = new \Brevo\Client\Model\SendSmtpEmail([
 	'subject' => $subject,
-	'sender' => ['name' => $church['churchName'], 'email' => 'no-reply@hellochurch.tech'],
+	'sender' => ['name' => $church['churchName'], 'email' => 'no-reply@churchplanner.co.uk'],
 	'replyTo' => ['name' => $church['churchName'], 'email' => $church['churchEmail']],
 	'to' => $to,
 	'bcc' => $bcc,
