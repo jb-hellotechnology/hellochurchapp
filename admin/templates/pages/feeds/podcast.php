@@ -19,7 +19,7 @@ $podcast = podcast_public($church['churchID']);
 	<?= $podcast['podcastDescription'] ?>
     </description>
     <itunes:image
-      href="http://app.hellochurch.tech/feed/<?= perch_get('churchSlug') ?>/podcast.jpg"
+      href="http://app.churchplanner.co.uk/feed/<?= perch_get('churchSlug') ?>/podcast.jpg"
     />
     <itunes:category text="Religion &amp; Spirituality">
       <itunes:category text="Christianity"/>

@@ -40,7 +40,7 @@ $podcast = podcast();
 					<li>The 'owner' of your podcast is <?= $church['churchEmail'] ?></li>
 				</ul>
 				<h3>Feed</h3>
-				<p class="monospace">https://app.hellochurch.tech/feed/<?= $church['churchSlug'] ?>/podcast.rss
+				<p class="monospace">https://app.churchplanner.co.uk/feed/<?= $church['churchSlug'] ?>/podcast.rss
 			</div>
 		</div>
 		<div>
@@ -65,7 +65,7 @@ $podcast = podcast();
 						    ];
 						}
 						
-						$img = 'https://app.hellochurch.tech/feed/'.$church['churchSlug'].'/podcast.jpg';
+						$img = 'https://app.churchplanner.co.uk/feed/'.$church['churchSlug'].'/podcast.jpg';
 						
 						$result = get_remote_file_info($img);
 
