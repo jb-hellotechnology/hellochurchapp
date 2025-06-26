@@ -57,7 +57,7 @@ perch_layout('header');
 								if($typeParts[2]=='text'){
 									$buttonText = $item;	
 								}else{
-									echo '<div class="plan-item link draggable"><label>Button</label><a href=""><span class="material-symbols-outlined">drag_indicator</span></a><div><input type="text" name="link_'.rand().'_text" placeholder="Button Text" value="'.$buttonText.'" /><input type="text" class="no-border-top" name="link_'.rand().'_url" placeholder="https://hellochurch.tech" value="'.$item.'" /></div><a href="javascript:;" class="delete-from-email warning"><span class="material-symbols-outlined">delete</span></a></div>';
+									echo '<div class="plan-item link draggable"><label>Button</label><a href=""><span class="material-symbols-outlined">drag_indicator</span></a><div><input type="text" name="link_'.rand().'_text" placeholder="Button Text" value="'.$buttonText.'" /><input type="text" class="no-border-top" name="link_'.rand().'_url" placeholder="https://churchplanner.co.uk" value="'.$item.'" /></div><a href="javascript:;" class="delete-from-email warning"><span class="material-symbols-outlined">delete</span></a></div>';
 								}
 								
 							}
