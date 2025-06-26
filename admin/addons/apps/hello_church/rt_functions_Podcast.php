@@ -25,7 +25,7 @@
 				<enclosure 
 				length="'.$filesize.'" 
 				type="audio/mpeg" 
-				url="http://app.hellochurch.tech/podcast/episode/'.$audio['audioID'].'/audio.mp3"
+				url="http://app.churchplanner.co.uk/podcast/episode/'.$audio['audioID'].'/audio.mp3"
 				/>
 				<guid>hellochurch_'.$audio['audioID'].'</guid>
 				<pubDate>'.$pubDate.'</pubDate>

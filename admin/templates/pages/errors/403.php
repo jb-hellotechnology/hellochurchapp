@@ -39,7 +39,7 @@
 		<h1>403 Forbidden 🔧</h1>
 		<section>
 			<article class="flow">
-				<p>Sorry for the inconvenience. You're not permitted to access this page. If you believe this is an error please contact <a href="mailto:support@hellochurch.tech">support@hellochurch.tech</a> to report the fault.</p>
+				<p>Sorry for the inconvenience. You're not permitted to access this page. If you believe this is an error please contact <a href="mailto:support@churchplanner.co.uk">support@churchplanner.co.uk</a> to report the fault.</p>
 				<p><a class="button primary" href="/">Return Home</a></p>
 			</article>
 		</section>

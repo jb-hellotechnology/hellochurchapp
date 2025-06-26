@@ -249,7 +249,7 @@ class HelloChurch_Folders extends PerchAPI_Factory
 		
 		$sql = "SELECT * FROM perch3_hellochurch_files WHERE fileID='".$fileID."'";
 		$result = $this->db->get_row($sql);
-		return "https://app.hellochurch.tech/file/".$result['fileString'];
+		return "https://app.churchplanner.co.uk/file/".$result['fileString'];
 		
 	}
 

@@ -39,7 +39,7 @@
 		<h1>404 Page Cannot Be Found 🔧</h1>
 		<section>
 			<article class="flow">
-				<p>Sorry for the inconvenience. It looks like this page has moved. If you believe this is an error please contact <a href="mailto:support@hellochurch.tech">support@hellochurch.tech</a> to report the fault.</p>
+				<p>Sorry for the inconvenience. It looks like this page has moved. If you believe this is an error please contact <a href="mailto:support@churchplanner.co.uk">support@churchplanner.co.uk</a> to report the fault.</p>
 				<p><a class="button primary" href="/">Return Home</a></p>
 			</article>
 		</section>

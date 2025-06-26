@@ -29,7 +29,7 @@ if($customer_id){
 	if($_SERVER['REMOTE_ADDR']=="::1"){
 		$return_url = 'http://hcapp:8888/settings/subscription';
 	}else{
-		$return_url = 'https://app.hellochurch.tech/settings/subscription';
+		$return_url = 'https://app.churchplanner.co.uk/settings/subscription';
 	}
 		
 	$portal = $stripe->billingPortal->sessions->create([

@@ -93,9 +93,9 @@ $church = hello_church_church(true);
 	<h2>Feeds</h2>
 	<div class="panel">
 		<h3>iCal Feed</h3>
-		<p class="monospace">https://app.hellochurch.tech/feed/<?= $church['churchSlug'] ?>/ical.ics
+		<p class="monospace">https://app.churchplanner.co.uk/feed/<?= $church['churchSlug'] ?>/ical.ics
 		<h3>Podcast RSS</h3>
-		<p class="monospace">https://app.hellochurch.tech/feed/<?= $church['churchSlug'] ?>/podcast.rss
+		<p class="monospace">https://app.churchplanner.co.uk/feed/<?= $church['churchSlug'] ?>/podcast.rss
 	</div>
 </main>
 <?php perch_layout('footer'); ?>
