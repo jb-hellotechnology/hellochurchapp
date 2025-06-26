@@ -115,7 +115,7 @@ if(perch_member_logged_in()){
 			}
 		?>
 			
-		<h2 class="gooddog"><a href="/dashboard">Hello Church <?php if($church){ ?><span>&bull; <?= $church['churchName'] ?><?php } ?></span></a></h2>
+		<h2 class="gooddog"><a href="/dashboard">Church Planner <?php if($church){ ?><span>&bull; <?= $church['churchName'] ?><?php } ?></span></a></h2>
 		<nav>
 			<?php
 				if(perch_member_logged_in()){
@@ -125,7 +125,7 @@ if(perch_member_logged_in()){
 				perch_pages_navigation();
   				?>
   				<div class="highlight">
-	  				<p>Hello Church Blog</p>
+	  				<p>Church Planner Blog</p>
 	  				<a href="https://churchplanner.co.uk/blog/how-should-christians-think-about-technology" target="_blank">
 		  				<img src="https://churchplanner.co.uk/admin/resources/ales-nesetril-im7lzjxelhg-unsplash-w600h400.jpg" alt="Image">
 		  			</a>
