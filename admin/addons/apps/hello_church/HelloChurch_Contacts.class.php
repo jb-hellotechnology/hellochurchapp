@@ -352,7 +352,7 @@ class HelloChurch_Contacts extends PerchAPI_Factory
                           <table role="presentation" border="0" cellpadding="0" cellspacing="0" style="border-collapse: separate; mso-table-lspace: 0pt; mso-table-rspace: 0pt; width: auto;">
                             <tbody>
                               <tr>
-                                <td style="font-family: Helvetica, sans-serif; font-size: 16px; vertical-align: top; border-radius: 4px; text-align: center; background-color: #142c8e;" valign="top" align="center" bgcolor="#0867ec"> <a href="https://app.hellochurch.tech/profile/magic?p='.$link.'&e='.$email.'" target="_blank" style="border: solid 2px #142c8e; border-radius: 4px; box-sizing: border-box; cursor: pointer; display: inline-block; font-size: 16px; font-weight: bold; margin: 0; padding: 12px 24px; text-decoration: none; text-transform: capitalize; background-color: #142c8e; border-color: #142c8e; color: #ffffff;">Sign In</a> </td>
+                                <td style="font-family: Helvetica, sans-serif; font-size: 16px; vertical-align: top; border-radius: 4px; text-align: center; background-color: #142c8e;" valign="top" align="center" bgcolor="#0867ec"> <a href="https://app.churchplanner.co.uk/profile/magic?p='.$link.'&e='.$email.'" target="_blank" style="border: solid 2px #142c8e; border-radius: 4px; box-sizing: border-box; cursor: pointer; display: inline-block; font-size: 16px; font-weight: bold; margin: 0; padding: 12px 24px; text-decoration: none; text-transform: capitalize; background-color: #142c8e; border-color: #142c8e; color: #ffffff;">Sign In</a> </td>
                               </tr>
                             </tbody>
                           </table>
@@ -361,7 +361,7 @@ class HelloChurch_Contacts extends PerchAPI_Factory
                     </tbody>
                   </table>';
 	    $emailContent .= '<p style="font-family: Helvetica, sans-serif; font-size: 16px; font-weight: normal; margin: 0; margin-bottom: 16px;">This link expires at '.$timestampH.' so please use it promptly.</p>';
-	    $emailContent .= '<p style="font-family: Helvetica, sans-serif; font-size: 16px; font-weight: normal; margin: 0; margin-bottom: 16px;">If you did not request this email please contact <a href="mailto:support@hellochurch.tech">support@hellochurch.tech</a>.</p>';
+	    $emailContent .= '<p style="font-family: Helvetica, sans-serif; font-size: 16px; font-weight: normal; margin: 0; margin-bottom: 16px;">If you did not request this email please contact <a href="mailto:support@churchplanner.co.uk">support@churchplanner.co.uk</a>.</p>';
 		
 		// Configure API key authorization: api-key
 		$config = Brevo\Client\Configuration::getDefaultConfiguration()->setApiKey('api-key', $brevoAPI);
@@ -374,7 +374,7 @@ class HelloChurch_Contacts extends PerchAPI_Factory
 		);
 		$sendSmtpEmail = new \Brevo\Client\Model\SendSmtpEmail([
 		  	 'subject' => 'Sign In Link - '.$church['churchName'],
-		     'sender' => ['name' => $church['churchName'], 'email' => 'no-reply@hellochurch.tech'],
+		     'sender' => ['name' => $church['churchName'], 'email' => 'no-reply@churchplanner.co.uk'],
 		     'replyTo' => ['name' => $church['churchName'], 'email' => $church['churchEmail']],
 		     'to' => [[ 'email' => $email ]],
 		     'htmlContent' => $template,
