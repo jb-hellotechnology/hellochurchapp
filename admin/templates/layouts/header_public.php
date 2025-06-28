@@ -20,5 +20,5 @@
 </head>
 <body>
 	<header class="site-header">
-		<h2>Church Planner</h2>
+		<h2><a href="https://churchplanner.co.uk">Church Planner</a></h2>
 	</header>

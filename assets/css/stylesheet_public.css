@@ -19,3 +19,17 @@
 .training h1:not(:first-child){
   font-size:var(--size-step-2);
 }
+
+footer.public{
+  background:var(--color-dark);
+  padding:4rem 2rem;
+}
+
+footer.public p,
+footer.public a{
+  color:#fff;
+}
+
+footer.public a:hover{
+  color:var(--color-secondary);
+}
