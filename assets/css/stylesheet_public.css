@@ -15,6 +15,6 @@
   background:#fff;
 }
 
-.training h1:first-child{
-  font-size:120%;
+.training h1:not(:first-child){
+  font-size:var(--size-step-3);
 }
