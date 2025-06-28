@@ -146,7 +146,7 @@ class HelloChurch_Events extends PerchAPI_Factory
 	
 	public function get_plan($memberID, $churchID, $eventID, $date, $time){
 		
-		$sql = "SELECT * FROM perch3_hellochurch_event_plans WHERE eventID='".$eventID."' AND eventDate='".$date."' AND eventTime='".$time."'";
+		$sql = "SELECT * FROM perch3_hellochurch_event_plans WHERE eventID='".$eventID."' AND eventDate='".$date."' AND eventTime='".$time."' ORDER BY eventPlanID DESC LIMIT 1";
 	    $result = $this->db->get_row($sql);
 	    
 	    return $result['eventPlan'];

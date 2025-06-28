@@ -47,7 +47,7 @@ $('.add-to-session').click(function(){
 		$('.session-container').append('<div class="plan-item text draggable"><label>Text</label><a href=""><span class="material-symbols-outlined">drag_indicator</span></a><textarea name="text_' + random + '" placeholder="Type something..."></textarea><a href="javascript:;" class="delete-from-session warning"><span class="material-symbols-outlined">delete</span></a></div>');
 	}
 	if(type=='youtube'){
-		$('.session-container').append('<div class="plan-item youtube draggable"><label>YouTube</label><a href=""><span class="material-symbols-outlined">drag_indicator</span></a><textarea name="youtube_' + random + '" placeholder="<iframe..."></textarea><a href="javascript:;" class="delete-from-session warning"><span class="material-symbols-outlined">delete</span></a></div>');
+		$('.session-container').append('<div class="plan-item youtube draggable"><label>YouTube</label><a href=""><span class="material-symbols-outlined">drag_indicator</span></a><input type="text" name="youtube_' + random + '" placeholder="https://youtu.be/..."><a href="javascript:;" class="delete-from-session warning"><span class="material-symbols-outlined">delete</span></a></div>');
 	}
 	if(type=='bible'){
 		$('.session-container').append('<div class="plan-item bible draggable"><label>Bible Passage</label><a href=""><span class="material-symbols-outlined">drag_indicator</span></a><input type="text" name="bible_' + random + '" placeholder="John 3:16" /><a href="javascript:;" class="delete-from-session warning"><span class="material-symbols-outlined">delete</span></a></div>');
@@ -234,7 +234,6 @@ const session_form = document.getElementById('form-session');
 session_form.addEventListener('submit', handleSubmit);
 
 $(document).ready(function(){
-	console.log('here');
 	$( ".sortable" ).sortable({
 		revert: true
 	});

@@ -51,7 +51,7 @@ perch_layout('header');
 								echo '<div class="plan-item text draggable"><label>Text</label><a href=""><span class="material-symbols-outlined">drag_indicator</span></a><textarea name="text_'.rand().'" placeholder="Text">'.$item.'</textarea><a href="javascript:;" class="delete-from-session warning"><span class="material-symbols-outlined">delete</span></a></div>';
 							}
 							if($type=='youtube'){
-								echo '<div class="plan-item youtube draggable"><label>YouTube</label><a href=""><span class="material-symbols-outlined">drag_indicator</span></a><textarea name="youtube_'.rand().'" placeholder="<iframe...">'.$item.'</textarea><a href="javascript:;" class="delete-from-session warning"><span class="material-symbols-outlined">delete</span></a></div>';
+								echo '<div class="plan-item youtube draggable"><label>YouTube</label><a href=""><span class="material-symbols-outlined">drag_indicator</span></a><input type="text" name="youtube_'.rand().'" placeholder="https://youtu.be/..." value="'.$item.'" /><a href="javascript:;" class="delete-from-session warning"><span class="material-symbols-outlined">delete</span></a></div>';
 							}
 							if($type=='bible'){
 								echo '<div class="plan-item bible draggable"><label>Bible Passage</label><a href=""><span class="material-symbols-outlined">drag_indicator</span></a><input type="text" name="bible_'.rand().'" placeholder="John 3:16" value="'.$item.'" /><a href="javascript:;" class="delete-from-session warning"><span class="material-symbols-outlined">delete</span></a></div>';
@@ -137,22 +137,22 @@ perch_layout('header');
 		<div>
 			<section>
 				<header>
-					<h2>Delete Session</h2>
+					<h2>Update Session</h2>
 				</header>
 				<?php 
-				PerchSystem::set_var('sessionID', perch_get('id'));
-				PerchSystem::set_var('topicID', $topic['topicID']);
-				hello_church_form('delete_session.html'); 
+				hello_church_form('update_session.html'); 
 				?>
 			</section>
 		</div>
 		<div>
 			<section>
 				<header>
-					<h2>Update Session</h2>
+					<h2>Delete Session</h2>
 				</header>
 				<?php 
-				hello_church_form('update_session.html'); 
+				PerchSystem::set_var('sessionID', perch_get('id'));
+				PerchSystem::set_var('topicID', $topic['topicID']);
+				hello_church_form('delete_session.html'); 
 				?>
 			</section>
 		</div>
