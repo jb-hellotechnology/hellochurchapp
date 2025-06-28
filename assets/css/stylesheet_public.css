@@ -33,3 +33,10 @@ footer.public a{
 footer.public a:hover{
   color:var(--color-secondary);
 }
+
+footer.public img{
+  margin:1rem auto;
+  display:block;
+  max-width:200px;
+  height:auto;
+}

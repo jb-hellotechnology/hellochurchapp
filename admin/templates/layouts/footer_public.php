@@ -1,5 +1,6 @@
 	<footer class="public">
 		<p>Built Using <a href="https://churchplanner.co.uk" title="Easy to use church software">Church Planner</a></p>
+		<img src="https://churchplanner.co.uk/assets/images/church_planner.svg" alt="Church Planner" />
 		<p>&copy; Hello Technology Ltd <?= date('Y') ?></p>
 	</footer>
 	
