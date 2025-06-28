@@ -226,7 +226,7 @@ foreach($email as $type => $item){
 	if($type=='training'){
 		
 		$session = hello_church_get_session($item);
-		$session = json_decode($session, true);
+		$session = json_decode($session['sessionContent'], true);
 		
 		foreach($session as $type => $item){
 							
