@@ -1,0 +1,23 @@
+<perch:form id="delete_session" method="post" app="hello_church" action="/training/view-topic?id=<perch:forms id="topicID" />&msg=session_deleted">
+
+	<article class="flow">
+		<perch:success>
+			<article class="flow">
+				<p class="alert success"><span class="material-symbols-outlined">check_circle</span>Session deleted</p>
+			</article>
+			<footer>
+				<a class="button primary" href="/training">Training</a>
+			</footer>
+		</perch:success>
+		<div>
+			<p><strong>This is permanent and cannot be un-done.</strong></p>
+			<p>By clicking the button below you will be deleting this session from your account.</p>
+		</div>
+	</article>
+
+	<footer>
+		<perch:input type="hidden" value="<perch:forms id="sessionID">" name="sessionID" />
+		<perch:input type="submit" value="Delete Session" class="button danger" />
+	</footer>
+
+</perch:form>

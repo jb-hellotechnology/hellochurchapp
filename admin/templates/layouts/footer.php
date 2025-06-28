@@ -29,6 +29,7 @@
 	<script src="/assets/js/fullcalendar/dist/index.global.min.js"></script>
 	<script src="/assets/js/plan/plan.js?v=<?= rand() ?>"></script>
 	<script src="/assets/js/email/email.js?v=<?= rand() ?>"></script>
+	<script src="/assets/js/training/training.js?v=<?= rand() ?>"></script>
 	<script src="/assets/js/upload/upload.js?v=<?= rand() ?>"></script>
 	<script src="/assets/js/upload-audio/upload.js?v=<?= rand() ?>"></script>
 	<script src="/assets/js/upload-podcast-image/upload.js?v=<?= rand() ?>"></script>

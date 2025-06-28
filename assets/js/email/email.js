@@ -47,6 +47,10 @@ $('.add-to-email').click(function(){
 		$('.email-container').append('<div class="plan-item plan draggable"><label>Plan</label><a href=""><span class="material-symbols-outlined">drag_indicator</span></a><select name="plan_' + random + '" id="plan_' + random +'" class="js-example-basic-single"></select><a href="javascript:;" class="delete-from-email warning"><span class="material-symbols-outlined">delete</span></a></div>');
 		populate_select('plan_' + random, 'plan');
 	}
+	if(type=='training'){
+		$('.email-container').append('<div class="plan-item training draggable"><label>Training</label><a href=""><span class="material-symbols-outlined">drag_indicator</span></a><select name="training_' + random + '" id="training_' + random +'" class="js-example-basic-single"></select><a href="javascript:;" class="delete-from-email warning"><span class="material-symbols-outlined">delete</span></a></div>');
+		populate_select('training_' + random, 'training');
+	}
 	
 	draggable_sortable();
 	save_email();
@@ -165,6 +169,31 @@ $(document).ready(function(){
 					}));
 				}else{
 					$('#plan_'+id).append($('<option>', { 
+						value: item.value,
+						text : item.text,
+					}));	
+				}
+			});
+		});
+	});
+	
+	$('.training-select').each(function(){
+		let active = $(this).data('training');
+		let id = $(this).data('id');
+		$.get( "/process/populate-select", { type: 'training' }).done(function( items ) {
+			$('#training_'+id).append($('<option>', { 
+				value: 0,
+				text : 'Please Select' 
+			}));
+			$.each(JSON.parse(items), function (i, item) {
+				if(item.value == active){
+					$('#training_'+id).append($('<option>', { 
+						value: item.value,
+						text : item.text,
+						selected: true
+					}));
+				}else{
+					$('#training_'+id).append($('<option>', { 
 						value: item.value,
 						text : item.text,
 					}));	

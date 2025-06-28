@@ -77,6 +77,10 @@ perch_layout('header');
 								$rand = rand();
 								echo '<div class="plan-item image draggable"><label>Plan</label><a href=""><span class="material-symbols-outlined">drag_indicator</span></a><select name="plan_'.$rand.'" data-plan="'.$item.'" data-id="'.$rand.'" id="plan_'.$rand.'" class="plan-select js-example-basic-single"></select><a href="javascript:;" class="delete-from-email warning"><span class="material-symbols-outlined">delete</span></a></div>';
 							}
+							if($type=='training'){
+								$rand = rand();
+								echo '<div class="plan-item image draggable"><label>Training</label><a href=""><span class="material-symbols-outlined">drag_indicator</span></a><select name="training_'.$rand.'" data-training="'.$item.'" data-id="'.$rand.'" id="training_'.$rand.'" class="training-select js-example-basic-single"></select><a href="javascript:;" class="delete-from-email warning"><span class="material-symbols-outlined">delete</span></a></div>';
+							}
 						}	
 						?>
 					</div>
@@ -90,6 +94,7 @@ perch_layout('header');
 						<button class="button secondary add-to-email" data-type="file">File <span class="material-symbols-outlined">attach_file</span></button>
 						<button class="button secondary add-to-email" data-type="event">Event <span class="material-symbols-outlined">event</span></button>
 						<button class="button secondary add-to-email" data-type="plan">Plan <span class="material-symbols-outlined">checklist</span></button>
+						<button class="button secondary add-to-email" data-type="training">Training <span class="material-symbols-outlined">book</span></button>
 					</div>
 				</article>
 				<footer>

@@ -1,0 +1,21 @@
+<perch:form id="update_topic" method="post" app="hello_church" action="/training/view-topic?id=<perch:forms id="topicID" />">
+
+	<article class="flow">
+		<perch:success show-form="true">
+			<p class="alert success"><span class="material-symbols-outlined">check_circle</span>Topic updated</p>
+		</perch:success>
+		<div>
+			<perch:label for="topicName">Topic Name <span class="required">Required</span></perch:label>
+			<perch:input type="text" id="topicName" required="true" label="Topic Name" />
+			<perch:error for="topicName" type="required"><p class="help error">Please add a your topic's name</p></perch:error>
+		</div>
+	</article>
+
+	<footer>
+		<perch:input type="hidden" value="<perch:forms id="memberID">" name="memberID" />
+		<perch:input type="hidden" value="<perch:forms id="churchID">" name="churchID" />
+		<perch:input type="hidden" value="<perch:forms id="topicID">" name="topicID" />
+		<perch:input type="submit" value="Update" class="button primary" />
+	</footer>
+
+</perch:form>

@@ -1,0 +1,23 @@
+<perch:form id="add_session" method="post" app="hello_church" action="/training/view-topic?id=<perch:forms id="topicID" />">
+
+	<perch:success show-form="true">
+		<article class="flow">
+			<p class="alert success"><span class="material-symbols-outlined">check_circle</span>Training session created</p>
+		</article>
+	</perch:success>
+
+	<article class="flow">
+		<div>
+			<perch:label for="topicNamet">Session Name <span class="required">Required</span></perch:label>
+			<perch:input type="text" id="sessionName" required="true" label="Session Name" />
+		</div>
+	</article>
+
+	<footer>
+		<perch:input type="hidden" value="<perch:forms id="memberID">" name="memberID" />
+		<perch:input type="hidden" value="<perch:forms id="churchID">" name="churchID" />
+		<perch:input type="hidden" value="<perch:forms id="topicID">" name="topicID" />
+		<perch:input type="submit" value="Create Session" class="button primary" />
+	</footer>
+
+</perch:form>

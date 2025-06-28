@@ -33,6 +33,7 @@
     include(__DIR__.'/rt_functions_Contact_Note.php');
     include(__DIR__.'/rt_functions_Contact.php');
     include(__DIR__.'/rt_functions_Email.php');
+	include(__DIR__.'/rt_functions_Training.php');
     include(__DIR__.'/rt_functions_Event.php');
     include(__DIR__.'/rt_functions_Family.php');
     include(__DIR__.'/rt_functions_Folder.php');
@@ -63,6 +64,8 @@
         $HelloChurchSeriess = new HelloChurch_Seriess($API);
         $HelloChurchAudios = new HelloChurch_Audios($API);
         $HelloChurchEmails = new HelloChurch_Emails($API);
+		$HelloChurchTrainingTopics = new HelloChurch_Training_Topics($API);
+		$HelloChurchTrainingSessions = new HelloChurch_Training_Sessions($API);
         $HelloChurchPodcasts = new HelloChurch_Podcasts($API);
         
         $Template = $API->get('Template');
@@ -325,6 +328,14 @@
 			
 		}elseif($template == 'delete_church.html'){
 			
+		}elseif($template == 'update_topic.html'){
+		
+			$data = $HelloChurchTrainingTopics->topic($_GET['id']);
+			
+		}elseif($template == 'update_session.html'){
+		
+			$data = $HelloChurchTrainingSessions->session($_GET['id']);
+			
 		}
 		
         $html = $Template->render($data);
@@ -365,6 +376,8 @@
         $HelloChurchSeriess = new HelloChurch_Seriess($API);
         $HelloChurchAudios = new HelloChurch_Audios($API);
         $HelloChurchEmails = new HelloChurch_Emails($API);
+		$HelloChurchTrainingTopics = new HelloChurch_Training_Topics($API);
+		$HelloChurchTrainingSessions = new HelloChurch_Training_Sessions($API);
         $HelloChurchPodcasts = new HelloChurch_Podcasts($API);
         
 	    $Session = PerchMembers_Session::fetch();
@@ -1065,6 +1078,50 @@
 					$email->update($data);    
 	            }
             break;
+			
+			case 'add_topic':
+				$data = $HelloChurchTrainingTopics->valid($SubmittedForm->data);
+				if(!$data){
+					$SubmittedForm->throw_error('all', 'general');
+				}else{
+					$HelloChurchTrainingTopics->create($data);    
+				}
+			break;
+			case 'delete_topic':
+				$topic = $HelloChurchTrainingTopics->find($SubmittedForm->data['topicID']);
+				$topic->delete();
+			break;
+			case 'update_topic':
+				$data = $HelloChurchTrainingTopics->valid($SubmittedForm->data);
+				if(!$data){
+					$SubmittedForm->throw_error('all', 'general');
+				}else{
+					$topic = $HelloChurchTrainingTopics->find($data['topicID']);
+					$topic->update($data); 
+				}
+			break;
+			case 'add_session':
+				$data = $HelloChurchTrainingSessions->valid($SubmittedForm->data);
+				$data['uniqueID'] = rand(1000000,9999999);
+				if(!$data){
+					$SubmittedForm->throw_error('all', 'general');
+				}else{
+					$HelloChurchTrainingSessions->create($data);    
+				}
+			break;
+			case 'delete_session':
+				$session = $HelloChurchTrainingSessions->find($SubmittedForm->data['sessionID']);
+				$session->delete();
+			break;
+			case 'update_session':
+				$data = $HelloChurchTrainingSessions->valid($SubmittedForm->data);
+				if(!$data){
+					$SubmittedForm->throw_error('all', 'general');
+				}else{
+					$session = $HelloChurchTrainingSessions->find($data['sessionID']);
+					$session->update($data); 
+				}
+			break;
             
             case 'create_podcast':
             	$data = $HelloChurchPodcasts->valid($SubmittedForm->data);

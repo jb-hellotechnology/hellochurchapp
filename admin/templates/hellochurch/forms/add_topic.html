@@ -1,0 +1,22 @@
+<perch:form id="add_topic" method="post" app="hello_church" action="/training">
+
+	<perch:success show-form="true">
+		<article class="flow">
+			<p class="alert success"><span class="material-symbols-outlined">check_circle</span>Training topic created</p>
+		</article>
+	</perch:success>
+
+	<article class="flow">
+		<div>
+			<perch:label for="topicNamet">Topic Name <span class="required">Required</span></perch:label>
+			<perch:input type="text" id="topicName" required="true" label="Topic Name" />
+		</div>
+	</article>
+
+	<footer>
+		<perch:input type="hidden" value="<perch:forms id="memberID">" name="memberID" />
+		<perch:input type="hidden" value="<perch:forms id="churchID">" name="churchID" />
+		<perch:input type="submit" value="Create Topic" class="button primary" />
+	</footer>
+
+</perch:form>

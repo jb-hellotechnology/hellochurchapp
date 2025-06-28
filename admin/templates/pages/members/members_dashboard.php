@@ -72,6 +72,14 @@ $church = hello_church_church(true);
 		</li>
 		<li>
 			<div>
+				<a href="/training">
+					<span class="material-symbols-outlined">book</span>
+					<h3>Training</h3>
+				</a>
+			</div>
+		</li>
+		<li>
+			<div>
 				<a href="/settings">
 					<span class="material-symbols-outlined">settings</span>
 					<h3>Settings</h3>

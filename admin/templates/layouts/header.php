@@ -49,8 +49,7 @@ if(perch_member_logged_in()){
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link rel="preconnect" href="https://fonts.googleapis.com">
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-	<link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&display=swap" rel="stylesheet">
-	<link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
 	<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
 	<link href="/assets/css/stylesheet.css?v=<?= rand() ?>" rel="stylesheet">
 	
@@ -115,7 +114,7 @@ if(perch_member_logged_in()){
 			}
 		?>
 			
-		<h2 class="gooddog"><a href="/dashboard">Church Planner <?php if($church){ ?><span>&bull; <?= $church['churchName'] ?><?php } ?></span></a></h2>
+		<h2><a href="/dashboard"><?php if($church){ echo $church['churchName']; }else{ echo 'Church Planner'; } ?></span></a></h2>
 		<nav>
 			<?php
 				if(perch_member_logged_in()){

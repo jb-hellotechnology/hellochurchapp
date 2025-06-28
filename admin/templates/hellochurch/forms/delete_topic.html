@@ -1,0 +1,23 @@
+<perch:form id="delete_topic" method="post" app="hello_church" action="/training/?msg=topic_deleted">
+
+	<article class="flow">
+		<perch:success>
+			<article class="flow">
+				<p class="alert success"><span class="material-symbols-outlined">check_circle</span>Topic deleted</p>
+			</article>
+			<footer>
+				<a class="button primary" href="/training">Training</a>
+			</footer>
+		</perch:success>
+		<div>
+			<p><strong>This is permanent and cannot be un-done.</strong></p>
+			<p>By clicking the button below you will be deleting this topic from your account.</p>
+		</div>
+	</article>
+
+	<footer>
+		<perch:input type="hidden" value="<perch:forms id="topicID">" name="topicID" />
+		<perch:input type="submit" value="Delete Topic" class="button danger" />
+	</footer>
+
+</perch:form>
