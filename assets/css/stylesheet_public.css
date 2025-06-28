@@ -13,6 +13,7 @@
 
 .bible{
   background:#fff;
+  padding:1rem;
 }
 
 .training h1:not(:first-child){
