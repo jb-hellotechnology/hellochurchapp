@@ -1691,7 +1691,7 @@ ul.list li form .button.danger.small.border{
 	max-width:100%;
 }
 
-.bible,
+.session-preview .bible,
 .email-preview .bible,
 .plan-preview .bible{
 	background:var(--color-light);
@@ -1699,16 +1699,16 @@ ul.list li form .button.danger.small.border{
 	padding:1rem;
 }
 
-.bible h2,
+.session-preview .bible h2,
 .email-preview .bible h2,
 .plan-preview .bible h2{
 	font-size:var(--size-step-1);
 	font-weight:700;
 }
 
-.bible h2,
-.bible h3,
-.bible p,
+.session-preview .bible h2,
+.session-preview .bible h3,
+.session-preview .bible p,
 .email-preview .bible h2,
 .email-preview .bible h3,
 .email-preview .bible p,
