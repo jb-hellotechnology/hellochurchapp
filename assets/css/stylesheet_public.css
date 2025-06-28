@@ -15,6 +15,6 @@
   background:#fff;
 }
 
-.training h1:first-of-kind{
+.training h1:first-child{
   font-size:120%;
 }
