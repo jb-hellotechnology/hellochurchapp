@@ -58,7 +58,7 @@ if(perch_member_logged_in()){
 	
 	<script src='https://www.hCaptcha.com/1/api.js' async defer></script>
 	
-	<link rel="manifest" href="/manifest.json" />
+	<link rel="manifest" href="/manifest.json?v=1" />
 	<!-- ios support -->
 	<link rel="icon" type="image/x-icon" href="/assets/images/icons/favicon.ico">
 	<link rel="apple-touch-icon" href="/assets/images/icons/icon-72x72.png" />
