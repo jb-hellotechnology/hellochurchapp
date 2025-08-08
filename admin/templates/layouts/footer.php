@@ -51,7 +51,14 @@
 	}
 	
 	var tagify = document.querySelector('.tagify');
-	new Tagify(tagify, {});
+	new Tagify(tagify, {
+		whitelist : <?= hello_church_contact_tags() ?>,
+		focusable: false,
+		dropdown: {
+			position: 'input',
+			enabled: 0 // always opens dropdown when input gets focus
+		}
+	});
 	
 	var roles = document.querySelector('.roles');
 	new Tagify(roles, {

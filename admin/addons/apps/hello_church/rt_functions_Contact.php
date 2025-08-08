@@ -101,6 +101,26 @@
 		return $html;
 		
 	}
+	
+	/** RETURN CONTACT TAGS **/
+	function hello_church_contact_tags(){
+		
+		$API  = new PerchAPI(1.0, 'hello_church');
+		
+		$HelloChurchContacts = new HelloChurch_Contacts($API);
+		
+		$tags = $HelloChurchContacts->all_tags(perch_member_get('churchID'));
+		
+		$html = '[';
+		foreach($tags as $tag){
+			$html .= "'".ucwords($tag['tag'])."', ";
+		}
+		$html = substr($html, 0, -2);
+		$html .= ']';
+		
+		return $html;
+		
+	}
     
     /** LIST CONTACT NOTES **/
     function hello_church_contact_notes($contactID){

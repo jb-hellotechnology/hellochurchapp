@@ -406,4 +406,15 @@ class HelloChurch_Contacts extends PerchAPI_Factory
 		
 	}
 	
+	public function all_tags($churchID){
+		
+		$API  = new PerchAPI(1.0, 'hello_church');
+		
+		$sql = 'SELECT DISTINCT tag FROM perch3_hellochurch_contacts_tags WHERE churchID="'.$churchID.'" ORDER BY tag ASC';
+		$result = $this->db->get_rows($sql);
+		
+		return $result;
+		
+	}
+	
 }
