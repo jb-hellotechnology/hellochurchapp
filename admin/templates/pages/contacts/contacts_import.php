@@ -34,7 +34,7 @@ $contacts = hello_church_contacts_count();
 		<div>
 			<div class="panel flow">
 				<h2>Notes</h2>
-				<p>Please only import contacts you have a legitimate reason to manage. By adding contacts to your account you are agreeing to abide by our <a href="/terms">terms of service</a> and understand that inappropriate use of this service can result in the immediate suspension of your account.</p>
+				<p>Please only import contacts you have a legitimate reason to manage. By adding contacts to your account you are agreeing to abide by our <a href="https://churchplanner.co.uk/terms" target="_blank">terms of service</a> and understand that inappropriate use of this service can result in the immediate suspension of your account.</p>
 			</div>	
 		</div>
 	</div>
