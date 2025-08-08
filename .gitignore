@@ -23,6 +23,8 @@
 !admin
 admin/**
 
+!churchplanner_contacts_template.csv
+
 !admin/templates/
 !admin/templates/**
 !admin/addons/
