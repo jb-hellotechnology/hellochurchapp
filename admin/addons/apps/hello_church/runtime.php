@@ -789,51 +789,56 @@
 			        $dates = explode(" ", $responsibility['eventDate']);
 			        $time = $dates[1];
 					
-					//Check if date the same or not
-					if($dates[0]!==$thisDate){
-						// Date different
-						// Store new date
-						$thisDate = $dates[0];
-						
-						// Output rota data including date
-						$dates = explode("-", $dates[0]);
-						$date = "$dates[2]/$dates[1]/$dates[0]";
-						$pdf->SetFont('Arial','B',10);
-						$pdf->Cell(400,10,$date,0,2);
-						
-						$pdf->SetFont('Arial','',10);
-						if($responsibility['roleType']=='Individual'){
-							$pdf->Cell(400,6,$contact->contactFirstName().' '.$contact->contactLastName().' - '.$responsibility['eventName'],0,2);
-							$csvData[] = array($date, $responsibility['eventName'], $roleName, $contact->contactFirstName().' '.$contact->contactLastName());
-						}else{
-							if($HelloChurchContacts->family_members($contact->contactID())){
-								$pdf->Cell(400,6,$contact->contactFirstName().' '.$contact->contactLastName().' + Family - '.$responsibility['eventName'],0,2);
-								$csvData[] = array($date, $responsibility['eventName'], $roleName, $contact->contactFirstName().' '.$contact->contactLastName().' + Family');
-							}else{
-								$pdf->Cell(400,6,$contact->contactFirstName().' '.$contact->contactLastName().' - '.$responsibility['eventName'],0,2);	
-								$csvData[] = array($date, $responsibility['eventName'], $roleName, $contact->contactFirstName().' '.$contact->contactLastName());
-							}
-						}
-						
-					}else{
-						// Date the same
-						
-						// Output rota data excluding date
-						$pdf->SetFont('Arial','',10);
-						if($responsibility['roleType']=='Individual'){
-							$pdf->Cell(400,6,$contact->contactFirstName().' '.$contact->contactLastName().' - '.$responsibility['eventName'],0,2);
-							$csvData[] = array($date, $responsibility['eventName'], $roleName, $contact->contactFirstName().' '.$contact->contactLastName());
-						}else{
-							if($HelloChurchContacts->family_members($contact->contactID())){
-								$pdf->Cell(400,6,$contact->contactFirstName().' '.$contact->contactLastName().' + Family - '.$responsibility['eventName'],0,2);
-								$csvData[] = array($date, $responsibility['eventName'], $roleName, $contact->contactFirstName().' '.$contact->contactLastName().' + Family');
-							}else{
+					if($contact){
+					
+						//Check if date the same or not
+						if($dates[0]!==$thisDate){
+							// Date different
+							// Store new date
+							$thisDate = $dates[0];
+							
+							// Output rota data including date
+							$dates = explode("-", $dates[0]);
+							$date = "$dates[2]/$dates[1]/$dates[0]";
+							$pdf->SetFont('Arial','B',10);
+							$pdf->Cell(400,10,$date,0,2);
+							
+							$pdf->SetFont('Arial','',10);
+							if($responsibility['roleType']=='Individual'){
 								$pdf->Cell(400,6,$contact->contactFirstName().' '.$contact->contactLastName().' - '.$responsibility['eventName'],0,2);
-								$csvData[] = array($date, $responsibility['eventName'], $roleName, $contact->contactFirstName().' '.$contact->contactLastName());	
+								$csvData[] = array($date, $responsibility['eventName'], $roleName, $contact->contactFirstName().' '.$contact->contactLastName());
+							}else{
+								if($HelloChurchContacts->family_members($contact->contactID())){
+									$pdf->Cell(400,6,$contact->contactFirstName().' '.$contact->contactLastName().' + Family - '.$responsibility['eventName'],0,2);
+									$csvData[] = array($date, $responsibility['eventName'], $roleName, $contact->contactFirstName().' '.$contact->contactLastName().' + Family');
+								}else{
+									$pdf->Cell(400,6,$contact->contactFirstName().' '.$contact->contactLastName().' - '.$responsibility['eventName'],0,2);	
+									$csvData[] = array($date, $responsibility['eventName'], $roleName, $contact->contactFirstName().' '.$contact->contactLastName());
+								}
+							}
+							
+						}else{
+							// Date the same
+							
+							// Output rota data excluding date
+							$pdf->SetFont('Arial','',10);
+							if($responsibility['roleType']=='Individual'){
+								$pdf->Cell(400,6,$contact->contactFirstName().' '.$contact->contactLastName().' - '.$responsibility['eventName'],0,2);
+								$csvData[] = array($date, $responsibility['eventName'], $roleName, $contact->contactFirstName().' '.$contact->contactLastName());
+							}else{
+								if($HelloChurchContacts->family_members($contact->contactID())){
+									$pdf->Cell(400,6,$contact->contactFirstName().' '.$contact->contactLastName().' + Family - '.$responsibility['eventName'],0,2);
+									$csvData[] = array($date, $responsibility['eventName'], $roleName, $contact->contactFirstName().' '.$contact->contactLastName().' + Family');
+								}else{
+									$pdf->Cell(400,6,$contact->contactFirstName().' '.$contact->contactLastName().' - '.$responsibility['eventName'],0,2);
+									$csvData[] = array($date, $responsibility['eventName'], $roleName, $contact->contactFirstName().' '.$contact->contactLastName());	
+								}
 							}
 						}
 						
 					}
+					
+				}
 
 				}
 				$pdf->SetFont('Arial','',10);
