@@ -2,11 +2,13 @@
 	<article>
 		<label>Role</label>
 		<perch:input type="select" options="<perch:forms id="roles" />" id="roleID" />
+		<label>File Type</label>
+		<perch:input type="select" options="PDF,CSV" id="type" />
 		<perch:input type="hidden" value="<perch:forms id="memberID">" name="memberID" />
 		<perch:input type="hidden" value="<perch:forms id="churchID">" name="churchID" />
 		<perch:input type="hidden" value="<perch:forms id="contactID">" name="contactID" />
 	</article>
 	<footer>
-		<perch:input type="submit" value="Download Rota PDF" class="button secondary" />
+		<perch:input type="submit" value="Download Rota" class="button secondary" />
 	</footer>
 </perch:form>

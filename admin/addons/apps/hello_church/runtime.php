@@ -780,6 +780,9 @@
 				$pdf->SetFont('Arial','B',16);
 				$pdf->Cell(40,10,'Rota For: '.$roleName,0,2);
 				
+				// CSV
+				$csvData = array();
+				
 				$thisDate = '';
 				foreach($responsibilities as $responsibility){
 					$contact = $HelloChurchContacts->find($responsibility['contactID']);
@@ -801,11 +804,14 @@
 						$pdf->SetFont('Arial','',10);
 						if($responsibility['roleType']=='Individual'){
 							$pdf->Cell(400,6,$contact->contactFirstName().' '.$contact->contactLastName().' - '.$responsibility['eventName'],0,2);
+							$csvData[] = array($date, $responsibility['eventName'], $roleName, $contact->contactFirstName().' '.$contact->contactLastName());
 						}else{
 							if($HelloChurchContacts->family_members($contact->contactID())){
 								$pdf->Cell(400,6,$contact->contactFirstName().' '.$contact->contactLastName().' + Family - '.$responsibility['eventName'],0,2);
+								$csvData[] = array($date, $responsibility['eventName'], $roleName, $contact->contactFirstName().' '.$contact->contactLastName().' + Family');
 							}else{
 								$pdf->Cell(400,6,$contact->contactFirstName().' '.$contact->contactLastName().' - '.$responsibility['eventName'],0,2);	
+								$csvData[] = array($date, $responsibility['eventName'], $roleName, $contact->contactFirstName().' '.$contact->contactLastName());
 							}
 						}
 						
@@ -816,11 +822,14 @@
 						$pdf->SetFont('Arial','',10);
 						if($responsibility['roleType']=='Individual'){
 							$pdf->Cell(400,6,$contact->contactFirstName().' '.$contact->contactLastName().' - '.$responsibility['eventName'],0,2);
+							$csvData[] = array($date, $responsibility['eventName'], $roleName, $contact->contactFirstName().' '.$contact->contactLastName());
 						}else{
 							if($HelloChurchContacts->family_members($contact->contactID())){
 								$pdf->Cell(400,6,$contact->contactFirstName().' '.$contact->contactLastName().' + Family - '.$responsibility['eventName'],0,2);
+								$csvData[] = array($date, $responsibility['eventName'], $roleName, $contact->contactFirstName().' '.$contact->contactLastName().' + Family');
 							}else{
-								$pdf->Cell(400,6,$contact->contactFirstName().' '.$contact->contactLastName().' - '.$responsibility['eventName'],0,2);	
+								$pdf->Cell(400,6,$contact->contactFirstName().' '.$contact->contactLastName().' - '.$responsibility['eventName'],0,2);
+								$csvData[] = array($date, $responsibility['eventName'], $roleName, $contact->contactFirstName().' '.$contact->contactLastName());	
 							}
 						}
 						
@@ -830,7 +839,23 @@
 				$pdf->SetFont('Arial','',10);
 				$pdf->WriteHTML("<br><br>".strip_tags($role->roleDescription()));
 				
-				$pdf->Output();
+				if($SubmittedForm->data['type']=='PDF'){
+					$pdf->Output();
+				}else{
+					//export CSV
+					ob_start();
+					header('Content-Type: text/csv; charset=utf-8');
+					header('Content-Disposition: attachment; filename=csv_rota.csv');
+					$header_args = array( 'Date', 'Event', 'Role', 'Name' );
+					ob_end_clean();
+					$output = fopen( 'php://output', 'w' );
+					fputcsv( $output, $header_args );
+					foreach( $csvData as $data_item ){
+						fputcsv( $output, $data_item );
+					}
+					fclose( $output );
+					exit;
+				}
 
             break;
             case 'download_plan_pdf':

@@ -117,7 +117,8 @@ class HelloChurch_Events extends PerchAPI_Factory
 		FROM perch3_hellochurch_roles_contacts rc
 		JOIN perch3_hellochurch_roles r ON rc.roleID = r.roleID
 		JOIN perch3_hellochurch_events e ON rc.eventID = e.eventID
-		WHERE rc.roleID = $roleID AND LEFT(rc.eventDate, 10)>='$date'";
+		WHERE rc.roleID = $roleID AND LEFT(rc.eventDate, 10)>='$date' ORDER BY rc.eventDate";
+	
 		$results = $this->db->get_rows($sql);
 	    
 	    return $results;
