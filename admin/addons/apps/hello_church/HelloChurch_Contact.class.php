@@ -72,6 +72,15 @@ class HelloChurch_Contact extends PerchAPI_Base
 	    $results = $this->db->execute($sql);
 	    
     }
+	
+	public function delete_roles($contactID, $data){
+		
+		$API  = new PerchAPI(1.0, 'hello_church');
+		
+		$sql = "DELETE FROM perch3_hellochurch_roles_contacts WHERE contactID='".$contactID."'";
+		$results = $this->db->execute($sql);
+		
+	}
     
     public function export($contactID){
 	    

@@ -29,6 +29,7 @@
 			if($owner){
 				$contact = $HelloChurchContacts->find($contactID);
 				$contact->delete_tags($contact->id(), $data);
+				$contact->delete_roles($contact->id(), $data);
 		        $contact->delete(); 
 			}
 		}
