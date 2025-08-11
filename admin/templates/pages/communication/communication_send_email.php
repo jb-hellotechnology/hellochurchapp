@@ -8,6 +8,8 @@
 require '../../../vendor/autoload.php';
 require '../../../secrets.php';
 
+$Parsedown = new Parsedown();
+
 $template = file_get_contents('../../../email_template.html');
 
 if(!perch_member_logged_in()){
