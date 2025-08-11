@@ -220,7 +220,7 @@
 			}
         }
         
-        if(strlen($html)>1){
+        if(strlen($html)>3){
         	$html = substr($html, 0 , -2);
         }
 

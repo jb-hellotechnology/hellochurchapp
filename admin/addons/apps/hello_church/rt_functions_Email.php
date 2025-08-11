@@ -131,6 +131,9 @@
     
     /** GET EMAIL CONTENT **/
     function hello_church_get_email_content($emailID){
+		
+		require '../../../vendor/autoload.php';
+		$Parsedown = new Parsedown();
 	    
 	    $API  = new PerchAPI(1.0, 'hello_church');
 
@@ -152,7 +155,7 @@
 				$emailContent .= '<h2 style="font-family: Helvetica, sans-serif; font-size: 24px; font-weight: strong; margin: 0; margin-bottom: 16px;">'.$item.'</h2>';
 			}
 			if($type=='text'){
-				$emailContent .= '<p style="font-family: Helvetica, sans-serif; font-size: 16px; font-weight: normal; margin: 0; margin-bottom: 16px;">'.nl2br($item).'</p>';
+				$emailContent .= ''.$Parsedown->text($item).'';
 			}
 			if($type=='youtube'){
 				$emailContent .= preg_replace("/\s*[a-zA-Z\/\/:\.]*youtu.be\/watch\?v=([a-zA-Z0-9\-_]+)([a-zA-Z0-9\/\*\-\_\?\&\;\%\=\.]*)/i","<iframe width=\"420\" height=\"315\" src=\"//www.youtu.be/embed/$1\" frameborder=\"0\" allowfullscreen></iframe>",$item);
