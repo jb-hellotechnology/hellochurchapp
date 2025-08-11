@@ -5,7 +5,7 @@ class HelloChurch_Contact extends PerchAPI_Base
     protected $table  = 'hellochurch_contacts';
     protected $pk     = 'contactID';
 
-    public $static_fields = array('contactID', 'churchID', 'memberID', 'contactFirstName', 'contactLastName', 'contactEmail', 'contactPhone', 'contactAddress1', 'contactAddress2', 'contactCity', 'contactCounty', 'contactPostCode', 'contactCountry', 'contactAcceptEmail', 'contactAcceptSMS', 'contactFamilyID', 'contactTags', 'contactProperites', 'contactMagicLink', 'contactMagicLinkExpires', 'contactLat', 'contactLng');
+    public $static_fields = array('contactID', 'churchID', 'memberID', 'contactFirstName', 'contactPreferredName', 'contactLastName', 'contactEmail', 'contactPhone', 'contactOrganisation', 'contactAddress1', 'contactAddress2', 'contactCity', 'contactCounty', 'contactPostCode', 'contactCountry', 'contactAcceptEmail', 'contactEmailSecondary', 'contactAcceptSMS', 'contactFamilyID', 'contactTags', 'contactProperites', 'contactMagicLink', 'contactMagicLinkExpires', 'contactLat', 'contactLng');
     
     public function update_tags($contactID, $data){
 	    
@@ -93,10 +93,10 @@ class HelloChurch_Contact extends PerchAPI_Base
 		
 		// Set PHP headers for CSV output.
 		header('Content-Type: text/csv; charset=utf-8');
-		header('Content-Disposition: attachment; filename=hello_church_contact.csv');
+		header('Content-Disposition: attachment; filename=church_planner_contact.csv');
 		
 		// Create the headers.
-		$header_args = array( 'ID', 'Church', 'Member', 'First Name', 'Last Name', 'Address 1', 'Address 2', 'City', 'County', 'Post Code', 'Country', 'Email', 'Phone', 'Accepts Emai', 'Accepts SMS', 'Tags', 'Additional Data' );
+		$header_args = array( 'ID', 'Church', 'Member', 'First Name', 'Preferred Name', 'Last Name', 'Organisation', 'Address 1', 'Address 2', 'City', 'County', 'Post Code', 'Country', 'Email', 'Secondary Email', 'Phone', 'Accepts Emai', 'Accepts SMS', 'Tags', 'Additional Data' );
 		
 		// Clean up output buffer before writing anything to CSV file.
 		ob_end_clean();

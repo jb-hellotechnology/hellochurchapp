@@ -8,7 +8,7 @@ class HelloChurch_Contacts extends PerchAPI_Factory
 
 	protected $default_sort_column = 'contactFirstName';
 
-	public $static_fields = array('contactID', 'churchID', 'memberID', 'contactFirstName', 'contactLastName', 'contactEmail', 'contactPhone', 'contactAddress1', 'contactAddress2', 'contactCity', 'contactCounty', 'contactPostCode', 'contactCountry', 'contactAcceptEmail', 'contactAcceptSMS', 'contactFamilyID', 'contactTags', 'contactProperites', 'contactMagicLink', 'contactMagicLinkExpires', 'contactLat', 'contactLng');
+	public $static_fields = array('contactID', 'churchID', 'memberID', 'contactFirstName', 'contactPreferredName', 'contactLastName', 'contactEmail', 'contactEmailSecondary', 'contactPhone', 'contactOrganisation', 'contactAddress1', 'contactAddress2', 'contactCity', 'contactCounty', 'contactPostCode', 'contactCountry', 'contactAcceptEmail', 'contactAcceptSMS', 'contactFamilyID', 'contactTags', 'contactProperites', 'contactMagicLink', 'contactMagicLinkExpires', 'contactLat', 'contactLng');
 
     public $dynamic_fields_column = 'contactProperties';
     
@@ -236,7 +236,7 @@ class HelloChurch_Contacts extends PerchAPI_Factory
 		
 		$API  = new PerchAPI(1.0, 'hello_church');
 
-		$sql = "SELECT c.contactID, c.contactFirstName, c.contactLastName FROM perch3_hellochurch_contacts c LEFT JOIN perch3_hellochurch_contacts_families f ON c.contactID = f.contactID_a OR c.contactID = f.contactID_b WHERE (c.contactFirstName LIKE '%".$q."%' OR c.contactLastName LIKE '%".$q."%') AND f.familyID IS NULL";
+		$sql = "SELECT c.contactID, c.contactFirstName, c.contactLastName FROM perch3_hellochurch_contacts c LEFT JOIN perch3_hellochurch_contacts_families f ON c.contactID = f.contactID_a OR c.contactID = f.contactID_b WHERE (c.contactFirstName LIKE '%".$q."%' OR c.contactLastName LIKE '%".$q."%' OR c.contactPreferredName LIKE '%".$q."%') AND f.familyID IS NULL";
 	    $result = $this->db->get_rows($sql);
 	    
 	    return $result;

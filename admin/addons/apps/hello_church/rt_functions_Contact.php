@@ -289,12 +289,21 @@
 					$tags = contact_tags($contact['contactTags']);
 					$preferences = contact_preferences($contact['contactAcceptEmail'], $contact['contactAcceptSMS']);
 					
+					if(!$contact['contactPreferredName']){
+						$firstName = $contact['contactFirstName'];
+					}else{
+						$firstName = $contact['contactPreferredName'];
+					}
+					
 					$html .= '
 						<div class="row">
 							<div class="td">
-								<a href="/contacts/edit-contact?id='.$contact['contactID'].'"><span class="material-symbols-outlined">person</span>'.$contact['contactFirstName'].' '.$contact['contactLastName'].'</a>
+								<a href="/contacts/edit-contact?id='.$contact['contactID'].'"><span class="material-symbols-outlined">person</span>'.$firstName.' '.$contact['contactLastName'].'</a>
 							</div>
 							<div class="td">';
+							if($contact['contactOrganisation']){
+								$html .= '<p><span class="material-symbols-outlined">domain</span>'.$contact['contactOrganisation'].'</p>';
+							}
 							if($contact['contactAddress1']){
 								$html .= '<p><span class="material-symbols-outlined">home</span>'.$contact['contactAddress1'].'</p>';
 							}
