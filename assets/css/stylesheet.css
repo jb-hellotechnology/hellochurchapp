@@ -1686,6 +1686,16 @@ ul.list li form .button.danger.small.border{
 	display:flex;
 }
 
+.email-preview h1,
+.email-preview h2,
+.email-preview h3,
+.email-preview h4,
+.email-preview p,
+.email-preview ul,
+.email-preview ol{
+	font-family: 'Helvetica', sans-serif; !important
+}
+
 .email-preview h2,
 .email-preview h3{
 	max-width:100%;
