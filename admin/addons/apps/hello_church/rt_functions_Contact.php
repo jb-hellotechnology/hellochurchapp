@@ -316,6 +316,9 @@
 							if($contact['contactEmail']){
 								$html .= '<p><span class="material-symbols-outlined">email</span>'.$contact['contactEmail'].'</p>';
 							}
+							if($contact['contactEmailSecondary']){
+								$html .= '<p><span class="material-symbols-outlined">email</span>'.$contact['contactEmailSecondary'].'</p>';
+							}
 							$html .= '
 							</div>
 							<div class="td">
