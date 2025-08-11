@@ -119,6 +119,10 @@
 		$html = substr($html, 0, -2);
 		$html .= ']';
 		
+		if($html == ']'){
+			$html = '[]';
+		}
+		
 		return $html;
 		
 	}
@@ -225,10 +229,6 @@
         }
 
         $html .= ']';
-		
-		if($html == ']'){
-			$html = '[]';
-		}
         
         return $html;
 	    
