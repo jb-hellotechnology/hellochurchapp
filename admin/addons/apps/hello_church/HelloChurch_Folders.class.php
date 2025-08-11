@@ -222,7 +222,9 @@ class HelloChurch_Folders extends PerchAPI_Factory
 	    		RIGHT(fileLocation,3)='jpg' OR 
 	    		RIGHT(fileLocation,3)='JPG' OR 
 	    		RIGHT(fileLocation,4)='jpeg' OR 
-	    		RIGHT(fileLocation,4)='JPEG'
+	    		RIGHT(fileLocation,4)='JPEG' OR 
+				RIGHT(fileLocation,3)='png' OR 
+				RIGHT(fileLocation,3)='PNG'
 	    		
 	    	) 
 	    	ORDER BY fileCreated DESC LIMIT 100";   
