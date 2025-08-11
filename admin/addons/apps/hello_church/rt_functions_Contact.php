@@ -220,11 +220,15 @@
 			}
         }
         
-        if(strlen($html)>3){
+        if(strlen($html)>1){
         	$html = substr($html, 0 , -2);
         }
 
         $html .= ']';
+		
+		if($html == ']'){
+			$html = '[]';
+		}
         
         return $html;
 	    
