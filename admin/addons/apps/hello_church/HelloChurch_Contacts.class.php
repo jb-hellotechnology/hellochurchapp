@@ -360,7 +360,7 @@ class HelloChurch_Contacts extends PerchAPI_Factory
                       </tr>
                     </tbody>
                   </table>';
-	    $emailContent .= '<p style="font-family: Helvetica, sans-serif; font-size: 16px; font-weight: normal; margin: 0; margin-bottom: 16px;">This link expires at '.$timestampH.' so please use it promptly.</p>';
+	    $emailContent .= '<p style="font-family: Helvetica, sans-serif; font-size: 16px; font-weight: normal; margin: 0; margin-bottom: 16px;">This link expires at in a few minutes, so please use it promptly.</p>';
 	    $emailContent .= '<p style="font-family: Helvetica, sans-serif; font-size: 16px; font-weight: normal; margin: 0; margin-bottom: 16px;">If you did not request this email please contact <a href="mailto:support@churchplanner.co.uk">support@churchplanner.co.uk</a>.</p>';
 		
 		// Configure API key authorization: api-key
