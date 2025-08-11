@@ -314,10 +314,10 @@
 								$html .= '<p><span class="material-symbols-outlined">phone</span>'.$contact['contactPhone'].'</p>';
 							}
 							if($contact['contactEmail']){
-								$html .= '<p><span class="material-symbols-outlined">email</span>'.$contact['contactEmail'].'</p>';
+								$html .= '<p><span class="material-symbols-outlined">email</span><a href="mailto:'.$contact['contactEmail'].'">'.$contact['contactEmail'].'</a></p>';
 							}
 							if($contact['contactEmailSecondary']){
-								$html .= '<p><span class="material-symbols-outlined">email</span>'.$contact['contactEmailSecondary'].'</p>';
+								$html .= '<p><span class="material-symbols-outlined">email</span><a href="mailto:'.$contact['contactEmail'].'">'.$contact['contactEmailSecondary'].'</a></p>';
 							}
 							$html .= '
 							</div>
