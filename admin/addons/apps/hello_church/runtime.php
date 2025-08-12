@@ -584,6 +584,7 @@
 								}
 								$inputData['contactAcceptEmail'] =		$data[13];
 								$inputData['contactAcceptSMS'] =		$data[14];
+								$tagString = '';
 								if($data[15]<>''){
 									$tagString = '[';
 									$tags = explode(",", $data[15]);

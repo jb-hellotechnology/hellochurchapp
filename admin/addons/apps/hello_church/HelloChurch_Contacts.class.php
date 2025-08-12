@@ -54,6 +54,7 @@ class HelloChurch_Contacts extends PerchAPI_Factory
 	    $end = 25;
 		
 		$sql = "SELECT * FROM perch3_hellochurch_contacts WHERE churchID='".$churchID."' $tag_sql $q_sql ORDER BY contactLastName ASC LIMIT $start,$end";
+		echo $sql;
 	    $results = $this->db->get_rows($sql);
 	    return $results;
 	    
