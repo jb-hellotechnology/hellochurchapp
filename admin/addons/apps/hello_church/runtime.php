@@ -563,35 +563,38 @@
 							    $data['contactProperties'] = '';
 								
 								$inputData = array();
-								$inputData['churchID'] = 			$church['churchID'];
-								$inputData['memberID'] = 			$Session->get('memberID');
-								$inputData['contactFirstName'] =	$data[0];
-								$inputData['contactLastName'] =	 	$data[1];
-								$inputData['contactAddress1'] =		$data[2];
-								$inputData['contactAddress2'] =		$data[3];
-								$inputData['contactCity'] =			$data[4];
-								$inputData['contactCounty'] =		$data[5];
-								$inputData['contactPostCode'] =		$data[6];
-								$inputData['contactCountry'] =		$data[7];
-								$inputData['contactEmail'] =		$data[8];
-								if($data[8]<>'' AND substr($data[8], 0, 1)<>'0'){
-									$inputData['contactPhone'] =	'0'.$data[9];
+								$inputData['churchID'] = 				$church['churchID'];
+								$inputData['memberID'] = 				$Session->get('memberID');
+								$inputData['contactFirstName'] =		$data[0];
+								$inputData['contactPreferredName'] =	$data[1];
+								$inputData['contactLastName'] =	 		$data[2];
+								$inputData['contactOrganisation'] =		$data[3];
+								$inputData['contactAddress1'] =			$data[4];
+								$inputData['contactAddress2'] =			$data[5];
+								$inputData['contactCity'] =				$data[6];
+								$inputData['contactCounty'] =			$data[7];
+								$inputData['contactPostCode'] =			$data[8];
+								$inputData['contactCountry'] =			$data[9];
+								$inputData['contactEmail'] =			$data[10];
+								$inputData['contactEmailSecondary'] =	$data[11];
+								if($data[12]<>'' AND substr($data[12], 0, 1)<>'0'){
+									$inputData['contactPhone'] =	'0'.$data[12];
 								}else{
-									$inputData['contactPhone'] =		$data[9];	
+									$inputData['contactPhone'] =		$data[12];	
 								}
-								$inputData['contactAcceptEmail'] =	$data[10];
-								$inputData['contactAcceptSMS'] =	$data[11];
-								if($data[12]<>''){
+								$inputData['contactAcceptEmail'] =		$data[13];
+								$inputData['contactAcceptSMS'] =		$data[14];
+								if($data[15]<>''){
 									$tagString = '[';
-									$tags = explode(",", $data[12]);
+									$tags = explode(",", $data[15]);
 									foreach($tags as $tag){
 										$tagString .= '{"value":"'.trim($tag).'"},';
 									}
 									$tagString = substr($tagString, 0, -1);
 									$tagString .= ']';
 								}
-								$inputData['contactTags'] =			$tagString;
-								$inputData['contactProperties'] = 	'';
+								$inputData['contactTags'] =				$tagString;
+								$inputData['contactProperties'] = 		'';
 								
 								$count = count($HelloChurchContacts->all_contacts($Session->get('churchID')));
 								if($count<200){
