@@ -596,6 +596,8 @@
 								$inputData['contactTags'] =				$tagString;
 								$inputData['contactProperties'] = 		'';
 								
+								print_r($inputData);
+								
 								$count = count($HelloChurchContacts->all_contacts($Session->get('churchID')));
 								if($count<200){
 					            	$contact = $HelloChurchContacts->create($inputData);
