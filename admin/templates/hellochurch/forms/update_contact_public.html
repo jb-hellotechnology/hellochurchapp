@@ -10,8 +10,16 @@
 			<perch:error for="contactFirstName" type="required"><p class="help error">Please add a your contact's first name</p></perch:error>
 		</div>
 		<div>
+			<perch:label for="contactPreferredName">Preferred Name</perch:label>
+			<perch:input type="text" id="contactPreferredName" label="Preferred Name" />
+		</div>
+		<div>
 			<perch:label for="contactLastName">Last Name <span class="required">Required</span></perch:label>
 			<perch:input type="text" id="contactLastName" required="true" label="Last Name" />
+		</div>
+		<div>
+			<perch:label for="contactOrganisation">Organisation</perch:label>
+			<perch:input type="text" id="contactOrganisation" label="Organisation" />
 		</div>
 		<div>
 			<perch:label for="contactAddress1">Address 1</perch:label>
@@ -44,6 +52,10 @@
 		<div>
 			<perch:label for="contactEmail">Email</perch:label>
 			<perch:input type="email" id="contactEmail" label="Email" placeholder="you@example.com" />
+		</div>
+		<div>
+			<perch:label for="contactEmailSecondary">Secondary Email</perch:label>
+			<perch:input type="email" id="contactEmailSecondary" label="Email" placeholder="you@example.com" />
 		</div>
 		<div>
 			<perch:label for="contactAcceptEmail">I Accept Email Communication</perch:label>
