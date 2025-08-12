@@ -189,7 +189,7 @@ class HelloChurch_Contacts extends PerchAPI_Factory
 		
 		// Set PHP headers for CSV output.
 		header('Content-Type: text/csv; charset=utf-8');
-		header('Content-Disposition: attachment; filename=hello_church_contacts.csv');
+		header('Content-Disposition: attachment; filename=church_planner_contacts.csv');
 		
 		// Create the headers.
 		$header_args = array( 'ID', 'Church', 'Member', 'First Name', 'Preferred Name', 'Last Name', 'Organisation', 'Address 1', 'Address 2', 'City', 'County', 'Post Code', 'Country', 'Email', 'Secondary Email', 'Phone', 'Accepts Email', 'Accepts SMS', 'Family', 'Tags', 'Additional Data', 'Properties', 'Link', 'Link Expires', 'Latitude', 'Longitude' );
