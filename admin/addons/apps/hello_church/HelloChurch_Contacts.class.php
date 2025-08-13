@@ -378,7 +378,8 @@ class HelloChurch_Contacts extends PerchAPI_Factory
 		     'replyTo' => ['name' => $church['churchName'], 'email' => $church['churchEmail']],
 		     'to' => [[ 'email' => $email ]],
 		     'htmlContent' => $template,
-			 'params' => ['emailSubject' => $subject, 'emailContent' => $emailContent, 'senderPostalAddress' => $senderPostalAddress]
+			 'params' => ['emailSubject' => $subject, 'emailContent' => $emailContent, 'senderPostalAddress' => $senderPostalAddress],
+			 'preheader' => ''
 		]);
 		
 		try {
