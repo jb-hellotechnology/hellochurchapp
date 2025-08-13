@@ -484,6 +484,9 @@
 		            if(!$data['contactAcceptEmail']){
 			            $data['contactAcceptEmail'] = '';
 		            }
+					if($data['confirmedCorrect']){
+						$data['contactConfirmedCorrect'] = date('Y-m-d');
+					}
 					if($data['contactAddress1'] && $data['contactCity'] && $data['contactPostCode']){
 						$address = urlencode("$data[contactAddress1], $data[contactCity], $data[contactPostCode]");
 						$options = [

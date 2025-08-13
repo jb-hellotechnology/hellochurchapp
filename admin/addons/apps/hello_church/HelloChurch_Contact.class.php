@@ -5,7 +5,7 @@ class HelloChurch_Contact extends PerchAPI_Base
     protected $table  = 'hellochurch_contacts';
     protected $pk     = 'contactID';
 
-    public $static_fields = array('contactID', 'churchID', 'memberID', 'contactFirstName', 'contactPreferredName', 'contactLastName', 'contactEmail', 'contactPhone', 'contactOrganisation', 'contactAddress1', 'contactAddress2', 'contactCity', 'contactCounty', 'contactPostCode', 'contactCountry', 'contactAcceptEmail', 'contactEmailSecondary', 'contactAcceptSMS', 'contactFamilyID', 'contactTags', 'contactProperites', 'contactMagicLink', 'contactMagicLinkExpires', 'contactLat', 'contactLng');
+    public $static_fields = array('contactID', 'churchID', 'memberID', 'contactFirstName', 'contactPreferredName', 'contactLastName', 'contactEmail', 'contactPhone', 'contactOrganisation', 'contactAddress1', 'contactAddress2', 'contactCity', 'contactCounty', 'contactPostCode', 'contactCountry', 'contactAcceptEmail', 'contactEmailSecondary', 'contactAcceptSMS', 'contactFamilyID', 'contactTags', 'contactProperites', 'contactMagicLink', 'contactMagicLinkExpires', 'contactLat', 'contactLng', 'contactConfirmedCorrect');
     
     public function update_tags($contactID, $data){
 	    
