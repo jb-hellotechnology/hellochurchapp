@@ -336,9 +336,8 @@ $sendSmtpEmail = new \Brevo\Client\Model\SendSmtpEmail([
 	'replyTo' => ['name' => $church['churchName'], 'email' => $church['churchEmail']],
 	'to' => $to,
 	'bcc' => $bcc,
-	'htmlContent' => $template,
 	'params' => ['emailSubject' => $subject, 'emailContent' => $emailContent, 'senderPostalAddress' => $senderPostalAddress],
-	'preheader' => $subject
+	'templateId' => 19,
 ]);
 
 try {

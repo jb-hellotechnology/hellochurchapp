@@ -378,7 +378,6 @@ class HelloChurch_Contacts extends PerchAPI_Factory
 		     'replyTo' => ['name' => $church['churchName'], 'email' => $church['churchEmail']],
 		     'to' => [[ 'email' => $email ]],
 			 'params' => ['emailSubject' => $subject, 'emailContent' => $emailContent, 'senderPostalAddress' => $senderPostalAddress],
-			 'preHeader' => 'Use this link to sign in to your Church Planner profile.',
 			 'templateId' => 19,
 		]);
 		
