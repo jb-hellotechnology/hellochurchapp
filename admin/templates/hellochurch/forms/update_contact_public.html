@@ -65,7 +65,7 @@
 			<perch:label for="confirmedCorrect">Details Confirmed Correct</perch:label>
 			<perch:input type="checkbox" id="confirmedCorrect" label="Confirmed Correct" value="on" />
 			<perch:if exists="contactConfirmedCorrect">
-				<p class="help">You last confirmed this information was correct on <perch:forms id="contactConfirmedCorrect" /></p>
+				<p class="help">You last confirmed this information was correct on <perch:forms id="contactConfirmedCorrect" format="d F y" /></p>
 			</perch:if>
 		</div>
 	</article>
@@ -73,6 +73,4 @@
 	<footer>
 		<perch:input type="submit" value="Save" class="button primary" />
 	</footer>
-	
-	<perch:showall />
 </perch:form>
