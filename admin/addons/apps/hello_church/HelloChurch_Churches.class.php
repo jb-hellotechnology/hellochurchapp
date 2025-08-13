@@ -86,18 +86,22 @@ class HelloChurch_Churches extends PerchAPI_Factory
 		
 		$API  = new PerchAPI(1.0, 'hello_church');
 		
-		$sql = "SELECT * FROM perch3_hellochurch_churches WHERE churchName LIKE '%".$q."%'";
-	    $results = $this->db->get_rows($sql);
-   
-	    if(count($results)>0){
-		    $html = '<label>Click to Select Your Church:</label><ul>';
-		    foreach($results as $result){
-			    $html .= '<li><a href="#" data-slug="'.$result['churchSlug'].'">'.$result['churchName'].'</a></li>';
-		    }
-		    $html .= '</ul>';
-	    }else{
-		    $html = '<p class="error">No Results</p>';
-	    }
+		if(strlen($q)>2){
+		
+			$sql = "SELECT * FROM perch3_hellochurch_churches WHERE churchName LIKE '%".$q."%'";
+			$results = $this->db->get_rows($sql);
+	
+			if(count($results)>0){
+				$html = '<label>Click to Select Your Church:</label><ul>';
+				foreach($results as $result){
+					$html .= '<li><a href="#" data-slug="'.$result['churchSlug'].'">'.$result['churchName'].'</a></li>';
+				}
+				$html .= '</ul>';
+			}else{
+				$html = '<p class="error">No Results</p>';
+			}
+		
+		}
 	    
 	    return $html;
 	    
