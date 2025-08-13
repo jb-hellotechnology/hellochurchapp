@@ -72,23 +72,3 @@
 	</footer>
 
 </perch:form>
-
-<script>
-	$(document).ready(function () {
-		$(document).on('click', '.button.primary', function () {
-			event.preventDefault();
-			if (validateCheckbox()){
-				
-			}
-		});
-	});
-	
-	function validateCheckbox() {
-		if (!$('#form1_confirmedCorrect').is(':checked')) {
-			alert("Please confirm your details are correct");
-			return false;
-		}else{
-			return true;
-		}
-	}
-</script>

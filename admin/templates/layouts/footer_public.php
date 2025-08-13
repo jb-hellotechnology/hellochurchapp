@@ -6,6 +6,25 @@
 	
 	<script src="/assets/js/jquery.3.7.1.min.js"></script>
 	<script>
+		$(document).ready(function () {
+			$(document).on('click', '.button.primary', function () {
+				event.preventDefault();
+				if (validateCheckbox()){
+					
+				}
+			});
+		});
+		
+		function validateCheckbox() {
+			if (!$('#form1_confirmedCorrect').is(':checked')) {
+				alert("Please confirm your details are correct");
+				return false;
+			}else{
+				return true;
+			}
+		}
+	</script>
+	<script>
 	function searchChurches(){
 		
 		let query = $('#q').val();
