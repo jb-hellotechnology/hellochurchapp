@@ -7,7 +7,7 @@
 	<script src="/assets/js/jquery.3.7.1.min.js"></script>
 	<script>
 		$(document).ready(function () {
-			$(document).on('click', '.button.primary', function () {
+			$(document).on('click', 'form#form1_update_contact_public .button.primary', function () {
 				event.preventDefault();
 				if (validateCheckbox()){
 					console.log('Submitting form...');
