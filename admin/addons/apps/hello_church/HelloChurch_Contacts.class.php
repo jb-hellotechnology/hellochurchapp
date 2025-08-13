@@ -192,7 +192,7 @@ class HelloChurch_Contacts extends PerchAPI_Factory
 		header('Content-Disposition: attachment; filename=church_planner_contacts.csv');
 		
 		// Create the headers.
-		$header_args = array( 'ID', 'Church', 'Member', 'First Name', 'Preferred Name', 'Last Name', 'Organisation', 'Address 1', 'Address 2', 'City', 'County', 'Post Code', 'Country', 'Email', 'Secondary Email', 'Phone', 'Accepts Email', 'Accepts SMS', 'Family', 'Tags', 'Additional Data', 'Properties', 'Link', 'Link Expires', 'Latitude', 'Longitude', 'Confirmed Correct' );
+		$header_args = array( 'ID', 'Church', 'Member', 'First Name', 'Preferred Name', 'Last Name', 'Organisation', 'Address 1', 'Address 2', 'City', 'County', 'Post Code', 'Country', 'Email', 'Secondary Email', 'Phone', 'Accepts Email', 'Accepts SMS', 'Family', 'Tags', 'Additional Data', 'Link', 'Link Expires', 'Latitude', 'Longitude', 'Confirmed Correct' );
 		
 		// Clean up output buffer before writing anything to CSV file.
 		ob_end_clean();
