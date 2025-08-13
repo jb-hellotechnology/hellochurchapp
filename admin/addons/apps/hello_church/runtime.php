@@ -487,6 +487,7 @@
 					if($data['confirmedCorrect']){
 						$data['contactConfirmedCorrect'] = date('Y-m-d');
 					}
+					unset($data['confirmedCorrect']);
 					if($data['contactAddress1'] && $data['contactCity'] && $data['contactPostCode']){
 						$address = urlencode("$data[contactAddress1], $data[contactCity], $data[contactPostCode]");
 						$options = [
@@ -500,7 +501,6 @@
 						$data['contactLat'] = $streetmap[0]['lat'];
 						$data['contactLng'] = $streetmap[0]['lon'];
 					}
-					print_r($data);
 		            $contact->update($data);
 	            } 
             break;
