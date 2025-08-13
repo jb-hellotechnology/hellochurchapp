@@ -10,7 +10,8 @@
 			$(document).on('click', '.button.primary', function () {
 				event.preventDefault();
 				if (validateCheckbox()){
-					$("#form1_update_contact_public").submit(function(){});
+					console.log('Submitting form...');
+					$("form#form1_update_contact_public").submit();
 				}
 			});
 		});
