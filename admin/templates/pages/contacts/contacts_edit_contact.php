@@ -53,6 +53,32 @@ $lng = hello_church_contact_get(perch_get('id'), 'contactLng');
 					<a href="/calendar" class="button primary">Manage Calendar</a>
 				</footer>
 			</section>
+			<?php if($lat){ ?>
+			<section>
+				<div id="map" style="width: 100%; height: 400px;"></div>
+				<script>
+				
+					const map = L.map('map').setView([<?= $lat;  ?>, <?= $lng; ?>], 13);
+				
+					const tiles = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+						maxZoom: 19,
+						attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+					}).addTo(map);
+				
+					const marker = L.marker([<?= $lat;  ?>, <?= $lng; ?>]).addTo(map);
+				
+					function onMapClick(e) {
+						popup
+							.setLatLng(e.latlng)
+							.setContent(`You clicked the map at ${e.latlng.toString()}`)
+							.openOn(map);
+					}
+				
+					map.on('click', onMapClick);
+				
+				</script>
+			</section>
+			<?php } ?>
 			<section>
 				<header>
 					<h2>Groups</h2>
@@ -103,32 +129,6 @@ $lng = hello_church_contact_get(perch_get('id'), 'contactLng');
 					<button id="upload" class="button primary">Upload</button>
 				</footer>
 			</section>
-			<?php if($lat){ ?>
-			<section>
-				<div id="map" style="width: 100%; height: 400px;"></div>
-				<script>
-				
-					const map = L.map('map').setView([<?= $lat;  ?>, <?= $lng; ?>], 13);
-				
-					const tiles = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-						maxZoom: 19,
-						attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-					}).addTo(map);
-				
-					const marker = L.marker([<?= $lat;  ?>, <?= $lng; ?>]).addTo(map);
-				
-					function onMapClick(e) {
-						popup
-							.setLatLng(e.latlng)
-							.setContent(`You clicked the map at ${e.latlng.toString()}`)
-							.openOn(map);
-					}
-				
-					map.on('click', onMapClick);
-				
-				</script>
-			</section>
-			<?php } ?>
 		</div>
 	</div>
 	
