@@ -114,11 +114,16 @@
 				        if($email['emailSent']){
 				        	echo '<p class="mono">'.date('m/d/Y H:i:s', strtotime($email['emailSent'])).'</p>';
 				        }
+					if($email['emailSent']){
+						$return = 'sent';
+					}else{
+						$return = 'draft';
+					}
 				    echo '
 			        </div>
 			        <div class="functions">
 						<a href="/communication/'.$task.'-email?id='.$email['emailID'].'" class="button secondary small">View</a>
-						<form><a href="/process/delete-email?id='.$email['emailID'].'" class="button danger small border"><span class="material-symbols-outlined">delete</span></a></form>
+						<form><a href="/process/delete-email?id='.$email['emailID'].'&return='.$return.'" class="button danger small border"><span class="material-symbols-outlined">delete</span></a></form>
 					</div>
 				</li>';
         }
