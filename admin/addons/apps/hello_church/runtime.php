@@ -90,7 +90,14 @@
 			$families = $HelloChurchFamilies->families($Session->get('churchID'));
 			$data['families'] = ' |0,';
 			foreach($families as $family){
-				$data['families'] .= $family['familyName']."|".$family['familyID'].",";	
+				$description = substr(strip_tags($family['familyDescription']), 0, 15);
+				if($description){
+					if(strlen($family['familyDescription'])>15){
+						$description = $description.="&hellip;";
+					}
+					$description = '('.$description.')';
+				}
+				$data['families'] .= $family['familyName']." ".$description."|".$family['familyID'].",";
 			}
 			$data['families'] = substr($data['families'], 0, -1);
 			
@@ -100,7 +107,14 @@
 			$families = $HelloChurchFamilies->families($Session->get('churchID'));
 			$data['families'] = ' |0,';
 			foreach($families as $family){
-				$data['families'] .= $family['familyName']."|".$family['familyID'].",";	
+				$description = substr(strip_tags($family['familyDescription']), 0, 15);
+				if($description){
+					if(strlen($family['familyDescription'])>15){
+						$description = $description.="&hellip;";
+					}
+					$description = '('.$description.')';
+				}
+				$data['families'] .= $family['familyName']." ".$description."|".$family['familyID'].",";
 			}
 			$data['families'] = substr($data['families'], 0, -1);
 			
