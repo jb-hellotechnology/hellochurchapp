@@ -556,7 +556,9 @@
 		
 		$contacts = $HelloChurchContacts->all_contacts($churchID);
 		foreach($contacts as $contact){
-			echo "[".$contact['contactLat'].", ".$contact['contactLng'].", \"".$contact['contactFirstName']." ".$contact['contactLastName']."\", \"/contacts/edit-contact?id=".$contact['contactID']."\"],";
+			if($contact['contactLat']){			
+				echo "[".$contact['contactLat'].", ".$contact['contactLng'].", \"".$contact['contactFirstName']." ".$contact['contactLastName']."\", \"/contacts/edit-contact?id=".$contact['contactID']."\"],";
+			}
 		}		
 	}
     
