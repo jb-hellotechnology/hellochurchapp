@@ -605,6 +605,7 @@
 								if($count<200){
 					            	$contact = $HelloChurchContacts->create($inputData);
 					            	$contact->update_tags($contact->id(), $inputData);
+									$contact->update_groups($contact->id(), $inputData);
 				            	}
 				            }
 						}
