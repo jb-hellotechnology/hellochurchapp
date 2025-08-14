@@ -42,6 +42,52 @@ perch_layout('header');
 		</footer>
 	</section>
 	<section>
+		<div id="map"></div>
+		<script>
+		
+			// Example coordinates array [latitude, longitude]
+			var markerData = [
+				<?php hello_church_group_map_markers(perch_get('id')); ?>
+			];
+			
+			// Create the map
+			var map = L.map('map').setView([51.505, -0.09], 13);
+			
+			// Add a tile layer (required for map display)
+			L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+				attribution: '&copy; OpenStreetMap contributors'
+			}).addTo(map);
+			
+			// Create an array to store the marker objects
+			var markers = [];
+			
+			// Add markers from coordinates
+			markerData.forEach(function(data) {
+				var lat = data[0];
+				var lng = data[1];
+				var name = data[2];
+				var url = data[3];
+				
+				var popupContent = `<a href="${url}"><b>${name}</b></a>`;
+				
+				var marker = L.marker([lat, lng])
+					.addTo(map)
+					.bindPopup(popupContent);
+				
+				markers.push(marker);
+			});
+			
+			// Create a feature group from the markers
+			var group = L.featureGroup(markers);
+			
+			// Fit map to the bounds of the group (with padding)
+			map.fitBounds(group.getBounds(), {
+				padding: [50, 50] // optional nice margin
+			});
+		
+		</script>
+	</section>
+	<section>
 		<header>
 			<h2>Group Details</h2>
 		</header>

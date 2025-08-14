@@ -165,6 +165,25 @@
 		echo $html;
 	    
     }
+	
+	/** LIST GROUP MEMBERS MARKERS FOR MAP **/
+	function hello_church_group_map_markers($groupID){
+		
+		$API  = new PerchAPI(1.0, 'hello_church');
+		
+		$HelloChurchGroups = new HelloChurch_Groups($API);
+		
+		$Session = PerchMembers_Session::fetch();
+		
+		$group = $HelloChurchGroups->group_members($groupID);
+
+		foreach($group as $contact){
+			if($contact['contactLat']){			
+				echo "[".$contact['contactLat'].", ".$contact['contactLng'].", \"".$contact['contactFirstName']." ".$contact['contactLastName']."\", \"/contacts/edit-contact?id=".$contact['contactID']."\"],";
+			}
+		}
+		
+	}
     
     /** GET GROUP FIELD **/
     function hello_church_group_get($id, $field){
