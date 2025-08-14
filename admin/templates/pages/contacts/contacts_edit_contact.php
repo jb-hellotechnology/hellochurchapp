@@ -14,6 +14,9 @@ if(!hello_church_member_owner(perch_get('id'))){
 perch_layout('header');
 
 $name = hello_church_contact_get(perch_get('id'), 'contactFirstName').' '.hello_church_contact_get(perch_get('id'), 'contactLastName');
+
+$lat = hello_church_contact_get(perch_get('id'), 'contactLat');
+$lng = hello_church_contact_get(perch_get('id'), 'contactLng');
 ?>
 <main class="flow full">
 	<?php 
@@ -100,29 +103,33 @@ $name = hello_church_contact_get(perch_get('id'), 'contactFirstName').' '.hello_
 					<button id="upload" class="button primary">Upload</button>
 				</footer>
 			</section>
+			<?php if($lat){ ?>
 			<section>
-				<div id="mapdiv" style="height:200px;width:100%;"></div>
-				<script src="https://www.openlayers.org/api/OpenLayers.js"></script>
+				<div id="map" style="width: 100%; height: 400px;"></div>
 				<script>
-					map = new OpenLayers.Map("mapdiv");
-					map.addLayer(new OpenLayers.Layer.OSM());
-					
-					var lonLat = new OpenLayers.LonLat( -0.1279688 ,51.5077286 )
-						.transform(
-							new OpenLayers.Projection("EPSG:4326"), // transform from WGS 1984
-							map.getProjectionObject() // to Spherical Mercator Projection
-					);
-					
-					var zoom=16;
-					
-					var markers = new OpenLayers.Layer.Markers( "Markers" );
-					map.addLayer(markers);
-					
-					markers.addMarker(new OpenLayers.Marker(lonLat));
-					
-					map.setCenter (lonLat, zoom);
+				
+					const map = L.map('map').setView([<?= $lat;  ?>, <?= $lng; ?>], 13);
+				
+					const tiles = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+						maxZoom: 19,
+						attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+					}).addTo(map);
+				
+					const marker = L.marker([<?= $lat;  ?>, <?= $lng; ?>]).addTo(map)
+						.bindPopup('<b>Hello world!</b><br />I am a popup.').openPopup();
+				
+					function onMapClick(e) {
+						popup
+							.setLatLng(e.latlng)
+							.setContent(`You clicked the map at ${e.latlng.toString()}`)
+							.openOn(map);
+					}
+				
+					map.on('click', onMapClick);
+				
 				</script>
 			</section>
+			<?php } ?>
 		</div>
 	</div>
 	

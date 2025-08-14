@@ -75,6 +75,13 @@ if(perch_member_logged_in()){
 	<link rel="stylesheet" href="https://use.typekit.net/prw8zqs.css">
 	<link href="/assets/js/select2/css/select2.min.css" rel="stylesheet" />
 	
+	<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+	 integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+	 crossorigin=""/>
+	<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+	 integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+	 crossorigin=""></script>
+	
 	<script src="https://cdn.brevo.com/js/sdk-loader.js" async></script>
 	<script>
 		// Version: 2.0
