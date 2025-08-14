@@ -98,6 +98,10 @@
 		}else{
 			$task = 'view';
 		}
+		
+		if(!$emails){
+			echo '<p class="alert success"><span class="material-symbols-outlined">email</span>No emails</p>';
+		}
 
 		echo '<article>
 				<ul class="list">';
@@ -112,13 +116,10 @@
 				        }
 				    echo '
 			        </div>
-			        <div class="functions">';
-	
-				    echo '
-				    <a href="/communication/'.$task.'-email?id='.$email['emailID'].'" class="button secondary small">View</a>
-					<form><a href="/process/delete-email?id='.$email['emailID'].'" class="button danger small border"><span class="material-symbols-outlined">delete</span></a></form>';
-
-				echo '</div>
+			        <div class="functions">
+						<a href="/communication/'.$task.'-email?id='.$email['emailID'].'" class="button secondary small">View</a>
+						<form><a href="/process/delete-email?id='.$email['emailID'].'" class="button danger small border"><span class="material-symbols-outlined">delete</span></a></form>
+					</div>
 				</li>';
         }
 
