@@ -16,6 +16,6 @@ if(!perch_member_logged_in()){
 
 hello_church_delete_email(perch_get('id'));
 
-header("location:/communication?msg=deleted");
+header("location:/communication/sent-email?msg=deleted");
 
 ?>
