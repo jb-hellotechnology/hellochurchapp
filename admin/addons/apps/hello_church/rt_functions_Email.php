@@ -113,13 +113,11 @@
 				    echo '
 			        </div>
 			        <div class="functions">';
-			    if($status=='Draft'){
+	
 				    echo '
 				    <a href="/communication/'.$task.'-email?id='.$email['emailID'].'" class="button secondary small">View</a>
 					<form><a href="/process/delete-email?id='.$email['emailID'].'" class="button danger small border"><span class="material-symbols-outlined">delete</span></a></form>';
-				}else{
-					echo '<a href="/communication/'.$task.'-email?id='.$email['emailID'].'" class="button secondary small">View</a>';
-				}
+
 				echo '</div>
 				</li>';
         }

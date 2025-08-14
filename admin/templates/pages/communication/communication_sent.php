@@ -16,7 +16,7 @@ perch_layout('header');
 			'include-hidden' => true,
 		)); 
 	?>
-	<h1>Communication</h1>
+	<h1>Sent Email</h1>
 	<?php
 		// DISPLAY MESSAGES
 		if($_GET['msg']=='deleted'){
@@ -30,19 +30,11 @@ perch_layout('header');
 			<div>
 				<section>
 					<header>
-						<h2>Drafts</h2>
+						<h2>Sent Email</h2>
 					</header>
 					<article>
-						<?php hello_church_email('Draft'); ?>
+						<?php hello_church_email('Sent'); ?>
 					</article>
-				</section>
-			</div>
-			<div>
-				<section>
-					<header>
-						<h2>New Email</h2>
-					</header>
-					<?php hello_church_form('add_email.html'); ?>
 				</section>
 			</div>
 		</div>
