@@ -543,5 +543,21 @@
 	    }
 	    
     }
+	
+	/** RETURN CONTACT TAGS **/
+	function hello_church_contact_map_markers(){
+		$API  = new PerchAPI(1.0, 'hello_church');
+		
+		$Session = PerchMembers_Session::fetch();
+		
+		$churchID = perch_member_get('churchID');
+		
+		$HelloChurchContacts = new HelloChurch_Contacts($API);
+		
+		$contacts = $HelloChurchContacts->all_contacts($churchID);
+		foreach($contacts as $contact){
+			echo "[".$contact['contactLat'].", ".$contact['contactLng'].", \"".$contact['contactFirstName']." ".$contact['contactLastName']."\", \"/contacts/edit-contact?id=".$contact['contactID']."\"],";
+		}		
+	}
     
 ?>

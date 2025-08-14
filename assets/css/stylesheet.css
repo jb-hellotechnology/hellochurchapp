@@ -1860,3 +1860,9 @@ ul.folders li span{
 .redactor-toolbar{
 	padding-bottom:1rem !important;
 }
+
+#map{
+	width:100%;
+	height: auto;
+	aspect-ratio: 3 / 1;
+}

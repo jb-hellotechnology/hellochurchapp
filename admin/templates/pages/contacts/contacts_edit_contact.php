@@ -55,7 +55,7 @@ $lng = hello_church_contact_get(perch_get('id'), 'contactLng');
 			</section>
 			<?php if($lat){ ?>
 			<section>
-				<div id="map" style="width: 100%; height: 400px;"></div>
+				<div id="map"></div>
 				<script>
 				
 					const map = L.map('map').setView([<?= $lat;  ?>, <?= $lng; ?>], 13);
@@ -66,15 +66,6 @@ $lng = hello_church_contact_get(perch_get('id'), 'contactLng');
 					}).addTo(map);
 				
 					const marker = L.marker([<?= $lat;  ?>, <?= $lng; ?>]).addTo(map);
-				
-					function onMapClick(e) {
-						popup
-							.setLatLng(e.latlng)
-							.setContent(`You clicked the map at ${e.latlng.toString()}`)
-							.openOn(map);
-					}
-				
-					map.on('click', onMapClick);
 				
 				</script>
 			</section>
