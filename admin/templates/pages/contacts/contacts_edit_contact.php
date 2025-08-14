@@ -115,8 +115,7 @@ $lng = hello_church_contact_get(perch_get('id'), 'contactLng');
 						attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
 					}).addTo(map);
 				
-					const marker = L.marker([<?= $lat;  ?>, <?= $lng; ?>]).addTo(map)
-						.bindPopup('<b>Hello world!</b><br />I am a popup.').openPopup();
+					const marker = L.marker([<?= $lat;  ?>, <?= $lng; ?>]).addTo(map);
 				
 					function onMapClick(e) {
 						popup
