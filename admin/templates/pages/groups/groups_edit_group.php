@@ -53,37 +53,45 @@ perch_layout('header');
 			// Create the map
 			var map = L.map('map').setView([51.505, -0.09], 13);
 			
-			// Add a tile layer (required for map display)
+			// Add a tile layer
 			L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
 				attribution: '&copy; OpenStreetMap contributors'
 			}).addTo(map);
 			
-			// Create an array to store the marker objects
+			// Step 1: Group data by lat,lng
+			var grouped = {};
+			markerData.forEach(function(item) {
+				var key = item[0] + "," + item[1]; // lat,lng as key
+				if (!grouped[key]) {
+					grouped[key] = [];
+				}
+				grouped[key].push({ name: item[2], url: item[3] });
+			});
+			
+			// Step 2: Create markers from grouped data
 			var markers = [];
 			
-			// Add markers from coordinates
-			markerData.forEach(function(data) {
-				var lat = data[0];
-				var lng = data[1];
-				var name = data[2];
-				var url = data[3];
-				
-				var popupContent = `<a href="${url}"><b>${name}</b></a>`;
-				
+			Object.keys(grouped).forEach(function(key) {
+				var parts = key.split(",");
+				var lat = parseFloat(parts[0]);
+				var lng = parseFloat(parts[1]);
+				var items = grouped[key];
+			
+				// Create popup HTML with all items for this location
+				var popupContent = items.map(function(i) {
+					return `<a href="${i.url}"><b>${i.name}</b>`;
+				}).join("<br>");
+			
 				var marker = L.marker([lat, lng])
 					.addTo(map)
 					.bindPopup(popupContent);
-				
+			
 				markers.push(marker);
 			});
 			
-			// Create a feature group from the markers
+			// Step 3: Fit map to all markers
 			var group = L.featureGroup(markers);
-			
-			// Fit map to the bounds of the group (with padding)
-			map.fitBounds(group.getBounds(), {
-				padding: [50, 50] // optional nice margin
-			});
+			map.fitBounds(group.getBounds(), { padding: [50, 50] });
 		
 		</script>
 	</section>
