@@ -417,4 +417,30 @@ class HelloChurch_Contacts extends PerchAPI_Factory
 		
 	}
 	
+	public function contact_next($churchID, $firstName, $lastName){
+		$API  = new PerchAPI(1.0, 'hello_church');
+		
+		$sql = "SELECT contactID as 'next', contactFirstName, contactLastName
+		  FROM perch3_hellochurch_contacts
+		  WHERE (contactLastName, contactFirstName) > ('".$lastName."', '".$firstName."') AND churchID=".$churchID."
+		  ORDER BY contactLastName ASC, contactFirstName ASC
+		  LIMIT 1;";
+		$result = $this->db->get_row($sql);
+		
+		return $result;
+	}
+	
+	public function contact_previous($churchID, $firstName, $lastName){
+		$API  = new PerchAPI(1.0, 'hello_church');
+		
+		$sql = "SELECT contactID AS 'previous', contactFirstName, contactLastName
+		  FROM perch3_hellochurch_contacts
+		  WHERE (contactLastName, contactFirstName) < ('".$lastName."', '".$firstName."') AND churchID=".$churchID."
+		  ORDER BY contactLastName DESC, contactFirstName DESC
+		  LIMIT 1;";
+		$result = $this->db->get_row($sql);
+		
+		return $result;
+	}
+	
 }

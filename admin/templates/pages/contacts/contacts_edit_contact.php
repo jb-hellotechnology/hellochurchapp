@@ -17,6 +17,8 @@ $name = hello_church_contact_get(perch_get('id'), 'contactFirstName').' '.hello_
 
 $lat = hello_church_contact_get(perch_get('id'), 'contactLat');
 $lng = hello_church_contact_get(perch_get('id'), 'contactLng');
+
+
 ?>
 <main class="flow full">
 	<?php 
@@ -24,7 +26,20 @@ $lng = hello_church_contact_get(perch_get('id'), 'contactLng');
 			'include-hidden' => true,
 		)); 
 	?>
-	<h1><?= $name ?></h1>
+	<h1 class="with-buttons"><?= $name ?>
+	<?php
+	$next = hello_church_contact_next(hello_church_contact_get(perch_get('id'), 'contactFirstName'), hello_church_contact_get(perch_get('id'), 'contactLastName'));
+	$previous = hello_church_contact_previous(hello_church_contact_get(perch_get('id'), 'contactFirstName'), hello_church_contact_get(perch_get('id'), 'contactLastName'));
+	echo '<div>';
+	if($previous){
+		echo '<a href="/contacts/edit-contact?id='.$previous['previous'].'" class="button small pale">Previous</a>';
+	}
+	if($next){
+		echo '<a href="/contacts/edit-contact?id='.$next['next'].'" class="button small pale">Next</a>';
+	}
+	echo '</div>'
+	?>
+	</h1>
 	<?php
 		// DISPLAY MESSAGES
 		if($_GET['msg']=='note_deleted'){

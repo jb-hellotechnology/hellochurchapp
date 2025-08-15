@@ -166,17 +166,32 @@ h1.with-button{
 	grid-template-columns: auto 140px;
 }
 
+h1.with-buttons{
+	display:grid;
+	grid-template-columns: auto 200px;
+	grid-column-gap:1rem;
+}
+
+h1.with-buttons div{
+	display: grid;
+	max-width:260px;
+	grid-template-columns: 1fr 1fr;
+	grid-column-gap:1rem;
+}
+
 h1 a{
 	text-decoration: none;
 	border-bottom: none;
 }
 
 @media screen and (max-width:768px){
-	h1.with-button{
+	h1.with-button,
+	h1.with-buttons{
 		grid-template-columns: auto;
 		grid-row-gap: 1rem;
 	}
-	h1.with-button .button{
+	h1.with-button .button,
+	h1.with-buttons .button{
 		max-width:120px;
 	}
 }
@@ -303,6 +318,11 @@ main .button {
 
 .button.secondary{
 	background-color:var(--color-secondary);
+}
+
+.button.pale{
+	background-color:#ccc;
+	color:var(--color-primary);
 }
 
 .button.danger{

@@ -561,5 +561,29 @@
 			}
 		}		
 	}
+	
+	function hello_church_contact_next($firstName, $lastName){
+		$API  = new PerchAPI(1.0, 'hello_church');
+		
+		$Session = PerchMembers_Session::fetch();
+		
+		$churchID = perch_member_get('churchID');
+		
+		$HelloChurchContacts = new HelloChurch_Contacts($API);
+		
+		return $HelloChurchContacts->contact_next($churchID, $firstName, $lastName);
+	}
+	
+	function hello_church_contact_previous($firstName, $lastName){
+		$API  = new PerchAPI(1.0, 'hello_church');
+		
+		$Session = PerchMembers_Session::fetch();
+		
+		$churchID = perch_member_get('churchID');
+		
+		$HelloChurchContacts = new HelloChurch_Contacts($API);
+		
+		return $HelloChurchContacts->contact_previous($churchID, $firstName, $lastName);
+	}
     
 ?>
