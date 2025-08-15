@@ -1701,6 +1701,11 @@ ul.list li form .button.danger.small.border{
 	max-width:100%;
 }
 
+.email-preview table tr td a{
+	border:none;
+	color:#fff;
+}
+
 .session-preview .bible,
 .email-preview .bible,
 .plan-preview .bible{
@@ -1865,4 +1870,10 @@ ul.folders li span{
 	width:100%;
 	height: auto;
 	aspect-ratio: 3 / 1;
+}
+
+@media screen and (max-width:768px){
+	#map{
+		aspect-ratio: 2 / 1;
+	}
 }

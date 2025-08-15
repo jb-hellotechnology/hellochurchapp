@@ -19,6 +19,18 @@ if(!perch_member_logged_in()){
 $email = hello_church_get_email($_POST['email_id']);
 $church = hello_church_church(true);
 
+$font = 'Helvetica, sans-serif';
+$background = '#f0f2f9;';
+$button = '#142c8e;';
+$templateID = 19;
+
+if($church['churchEmailTheme']=='green'){
+	$font = 'Georgia, serif';
+	$background = '#E6F5E6;';
+	$button = '#003300';
+	$templateID = 20;
+}
+
 if(!$_POST['recipient']){
 	
 	$recipients = array();
@@ -70,7 +82,7 @@ foreach($email as $type => $item){
 	$type = $typeParts[0];
 	
 	if($type=='heading'){
-		$emailContent .= '<h2 style="font-family: Helvetica, sans-serif; font-size: 24px; font-weight: strong; margin: 0; margin-bottom: 16px;">'.$item.'</h2>';
+		$emailContent .= '<h2 style="font-family: '.$font.'; font-size: 24px; font-weight: strong; margin: 0; margin-bottom: 16px;">'.$item.'</h2>';
 	}
 	if($type=='text'){
 		$emailContent .= ''.$Parsedown->text($item).'';
@@ -98,7 +110,7 @@ foreach($email as $type => $item){
 		curl_close($ch);
 		$json = json_decode($resultESV,true);
 		$passage = strip_tags($json['passages'][0],"<p><a>");
-		$emailContent .= '<div style="font-family: Helvetica, sans-serif !important; font-size: 16px; font-weight: normal; margin: 0; margin-bottom: 16px;background:#f0f2f9;padding:16px;">'.$passage.'</div>';
+		$emailContent .= '<div style="font-family: '.$font.' !important; font-size: 16px; font-weight: normal; margin: 0; margin-bottom: 16px;background:'.$background.';padding:16px;">'.$passage.'</div>';
 
 	}
 	if($type=='link'){
@@ -110,11 +122,11 @@ foreach($email as $type => $item){
 			$emailContent .= '<table role="presentation" border="0" cellpadding="0" cellspacing="0" class="btn btn-primary" style="border-collapse: separate; mso-table-lspace: 0pt; mso-table-rspace: 0pt; box-sizing: border-box; width: 100%; min-width: 100%;" width="100%">
                     <tbody>
                       <tr>
-                        <td align="left" style="font-family: Helvetica, sans-serif; font-size: 16px; vertical-align: top; padding-bottom: 16px;" valign="top">
+                        <td align="left" style="font-family: '.$font.'; font-size: 16px; vertical-align: top; padding-bottom: 16px;" valign="top">
                           <table role="presentation" border="0" cellpadding="0" cellspacing="0" style="border-collapse: separate; mso-table-lspace: 0pt; mso-table-rspace: 0pt; width: auto;">
                             <tbody>
                               <tr>
-                                <td style="font-family: Helvetica, sans-serif; font-size: 16px; vertical-align: top; border-radius: 4px; text-align: center; background-color: #142c8e;" valign="top" align="center" bgcolor="#0867ec"> <a href="'.$item.'" target="_blank" style="border: solid 2px #142c8e; border-radius: 4px; box-sizing: border-box; cursor: pointer; display: inline-block; font-size: 16px; font-weight: bold; margin: 0; padding: 12px 24px; text-decoration: none; text-transform: capitalize; background-color: #142c8e; border-color: #142c8e; color: #ffffff;">'.$buttonText.'</a> </td>
+                                <td style="font-family:'.$font.'; font-size: 16px; vertical-align: top; border-radius: 4px; text-align: center; background-color: '$button.';" valign="top" align="center" bgcolor="'$button.'"> <a href="'.$item.'" target="_blank" style="border: solid 2px '$button.'; border-radius: 4px; box-sizing: border-box; cursor: pointer; display: inline-block; font-size: 16px; font-weight: bold; margin: 0; padding: 12px 24px; text-decoration: none; text-transform: capitalize; background-color: '$button.'; border-color: #142c8e; color: #ffffff;">'.$buttonText.'</a> </td>
                               </tr>
                             </tbody>
                           </table>
@@ -134,11 +146,11 @@ foreach($email as $type => $item){
 		$emailContent .= '<table role="presentation" border="0" cellpadding="0" cellspacing="0" class="btn btn-primary" style="border-collapse: separate; mso-table-lspace: 0pt; mso-table-rspace: 0pt; box-sizing: border-box; width: 100%; min-width: 100%;" width="100%">
                     <tbody>
                       <tr>
-                        <td align="left" style="font-family: Helvetica, sans-serif; font-size: 16px; vertical-align: top; padding-bottom: 16px;" valign="top">
+                        <td align="left" style="font-family: '.$font.'; font-size: 16px; vertical-align: top; padding-bottom: 16px;" valign="top">
                           <table role="presentation" border="0" cellpadding="0" cellspacing="0" style="border-collapse: separate; mso-table-lspace: 0pt; mso-table-rspace: 0pt; width: auto;">
                             <tbody>
                               <tr>
-                                <td style="font-family: Helvetica, sans-serif; font-size: 16px; vertical-align: top; border-radius: 4px; text-align: center; background-color: #142c8e;" valign="top" align="center" bgcolor="#0867ec"> <a href="https://app.churchplanner.co.uk/feed/file/'.$file['churchID'].'/'.$file['fileID'].'" target="_blank" style="border: solid 2px #142c8e; border-radius: 4px; box-sizing: border-box; cursor: pointer; display: inline-block; font-size: 16px; font-weight: bold; margin: 0; padding: 12px 24px; text-decoration: none; text-transform: capitalize; background-color: #142c8e; border-color: #142c8e; color: #ffffff;">Download: '.$file['fileName'].'</a> </td>
+                                <td style="font-family: '.$font.'; font-size: 16px; vertical-align: top; border-radius: 4px; text-align: center; background-color: '$button.'" valign="top" align="center" bgcolor="'$button.'"> <a href="https://app.churchplanner.co.uk/feed/file/'.$file['churchID'].'/'.$file['fileID'].'" target="_blank" style="border: solid 2px '$button.'; border-radius: 4px; box-sizing: border-box; cursor: pointer; display: inline-block; font-size: 16px; font-weight: bold; margin: 0; padding: 12px 24px; text-decoration: none; text-transform: capitalize; background-color: '$button.'; border-color: '$button.'; color: #ffffff;">Download: '.$file['fileName'].'</a> </td>
                               </tr>
                             </tbody>
                           </table>
@@ -153,7 +165,7 @@ foreach($email as $type => $item){
 		$tParts = explode(" ", $parts[1]);
 		$dParts = explode("-", $tParts[0]);
 		$timeStamp = "$dParts[2]/$dParts[1]/$dParts[0] $tParts[1]";
-		$emailContent .= '<div style="font-family: Helvetica, sans-serif !important; font-size: 16px; font-weight: normal; margin: 0; margin-bottom: 16px;background:#f0f2f9;padding:16px;"><h2 style="font-family: Helvetica, sans-serif; font-size: 20px; font-weight: strong; margin: 0; margin-bottom: 16px;">'.$event->eventName().'</h2><p style="font-family: Helvetica, sans-serif; font-size: 16px; font-weight: normal; font-style:italic; margin: 0; margin-bottom: 16px;">'.$timeStamp.'</p><p style="font-family: Helvetica, sans-serif; font-size: 16px; font-weight: normal; margin: 0;">'.nl2br($event->eventDescription()).'</p></div>';
+		$emailContent .= '<div style="font-family: '.$font.' !important; font-size: 16px; font-weight: normal; margin: 0; margin-bottom: 16px;background:'.$background.';padding:16px;"><h2 style="font-family: '.$font.'; font-size: 20px; font-weight: strong; margin: 0; margin-bottom: 16px;">'.$event->eventName().'</h2><p style="font-family: '.$font.'; font-size: 16px; font-weight: normal; font-style:italic; margin: 0; margin-bottom: 16px;">'.$timeStamp.'</p><p style="font-family: '.$font.'; font-size: 16px; font-weight: normal; margin: 0;">'.nl2br($event->eventDescription()).'</p></div>';
 
 	}
 	if($type=='plan'){
@@ -167,10 +179,10 @@ foreach($email as $type => $item){
 			$type = $typeParts[0];
 			
 			if($type=='heading'){
-				$emailContent .= '<h2 style="font-family: Helvetica, sans-serif; font-size: 24px; font-weight: strong; margin: 0; margin-bottom: 16px;">'.$item.'</h2>';
+				$emailContent .= '<h2 style="font-family: '.$font.'; font-size: 24px; font-weight: strong; margin: 0; margin-bottom: 16px;">'.$item.'</h2>';
 			}
 			if($type=='text'){
-				$emailContent .= '<p style="font-family: Helvetica, sans-serif; font-size: 16px; font-weight: normal; margin: 0; margin-bottom: 16px;">'.nl2br($item).'</p>';
+				$emailContent .= '<p style="font-family: '.$font.'; font-size: 16px; font-weight: normal; margin: 0; margin-bottom: 16px;">'.nl2br($item).'</p>';
 			}
 			if($type=='youtube'){
 				$emailContent .=  preg_replace("/\s*[a-zA-Z\/\/:\.]*youtu.be\/([a-zA-Z0-9\-_]+)([a-zA-Z0-9\/\*\-\_\?\&\;\%\=\.]*)/i","<a href='".$item."'><img src='https://img.youtube.com/vi/$1/hqdefault.jpg' alt='YouTube' style='margin-bottom:16px;' /></a>",$item);
@@ -195,7 +207,7 @@ foreach($email as $type => $item){
 				curl_close($ch);
 				$json = json_decode($resultESV,true);
 				$passage = strip_tags($json['passages'][0],"<p><a>");
-				$emailContent .= '<div style="font-family: Helvetica, sans-serif !important; font-size: 16px; font-weight: normal; margin: 0; margin-bottom: 16px;background:#f0f2f9;padding:16px;">'.$passage.'</div>';
+				$emailContent .= '<div style="font-family: '.$font.' !important; font-size: 16px; font-weight: normal; margin: 0; margin-bottom: 16px;background:'.$background.';padding:16px;">'.$passage.'</div>';
 		
 			}
 			if($type=='link'){
@@ -206,11 +218,11 @@ foreach($email as $type => $item){
 					$emailContent .= '<table role="presentation" border="0" cellpadding="0" cellspacing="0" class="btn btn-primary" style="border-collapse: separate; mso-table-lspace: 0pt; mso-table-rspace: 0pt; box-sizing: border-box; width: 100%; min-width: 100%;" width="100%">
 						<tbody>
 						  <tr>
-							<td align="left" style="font-family: Helvetica, sans-serif; font-size: 16px; vertical-align: top; padding-bottom: 16px;" valign="top">
+							<td align="left" style="font-family: '.$font.'; font-size: 16px; vertical-align: top; padding-bottom: 16px;" valign="top">
 							  <table role="presentation" border="0" cellpadding="0" cellspacing="0" style="border-collapse: separate; mso-table-lspace: 0pt; mso-table-rspace: 0pt; width: auto;">
 								<tbody>
 								  <tr>
-									<td style="font-family: Helvetica, sans-serif; font-size: 16px; vertical-align: top; border-radius: 4px; text-align: center; background-color: #142c8e;" valign="top" align="center" bgcolor="#0867ec"> <a href="'.$item.'" target="_blank" style="border: solid 2px #142c8e; border-radius: 4px; box-sizing: border-box; cursor: pointer; display: inline-block; font-size: 16px; font-weight: bold; margin: 0; padding: 12px 24px; text-decoration: none; text-transform: capitalize; background-color: #142c8e; border-color: #142c8e; color: #ffffff;">'.$buttonText.'</a> </td>
+									<td style="font-family: '.$font.'; font-size: 16px; vertical-align: top; border-radius: 4px; text-align: center; background-color: '$button.'" valign="top" align="center" bgcolor="'$button.'"> <a href="'.$item.'" target="_blank" style="border: solid 2px '$button.' border-radius: 4px; box-sizing: border-box; cursor: pointer; display: inline-block; font-size: 16px; font-weight: bold; margin: 0; padding: 12px 24px; text-decoration: none; text-transform: capitalize; background-color: '$button.' border-color: '$button.' color: #ffffff;">'.$buttonText.'</a> </td>
 								  </tr>
 								</tbody>
 							  </table>
@@ -236,10 +248,10 @@ foreach($email as $type => $item){
 			$type = $typeParts[0];
 			
 			if($type=='heading'){
-				$emailContent .= '<h2 style="font-family: Helvetica, sans-serif; font-size: 24px; font-weight: strong; margin: 0; margin-bottom: 16px;">'.$item.'</h2>';
+				$emailContent .= '<h2 style="font-family: '.$font.'; font-size: 24px; font-weight: strong; margin: 0; margin-bottom: 16px;">'.$item.'</h2>';
 			}
 			if($type=='text'){
-				$emailContent .= '<p style="font-family: Helvetica, sans-serif; font-size: 16px; font-weight: normal; margin: 0; margin-bottom: 16px;">'.nl2br($item).'</p>';
+				$emailContent .= '<p style="font-family: '.$font.'; font-size: 16px; font-weight: normal; margin: 0; margin-bottom: 16px;">'.nl2br($item).'</p>';
 			}
 			if($type=='youtube'){
 				$emailContent .=  preg_replace("/\s*[a-zA-Z\/\/:\.]*youtu.be\/([a-zA-Z0-9\-_]+)([a-zA-Z0-9\/\*\-\_\?\&\;\%\=\.]*)/i","<a href='".$item."'><img src='https://img.youtube.com/vi/$1/hqdefault.jpg' alt='YouTube' style='margin-bottom:16px;' /></a>",$item);
@@ -264,7 +276,7 @@ foreach($email as $type => $item){
 				curl_close($ch);
 				$json = json_decode($resultESV,true);
 				$passage = strip_tags($json['passages'][0],"<p><a>");
-				$emailContent .= '<div style="font-family: Helvetica, sans-serif !important; font-size: 16px; font-weight: normal; margin: 0; margin-bottom: 16px;background:#f0f2f9;padding:16px;">'.$passage.'</div>';
+				$emailContent .= '<div style="font-family: '.$font.' !important; font-size: 16px; font-weight: normal; margin: 0; margin-bottom: 16px;background:'.$background.';padding:16px;">'.$passage.'</div>';
 		
 			}
 			if($type=='link'){
@@ -275,11 +287,11 @@ foreach($email as $type => $item){
 					$emailContent .= '<table role="presentation" border="0" cellpadding="0" cellspacing="0" class="btn btn-primary" style="border-collapse: separate; mso-table-lspace: 0pt; mso-table-rspace: 0pt; box-sizing: border-box; width: 100%; min-width: 100%;" width="100%">
 						<tbody>
 						  <tr>
-							<td align="left" style="font-family: Helvetica, sans-serif; font-size: 16px; vertical-align: top; padding-bottom: 16px;" valign="top">
+							<td align="left" style="font-family: '.$font.'; font-size: 16px; vertical-align: top; padding-bottom: 16px;" valign="top">
 							  <table role="presentation" border="0" cellpadding="0" cellspacing="0" style="border-collapse: separate; mso-table-lspace: 0pt; mso-table-rspace: 0pt; width: auto;">
 								<tbody>
 								  <tr>
-									<td style="font-family: Helvetica, sans-serif; font-size: 16px; vertical-align: top; border-radius: 4px; text-align: center; background-color: #142c8e;" valign="top" align="center" bgcolor="#0867ec"> <a href="'.$item.'" target="_blank" style="border: solid 2px #142c8e; border-radius: 4px; box-sizing: border-box; cursor: pointer; display: inline-block; font-size: 16px; font-weight: bold; margin: 0; padding: 12px 24px; text-decoration: none; text-transform: capitalize; background-color: #142c8e; border-color: #142c8e; color: #ffffff;">'.$buttonText.'</a> </td>
+									<td style="font-family:'.$font.'f; font-size: 16px; vertical-align: top; border-radius: 4px; text-align: center; background-color: '$button.'" valign="top" align="center" bgcolor="'$button.'"> <a href="'.$item.'" target="_blank" style="border: solid 2px '$button.' border-radius: 4px; box-sizing: border-box; cursor: pointer; display: inline-block; font-size: 16px; font-weight: bold; margin: 0; padding: 12px 24px; text-decoration: none; text-transform: capitalize; background-color: '$button.' border-color: '$button.' color: #ffffff;">'.$buttonText.'</a> </td>
 								  </tr>
 								</tbody>
 							  </table>
@@ -299,11 +311,11 @@ foreach($email as $type => $item){
 				$emailContent .= '<table role="presentation" border="0" cellpadding="0" cellspacing="0" class="btn btn-primary" style="border-collapse: separate; mso-table-lspace: 0pt; mso-table-rspace: 0pt; box-sizing: border-box; width: 100%; min-width: 100%;" width="100%">
 							<tbody>
 							  <tr>
-								<td align="left" style="font-family: Helvetica, sans-serif; font-size: 16px; vertical-align: top; padding-bottom: 16px;" valign="top">
+								<td align="left" style="font-family: '.$font.'; font-size: 16px; vertical-align: top; padding-bottom: 16px;" valign="top">
 								  <table role="presentation" border="0" cellpadding="0" cellspacing="0" style="border-collapse: separate; mso-table-lspace: 0pt; mso-table-rspace: 0pt; width: auto;">
 									<tbody>
 									  <tr>
-										<td style="font-family: Helvetica, sans-serif; font-size: 16px; vertical-align: top; border-radius: 4px; text-align: center; background-color: #142c8e;" valign="top" align="center" bgcolor="#0867ec"> <a href="https://app.churchplanner.co.uk/feed/file/'.$file['churchID'].'/'.$file['fileID'].'" target="_blank" style="border: solid 2px #142c8e; border-radius: 4px; box-sizing: border-box; cursor: pointer; display: inline-block; font-size: 16px; font-weight: bold; margin: 0; padding: 12px 24px; text-decoration: none; text-transform: capitalize; background-color: #142c8e; border-color: #142c8e; color: #ffffff;">Download: '.$file['fileName'].'</a> </td>
+										<td style="font-family: '.$font.'; font-size: 16px; vertical-align: top; border-radius: 4px; text-align: center; background-color: '$button.'" valign="top" align="center" bgcolor="'$button.'"> <a href="https://app.churchplanner.co.uk/feed/file/'.$file['churchID'].'/'.$file['fileID'].'" target="_blank" style="border: solid 2px '$button.' border-radius: 4px; box-sizing: border-box; cursor: pointer; display: inline-block; font-size: 16px; font-weight: bold; margin: 0; padding: 12px 24px; text-decoration: none; text-transform: capitalize; background-color: #142c8e; border-color: '$button.' color: #ffffff;">Download: '.$file['fileName'].'</a> </td>
 									  </tr>
 									</tbody>
 								  </table>
@@ -337,7 +349,8 @@ $sendSmtpEmail = new \Brevo\Client\Model\SendSmtpEmail([
 	'to' => $to,
 	'bcc' => $bcc,
 	'params' => ['emailSubject' => $subject, 'emailContent' => $emailContent, 'senderPostalAddress' => $senderPostalAddress],
-	'templateId' => 19,
+	'preheader' => $subject,
+	'templateId' => $templateID,
 ]);
 
 try {
