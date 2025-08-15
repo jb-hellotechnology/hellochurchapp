@@ -164,7 +164,7 @@
 			$button = '#003300;';
 			$templateID = 20;
 			
-			$emailContent = '<style>.email-preview a{color:'.$button.';border-bottom:1px solid '.$button.'}.email-preview p{font-family: '.$font.';}</style>';
+			$emailContent = '<style>.email-preview a{color:'.$button.';border-bottom:1px solid '.$button.'}.email-preview p,.email-preview ul,.email-preview ol,.email-preview li{font-family: '.$font.';}</style>';
 		}
 
 		foreach($email as $type => $item){
