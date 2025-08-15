@@ -31,17 +31,11 @@ $lng = hello_church_contact_get(perch_get('id'), 'contactLng');
 	$next = hello_church_contact_next(hello_church_contact_get(perch_get('id'), 'contactFirstName'), hello_church_contact_get(perch_get('id'), 'contactLastName'));
 	$previous = hello_church_contact_previous(hello_church_contact_get(perch_get('id'), 'contactFirstName'), hello_church_contact_get(perch_get('id'), 'contactLastName'));
 	echo '<div>';
-	if($previous){
-		if(!$next){
-			echo '<div></div>';
-		}
-		echo '<a href="/contacts/edit-contact?id='.$previous['previous'].'" class="button small pale">Previous</a>';
-	}
 	if($next){
-		if(!$previous){
-			echo '<div></div>';
-		}
-		echo '<a href="/contacts/edit-contact?id='.$next['next'].'" class="button small pale">Next</a>';
+		echo '<a href="/contacts/edit-contact?id='.$next['next'].'" class="button small pale">&rarr;</a>';
+	}
+	if($previous){
+		echo '<a href="/contacts/edit-contact?id='.$previous['previous'].'" class="button small pale">&larr;</a>';
 	}
 	echo '</div>'
 	?>
