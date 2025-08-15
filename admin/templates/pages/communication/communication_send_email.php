@@ -1,8 +1,8 @@
 <?php
 
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
+// ini_set('display_errors', 1);
+// ini_set('display_startup_errors', 1);
+// error_reporting(E_ALL);
 
 
 require '../../../vendor/autoload.php';
@@ -18,8 +18,6 @@ if(!perch_member_logged_in()){
 
 $email = hello_church_get_email($_POST['email_id']);
 $church = hello_church_church(true);
-
-print_r($church);
 
 $font = 'Helvetica, sans-serif';
 $background = '#f0f2f9;';
@@ -356,6 +354,7 @@ $sendSmtpEmail = new \Brevo\Client\Model\SendSmtpEmail([
 
 try {
     $result = $apiInstance->sendTransacEmail($sendSmtpEmail);
+	print_r($result);
 	if(!$_POST['recipient']){
 		hello_church_store_email_result($_POST['email_id'], $result);
 		if($recipients){
