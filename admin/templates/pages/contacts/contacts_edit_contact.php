@@ -35,6 +35,9 @@ $lng = hello_church_contact_get(perch_get('id'), 'contactLng');
 		echo '<a href="/contacts/edit-contact?id='.$previous['previous'].'" class="button small pale">Previous</a>';
 	}
 	if($next){
+		if(!$previous){
+			echo '<div></div>';
+		}
 		echo '<a href="/contacts/edit-contact?id='.$next['next'].'" class="button small pale">Next</a>';
 	}
 	echo '</div>'
