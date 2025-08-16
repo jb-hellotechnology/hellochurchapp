@@ -54,16 +54,14 @@ if(!$_POST['recipient']){
 		$contact = hello_church_contact($contact);
 		if($contact->contactAcceptEmail()=='Yes'){
 			$bcc[] = (object) array('email' => $contact->contactEmail());
+			mail('jack@hellotechnology.co.uk', 'BCC', $contact->contactEmail());
 		}
 	}
 	
 	$to = array();
 	$to[] = (object) array('email' => $church['churchEmail']);
 	
-	$test_bcc = implode(", ", $bcc);
-	
 	mail('jack@hellotechnology.co.uk', 'TO', $to);
-	mail('jack@hellotechnology.co.uk', 'BCC', $test_bcc);
 	
 }else{
 	
