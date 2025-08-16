@@ -168,7 +168,7 @@ foreach($email as $type => $item){
 		$tParts = explode(":", $tParts[1]);
 		$time = "$tParts[0]:$tParts[1]";
 		$timeStamp = "$dParts[2]/$dParts[1]/$dParts[0] $time";
-		$emailContent .= '<div style="font-family: '.$font.' !important; font-size: 16px; font-weight: normal; margin: 0; margin-bottom: 16px;background:'.$background.';padding:16px;"><h2 style="font-family: '.$font.'; font-size: 20px; font-weight: strong; margin: 0; margin-bottom: 16px;">'.$event['eventName'].'</h2><p style="font-family: '.$font.'; font-size: 16px; font-weight: normal; font-style:italic; margin: 0; margin-bottom: 16px;">'.$timeStamp.'</p><p style="font-family: '.$font.'; font-size: 16px; font-weight: normal; margin: 0;">'.nl2br($event['eventDescription']).'</p>';
+		$emailContent .= '<div style="font-family: '.$font.' !important; font-size: 16px; font-weight: normal; margin: 0; margin-bottom: 16px;background:'.$background.';padding:16px;"><h2 style="font-family: '.$font.'; font-size: 20px; font-weight: strong; margin: 0; margin-bottom: 16px;">'.$event['eventName'].'</h2><p style="font-family: '.$font.'; font-size: 16px; font-weight: normal; font-style:italic; margin: 0; margin-bottom: 16px;">'.$timeStamp.'</p><p style="font-family: '.$font.'; font-size: 16px; font-weight: normal; margin: 0;">'.nl2br($event->eventDescription()).'</p>';
 		
 		// Include Roles
 		$emailContent .= hello_church_contact_responsibilities_email($parts[0], $date);
