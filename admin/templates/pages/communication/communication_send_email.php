@@ -56,7 +56,6 @@ if(!$_POST['recipient']){
 			if($contact->contactEmail()){
 				$bcc[] = (object) array('email' => $contact->contactEmail());
 			}
-			mail('jack@hellotechnology.co.uk', 'BCC', $contact->contactEmail());
 		}
 	}
 	
