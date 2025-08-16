@@ -61,8 +61,6 @@ if(!$_POST['recipient']){
 	$to = array();
 	$to[] = (object) array('email' => $church['churchEmail']);
 	
-	mail('jack@hellotechnology.co.uk', 'TO', $to);
-	
 }else{
 	
 	$to = array();	
