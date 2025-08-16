@@ -361,6 +361,7 @@ $sendSmtpEmail = new \Brevo\Client\Model\SendSmtpEmail([
 
 try {
     $result = $apiInstance->sendTransacEmail($sendSmtpEmail);
+	print_r($result);
 	if(!$_POST['recipient']){
 		hello_church_store_email_result($_POST['email_id'], $result);
 		if($recipients){
