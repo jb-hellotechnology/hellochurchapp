@@ -53,7 +53,9 @@ if(!$_POST['recipient']){
 	foreach(array_unique($recipients) as $contact){
 		$contact = hello_church_contact($contact);
 		if($contact->contactAcceptEmail()=='Yes'){
-			$bcc[] = (object) array('email' => $contact->contactEmail());
+			if($contact->contactEmail()){
+				$bcc[] = (object) array('email' => $contact->contactEmail());
+			}
 			mail('jack@hellotechnology.co.uk', 'BCC', $contact->contactEmail());
 		}
 	}
