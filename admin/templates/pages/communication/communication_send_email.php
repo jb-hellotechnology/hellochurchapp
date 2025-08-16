@@ -163,7 +163,7 @@ foreach($email as $type => $item){
 		$parts = explode("_", $item);
 		$event = hello_church_event($parts[0]);
 		$tParts = explode(" ", $parts[1]);
-		$date = $parts[0];
+		$date = $tParts[0];
 		$dParts = explode("-", $tParts[0]);
 		$timeStamp = "$dParts[2]/$dParts[1]/$dParts[0] $tParts[1]";
 		$emailContent .= '<div style="font-family: '.$font.' !important; font-size: 16px; font-weight: normal; margin: 0; margin-bottom: 16px;background:'.$background.';padding:16px;"><h2 style="font-family: '.$font.'; font-size: 20px; font-weight: strong; margin: 0; margin-bottom: 16px;">'.$event->eventName().'</h2><p style="font-family: '.$font.'; font-size: 16px; font-weight: normal; font-style:italic; margin: 0; margin-bottom: 16px;">'.$timeStamp.'</p><p style="font-family: '.$font.'; font-size: 16px; font-weight: normal; margin: 0;">'.nl2br($event->eventDescription()).'</p>';
