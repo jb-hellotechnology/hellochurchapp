@@ -226,6 +226,35 @@
 		
 	}
 	
+	/** LIST RESPONSIBILITIES **/
+	function hello_church_contact_responsibilities_email($id, $date){
+		
+		$API  = new PerchAPI(1.0, 'hello_church');
+		
+		$Session = PerchMembers_Session::fetch();
+		
+		$churchID = perch_member_get('churchID');
+	
+		$HelloChurchEvents = new HelloChurch_Events($API);
+		$HelloChurchRoles = new HelloChurch_Roles($API);
+		$HelloChurchContacts = new HelloChurch_Contacts($API);
+		
+		$responsibilities = $HelloChurchEvents->event_responsibilities_email($id, $date);
+		
+		$html .= '<ul>';
+		
+		foreach($responsibilities as $responsibility){
+			$html .= '<li>
+						<strong>'.$responsibility['roleName'].':</strong> '.$responsibility['contactFirstName'].' '.$responsibility['contactLastName'].'
+					</li>';
+		}
+		
+		$html .= '</ul>';
+		
+		return $html;
+		
+	}
+	
 	/** CREATE ICAL FEED FOR CALENDAR **/
 	function ical_feed($churchName, $churchID){
 	    

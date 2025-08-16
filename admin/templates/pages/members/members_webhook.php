@@ -60,7 +60,6 @@ switch ($event->type) {
     $cancel = $event->data->object->cancel_at;
     $plan_id = $event->data->object->items->data[0]->plan->id;
     $cost = $event->data->object->items->data[0]->plan->amount_decimal;
-    print_r($event);
     church_update_subscription_details(
 	    $customer_id,
 	    $subscription_id,
