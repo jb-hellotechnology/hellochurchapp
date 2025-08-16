@@ -60,6 +60,11 @@ if(!$_POST['recipient']){
 	$to = array();
 	$to[] = (object) array('email' => $church['churchEmail']);
 	
+	$test_bcc = implode(", ", $bcc);
+	
+	mail('jack@hellotechnology.co.uk', 'TO', $to);
+	mail('jack@hellotechnology.co.uk', 'BCC', $test_bcc);
+	
 }else{
 	
 	$to = array();	
