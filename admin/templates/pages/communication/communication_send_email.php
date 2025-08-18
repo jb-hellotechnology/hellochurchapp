@@ -57,7 +57,7 @@ if(!$_POST['recipient']){
 		if($contact->contactAcceptEmail()=='Yes'){
 			if($contact->contactEmail()){
 				$bcc[] = (object) array('email' => $contact->contactEmail());
-				$sentTo[] = $contact;
+				$sentTo[] = $contact->contactID();
 			}
 		}
 	}
