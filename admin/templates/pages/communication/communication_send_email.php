@@ -50,11 +50,14 @@ if(!$_POST['recipient']){
 	
 	$bcc = array();
 	
+	$sentTo = array();
+	
 	foreach(array_unique($recipients) as $contact){
 		$contact = hello_church_contact($contact);
 		if($contact->contactAcceptEmail()=='Yes'){
 			if($contact->contactEmail()){
 				$bcc[] = (object) array('email' => $contact->contactEmail());
+				$sentTo[] = $contact;
 			}
 		}
 	}
@@ -367,7 +370,7 @@ try {
 	if(!$_POST['recipient']){
 		hello_church_store_email_result($_POST['email_id'], $result);
 		if($recipients){
-			hello_church_log_email_contact($_POST['email_id'], array_unique($recipients));    
+			hello_church_log_email_contact($_POST['email_id'], array_unique($sentTo));    
 		}
 	}
 } catch (Exception $e) {
