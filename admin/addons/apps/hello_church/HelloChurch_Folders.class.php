@@ -243,9 +243,13 @@ class HelloChurch_Folders extends PerchAPI_Factory
 			}
 			
 			$path = $this->getFolderPath($file['folderID'], $folders);
-			$folderName = $path . ' >';
 			
-		    $thisFile = array('value' => $file['fileID'], 'text' => $folderName." ".$file['fileName']);
+			if($file['folderID']){
+				$thisFile = array('value' => $file['fileID'], 'text' => $path." > ".$file['fileName']);
+			}else{
+				$thisFile = array('value' => $file['fileID'], 'text' => $file['fileName']);
+			}
+			
 		    $files[] = $thisFile;
 		    
 	    }
