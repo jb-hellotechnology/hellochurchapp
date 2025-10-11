@@ -217,25 +217,35 @@ class HelloChurch_Folders extends PerchAPI_Factory
 	    
 	    $API  = new PerchAPI(1.0, 'hello_church');
 	    
-	    $sql = "SELECT * FROM perch3_hellochurch_files WHERE churchID='".$churchID."' AND 
-	    	(
-	    		RIGHT(fileLocation,3)='jpg' OR 
-	    		RIGHT(fileLocation,3)='JPG' OR 
-	    		RIGHT(fileLocation,4)='jpeg' OR 
-	    		RIGHT(fileLocation,4)='JPEG' OR 
-				RIGHT(fileLocation,3)='png' OR 
-				RIGHT(fileLocation,3)='PNG'
-	    		
-	    	) 
-	    	ORDER BY fileCreated DESC LIMIT 100";   
+	    $sql = "SELECT * 
+		FROM perch3_hellochurch_files 
+		WHERE churchID = '".$churchID."'
+		  AND (
+			LOWER(RIGHT(fileLocation, 3)) = 'jpg' OR
+			LOWER(RIGHT(fileLocation, 4)) = 'jpeg' OR
+			LOWER(RIGHT(fileLocation, 3)) = 'png'
+		  )
+		ORDER BY folderID, fileCreated DESC 
+		LIMIT 100;";   
 	    
 	    $files = array();
 		
 	    $results = $this->db->get_rows($sql);
 	    
 	    foreach($results as $file){
-		    
-		    $thisFile = array('value' => $file['fileID'], 'text' => $file['fileName']);
+			
+			// get folders
+			$sql2 = "SELECT * FROM perch3_hellochurch_folders WHERE churchID='".$churchID."'";
+			$result2 = $this->db->get_rows($sql2);
+			$folders = [];
+			foreach($result2 as $row){
+				$folders[$row['folderID']] = $row;
+			}
+			
+			$path = $this->getFolderPath($file['folderID'], $folders);
+			$folderName = $path . ' >';
+			
+		    $thisFile = array('value' => $file['fileID'], 'text' => $folderName." ".$file['fileName']);
 		    $files[] = $thisFile;
 		    
 	    }
@@ -244,6 +254,21 @@ class HelloChurch_Folders extends PerchAPI_Factory
 	    return $files;
 	    
     }
+	
+	function getFolderPath($folderID, $folders) {
+		if (!isset($folders[$folderID])) {
+			return '';
+		}
+	
+		$folder = $folders[$folderID];
+		// If this folder has a parent, recursively get its path
+		if ($folder['folderParent']) {
+			return $this->getFolderPath($folder['folderParent'], $folders) . ' > ' . $folder['folderName'];
+		} else {
+			// Root folder
+			return $folder['folderName'];
+		}
+	}
 	
 	public function get_public_url($fileID){
 		

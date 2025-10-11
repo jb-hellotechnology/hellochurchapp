@@ -97,7 +97,7 @@ function populate_select(pItem, pType){
 
 $(document).ready(function(){
 	
-	$('.image-select').each(function(){
+	$('.session-container .image-select').each(function(){
 		let active = $(this).data('image');
 		let id = $(this).data('id');
 		$.get( "/process/populate-select", { type: 'image' }).done(function( items ) {
@@ -122,7 +122,7 @@ $(document).ready(function(){
 		});
 	});
 	
-	$('.file-select').each(function(){
+	$('.session-container .file-select').each(function(){
 		let active = $(this).data('file');
 		let id = $(this).data('id');
 		$.get( "/process/populate-select", { type: 'file' }).done(function( items ) {
@@ -147,7 +147,7 @@ $(document).ready(function(){
 		});
 	});
 	
-	$('.event-select').each(function(){
+	$('.session-container .event-select').each(function(){
 		let active = $(this).data('event');
 		let id = $(this).data('id');
 		$.get( "/process/populate-select", { type: 'event' }).done(function( items ) {
@@ -172,7 +172,7 @@ $(document).ready(function(){
 		});
 	});
 	
-	$('.plan-select').each(function(){
+	$('.session-container .plan-select').each(function(){
 		let active = $(this).data('plan');
 		let id = $(this).data('id');
 		$.get( "/process/populate-select", { type: 'plan' }).done(function( items ) {

@@ -59,17 +59,19 @@ $('.add-to-email').click(function(){
 });
 
 function populate_select(pItem, pType){
-
+	
 	$.get( "/process/populate-select", { type: pType }).done(function( items ) {
 		$('#' + pItem).append($('<option>', { 
 	        value: 0,
 	        text : 'Please Select' 
 	    }));
+		alert('here');
 		$.each(JSON.parse(items), function (i, item) {
-		    $('#' + pItem).append($('<option>', { 
-		        value: item.value,
-		        text : item.text 
-		    }));
+		    // $('#' + pItem).append($('<option>HELLO', { 
+		    //     value: item.value,
+		    //     text : item.text,
+			// 	imgLocation: item.imageURL 
+		    // }));
 		});
 	});
 	
@@ -77,7 +79,7 @@ function populate_select(pItem, pType){
 
 $(document).ready(function(){
 	
-	$('.image-select').each(function(){
+	$('.email-container .image-select').each(function(){
 		let active = $(this).data('image');
 		let id = $(this).data('id');
 		$.get( "/process/populate-select", { type: 'image' }).done(function( items ) {
@@ -95,14 +97,14 @@ $(document).ready(function(){
 				}else{
 					$('#image_'+id).append($('<option>', { 
 				        value: item.value,
-				        text : item.text,
+				        text : item.text
 				    }));	
 				}
 			});
 		});
 	});
 	
-	$('.file-select').each(function(){
+	$('.email-container .file-select').each(function(){
 		let active = $(this).data('file');
 		let id = $(this).data('id');
 		$.get( "/process/populate-select", { type: 'file' }).done(function( items ) {
@@ -127,7 +129,7 @@ $(document).ready(function(){
 		});
 	});
 	
-	$('.event-select').each(function(){
+	$('.email-container .event-select').each(function(){
 		let active = $(this).data('event');
 		let id = $(this).data('id');
 		$.get( "/process/populate-select", { type: 'event' }).done(function( items ) {
@@ -152,7 +154,7 @@ $(document).ready(function(){
 		});
 	});
 	
-	$('.plan-select').each(function(){
+	$('.email-container .plan-select').each(function(){
 		let active = $(this).data('plan');
 		let id = $(this).data('id');
 		$.get( "/process/populate-select", { type: 'plan' }).done(function( items ) {
@@ -177,7 +179,7 @@ $(document).ready(function(){
 		});
 	});
 	
-	$('.training-select').each(function(){
+	$('.email-container .training-select').each(function(){
 		let active = $(this).data('training');
 		let id = $(this).data('id');
 		$.get( "/process/populate-select", { type: 'training' }).done(function( items ) {
