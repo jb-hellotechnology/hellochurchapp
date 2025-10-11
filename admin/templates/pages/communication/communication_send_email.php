@@ -131,7 +131,7 @@ foreach($email as $type => $item){
                           <table role="presentation" border="0" cellpadding="0" cellspacing="0" style="border-collapse: separate; mso-table-lspace: 0pt; mso-table-rspace: 0pt; width: auto;">
                             <tbody>
                               <tr>
-                                <td style="font-family:'.$font.'; font-size: 16px; vertical-align: top; border-radius: 4px; text-align: center; background-color: '.$button.';" valign="top" align="center" bgcolor="'.$button.'"> <a href="'.$item.'" target="_blank" style="border: solid 2px '.$button.'; border-radius: 4px; box-sizing: border-box; cursor: pointer; display: inline-block; font-size: 16px; font-weight: bold; margin: 0; padding: 12px 24px; text-decoration: none; text-transform: capitalize; background-color: '.$button.'; border-color: #142c8e; color: #ffffff;">'.$buttonText.'</a> </td>
+                                <td style="font-family:'.$font.'; font-size: 16px; vertical-align: top; border-radius: 4px; text-align: center; background-color: '.$button.';" valign="top" align="center" bgcolor="'.$button.'"> <a href="'.$item.'" target="_blank" style="border: solid 2px '.$button.'; border-radius: 4px; box-sizing: border-box; cursor: pointer; display: inline-block; font-size: 16px; font-weight: bold; margin: 0; padding: 12px 24px; text-decoration: none; text-transform: capitalize; background-color: '.$button.'; border-color: #142c8e; color: #ffffff !important;">'.$buttonText.'</a> </td>
                               </tr>
                             </tbody>
                           </table>
@@ -155,7 +155,7 @@ foreach($email as $type => $item){
                           <table role="presentation" border="0" cellpadding="0" cellspacing="0" style="border-collapse: separate; mso-table-lspace: 0pt; mso-table-rspace: 0pt; width: auto;">
                             <tbody>
                               <tr>
-                                <td style="font-family: '.$font.'; font-size: 16px; vertical-align: top; border-radius: 4px; text-align: center; background-color: '.$button.'" valign="top" align="center" bgcolor="'.$button.'"> <a href="https://app.churchplanner.co.uk/feed/file/'.$file['churchID'].'/'.$file['fileID'].'" target="_blank" style="border: solid 2px '.$button.'; border-radius: 4px; box-sizing: border-box; cursor: pointer; display: inline-block; font-size: 16px; font-weight: bold; margin: 0; padding: 12px 24px; text-decoration: none; text-transform: capitalize; background-color: '.$button.'; border-color: '.$button.'; color: #ffffff;">Download: '.$file['fileName'].'</a> </td>
+                                <td style="font-family: '.$font.'; font-size: 16px; vertical-align: top; border-radius: 4px; text-align: center; background-color: '.$button.'" valign="top" align="center" bgcolor="'.$button.'"> <a href="https://app.churchplanner.co.uk/feed/file/'.$file['churchID'].'/'.$file['fileID'].'" target="_blank" style="border: solid 2px '.$button.'; border-radius: 4px; box-sizing: border-box; cursor: pointer; display: inline-block; font-size: 16px; font-weight: bold; margin: 0; padding: 12px 24px; text-decoration: none; text-transform: capitalize; background-color: '.$button.'; border-color: '.$button.'; color: #ffffff !important;">Download: '.$file['fileName'].'</a> </td>
                               </tr>
                             </tbody>
                           </table>
@@ -233,7 +233,7 @@ foreach($email as $type => $item){
 							  <table role="presentation" border="0" cellpadding="0" cellspacing="0" style="border-collapse: separate; mso-table-lspace: 0pt; mso-table-rspace: 0pt; width: auto;">
 								<tbody>
 								  <tr>
-									<td style="font-family: '.$font.'; font-size: 16px; vertical-align: top; border-radius: 4px; text-align: center; background-color: '.$button.'" valign="top" align="center" bgcolor="'.$button.'"> <a href="'.$item.'" target="_blank" style="border: solid 2px '.$button.' border-radius: 4px; box-sizing: border-box; cursor: pointer; display: inline-block; font-size: 16px; font-weight: bold; margin: 0; padding: 12px 24px; text-decoration: none; text-transform: capitalize; background-color: '.$button.' border-color: '.$button.' color: #ffffff;">'.$buttonText.'</a> </td>
+									<td style="font-family: '.$font.'; font-size: 16px; vertical-align: top; border-radius: 4px; text-align: center; background-color: '.$button.'" valign="top" align="center" bgcolor="'.$button.'"> <a href="'.$item.'" target="_blank" style="border: solid 2px '.$button.' border-radius: 4px; box-sizing: border-box; cursor: pointer; display: inline-block; font-size: 16px; font-weight: bold; margin: 0; padding: 12px 24px; text-decoration: none; text-transform: capitalize; background-color: '.$button.' border-color: '.$button.' color: #ffffff !important;">'.$buttonText.'</a> </td>
 								  </tr>
 								</tbody>
 							  </table>
@@ -302,7 +302,7 @@ foreach($email as $type => $item){
 							  <table role="presentation" border="0" cellpadding="0" cellspacing="0" style="border-collapse: separate; mso-table-lspace: 0pt; mso-table-rspace: 0pt; width: auto;">
 								<tbody>
 								  <tr>
-									<td style="font-family:'.$font.'f; font-size: 16px; vertical-align: top; border-radius: 4px; text-align: center; background-color: '.$button.'" valign="top" align="center" bgcolor="'.$button.'"> <a href="'.$item.'" target="_blank" style="border: solid 2px '.$button.' border-radius: 4px; box-sizing: border-box; cursor: pointer; display: inline-block; font-size: 16px; font-weight: bold; margin: 0; padding: 12px 24px; text-decoration: none; text-transform: capitalize; background-color: '.$button.' border-color: '.$button.' color: #ffffff;">'.$buttonText.'</a> </td>
+									<td style="font-family:'.$font.'f; font-size: 16px; vertical-align: top; border-radius: 4px; text-align: center; background-color: '.$button.'" valign="top" align="center" bgcolor="'.$button.'"> <a href="'.$item.'" target="_blank" style="border: solid 2px '.$button.' border-radius: 4px; box-sizing: border-box; cursor: pointer; display: inline-block; font-size: 16px; font-weight: bold; margin: 0; padding: 12px 24px; text-decoration: none; text-transform: capitalize; background-color: '.$button.' border-color: '.$button.' color: #ffffff !important;">'.$buttonText.'</a> </td>
 								  </tr>
 								</tbody>
 							  </table>
@@ -326,7 +326,7 @@ foreach($email as $type => $item){
 								  <table role="presentation" border="0" cellpadding="0" cellspacing="0" style="border-collapse: separate; mso-table-lspace: 0pt; mso-table-rspace: 0pt; width: auto;">
 									<tbody>
 									  <tr>
-										<td style="font-family: '.$font.'; font-size: 16px; vertical-align: top; border-radius: 4px; text-align: center; background-color: '.$button.'" valign="top" align="center" bgcolor="'.$button.'"> <a href="https://app.churchplanner.co.uk/feed/file/'.$file['churchID'].'/'.$file['fileID'].'" target="_blank" style="border: solid 2px '.$button.' border-radius: 4px; box-sizing: border-box; cursor: pointer; display: inline-block; font-size: 16px; font-weight: bold; margin: 0; padding: 12px 24px; text-decoration: none; text-transform: capitalize; background-color: #142c8e; border-color: '.$button.' color: #ffffff;">Download: '.$file['fileName'].'</a> </td>
+										<td style="font-family: '.$font.'; font-size: 16px; vertical-align: top; border-radius: 4px; text-align: center; background-color: '.$button.'" valign="top" align="center" bgcolor="'.$button.'"> <a href="https://app.churchplanner.co.uk/feed/file/'.$file['churchID'].'/'.$file['fileID'].'" target="_blank" style="border: solid 2px '.$button.' border-radius: 4px; box-sizing: border-box; cursor: pointer; display: inline-block; font-size: 16px; font-weight: bold; margin: 0; padding: 12px 24px; text-decoration: none; text-transform: capitalize; background-color: #142c8e; border-color: '.$button.' color: #ffffff !important;">Download: '.$file['fileName'].'</a> </td>
 									  </tr>
 									</tbody>
 								  </table>
@@ -366,7 +366,6 @@ $sendSmtpEmail = new \Brevo\Client\Model\SendSmtpEmail([
 
 try {
     $result = $apiInstance->sendTransacEmail($sendSmtpEmail);
-	print_r($result);
 	if(!$_POST['recipient']){
 		hello_church_store_email_result($_POST['email_id'], $result);
 		if($recipients){
