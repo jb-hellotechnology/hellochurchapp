@@ -195,7 +195,8 @@ class HelloChurch_Folders extends PerchAPI_Factory
 	    
 	    $API  = new PerchAPI(1.0, 'hello_church');
 	    
-	    $sql = "SELECT * FROM perch3_hellochurch_files WHERE churchID='".$churchID."' ORDER BY fileCreated DESC LIMIT 100";   
+	    $sql = "SELECT * FROM perch3_hellochurch_files WHERE churchID='".$churchID."' ORDER BY folderID, fileCreated DESC 
+		LIMIT 1000";   
 	    
 	    $files = array();
 		
@@ -203,8 +204,23 @@ class HelloChurch_Folders extends PerchAPI_Factory
 	    
 	    foreach($results as $file){
 		    
-		    $thisFile = array('value' => $file['fileID'], 'text' => $file['fileName']);
-		    $files[] = $thisFile;
+		    // get folders
+			$sql2 = "SELECT * FROM perch3_hellochurch_folders WHERE churchID='".$churchID."'";
+			$result2 = $this->db->get_rows($sql2);
+			$folders = [];
+			foreach($result2 as $row){
+				$folders[$row['folderID']] = $row;
+			}
+			
+			$path = $this->getFolderPath($file['folderID'], $folders);
+			
+			if($file['folderID']){
+				$thisFile = array('value' => $file['fileID'], 'text' => $path." > ".$file['fileName']);
+			}else{
+				$thisFile = array('value' => $file['fileID'], 'text' => $file['fileName']);
+			}
+			
+			$files[] = $thisFile;
 		    
 	    }
 	    
@@ -226,7 +242,7 @@ class HelloChurch_Folders extends PerchAPI_Factory
 			LOWER(RIGHT(fileLocation, 3)) = 'png'
 		  )
 		ORDER BY folderID, fileCreated DESC 
-		LIMIT 100;";   
+		LIMIT 1000;";   
 	    
 	    $files = array();
 		
