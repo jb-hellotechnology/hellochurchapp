@@ -176,7 +176,7 @@
 				$emailContent .= '<h2 style="font-family: '.$font.'; font-size: 24px; font-weight: strong; margin: 0; margin-bottom: 16px;">'.$item.'</h2>';
 			}
 			if($type=='text'){
-				$emailContent .= ''.$Parsedown->text($item).'';
+				$emailContent .= ''.$Parsedown->text($item).'<br />';
 			}
 			if($type=='youtube'){
 				$emailContent .= preg_replace("/\s*[a-zA-Z\/\/:\.]*youtu.be\/watch\?v=([a-zA-Z0-9\-_]+)([a-zA-Z0-9\/\*\-\_\?\&\;\%\=\.]*)/i","<iframe width=\"420\" height=\"315\" src=\"//www.youtu.be/embed/$1\" frameborder=\"0\" allowfullscreen></iframe>",$item);
