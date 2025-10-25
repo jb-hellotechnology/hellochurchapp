@@ -11,6 +11,8 @@ if(!hello_church_event_owner(perch_get('id'))){
 	header("location:/");
 }
 
+$church = hello_church_church(true);
+
 $name = hello_church_calendar_get(perch_get('id'), 'eventName');
 $description = hello_church_calendar_get(perch_get('id'), 'eventDescription');
 $start = hello_church_calendar_get(perch_get('id'), 'start');
@@ -20,6 +22,7 @@ $pDates = explode("-", perch_get('date'));
 $date = "$pDates[2]/$pDates[1]/$pDates[0]";
 
 $plan = hello_church_get_plan(perch_get('id'), perch_get('date'), $time);
+$publicLink = $plan['eventPlanID']*365;
 
 perch_layout('header');
 ?>
@@ -41,9 +44,9 @@ perch_layout('header');
 				<article>
 					<div class="plan-container sortable">
 						<?php
-						$plan = json_decode($plan, true);
+						$plan = json_decode($plan['eventPlan'], true);
 						foreach($plan as $type => $item){
-					
+		
 							$typeParts = explode("_", $type);
 							$type = $typeParts[0];
 					
@@ -101,6 +104,29 @@ perch_layout('header');
 					<?php hello_church_form('download_plan_pdf.html'); ?>
 				</footer>
 			</section>
+		</div>
+	</div>
+	<div class="">
+		<div>
+			<section>
+				<header>
+					<h2>Share Public Link</h2>
+				</header>
+				<article>
+					<div>
+						<p class="monospace">https://app.churchplanner.co.uk/plan/<?= $church['churchSlug'] ?>/<?= $publicLink ?>
+					</div>
+				</article>
+				<?php 
+				
+				?>
+			</section>
+		</div>
+		<div>
+			
+		</div>
+		<div>
+			
 		</div>
 	</div>
 </main>

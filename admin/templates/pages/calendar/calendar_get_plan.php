@@ -12,7 +12,7 @@ $time = $_GET['time'];
 
 $plan = hello_church_get_plan($planID, $date, $time);
 
-$plan = json_decode($plan, true);
+$plan = json_decode($plan['eventPlan'], true);
 
 foreach($plan as $type => $item){
 					
