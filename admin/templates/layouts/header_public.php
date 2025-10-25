@@ -1,7 +1,9 @@
 <?php
 if(perch_get('church')){
 	$church = church_by_slug(perch_get('church'));
-	print_r($church);
+	$name = $church['churchName'];
+}else{
+	$name = 'Church Planner';
 }
 ?>
 <!doctype html>
@@ -23,5 +25,5 @@ if(perch_get('church')){
 </head>
 <body>
 	<header class="site-header">
-		<h2><a href="https://churchplanner.co.uk">Church Planner</a></h2>
+		<h2><a href="https://churchplanner.co.uk"><?= $name ?></a></h2>
 	</header>
