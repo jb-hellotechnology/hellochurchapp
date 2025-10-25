@@ -337,7 +337,7 @@ echo $html;
 		$planID = $planID/365;
 		echo $planID;
 		$plan = $HelloChurchEvents->get_plan_by_id($planID);
-	
+	print_r($plan);
 		$plan = json_decode($plan['eventPlan'], true);
 		
 		print_r($plan);
