@@ -422,7 +422,7 @@ class HelloChurch_Contacts extends PerchAPI_Factory
 		
 		$sql = "SELECT contactID as 'next', contactFirstName, contactLastName
 		  FROM perch3_hellochurch_contacts
-		  WHERE (contactLastName, contactFirstName) > ('".$lastName."', '".$firstName."') AND churchID=".$churchID."
+		  WHERE (contactLastName, contactFirstName) > ('".addslashes($lastName)."', '".addslashes($firstName)."') AND churchID=".$churchID."
 		  ORDER BY contactLastName ASC, contactFirstName ASC
 		  LIMIT 1;";
 		$result = $this->db->get_row($sql);
@@ -435,7 +435,7 @@ class HelloChurch_Contacts extends PerchAPI_Factory
 		
 		$sql = "SELECT contactID AS 'previous', contactFirstName, contactLastName
 		  FROM perch3_hellochurch_contacts
-		  WHERE (contactLastName, contactFirstName) < ('".$lastName."', '".$firstName."') AND churchID=".$churchID."
+		  WHERE (contactLastName, contactFirstName) < ('".addslashes($lastName)."', '".addslashes($firstName)."') AND churchID=".$churchID."
 		  ORDER BY contactLastName DESC, contactFirstName DESC
 		  LIMIT 1;";
 		$result = $this->db->get_row($sql);

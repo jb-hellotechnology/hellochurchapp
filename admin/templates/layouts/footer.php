@@ -26,7 +26,9 @@
 	<script src="/assets/js/jquery.3.7.1.min.js"></script>
 	<script src="/assets/js/jquery-ui.1.14.0.js"></script>
 	<script src="/assets/js/tagify/tagify.js"></script>
-	<script src="/assets/js/fullcalendar/dist/index.global.min.js"></script>
+	<script src='https://cdn.jsdelivr.net/npm/rrule@2.6.4/dist/es5/rrule.min.js'></script>
+	<script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.19/index.global.min.js'></script>
+	<script src='https://cdn.jsdelivr.net/npm/@fullcalendar/rrule@6.1.19/index.global.min.js'></script>
 	<script src="/assets/js/plan/plan.js?v=<?= rand() ?>"></script>
 	<script src="/assets/js/email/email.js?v=<?= rand() ?>"></script>
 	<script src="/assets/js/training/training.js?v=<?= rand() ?>"></script>

@@ -35,12 +35,42 @@
 		      if($event['repeatEvent']<>''){
 			      $pStart = explode(" ", $event['start']);
 			      $pEnd = explode(" ", $event['end']);
-			      $eventsHTML .= '
-			      daysOfWeek: "'.$daysOfWeek.'",
-			      startTime: "'.$pStart[1].'",
-			      endTime: "'.$pEnd[0].'",
-			      startRecur: "'.$event['start'].'",
-			      endRecur: "'.$event['repeatEnd'].' 23:59:59",';
+				  if($event['repeatEvent']=='daily'){
+						$eventsHTML .= '
+						rrule: {
+						  freq: "DAILY",
+						  interval: 1,
+						  byweekday: [ "mo", "tu", "we", "th", "fr", "sa", "su" ],
+						  dtstart: "'.str_replace(" ", "T", $event['start']).'",
+						  until: "'.str_replace(" ", "T", $event['repeatEnd']).'"
+						},';
+				  }
+				  if($event['repeatEvent']=='weekdays'){
+						$eventsHTML .= '
+						rrule: {
+						  freq: "DAILY",
+						  interval: 1,
+						  byweekday: [ "mo", "tu", "we", "th", "fr" ],
+						  dtstart: "'.str_replace(" ", "T", $event['start']).'",
+						  until: "'.str_replace(" ", "T", $event['repeatEnd']).'"
+						},';
+					}
+				  if($event['repeatEvent']=='weekly'){
+					  $eventsHTML .= '
+						rrule: {
+						  freq: "WEEKLY",
+						  interval: 1,
+						  dtstart: "'.str_replace(" ", "T", $event['start']).'",
+						  until: "'.str_replace(" ", "T", $event['repeatEnd']).'"
+						},';
+				  }
+				  
+			      // $eventsHTML .= '
+			      // daysOfWeek: "'.$daysOfWeek.'",
+			      // startTime: "'.$pStart[1].'",
+			      // endTime: "'.$pEnd[0].'",
+			      // startRecur: "'.$event['start'].'",
+			      // endRecur: "'.$event['repeatEnd'].' 23:59:59",';
 		      }
 		    $eventsHTML .= '
 		      url: "/calendar/edit-event?id='.$event['eventID'].'&date=",
