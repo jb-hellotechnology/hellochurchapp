@@ -327,7 +327,7 @@ echo $html;
     }
 	
 	function public_plan($churchID, $planID){
-		echo $planID;
+
 		$API  = new PerchAPI(1.0, 'hello_church');
 		
 		$HelloChurchTrainingSessions = new HelloChurch_Training_Sessions($API);
@@ -338,7 +338,7 @@ echo $html;
 		
 		$plan = $HelloChurchEvents->get_plan_by_id($planID);
 	
-		$plan = json_decode($plan['planContent'], true);
+		$plan = json_decode($plan['eventPlan'], true);
 		
 		foreach($plan as $type => $item){
 							
