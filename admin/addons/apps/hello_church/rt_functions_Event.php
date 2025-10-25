@@ -327,7 +327,7 @@ echo $html;
     }
 	
 	function public_plan($churchID, $planID){
-		
+		echo $planID;
 		$API  = new PerchAPI(1.0, 'hello_church');
 		
 		$HelloChurchTrainingSessions = new HelloChurch_Training_Sessions($API);
