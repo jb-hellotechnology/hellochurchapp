@@ -337,9 +337,7 @@ echo $html;
 		$planID = $planID/365;
 
 		$plan = $HelloChurchEvents->get_plan_by_id($planID);
-	print_r($plan);
-		
-		print_r($plan);
+		$plan = json_decode($plan, true);
 		
 		foreach($plan as $type => $item){
 							
