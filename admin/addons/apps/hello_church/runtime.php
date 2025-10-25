@@ -830,11 +830,11 @@
 							'roleType'	=> $row['roleType'],
 						];
 						foreach ($roles as $role) {
-							$events[$key][$role] = ''; // default empty
+							$events[$key][$role] = []; // default empty
 						}
 					}
 				
-					$events[$key][$row['roleName']] = $row['contactID'];
+					$events[$key][$row['roleName']][] = $row['contactID'];
 				}
 				
 				if($SubmittedForm->data['type']=='CSV'){
@@ -859,10 +859,20 @@
 					foreach ($events as $event) {
 						$startTime = explode(" ", $event['start']);
 						$row = [$event['eventDate'].' '.$startTime[1], $event['eventName']];
+					
 						foreach ($roles as $role) {
-							$contact = $HelloChurchContacts->find($event[$role]);
-							$row[] = $contact->contactFirstName().' '.$contact->contactLastName();
+							$names = [];
+							if (!empty($event[$role])) {
+								foreach ($event[$role] as $contactID) {
+									$contact = $HelloChurchContacts->find($contactID);
+									if ($contact) {
+										$names[] = trim($contact->contactFirstName().' '.$contact->contactLastName());
+									}
+								}
+							}
+							$row[] = implode(', ', $names); // Combine multiple names
 						}
+					
 						fputcsv($output, $row);
 					}
 					
@@ -901,21 +911,27 @@
 						$startTime = explode(" ", $event['start']);
 						$dateValue = $event['eventDate'].' '.$startTime[1];
 					
-						$contactNameRow = [];
-						foreach ($roles as $role) {
-							$contact = $HelloChurchContacts->find($event[$role]);
-							$contactNameRow[] = trim($contact->contactFirstName().' '.$contact->contactLastName());
-						}
-					
-						// Row printing
 						$pdf->Cell($widths[0], 8, $dateValue, 1);
 						$pdf->Cell($widths[1], 8, $event['eventName'], 1);
 					
 						$i = 2;
-						foreach ($contactNameRow as $name) {
-							$pdf->Cell($widths[$i], 8, $name, 1);
+						foreach ($roles as $role) {
+							$names = [];
+							if (!empty($event[$role])) {
+								foreach ($event[$role] as $contactID) {
+									$contact = $HelloChurchContacts->find($contactID);
+									if ($contact) {
+										$names[] = trim($contact->contactFirstName().' '.$contact->contactLastName());
+									}
+								}
+							}
+					
+							// Multiline cell for multiple names
+							$pdf->MultiCell($widths[$i], 8, implode("\n", $names), 1);
+							$pdf->SetXY($pdf->GetX() + $widths[$i-1], $pdf->GetY() - 8);
 							$i++;
 						}
+					
 						$pdf->Ln();
 					}
 					
