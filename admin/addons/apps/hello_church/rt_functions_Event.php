@@ -340,6 +340,8 @@ echo $html;
 	
 		$plan = json_decode($plan['eventPlan'], true);
 		
+		print_r($plan);
+		
 		foreach($plan as $type => $item){
 							
 			$typeParts = explode("_", $type);
