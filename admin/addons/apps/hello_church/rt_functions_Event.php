@@ -335,7 +335,7 @@ echo $html;
 		$HelloChurchFolders = new HelloChurch_Folders($API);
 		
 		$planID = $planID/365;
-		
+		echo $planID;
 		$plan = $HelloChurchEvents->get_plan_by_id($planID);
 	
 		$plan = json_decode($plan['eventPlan'], true);
