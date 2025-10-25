@@ -100,7 +100,7 @@
 		}
 		
 		if(!$emails){
-			echo '<p class="alert success"><span class="material-symbols-outlined">email</span>No emails</p>';
+			echo '<article><p class="alert success"><span class="material-symbols-outlined">email</span>No emails</p></article>';
 		}
 
 		echo '<article>
