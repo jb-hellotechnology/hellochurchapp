@@ -1,5 +1,8 @@
 <?php
-
+if(perch_get('church')){
+	$church = church_by_slug(perch_get('church'));
+	print_r($church);
+}
 ?>
 <!doctype html>
 <html>
