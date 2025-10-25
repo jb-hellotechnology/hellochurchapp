@@ -907,16 +907,23 @@
 					
 					// Data rows
 					$pdf->SetFont('Arial', '', 10);
+					
 					foreach ($events as $event) {
+					
 						$startTime = explode(" ", $event['start']);
 						$dateValue = $event['eventDate'].' '.$startTime[1];
 					
-						$pdf->Cell($widths[0], 8, $dateValue, 1);
-						$pdf->Cell($widths[1], 8, $event['eventName'], 1);
+						// store X and Y start of this row
+						$x = $pdf->GetX();
+						$y = $pdf->GetY();
 					
-						$i = 2;
+						// Calculate row height (max lines among role cells)
+						$maxHeight = 8; // default 1 line
+					
+						$roleCells = [];
 						foreach ($roles as $role) {
 							$names = [];
+					
 							if (!empty($event[$role])) {
 								foreach ($event[$role] as $contactID) {
 									$contact = $HelloChurchContacts->find($contactID);
@@ -926,13 +933,30 @@
 								}
 							}
 					
-							// Multiline cell for multiple names
-							$pdf->MultiCell($widths[$i], 8, implode("\n", $names), 1);
-							$pdf->SetXY($pdf->GetX() + $widths[$i-1], $pdf->GetY() - 8);
+							$text = implode("\n", $names);
+							$lineCount = max(1, substr_count($text, "\n") + 1);
+							$height = $lineCount * 8;
+					
+							$roleCells[] = $text;
+							if ($height > $maxHeight) {
+								$maxHeight = $height;
+							}
+						}
+					
+						// First two fixed cells (Date + Event)
+						$pdf->Cell($widths[0], $maxHeight, $dateValue, 1);
+						$pdf->Cell($widths[1], $maxHeight, $event['eventName'], 1);
+					
+						// Now print each role column, aligned properly
+						$i = 2;
+						foreach ($roleCells as $text) {
+							$pdf->SetXY($x + array_sum(array_slice($widths, 0, $i)), $y);
+							$pdf->MultiCell($widths[$i], 8, $text, 1);
 							$i++;
 						}
 					
-						$pdf->Ln();
+						// Move down to next row
+						$pdf->SetXY($x, $y + $maxHeight);
 					}
 					
 					// Output as download
