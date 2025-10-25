@@ -209,9 +209,10 @@
     	    $roles = $HelloChurchRoles->roles($data['churchID']);
     	    $pRoles = '';
 			foreach($roles as $role){
-				$pRoles .= $role['roleName'].'|'.$role['roleID'].',';
+				//$pRoles .= $role['roleName'].'|'.$role['roleID'].',';
+				$pRoles .= '<label><perch:input type="checkbox" name="role_'.$role['roleID'].'" value="" /> '.$role['roleName'].'</label>';
 			}
-			$pRoles = substr($pRoles,0,-1);
+			//$pRoles = substr($pRoles,0,-1);
 			$data['roles'] = $pRoles;
 			
 		}elseif($template == 'download_plan_pdf.html'){
@@ -795,94 +796,134 @@
 
             break;
             case 'download_rota_role':
-	            $role = $HelloChurchRoles->find($SubmittedForm->data['roleID']);
-	            $responsibilities = $HelloChurchEvents->event_responsibilities_role($SubmittedForm->data['roleID']);
-				$roleName = $role->roleName();
-				
-				$pdf = new PDF_HTML();
-				$pdf->AddPage();
-				$pdf->SetFont('Arial','B',16);
-				$pdf->Cell(40,10,'Rota For: '.$roleName,0,2);
-				
-				// CSV
-				$csvData = array();
-				
-				$thisDate = '';
-				foreach($responsibilities as $responsibility){
-					$contact = $HelloChurchContacts->find($responsibility['contactID']);
-			        $dates = explode(" ", $responsibility['eventDate']);
-			        $time = $dates[1];
-					
-					if($contact){
-					
-						//Check if date the same or not
-						if($dates[0]!==$thisDate){
-							// Date different
-							// Store new date
-							$thisDate = $dates[0];
-							
-							// Output rota data including date
-							$dates = explode("-", $dates[0]);
-							$date = "$dates[2]/$dates[1]/$dates[0]";
-							$pdf->SetFont('Arial','B',10);
-							$pdf->Cell(400,10,$date,0,2);
-							
-							$pdf->SetFont('Arial','',10);
-							if($responsibility['roleType']=='Individual'){
-								$pdf->Cell(400,6,$contact->contactFirstName().' '.$contact->contactLastName().' - '.$responsibility['eventName'],0,2);
-								$csvData[] = array($date, $responsibility['eventName'], $roleName, $contact->contactFirstName().' '.$contact->contactLastName());
-							}else{
-								if($HelloChurchContacts->family_members($contact->contactID())){
-									$pdf->Cell(400,6,$contact->contactFirstName().' '.$contact->contactLastName().' + Family - '.$responsibility['eventName'],0,2);
-									$csvData[] = array($date, $responsibility['eventName'], $roleName, $contact->contactFirstName().' '.$contact->contactLastName().' + Family');
-								}else{
-									$pdf->Cell(400,6,$contact->contactFirstName().' '.$contact->contactLastName().' - '.$responsibility['eventName'],0,2);	
-									$csvData[] = array($date, $responsibility['eventName'], $roleName, $contact->contactFirstName().' '.$contact->contactLastName());
-								}
-							}
-							
-						}else{
-							// Date the same
-							
-							// Output rota data excluding date
-							$pdf->SetFont('Arial','',10);
-							if($responsibility['roleType']=='Individual'){
-								$pdf->Cell(400,6,$contact->contactFirstName().' '.$contact->contactLastName().' - '.$responsibility['eventName'],0,2);
-								$csvData[] = array($date, $responsibility['eventName'], $roleName, $contact->contactFirstName().' '.$contact->contactLastName());
-							}else{
-								if($HelloChurchContacts->family_members($contact->contactID())){
-									$pdf->Cell(400,6,$contact->contactFirstName().' '.$contact->contactLastName().' + Family - '.$responsibility['eventName'],0,2);
-									$csvData[] = array($date, $responsibility['eventName'], $roleName, $contact->contactFirstName().' '.$contact->contactLastName().' + Family');
-								}else{
-									$pdf->Cell(400,6,$contact->contactFirstName().' '.$contact->contactLastName().' - '.$responsibility['eventName'],0,2);
-									$csvData[] = array($date, $responsibility['eventName'], $roleName, $contact->contactFirstName().' '.$contact->contactLastName());	
-								}
-							}
-						}
-						
+	            $roles = $HelloChurchRoles->roles($Session->get('churchID'));
+				$exportRoles = array();
+				$roleIDs = '';
+				foreach($roles as $role){
+					if($SubmittedForm->data['role_'.$role['roleID']]){
+						$roleIDs .= $role['roleID'].', ';
+						$exportRoles[$role['roleID']] = $role['roleName'];
 					}
-
 				}
-				$pdf->SetFont('Arial','',10);
-				$pdf->WriteHTML("<br><br>".strip_tags($role->roleDescription()));
 				
-				if($SubmittedForm->data['type']=='PDF'){
-					$pdf->Output();
-				}else{
-					//export CSV
-					ob_start();
-					header('Content-Type: text/csv; charset=utf-8');
-					header('Content-Disposition: attachment; filename=csv_rota.csv');
-					$header_args = array( 'Date', 'Event', 'Role', 'Name' );
-					ob_end_clean();
-					$output = fopen( 'php://output', 'w' );
-					fputcsv( $output, $header_args );
-					foreach( $csvData as $data_item ){
-						fputcsv( $output, $data_item );
+				$roleIDs = substr($roleIDs, 0, -2);
+	            $rows = $HelloChurchEvents->event_responsibilities_role($roleIDs);
+				
+				// Step 1: Find all unique roles
+				$roles = [];
+				foreach ($rows as $row) {
+					$roles[$row['roleName']] = true;
+				}
+				$roles = array_keys($roles);
+				
+				// Step 2: Build grouped data structure
+				$events = [];
+				foreach ($rows as $row) {
+					$key = $row['eventID'] . '|' . $row['eventDate'];
+				
+					if (!isset($events[$key])) {
+						$events[$key] = [
+							'eventID'   => $row['eventID'],
+							'eventName' => $row['eventName'],
+							'eventDate' => $row['eventDate'],
+							'start'     => $row['start'],
+							'roleType'	=> $row['roleType'],
+						];
+						foreach ($roles as $role) {
+							$events[$key][$role] = ''; // default empty
+						}
 					}
-					fclose( $output );
+				
+					$events[$key][$row['roleName']] = $row['contactID'];
+				}
+				
+				if($SubmittedForm->data['type']=='CSV'){
+					// Step 3: Output as HTML table (just an example)
+					// Build filename with date stamp to look fancy
+					$filename = "rota_export_" . date('Ymd') . ".csv";
+					
+					// Tell the browser this is a file download
+					header('Content-Type: text/csv');
+					header('Content-Disposition: attachment;filename="'.$filename.'"');
+					header('Pragma: no-cache');
+					header('Expires: 0');
+					
+					// Send CSV to PHP output stream
+					$output = fopen('php://output', 'w');
+					
+					// Column header row
+					$header = array_merge(['Date', 'Event'], $roles);
+					fputcsv($output, $header);
+					
+					// Data rows
+					foreach ($events as $event) {
+						$startTime = explode(" ", $event['start']);
+						$row = [$event['eventDate'].' '.$startTime[1], $event['eventName']];
+						foreach ($roles as $role) {
+							$contact = $HelloChurchContacts->find($event[$role]);
+							$row[] = $contact->contactFirstName().' '.$contact->contactLastName();
+						}
+						fputcsv($output, $row);
+					}
+					
+					fclose($output);
+					exit;
+				}else{
+					// Create PDF object
+					$pdf = new FPDF('L', 'mm', 'A4'); // Landscape for more columns
+					$pdf->AddPage();
+					$pdf->SetFont('Arial', '', 10);
+					
+					// Column widths (adjust as needed)
+					$widths = [];
+					$widths[] = 35; // Date
+					$widths[] = 50; // Event Name
+					foreach ($roles as $role) {
+						$widths[] = 35; // Role columns
+					}
+					
+					// Header row
+					$pdf->SetFont('Arial', 'B', 10);
+					$pdf->Cell($widths[0], 10, 'Date', 1);
+					$pdf->Cell($widths[1], 10, 'Event', 1);
+					
+					$i = 2;
+					foreach ($roles as $role) {
+						$pdf->Cell($widths[$i], 10, $role, 1);
+						$i++;
+					}
+					
+					$pdf->Ln();
+					
+					// Data rows
+					$pdf->SetFont('Arial', '', 10);
+					foreach ($events as $event) {
+						$startTime = explode(" ", $event['start']);
+						$dateValue = $event['eventDate'].' '.$startTime[1];
+					
+						$contactNameRow = [];
+						foreach ($roles as $role) {
+							$contact = $HelloChurchContacts->find($event[$role]);
+							$contactNameRow[] = trim($contact->contactFirstName().' '.$contact->contactLastName());
+						}
+					
+						// Row printing
+						$pdf->Cell($widths[0], 8, $dateValue, 1);
+						$pdf->Cell($widths[1], 8, $event['eventName'], 1);
+					
+						$i = 2;
+						foreach ($contactNameRow as $name) {
+							$pdf->Cell($widths[$i], 8, $name, 1);
+							$i++;
+						}
+						$pdf->Ln();
+					}
+					
+					// Output as download
+					$pdf->Output('D', 'rota_export_'.date('Ymd').'.pdf');
 					exit;
 				}
+				
 
             break;
             case 'download_plan_pdf':

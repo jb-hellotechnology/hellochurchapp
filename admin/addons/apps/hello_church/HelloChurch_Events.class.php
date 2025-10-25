@@ -118,15 +118,15 @@ class HelloChurch_Events extends PerchAPI_Factory
 		
 	}
 	
-	public function event_responsibilities_role($roleID){
+	public function event_responsibilities_role($roleIDs){
 		
 		$date = date('Y-m-d');
 		
-		$sql = "SELECT r.roleName, r.roleType, rc.contactID, e.eventName, e.start, rc.eventDate 
+		$sql = "SELECT r.roleName, r.roleType, rc.contactID, e.eventName, e.start, rc.eventDate, r.roleType  
 		FROM perch3_hellochurch_roles_contacts rc
 		JOIN perch3_hellochurch_roles r ON rc.roleID = r.roleID
 		JOIN perch3_hellochurch_events e ON rc.eventID = e.eventID
-		WHERE rc.roleID = $roleID AND LEFT(rc.eventDate, 10)>='$date' ORDER BY rc.eventDate";
+		WHERE rc.roleID IN ($roleIDs) AND LEFT(rc.eventDate, 10)>='$date' ORDER BY rc.eventDate, r.roleOrder";
 	
 		$results = $this->db->get_rows($sql);
 	    

@@ -1,7 +1,7 @@
 <perch:form id="download_rota_role" method="post" app="hello_church">
 	<article>
-		<label>Role</label>
-		<perch:input type="select" options="<perch:forms id="roles" />" id="roleID" />
+		<label>Select Roles to Export</label>
+		<perch:forms id="roles" encode="false"/>
 		<label>File Type</label>
 		<perch:input type="select" options="PDF,CSV" id="type" />
 		<perch:input type="hidden" value="<perch:forms id="memberID">" name="memberID" />
