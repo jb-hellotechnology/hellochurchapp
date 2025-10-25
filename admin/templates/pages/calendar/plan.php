@@ -8,7 +8,8 @@ perch_layout('header_public');
 ?>
 <main class="flow public narrow training">
 	<?php
-		public_plan(perch_get('church'), perch_get('plan'));
+	echo perch_get('church');
+		//public_plan(perch_get('church'), perch_get('plan'));
 	?>
 </main>
 <?php perch_layout('footer_public'); ?>
