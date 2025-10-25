@@ -837,7 +837,7 @@
 					$events[$key][$row['roleName']][] = $row['contactID'];
 				}
 				
-				if($SubmittedForm->data['type']=='CSV'){
+				
 					// Step 3: Output as HTML table (just an example)
 					// Build filename with date stamp to look fancy
 					$filename = "rota_export_" . date('Ymd') . ".csv";
@@ -878,91 +878,6 @@
 					
 					fclose($output);
 					exit;
-				}else{
-					// Create PDF object
-					$pdf = new FPDF('L', 'mm', 'A4'); // Landscape for more columns
-					$pdf->AddPage();
-					$pdf->SetFont('Arial', '', 10);
-					
-					// Column widths (adjust as needed)
-					$widths = [];
-					$widths[] = 35; // Date
-					$widths[] = 50; // Event Name
-					foreach ($roles as $role) {
-						$widths[] = 35; // Role columns
-					}
-					
-					// Header row
-					$pdf->SetFont('Arial', 'B', 10);
-					$pdf->Cell($widths[0], 10, 'Date', 1);
-					$pdf->Cell($widths[1], 10, 'Event', 1);
-					
-					$i = 2;
-					foreach ($roles as $role) {
-						$pdf->Cell($widths[$i], 10, $role, 1);
-						$i++;
-					}
-					
-					$pdf->Ln();
-					
-					// Data rows
-					$pdf->SetFont('Arial', '', 10);
-					
-					foreach ($events as $event) {
-					
-						$startTime = explode(" ", $event['start']);
-						$dateValue = $event['eventDate'].' '.$startTime[1];
-					
-						// store X and Y start of this row
-						$x = $pdf->GetX();
-						$y = $pdf->GetY();
-					
-						// Calculate row height (max lines among role cells)
-						$maxHeight = 8; // default 1 line
-					
-						$roleCells = [];
-						foreach ($roles as $role) {
-							$names = [];
-					
-							if (!empty($event[$role])) {
-								foreach ($event[$role] as $contactID) {
-									$contact = $HelloChurchContacts->find($contactID);
-									if ($contact) {
-										$names[] = trim($contact->contactFirstName().' '.$contact->contactLastName());
-									}
-								}
-							}
-					
-							$text = implode("\n", $names);
-							$lineCount = max(1, substr_count($text, "\n") + 1);
-							$height = $lineCount * 8;
-					
-							$roleCells[] = $text;
-							if ($height > $maxHeight) {
-								$maxHeight = $height;
-							}
-						}
-					
-						// First two fixed cells (Date + Event)
-						$pdf->Cell($widths[0], $maxHeight, $dateValue, 1);
-						$pdf->Cell($widths[1], $maxHeight, $event['eventName'], 1);
-					
-						// Now print each role column, aligned properly
-						$i = 2;
-						foreach ($roleCells as $text) {
-							$pdf->SetXY($x + array_sum(array_slice($widths, 0, $i)), $y);
-							$pdf->MultiCell($widths[$i], 8, $text, 1);
-							$i++;
-						}
-					
-						// Move down to next row
-						$pdf->SetXY($x, $y + $maxHeight);
-					}
-					
-					// Output as download
-					$pdf->Output('D', 'rota_export_'.date('Ymd').'.pdf');
-					exit;
-				}
 				
 
             break;
