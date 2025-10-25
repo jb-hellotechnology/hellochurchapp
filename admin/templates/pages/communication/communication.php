@@ -32,9 +32,7 @@ perch_layout('header');
 					<header>
 						<h2>Drafts</h2>
 					</header>
-					<article>
-						<?php hello_church_email('Draft'); ?>
-					</article>
+					<?php hello_church_email('Draft'); ?>
 				</section>
 			</div>
 			<div>

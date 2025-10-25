@@ -27,7 +27,7 @@ perch_layout('header');
 				<h2>Calendar</h2>
 			</header>
 			<article>
-			<?php hello_church_calendar(); ?>
+			<?php hello_church_calendar('dayGridMonth'); ?>
 			</article>
 			<footer>
 				<a href="/calendar/add-event" class="button primary">Add an Event</a>

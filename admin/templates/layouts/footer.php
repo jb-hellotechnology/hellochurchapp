@@ -36,6 +36,7 @@
 	<script src="/assets/js/forms/validation.js?v=<?= rand() ?>"></script>
 	<script src="/assets/redactor/redactor.min.js"></script>
 	<script src="/assets/js/select2/js/select2.min.js"></script>
+	<script src="/assets/js/settings/settings.js"></script>
 	
 	<script>
 	$('button.menu').click(function(){

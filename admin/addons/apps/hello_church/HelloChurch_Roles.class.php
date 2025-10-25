@@ -36,7 +36,7 @@ class HelloChurch_Roles extends PerchAPI_Factory
 	    
 	    $API  = new PerchAPI(1.0, 'hello_church');
 		
-		$sql = "SELECT * FROM perch3_hellochurch_roles WHERE churchID='".$churchID."' ORDER BY roleName ASC";
+		$sql = "SELECT * FROM perch3_hellochurch_roles WHERE churchID='".$churchID."' ORDER BY roleOrder ASC";
 	    $results = $this->db->get_rows($sql);
 	    return $results;
 	    
@@ -66,5 +66,12 @@ class HelloChurch_Roles extends PerchAPI_Factory
 	    return $results;
 	    
     }
+	
+	public function save_role_order($roleID, $roleOrder){
+		
+		$sql = "UPDATE perch3_hellochurch_roles SET roleOrder='".$roleOrder."' WHERE roleID='".$roleID."'";
+		$result = $this->db->execute($sql);
+		
+	}
 
 }

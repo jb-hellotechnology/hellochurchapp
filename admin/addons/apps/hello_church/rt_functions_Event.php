@@ -1,7 +1,7 @@
 <?php
 	
 	/** CREATE CALENDAR INTERFACE **/
-	function hello_church_calendar(){
+	function hello_church_calendar($view){
 		
 		$API  = new PerchAPI(1.0, 'hello_church');
 		$HelloChurchEvents = new HelloChurch_Events($API);
@@ -58,7 +58,7 @@
 	      document.addEventListener('DOMContentLoaded', function() {
 	        var calendarEl = document.getElementById('calendar');
 	        var calendar = new FullCalendar.Calendar(calendarEl, {
-			  initialView: 'dayGridMonth',
+			  initialView: '".$view."',
 	          headerToolbar: {
 		        left: 'prev,next today',
 		        center: 'title',

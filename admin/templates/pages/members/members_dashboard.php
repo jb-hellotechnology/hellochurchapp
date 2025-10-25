@@ -106,5 +106,32 @@ $church = hello_church_church(true);
 			</article>
 		</form>
 	</section>
+	<sextion
+	<section class="section-grid no-shadow">
+		<div>
+			<section>
+				<header>
+					<h2>This Week's Events</h2>
+				</header>
+				<article>
+				<?php hello_church_calendar('listWeek'); ?>
+				</article>
+				<footer>
+					<a class="button primary" href="/calendar">Manage Calendar</a>
+				</footer>
+			</section>
+		</div>
+		<div>
+			<section>
+				<header>
+					<h2>Draft Emails</h2>
+				</header>
+				<?php hello_church_email('Draft'); ?>
+				<footer>
+					<a class="button primary" href="/communication">Create Draft</a>
+				</footer>
+			</section>
+		</div>
+	</section>
 </main>
 <?php perch_layout('footer'); ?>

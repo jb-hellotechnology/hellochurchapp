@@ -29,12 +29,13 @@
         $roles = $HelloChurchRoles->roles($churchID);
         
 		echo '<article>
-				<ul class="list">';
+				<ul class="sortable-roles list sortable">';
         
         foreach($roles as $role){
 	        $description = strip_tags($role['roleDescription']);
-	        echo '<li>
+	        echo '<li class="draggable" data-role="'.$role['roleID'].'" data-order="'.$role['roleOrder'].'">
 	        		<div class="heading">
+						<span class="material-symbols-outlined drag">drag_indicator</span>
 		        		<span class="material-symbols-outlined">badge</span>
 				        <h3><a href="/settings/roles/edit-role?id='.$role['roleID'].'">'.$role['roleName'].'</a></h3>
 				        <p>'.$description.'</p>
@@ -209,5 +210,16 @@
 	    $HelloChurchEvents->remove_role_contact($roleContactID);
 	    
     }
+	
+	/** SAVE ROLE ORDER **/
+	function process_save_role_order($roleID, $order){
+		
+		$API  = new PerchAPI(1.0, 'hello_church');
+		
+		$HelloChurchRoles = new HelloChurch_Roles($API);
+		
+		$HelloChurchRoles->save_role_order($roleID, $order);
+		
+	}
 	
 ?>
