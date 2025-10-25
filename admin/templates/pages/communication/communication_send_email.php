@@ -175,7 +175,7 @@ foreach($email as $type => $item){
 		
 		if($event['venues']){
 			$emailContent .= "<p><strong>Venue:</strong> ";
-			$venues = json_decode($event['venues'],true);
+			$venues = json_decode($event->venues(),true);
 			$venueText = '';
 			foreach($venues as $venue){
 				$venueText .= "$venue[value], ";
