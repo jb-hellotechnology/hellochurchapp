@@ -111,7 +111,7 @@ class HelloChurch_Events extends PerchAPI_Factory
 	
 	public function event_responsibilities_email($eventID, $date){
 		
-		$sql = "SELECT r.roleName, e.eventName, e.start, e.eventID, rc.eventDate, c.contactFirstName, c.contactLastName FROM perch3_hellochurch_roles_contacts rc JOIN perch3_hellochurch_roles r ON rc.roleID = r.roleID JOIN perch3_hellochurch_events e ON rc.eventID = e.eventID JOIN perch3_hellochurch_contacts c ON rc.contactID = c.contactID WHERE e.eventID = $eventID AND LEFT(rc.eventDate, 10)='$date'; ";
+		$sql = "SELECT r.roleName, e.eventName, e.start, e.eventID, rc.eventDate, c.contactFirstName, c.contactLastName FROM perch3_hellochurch_roles_contacts rc JOIN perch3_hellochurch_roles r ON rc.roleID = r.roleID JOIN perch3_hellochurch_events e ON rc.eventID = e.eventID JOIN perch3_hellochurch_contacts c ON rc.contactID = c.contactID WHERE e.eventID = $eventID AND LEFT(rc.eventDate, 10)='$date' ORDER BY r.roleOrder";
 		$results = $this->db->get_rows($sql);
 		
 		return $results;
