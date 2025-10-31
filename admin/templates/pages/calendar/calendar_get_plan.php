@@ -27,7 +27,7 @@ foreach($plan as $type => $item){
 		echo '<h2>'.$item.'</h2>';
 	}
 	if($type=='text'){
-		echo '<p>'.$Parsedown->text($item).'</p>';
+		echo '<p>'.$Parsedown->text(nl2br($item)).'</p>';
 	}
 	if($type=='youtube'){
 		echo preg_replace("/\s*[a-zA-Z\/\/:\.]*youtu.be\/([a-zA-Z0-9\-_]+)([a-zA-Z0-9\/\*\-\_\?\&\;\%\=\.]*)/i","<p><strong>Video</strong></p><iframe width=\"420\" height=\"315\" src=\"//www.youtube.com/embed/$1\" frameborder=\"0\" allowfullscreen></iframe>",$item);
