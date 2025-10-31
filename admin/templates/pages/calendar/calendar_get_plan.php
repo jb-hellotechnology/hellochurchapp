@@ -1,6 +1,10 @@
 <?php
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
 
 require '../../../vendor/autoload.php';
+$Parsedown = new Parsedown();
 
 if(!perch_member_logged_in()){
 	header("location:/");
@@ -23,7 +27,7 @@ foreach($plan as $type => $item){
 		echo '<h2>'.$item.'</h2>';
 	}
 	if($type=='text'){
-		echo '<p>'.nl2br($item).'</p>';
+		echo '<p>'.$Parsedown->text($item).'</p>';
 	}
 	if($type=='youtube'){
 		echo preg_replace("/\s*[a-zA-Z\/\/:\.]*youtu.be\/([a-zA-Z0-9\-_]+)([a-zA-Z0-9\/\*\-\_\?\&\;\%\=\.]*)/i","<p><strong>Video</strong></p><iframe width=\"420\" height=\"315\" src=\"//www.youtube.com/embed/$1\" frameborder=\"0\" allowfullscreen></iframe>",$item);
