@@ -255,6 +255,11 @@ p{
 	max-width:65ch;
 }
 
+main ul li,
+main ol li{
+	max-width:65ch;
+}
+
 strong{
 	font-weight:700;
 }
