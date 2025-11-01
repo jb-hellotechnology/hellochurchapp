@@ -137,7 +137,7 @@
 		  }
 		  window.mobilecheck = function() {
 			var check = false;
-			if($(window).width()<500){
+			if($(window).width()<600){
 				check = true;
 			}
 			return check;
