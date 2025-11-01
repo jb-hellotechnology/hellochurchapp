@@ -324,7 +324,7 @@ SUMMARY:'.$event['eventName'].'
 UID:hellochurch_'.$event['eventID'].'_f';
 $dateParts = explode(" ", $event['start']);
 $start = str_replace("-", "", $dateParts[0])."T".str_replace(":", "", $dateParts[1]);
-$startTime = $dateParts[1];
+$startTime = str_replace(":", "", $dateParts[1]);
 $timestamp = strtotime($dateParts[0]);
 $dateDay = date('N', $timestamp);
 if($dateDay==1){$day='MO';}
