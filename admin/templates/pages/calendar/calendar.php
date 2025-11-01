@@ -20,6 +20,9 @@ perch_layout('header');
 		if($_GET['msg']=='event_deleted'){
 			echo '<p class="alert success"><span class="material-symbols-outlined">check_circle</span>Event deleted</p>';
 		}
+		if($_GET['msg']=='event_excluded'){
+			echo '<p class="alert success"><span class="material-symbols-outlined">check_circle</span>Event excluded</p>';
+		}
 	?>
 	<section>
 		<form method="get" class="search">

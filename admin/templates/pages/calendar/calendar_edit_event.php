@@ -14,6 +14,7 @@ if(!hello_church_event_owner(perch_get('id'))){
 $name = hello_church_calendar_get(perch_get('id'), 'eventName');
 $description = hello_church_calendar_get(perch_get('id'), 'eventDescription');
 $start = hello_church_calendar_get(perch_get('id'), 'start');
+$repeat = hello_church_calendar_get(perch_get('id'), 'repeatEvent');
 $pTime = explode(" ", $start);
 $time = $pTime[1];
 $pDates = explode("-", perch_get('date'));
@@ -74,6 +75,11 @@ perch_layout('header');
 	<div class="panel flow">
 		<h3>More Options</h3>
 		<p><a href="/calendar/delete-event/?id=<?= perch_get('id') ?>" class="warning">Delete event</a></p>
+		<?php
+		if($repeat){
+			echo '<p><a href="/calendar/exclude-event/?id='.perch_get('id').'&date='.perch_get('date').'" class="warning">Exclude this event from repeat</a></p>';
+		}
+		?>
 	</div>
 </main>
 <?php perch_layout('footer'); ?>

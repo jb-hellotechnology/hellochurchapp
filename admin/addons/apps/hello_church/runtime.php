@@ -167,6 +167,10 @@
 			
 			$data['eventID'] = $_GET['id'];
 			
+		}elseif($template == 'exclude_event.html'){
+			
+			$data['eventID'] = $_GET['id'];
+			
 		}elseif($template == 'create_role.html'){
 
 			
@@ -702,6 +706,10 @@
 	            $event = $HelloChurchEvents->find($SubmittedForm->data['eventID']);
 		        $event->delete();
             break;
+			case 'exclude_event':
+				$event = $HelloChurchEvents->find($SubmittedForm->data['eventID']);
+				$HelloChurchEvents->exclude_event($Session->get('churchID'), $SubmittedForm->data['eventID'], $SubmittedForm->data['date']);
+			break;
             
             case 'create_role':
             	$data = $HelloChurchRoles->valid($SubmittedForm->data);

@@ -26,6 +26,17 @@
 				$daysOfWeek = '['.$firstDay.']';
 			}
 			
+			$dateParts = explode(" ", $event['start']);
+			
+			$exclusions = explode(" ", $event['exclusions']);
+			$exclusions_string = '';
+			foreach($exclusions as $exclusion){
+				if($exclusion){
+					$exclusions_string .= "'".$exclusion."T".$dateParts[1]."',";
+				}
+			}
+			$exclusions_string = substr($exclusions_string, 0, -1);
+			
 			$eventsHTML .= '
 			{
 		      title: "'.$event['eventName'].'",
@@ -43,7 +54,8 @@
 						  byweekday: [ "mo", "tu", "we", "th", "fr", "sa", "su" ],
 						  dtstart: "'.str_replace(" ", "T", $event['start']).'",
 						  until: "'.str_replace(" ", "T", $event['repeatEnd']).'"
-						},';
+						},
+						exdate: ['.$exclusions_string.'],';
 				  }
 				  if($event['repeatEvent']=='weekdays'){
 						$eventsHTML .= '
@@ -53,7 +65,8 @@
 						  byweekday: [ "mo", "tu", "we", "th", "fr" ],
 						  dtstart: "'.str_replace(" ", "T", $event['start']).'",
 						  until: "'.str_replace(" ", "T", $event['repeatEnd']).'"
-						},';
+						},
+						exdate: ['.$exclusions_string.'],';
 					}
 				  if($event['repeatEvent']=='weekly'){
 					  $eventsHTML .= '
@@ -62,7 +75,8 @@
 						  interval: 1,
 						  dtstart: "'.str_replace(" ", "T", $event['start']).'",
 						  until: "'.str_replace(" ", "T", $event['repeatEnd']).'"
-						},';
+						},
+						exdate: ['.$exclusions_string.'],';
 				  }
 				  
 			      // $eventsHTML .= '
@@ -74,7 +88,7 @@
 		      }
 		    $eventsHTML .= '
 		      url: "/calendar/edit-event?id='.$event['eventID'].'&date=",
-		      displayEventEnd: true
+		      displayEventEnd: true,
 		    },';
 			
 		}
@@ -333,7 +347,20 @@ RRULE:FREQ=WEEKLY;INTERVAL=1;BYDAY=MO,TU,WE,TH,FR;UNTIL='.str_replace("-", "", $
 }
 $html .= '
 DTSTART;TZID=Europe/London:'.$start.'
-DTEND;TZID=Europe/London:'.$end.'
+DTEND;TZID=Europe/London:'.$end;
+if($event['exclusions']){
+	$exclusions = explode(" ", $event['exclusions']);
+	$exclusions_string = '';
+	foreach($exclusions as $exclusion){
+		if($exclusion){
+			$exclusions_string .= $exclusion."T".$dateParts[1].",";
+		}
+	}
+	$exclusions_string = substr(str_replace("-", "", $exclusions_string), 0, -1);
+	$html .= '
+EXDATE;TZID=Europe/London:'.$exclusions_string;
+}
+$html .= '
 DTSTAMP:'.date('Ymd').'T'.date('His').'Z
 DESCRIPTION:'.strip_tags($event['eventDescription']);
 if($event['venues']){

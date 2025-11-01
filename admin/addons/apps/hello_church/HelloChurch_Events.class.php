@@ -275,5 +275,13 @@ class HelloChurch_Events extends PerchAPI_Factory
 	    return $events;
 		
 	}
+	
+	public function exclude_event($churchID, $eventID, $date){
+		
+		// get current exclusions
+		$sql = "UPDATE perch3_hellochurch_events SET exclusions = CONCAT(exclusions, '$date ') WHERE eventID='".$eventID."'";
+		$results = $this->db->execute($sql);
+		
+	}
 
 }
