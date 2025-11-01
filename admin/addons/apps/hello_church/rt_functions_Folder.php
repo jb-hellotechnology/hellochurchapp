@@ -188,26 +188,38 @@
 			$html .= '<ul class="list">';
 			
 			foreach($files as $file){
-				$documentFileType = strtolower(pathinfo($file['fileName'],PATHINFO_EXTENSION));
+				echo $file['fileName'];
+				$documentFileType = strtolower(pathinfo($file['fileLocation'],PATHINFO_EXTENSION));
 				if($documentFileType=='doc' OR $documentFileType=='docx' OR $documentFileType=='pages'){
 					$icon = 'description';
+					$icon = '<span class="material-symbols-outlined">'.$icon.'</span>';
 				}elseif($documentFileType=='xls' OR $documentFileType=='xlsx' OR $documentFileType=='numbers'){
 					$icon = 'table';
+					$icon = '<span class="material-symbols-outlined">'.$icon.'</span>';
 				}elseif($documentFileType=='ppt' OR $documentFileType=='pptx' OR $documentFileType=='key'){
 					$icon = 'slideshow';
+					$icon = '<span class="material-symbols-outlined">'.$icon.'</span>';
 				}elseif($documentFileType=='csv'){
 					$icon = 'csv';
+					$icon = '<span class="material-symbols-outlined">'.$icon.'</span>';
 				}elseif($documentFileType=='txt'){
 					$icon = 'article';
+					$icon = '<span class="material-symbols-outlined">'.$icon.'</span>';
 				}elseif($documentFileType=='pdf'){
 					$icon = 'picture_as_pdf';
+					$icon = '<span class="material-symbols-outlined">'.$icon.'</span>';
+				}elseif($documentFileType=='jpg' OR $documentFileType=='png' OR $documentFileType=='jpeg'){
+					$icon = 'camera';
+					$fileURL = hello_church_file_public_url($file['fileID']);
+					$icon = '<img src="'.$fileURL.'" alt="" />';
 				}else{
 					$icon = 'draft';
+					$icon = '<span class="material-symbols-outlined">'.$icon.'</span>';
 				}
 				
 				$html .= '<li>
 							<div class="heading">
-								<span class="material-symbols-outlined">'.$icon.'</span>
+								'.$icon.'
 								<p><a href="/documents/edit-file?id='.$file['fileID'].'">'.$file['fileName'].'</a>';
 								if($file['contactID']){
 									$contact = $HelloChurchContacts->contact($file['contactID']);
