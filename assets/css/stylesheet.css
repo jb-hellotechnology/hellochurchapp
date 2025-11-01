@@ -1845,6 +1845,12 @@ ul.folders li span{
 	font-size:var(--size-step-4);
 }
 
+ul.list li img{
+	width:48px;
+	height:48px;
+	object-fit: cover;
+}
+
 .loading{
 	position: fixed;
 	top:0px;
