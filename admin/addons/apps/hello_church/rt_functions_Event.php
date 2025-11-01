@@ -116,7 +116,7 @@
 			    hour12: false
 			  },
 			  firstDay: 1,
-			  aspectRatio: window.mobilecheck() ? '1.2' : '2.1',
+			  aspectRatio: window.mobilecheck() ? '1.2' : '3.1',
 			  initialView: window.mobilecheck() ? 'listWeek' : 'dayGridMonth',
 			  eventClick: function(info) {
 				info.jsEvent.preventDefault(); // don't let the browser navigate
