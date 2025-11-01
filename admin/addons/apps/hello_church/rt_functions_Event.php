@@ -116,10 +116,10 @@
 			    hour12: false
 			  },
 			  firstDay: 1,
-			  aspectRatio: 2.1,
+			  aspectRatio: window.mobilecheck() ? '1.2' : '2.1',
+			  initialView: window.mobilecheck() ? 'listWeek' : 'dayGridMonth',
 			  eventClick: function(info) {
 				info.jsEvent.preventDefault(); // don't let the browser navigate
-				console.log(info);
 				var eventDate = info.event.start;
 				var pDate = dateToDMY(eventDate);
 			    if (info.event.url) {
@@ -135,6 +135,13 @@
 		    var y = date.getFullYear();
 		    return '' + y + '-' + (m <= 9 ? '0' + m : m) + '-' + (d <= 9 ? '0' + d : d);
 		  }
+		  window.mobilecheck = function() {
+			var check = false;
+			if($(window).width()<500){
+				check = true;
+			}
+			return check;
+		  };
 	    </script>
 	    <div id='calendar'></div>";
 	    
