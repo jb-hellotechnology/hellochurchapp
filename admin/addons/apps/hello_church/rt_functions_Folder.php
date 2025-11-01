@@ -188,7 +188,6 @@
 			$html .= '<ul class="list">';
 			
 			foreach($files as $file){
-				echo $file['fileName'];
 				$documentFileType = strtolower(pathinfo($file['fileLocation'],PATHINFO_EXTENSION));
 				if($documentFileType=='doc' OR $documentFileType=='docx' OR $documentFileType=='pages'){
 					$icon = 'description';
