@@ -324,6 +324,7 @@ SUMMARY:'.$event['eventName'].'
 UID:hellochurch_'.$event['eventID'].'_f';
 $dateParts = explode(" ", $event['start']);
 $start = str_replace("-", "", $dateParts[0])."T".str_replace(":", "", $dateParts[1]);
+$startTime = $dateParts[1];
 $timestamp = strtotime($dateParts[0]);
 $dateDay = date('N', $timestamp);
 if($dateDay==1){$day='MO';}
@@ -353,7 +354,7 @@ if($event['exclusions']){
 	$exclusions_string = '';
 	foreach($exclusions as $exclusion){
 		if($exclusion){
-			$exclusions_string .= $exclusion."T".$dateParts[1].",";
+			$exclusions_string .= $exclusion."T".$startTime.",";
 		}
 	}
 	$exclusions_string = substr(str_replace("-", "", $exclusions_string), 0, -1);
