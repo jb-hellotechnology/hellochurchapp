@@ -65,7 +65,6 @@ function populate_select(pItem, pType){
 	        value: 0,
 	        text : 'Please Select' 
 	    }));
-		alert('here');
 		$.each(JSON.parse(items), function (i, item) {
 		    // $('#' + pItem).append($('<option>HELLO', { 
 		    //     value: item.value,
