@@ -416,7 +416,7 @@ echo $html;
 				$sessionContent .= '<h1>'.$item.'</h1>';
 			}
 			if($type=='text'){
-				$sessionContent .= ''.$Parsedown->text($item).'';
+				$sessionContent .= $Parsedown->text(nl2br($item));
 			}
 			if($type=='youtube'){
 				$sessionContent .= preg_replace("/\s*[a-zA-Z\/\/:\.]*youtu.be\/([a-zA-Z0-9\-_]+)([a-zA-Z0-9\/\*\-\_\?\&\;\%\=\.]*)/i","<iframe width=\"100%\" height=\"315\" src=\"//www.youtube.com/embed/$1\" frameborder=\"0\" allowfullscreen></iframe>",$item);
