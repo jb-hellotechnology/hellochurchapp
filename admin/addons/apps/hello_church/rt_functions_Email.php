@@ -293,7 +293,7 @@
 						$emailContent .= '<h2 style="font-family: '.$font.'; font-size: 24px; font-weight: strong; margin: 0; margin-bottom: 16px;">'.$item.'</h2>';
 					}
 					if($type=='text'){
-						$emailContent .= '<p style="font-family: '.$font.'; font-size: 16px; font-weight: normal; margin: 0; margin-bottom: 16px;">'.$item.'</p>';
+						$emailContent .= ''.$Parsedown->text($item).'<br />';
 					}
 					if($type=='youtube'){
 						$emailContent .= preg_replace("/\s*[a-zA-Z\/\/:\.]*youtu.be\/([a-zA-Z0-9\-_]+)([a-zA-Z0-9\/\*\-\_\?\&\;\%\=\.]*)/i","<iframe width=\"100%\" height=\"315\" src=\"//www.youtube.com/embed/$1\" frameborder=\"0\" allowfullscreen></iframe>",$item);
