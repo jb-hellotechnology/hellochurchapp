@@ -11,7 +11,7 @@ PerchSystem::set_var('hcaptchaSiteKey', $hcaptchaSiteKey);
 	<ul class="checks">
 		<li>
 			<span class="material-symbols-outlined">check_circle</span>
-			<div><strong>30 Day Free Trial</strong><br />Plenty of time to try Hello Church</div>
+			<div><strong>30 Day Free Trial</strong><br />Plenty of time to try Church Planner</div>
 		</li>
 		<li>
 			<span class="material-symbols-outlined">check_circle</span>
